@@ -1,0 +1,31 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+
+# IDEs and editors
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS-specific
+.DS_Store
+Thumbs.db
+
+# Local data and logs
+data/
+debug.log
+history.log
+developer_suggestions.log
+
+# Environment variables
+.env
+
+# Docker
+.dockerignore
+docker-compose.override.yml

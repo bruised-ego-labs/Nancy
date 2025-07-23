@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  api:
+    build:
+      context: ./nancy-services
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./nancy-services:/app
+      - ./data:/app/data
+    depends_on:
+      - chromadb
+      - neo4j
+    environment:
+      - CHROMA_HOST=chromadb
+      - NEO4J_URI=bolt://neo4j:7687
+
+  chromadb:
+    image: chromadb/chroma
+    ports:
+      - "8001:8000" # Exposing ChromaDB's API on port 8001 to avoid conflict with our api service
+    volumes:
+      - chromadb_data:/chroma/.chroma
+
+  neo4j:
+    image: neo4j:4.4
+    ports:
+      - "7474:7474"
+      - "7687:7687"
+    volumes:
+      - neo4j_data:/data
+    environment:
+      - NEO4J_AUTH=neo4j/password
+
+volumes:
+  chromadb_data:
+  neo4j_data:

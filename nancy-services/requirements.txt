@@ -1,0 +1,12 @@
+fastapi
+uvicorn
+chromadb
+duckdb
+neo4j
+python-multipart
+# Using fastembed instead of sentence-transformers to avoid torch/numpy issues
+fastembed
+onnxruntime
+huggingface-hub<1.0
+pypdf
+python-docx
