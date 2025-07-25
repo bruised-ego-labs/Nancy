@@ -23,24 +23,23 @@ The project is a monorepo containing the core services and data.
 ```
 /
 ├── 📂 nancy-services/    # Core Python services for Nancy
-│   ├── 🐳 Dockerfile      # Defines the Ubuntu-based Python environment
-│   ├── 📜 requirements.txt  # Python dependencies
-│   │
-│   ├── 📂 api/            # FastAPI application
-│   │   ├── 📄 main.py       # API startup and routing
-│   │   └── 📂 endpoints/  # API endpoint definitions (ingest, query)
-│   │
-│   └── 📂 core/           # Core business logic for the three "brains"
-│       ├── 📄 ingestion.py
-│       ├── 📄 knowledge_graph.py (Relational Brain)
-│       ├── 📄 nlp.py (Vector Brain)
-│       ├── 📄 query_orchestrator.py
-│       └── 📄 search.py (Analytical Brain)
+│   ├── ...
+│   └── 📂 data/         # (Git-tracked) Placeholder for Docker volume mount
+│       └── 📄 .gitkeep
 │
-├── 📂 data/               # (Git-ignored) Local data stores for databases
+├── 📂 data/               # (Git-ignored) Persistent data storage for all databases
+│   └── 📂 project_phoenix/ # Example data for a specific "Nancy instance"
 │
 └── 🐳 docker-compose.yml   # Defines and links all services for local development
 ```
+
+### The Role of the `data` Directories
+
+The separation of the two `data` directories is intentional and important for maintaining a clean architecture.
+
+*   `./data/`: This directory is the **persistent storage** for the application. It is mounted into the `api` container at `/app/data` and is the source of truth for all database files (DuckDB, ChromaDB, Neo4j). It is ignored by Git to prevent large data files from being committed to the repository.
+*   `./nancy-services/data/`: This directory is a **placeholder**. Its purpose is to ensure that the `/app/data` path exists inside the container during development. Because the entire `./nancy-services` directory is mounted for live code reloading, this placeholder is necessary. It contains a `.gitkeep` file to ensure it is tracked by source control, preserving the project structure for all developers.
+
 
 ## 4. Current Status (MVN Progress)
 

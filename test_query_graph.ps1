@@ -1,19 +1,16 @@
 # Define the API endpoint
-$uri = "http://localhost:8000/api/query"
+$uri = "http://localhost:8000/api/query/graph"
 
-# Define the query
-#$query = "what is chromadb used for?"
-$query = "the hidden tax of context-switching"
-$n_results = 10
+# Define the author to query for
+$author = "Scott"
 
 # Create the request body
 $body = @{
-    query = $query
-    n_results = $n_results
+    author_name = $author
 } | ConvertTo-Json
 
 # Print the request details
-Write-Host "Attempting to query '$uri' with body:"
+Write-Host "Attempting to query '$uri' for documents by '$author'..."
 Write-Host $body
 
 try {

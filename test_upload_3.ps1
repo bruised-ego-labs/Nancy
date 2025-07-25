@@ -2,7 +2,7 @@
 $uri = "http://localhost:8000/api/ingest"
 
 # Define the file to upload and the author
-$filePath = "C:\Users\scott\Documents\Nancy\README.md"
+$filePath = "C:\Users\scott\Documents\Nancy\test3.txt"
 $author = "Scott"
 
 # Create a unique boundary string

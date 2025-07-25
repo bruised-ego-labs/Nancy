@@ -10,3 +10,5 @@ onnxruntime
 huggingface-hub<1.0
 pypdf
 python-docx
+# For Named Entity Recognition
+spacy

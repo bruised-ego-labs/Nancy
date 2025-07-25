@@ -47,21 +47,33 @@ class VectorBrain:
         print("VectorBrain initialized with fastembed.")
 
 
-    def _chunk_text(self, text: str, chunk_size: int = 512, overlap: int = 50):
+    def _chunk_text(self, text: str, nlp, chunk_size: int = 384):
         """
-        Splits a long text into smaller chunks.
+        Splits a long text into smaller, semantically meaningful chunks using sentences.
         """
+        doc = nlp(text)
+        sentences = [sent.text for sent in doc.sents]
+        
         chunks = []
-        for i in range(0, len(text), chunk_size - overlap):
-            chunks.append(text[i:i + chunk_size])
+        current_chunk = ""
+        for sentence in sentences:
+            if len(current_chunk) + len(sentence) <= chunk_size:
+                current_chunk += " " + sentence
+            else:
+                chunks.append(current_chunk.strip())
+                current_chunk = sentence
+        
+        if current_chunk:
+            chunks.append(current_chunk.strip())
+            
         return chunks
 
-    def embed_and_store_text(self, doc_id: str, text: str):
+    def embed_and_store_text(self, doc_id: str, text: str, nlp):
         """
         Chunks text and stores it in ChromaDB.
         Embedding is handled automatically by the collection's embedding function.
         """
-        chunks = self._chunk_text(text)
+        chunks = self._chunk_text(text, nlp)
         
         # Create unique IDs for each chunk
         chunk_ids = [f"{doc_id}_chunk_{i}" for i in range(len(chunks))]

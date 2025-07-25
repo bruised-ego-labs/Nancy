@@ -3,6 +3,7 @@ from .knowledge_graph import RelationalBrain
 from .nlp import VectorBrain
 import os
 import hashlib
+import spacy
 
 class IngestionService:
     """
@@ -12,6 +13,8 @@ class IngestionService:
         self.analytical_brain = AnalyticalBrain()
         self.relational_brain = RelationalBrain()
         self.vector_brain = VectorBrain()
+        # Load the spacy model
+        self.nlp = spacy.load("en_core_web_sm")
 
     def _get_file_type(self, filename: str):
         return os.path.splitext(filename)[1].lower()
@@ -19,6 +22,35 @@ class IngestionService:
     def _generate_doc_id(self, filename: str, content: bytes) -> str:
         """Creates a unique ID for the document based on its name and content."""
         return hashlib.sha256(filename.encode() + content).hexdigest()
+
+    def _extract_entities(self, text: str, current_filename: str):
+        """
+        Uses spacy to extract named entities and create relationships.
+        """
+        doc = self.nlp(text)
+        for ent in doc.ents:
+            if ent.label_ == "PERSON":
+                # Link the person to the current document
+                self.relational_brain.add_relationship(
+                    source_node_label="Person",
+                    source_node_name=ent.text,
+                    relationship_type="MENTIONED_IN",
+                    target_node_label="Document",
+                    target_node_name=current_filename
+                )
+        
+        # A simple way to find references to other documents
+        # In a real system, this would be more robust
+        for token in doc:
+            if token.text.endswith(".txt"):
+                self.relational_brain.add_relationship(
+                    source_node_label="Document",
+                    source_node_name=current_filename,
+                    relationship_type="REFERENCES",
+                    target_node_label="Document",
+                    target_node_name=token.text
+                )
+
 
     def ingest_file(self, filename: str, content: bytes, author: str = "Unknown"):
         """
@@ -39,15 +71,21 @@ class IngestionService:
         self.relational_brain.add_document_node(filename=filename, file_type=file_type)
         self.relational_brain.add_author_relationship(filename=filename, author_name=author)
 
-        # 3. Vector Brain: Embed and store content (if it's a text file)
-        if file_type == ".txt":
+        # 3. Vector Brain & Entity Extraction
+        # Define a list of text-based file extensions to process
+        text_based_extensions = ['.txt', '.md', '.log', '.py', '.js', '.html', '.css', '.json']
+        
+        if file_type in text_based_extensions:
             try:
                 text = content.decode('utf-8')
-                self.vector_brain.embed_and_store_text(doc_id=doc_id, text=text)
+                # Embed and store the text
+                self.vector_brain.embed_and_store_text(doc_id=doc_id, text=text, nlp=self.nlp)
+                # Extract entities and create relationships
+                self._extract_entities(text, filename)
             except UnicodeDecodeError:
                 return {"error": f"Could not decode file {filename} as UTF-8 text."}
         else:
-            print(f"Skipping vector embedding for non-TXT file: {filename}")
+            print(f"Skipping vector embedding and entity extraction for non-text file: {filename}")
 
 
         return {

@@ -17,6 +17,10 @@ COPY requirements.txt .
 # Use pip3 to be explicit
 RUN pip3 install --no-cache-dir -r requirements.txt
 
+# Download the spacy model
+RUN python3 -m spacy download en_core_web_sm
+
+
 # Copy the rest of the application's code
 COPY . .
 

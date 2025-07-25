@@ -2,14 +2,11 @@
 $uri = "http://localhost:8000/api/query"
 
 # Define the query
-#$query = "what is chromadb used for?"
-$query = "the hidden tax of context-switching"
-$n_results = 10
+$query = "What documents mention Claude?"
 
 # Create the request body
 $body = @{
     query = $query
-    n_results = $n_results
 } | ConvertTo-Json
 
 # Print the request details

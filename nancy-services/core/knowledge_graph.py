@@ -82,3 +82,37 @@ class RelationalBrain:
             "MERGE (p)-[:AUTHORED]->(d)"
         )
         tx.run(query, author_name=author_name, filename=filename)
+
+    def get_documents_by_author(self, author_name: str) -> list[str]:
+        """
+        Finds all documents authored by a given person.
+        """
+        with self.driver.session() as session:
+            result = session.read_transaction(self._find_documents_by_author, author_name)
+            return result
+
+    @staticmethod
+    def _find_documents_by_author(tx, author_name):
+        query = (
+            "MATCH (p:Person {name: $author_name})-[:AUTHORED]->(d:Document) "
+            "RETURN d.filename"
+        )
+        result = tx.run(query, author_name=author_name)
+        return [record["d.filename"] for record in result]
+
+    def add_relationship(self, source_node_label: str, source_node_name: str, relationship_type: str, target_node_label: str, target_node_name: str):
+        """
+        Creates a generic relationship between two nodes.
+        """
+        with self.driver.session() as session:
+            session.write_transaction(self._create_relationship, source_node_label, source_node_name, relationship_type, target_node_label, target_node_name)
+            print(f"Linked {source_node_name} -[:{relationship_type}]-> {target_node_name} in Neo4j.")
+
+    @staticmethod
+    def _create_relationship(tx, source_node_label, source_node_name, relationship_type, target_node_label, target_node_name):
+        query = (
+            f"MERGE (a:{source_node_label} {{name: $source_name}}) "
+            f"MERGE (b:{target_node_label} {{name: $target_name}}) "
+            f"MERGE (a)-[:{relationship_type}]->(b)"
+        )
+        tx.run(query, source_name=source_node_name, target_name=target_node_name)

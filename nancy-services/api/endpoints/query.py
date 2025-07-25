@@ -13,6 +13,7 @@ def get_query_orchestrator():
 
 class QueryRequest(BaseModel):
     query: str
+    n_results: int = 5
 
 @router.post("/query")
 def query_data(
@@ -24,7 +25,26 @@ def query_data(
     and returns the results.
     """
     try:
-        result = orchestrator.query(request.query)
+        result = orchestrator.query(request.query, request.n_results)
+        return result
+    except Exception as e:
+        # Basic error handling
+        raise HTTPException(status_code=500, detail=str(e))
+
+class GraphQueryRequest(BaseModel):
+    author_name: str
+
+@router.post("/query/graph")
+def query_graph_data(
+    request: GraphQueryRequest,
+    orchestrator: QueryOrchestrator = Depends(get_query_orchestrator)
+):
+    """
+    Receives a graph query, passes it to the QueryOrchestrator,
+    and returns the results.
+    """
+    try:
+        result = orchestrator.query_authored_documents(request.author_name)
         return result
     except Exception as e:
         # Basic error handling

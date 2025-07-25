@@ -16,7 +16,24 @@ class QueryOrchestrator:
         self.vector_brain = VectorBrain()
         print("Query Orchestrator initialized.")
 
-    def query(self, query_text: str):
+    def query_authored_documents(self, author_name: str):
+        """
+        Finds all documents authored by a specific person.
+        """
+        print(f"Orchestrator received author query for: {author_name}")
+        
+        # 1. Relational Brain: Get all document filenames for the author
+        filenames = self.relational_brain.get_documents_by_author(author_name)
+        
+        # In a real system, you might want to get metadata from DuckDB as well
+        
+        return {
+            "status": "success",
+            "author": author_name,
+            "documents": filenames
+        }
+
+    def query(self, query_text: str, n_results: int = 5):
         """
         Processes a query by finding semantically similar content in the VectorBrain
         and augmenting it with metadata from the AnalyticalBrain and RelationalBrain.
@@ -24,7 +41,7 @@ class QueryOrchestrator:
         print(f"Orchestrator received query: {query_text}")
 
         # 1. Vector Brain: Find similar document chunks
-        vector_results = self.vector_brain.query(query_texts=[query_text], n_results=5)
+        vector_results = self.vector_brain.query(query_texts=[query_text], n_results=n_results)
 
         # 2. Extract doc_ids from the vector search results
         doc_ids = []

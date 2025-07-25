@@ -1,0 +1,5 @@
+This document was written by Scott.
+
+It references the design document, api_design.txt.
+
+Claude also worked on this project.
