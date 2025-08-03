@@ -6,26 +6,80 @@ __pycache__/
 .Python
 env/
 venv/
+.venv/
+*.egg-info/
+dist/
+build/
 
 # IDEs and editors
 .vscode/
 .idea/
 *.swp
 *.swo
+*~
 
 # OS-specific
 .DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
 Thumbs.db
 
 # Local data and logs
 data/
+logs/
+*.log
 debug.log
 history.log
 developer_suggestions.log
+database_performance_report.md
+development_status_and_next_steps.md
+meeting_notes_architecture_review.md
 
-# Environment variables
+# Environment variables and secrets
 .env
+.env.local
+.env.*.local
+*.key
+*.pem
+service-accounts/
 
 # Docker
 .dockerignore
 docker-compose.override.yml
+.docker/
+
+# Database files
+*.db
+*.sqlite
+*.sqlite3
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# Test artifacts
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+.nox/
+
+# Temporary files
+*.tmp
+*.temp
+temp/
+tmp/
+
+# Local Ollama models (optional - comment out if you want to track model configs)
+# ollama_data/
+
+# FastEmbed model cache
+.fastembed_cache/
+
+# ChromaDB data
+chroma_data/
+
+# Neo4j data
+neo4j_data/

@@ -4,6 +4,7 @@ from .nlp import VectorBrain
 import os
 import hashlib
 import spacy
+import re
 
 class IngestionService:
     """
@@ -25,31 +26,134 @@ class IngestionService:
 
     def _extract_entities(self, text: str, current_filename: str):
         """
-        Uses spacy to extract named entities and create relationships.
+        Enhanced entity extraction with relationship discovery using LLM if available.
         """
         doc = self.nlp(text)
+        
+        # Extract person entities
         for ent in doc.ents:
             if ent.label_ == "PERSON":
-                # Link the person to the current document
+                # Create person nodes and link to document
+                self.relational_brain.add_concept_node(ent.text, "Person")
                 self.relational_brain.add_relationship(
                     source_node_label="Person",
                     source_node_name=ent.text,
                     relationship_type="MENTIONED_IN",
                     target_node_label="Document",
-                    target_node_name=current_filename
+                    target_node_name=current_filename,
+                    context=f"Mentioned in {current_filename}"
                 )
         
-        # A simple way to find references to other documents
-        # In a real system, this would be more robust
-        for token in doc:
-            if token.text.endswith(".txt"):
+        # Extract document references
+        document_patterns = [
+            r'\b(\w+\.\w{2,4})\b',  # file.ext
+            r'\b(\w+\s+\w+\s+document)\b',  # "power analysis document"
+            r'\b(\w+\s+report)\b',  # "thermal report"
+            r'\b(\w+\s+analysis)\b',  # "stress analysis"
+            r'\b(\w+\s+specification)\b',  # "design specification"
+            r'\b(\w+\s+requirements)\b'  # "system requirements"
+        ]
+        
+        for pattern in document_patterns:
+            matches = re.findall(pattern, text, re.IGNORECASE)
+            for match in matches:
+                if match.lower() != current_filename.lower():
+                    self.relational_brain.add_relationship(
+                        source_node_label="Document",
+                        source_node_name=current_filename,
+                        relationship_type="REFERENCES",
+                        target_node_label="Document",
+                        target_node_name=match,
+                        context=f"Referenced in {current_filename}"
+                    )
+        
+        # Extract technical concepts and constraints
+        concept_patterns = {
+            "power": ["power consumption", "power management", "power supply", "battery life"],
+            "thermal": ["thermal constraints", "temperature", "heat dissipation", "cooling"],
+            "mechanical": ["mechanical design", "stress analysis", "material selection"],
+            "electrical": ["electrical design", "circuit", "schematic", "EMC", "compliance"],
+            "software": ["firmware", "software", "algorithm", "protocol", "interface"]
+        }
+        
+        text_lower = text.lower()
+        for concept_type, keywords in concept_patterns.items():
+            for keyword in keywords:
+                if keyword in text_lower:
+                    # Create concept node and relationship
+                    self.relational_brain.add_concept_node(keyword, "TechnicalConcept")
+                    self.relational_brain.add_relationship(
+                        source_node_label="Document",
+                        source_node_name=current_filename,
+                        relationship_type="DISCUSSES",
+                        target_node_label="TechnicalConcept",
+                        target_node_name=keyword,
+                        context=f"Technical concept discussed in {current_filename}"
+                    )
+        
+        # Extract decision and influence relationships
+        decision_patterns = [
+            r'(decided|determined|chose|selected)\s+([^.]{1,50})',
+            r'(impacts?|affects?|influences?)\s+([^.]{1,50})',
+            r'(requires?|needs?|depends on)\s+([^.]{1,50})',
+            r'(constrains?|limits?)\s+([^.]{1,50})'
+        ]
+        
+        for pattern in decision_patterns:
+            matches = re.findall(pattern, text, re.IGNORECASE)
+            for verb, target in matches:
+                relationship_map = {
+                    "decided": "DECISION_MADE",
+                    "determined": "DECISION_MADE",
+                    "chose": "DECISION_MADE",
+                    "selected": "DECISION_MADE",
+                    "impacts": "AFFECTS",
+                    "affects": "AFFECTS",
+                    "influences": "INFLUENCES",
+                    "requires": "REQUIRES",
+                    "needs": "REQUIRES",
+                    "depends": "DEPENDS_ON",
+                    "constrains": "CONSTRAINS",
+                    "limits": "CONSTRAINS"
+                }
+                
+                rel_type = relationship_map.get(verb.lower(), "RELATES_TO")
+                
+                # Create a concept for the target if it's meaningful
+                if len(target.strip()) > 5 and len(target.strip()) < 100:
+                    concept_name = target.strip()[:50]  # Limit length
+                    self.relational_brain.add_concept_node(concept_name, "DecisionTarget")
+                    self.relational_brain.add_relationship(
+                        source_node_label="Document",
+                        source_node_name=current_filename,
+                        relationship_type=rel_type,
+                        target_node_label="DecisionTarget", 
+                        target_node_name=concept_name,
+                        context=f"{verb} relationship from {current_filename}"
+                    )
+        
+        # Try to use LLM for enhanced relationship extraction if available
+        try:
+            from .llm_client import LLMClient
+            llm_client = LLMClient()
+            
+            # Extract a meaningful chunk of text for LLM analysis
+            text_chunk = text[:2000] if len(text) > 2000 else text
+            relationships = llm_client.extract_document_relationships(text_chunk, current_filename)
+            
+            for rel in relationships:
                 self.relational_brain.add_relationship(
-                    source_node_label="Document",
-                    source_node_name=current_filename,
-                    relationship_type="REFERENCES",
-                    target_node_label="Document",
-                    target_node_name=token.text
+                    source_node_label=rel.get("source_type", "Document"),
+                    source_node_name=rel["source"],
+                    relationship_type=rel["relationship"],
+                    target_node_label=rel.get("target_type", "Concept"),
+                    target_node_name=rel["target"],
+                    context=rel.get("context", f"LLM-extracted from {current_filename}")
                 )
+                
+        except Exception as e:
+            print(f"LLM relationship extraction failed: {e}")
+            # Continue without LLM enhancement
 
 
     def ingest_file(self, filename: str, content: bytes, author: str = "Unknown"):

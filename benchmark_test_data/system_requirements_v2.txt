@@ -1,0 +1,49 @@
+System Requirements Document v2.0
+Project: Advanced IoT Device Development
+Author: Sarah Chen
+Date: March 15, 2024
+
+1. POWER CONSUMPTION REQUIREMENTS
+- Operating voltage: 3.3V ±5%
+- Maximum power consumption: 2.5W during active mode
+- Sleep mode power consumption: <10μW
+- Battery life target: 5 years minimum with CR2032 cell
+- Power efficiency: >85% across all operating conditions
+
+2. THERMAL CONSTRAINTS
+- Operating temperature range: -20°C to +70°C
+- Storage temperature range: -40°C to +85°C
+- Maximum internal temperature rise: 15°C above ambient
+- Thermal design must not exceed 50°C surface temperature
+- Heat dissipation strategy required for power management IC
+
+3. MECHANICAL CONSTRAINTS
+- Maximum device dimensions: 85mm x 55mm x 15mm
+- Weight target: <150g including battery
+- IP65 rating required for environmental protection
+- Drop test compliance: 1.2m onto concrete surface
+- Vibration resistance per MIL-STD-810G
+
+4. ELECTRICAL REQUIREMENTS
+- Input voltage range: 2.7V to 3.6V
+- ESD protection: ±8kV contact, ±15kV air discharge
+- EMC compliance: FCC Part 15 Class B, CE marking
+- RF performance: -90dBm sensitivity, +10dBm output power
+- Communication protocols: WiFi 802.11n, Bluetooth 5.0
+
+5. FUNCTIONAL REQUIREMENTS
+- Real-time data acquisition at 100Hz sampling rate
+- Local data storage: 32MB minimum flash memory
+- Remote connectivity: bidirectional data transfer
+- User interface: LED status indicators, single control button
+- Configuration: over-the-air updates supported
+
+6. RELIABILITY REQUIREMENTS
+- MTBF target: 50,000 hours
+- Component derating: 50% for critical components
+- Redundancy required for power supply circuits
+- Self-diagnostic capabilities for system health monitoring
+
+Environmental and regulatory compliance documented by Mike Rodriguez.
+Industrial design constraints reviewed with Lisa Park.
+Cost targets established in coordination with project management team.

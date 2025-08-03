@@ -1,0 +1,86 @@
+EMC Test Results Report
+Project: Advanced IoT Device Development
+Test Lab: Compliance Engineering Services
+Author: Mike Rodriguez
+Approved by: Mike Rodriguez
+Date: March 20, 2024
+
+TEST SUMMARY
+Device Under Test: IoT Advanced Sensor Module
+Model Number: IAS-2024-001
+Hardware Revision: Rev C
+Firmware Version: 1.2.3
+
+CONDUCTED EMISSIONS TESTING (FCC Part 15.107)
+Test Date: March 19, 2024
+Test Standard: ANSI C63.4-2014
+Results: PASS
+
+Frequency Range: 150kHz - 30MHz
+Measurement Method: LISN (Line Impedance Stabilization Network)
+Test Setup: Device powered via external DC supply through LISN
+
+Critical Frequencies Measured:
+- 1.2MHz: -8dBμV (Limit: -3dBμV) - PASS with 5dB margin
+- 2.4MHz: -12dBμV (Limit: -3dBμV) - PASS with 9dB margin  
+- 15.7MHz: -18dBμV (Limit: 10dBμV) - PASS with 28dB margin
+
+Notes: Switching frequency harmonics well controlled by new filter design.
+
+RADIATED EMISSIONS TESTING (FCC Part 15.109)
+Test Date: March 19, 2024
+Test Standard: ANSI C63.4-2014
+Results: PASS
+
+Frequency Range: 30MHz - 1GHz
+Test Distance: 3 meters
+Antenna: Biconical (30-300MHz), Log Periodic (300MHz-1GHz)
+
+Peak Emissions Measured:
+- 145MHz: 28.5dBμV/m (Limit: 40dBμV/m) - PASS with 11.5dB margin
+- 290MHz: 32.1dBμV/m (Limit: 40dBμV/m) - PASS with 7.9dB margin
+- 580MHz: 25.8dBμV/m (Limit: 40dBμV/m) - PASS with 14.2dB margin
+
+WiFi Fundamental (2.4GHz): 45.2dBμV/m (Limit: 50dBμV/m) - PASS with 4.8dB margin
+WiFi 3rd Harmonic (7.2GHz): 38.9dBμV/m (Limit: 50dBμV/m) - PASS with 11.1dB margin
+
+RADIATED IMMUNITY TESTING (IEC 61000-4-3)
+Test Date: March 20, 2024
+Results: PASS
+
+Field Strength: 3V/m, 10V/m
+Frequency Range: 80MHz - 1GHz
+Modulation: 80% AM, 1kHz sine wave
+
+Performance Criteria: Device maintained normal operation throughout test.
+No degradation in RF sensitivity or communication performance observed.
+
+ELECTROSTATIC DISCHARGE TESTING (IEC 61000-4-2)
+Test Date: March 20, 2024
+Results: PASS
+
+Contact Discharge: ±8kV - No malfunction or performance degradation
+Air Discharge: ±15kV - No malfunction or performance degradation
+
+Test Points: All accessible surfaces including button, LED window, and connector areas.
+Device recovered normal operation immediately after each discharge event.
+
+POWER SUPPLY IMMUNITY TESTING
+Conducted per IEC 61000-4-4 (EFT) and IEC 61000-4-5 (Surge)
+Results: PASS with no functional degradation
+
+RECOMMENDATIONS
+1. Current design meets all required EMC standards with good margins
+2. Ground plane optimization contributed significantly to improved performance
+3. Ferrite bead selection on power lines effective for conducted emissions
+4. Shielding strategy adequate for radiated emissions control
+
+CERTIFICATION STATUS
+- FCC Part 15 Class B: APPROVED
+- CE EMC Directive: Ready for certification
+- IC RSS-247: Compliant (pending final review)
+
+Test equipment calibration verified current through March 2025.
+All test procedures followed accredited laboratory standards.
+
+This report demonstrates the electrical design successfully meets electromagnetic compatibility requirements while maintaining functional performance across all operating conditions.

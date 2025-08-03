@@ -1,0 +1,799 @@
+{
+  "three_brain_metrics": {
+    "avg_precision": 0.35128205128205126,
+    "avg_recall": 0.717948717948718,
+    "avg_f1": 0.45164835164835165,
+    "avg_mrr": 0.6923076923076923,
+    "avg_response_time": 0.30065197211045486,
+    "author_attribution_accuracy": 0.23076923076923078,
+    "total_queries": 13
+  },
+  "standard_rag_metrics": {
+    "avg_precision": 0.35128205128205126,
+    "avg_recall": 0.717948717948718,
+    "avg_f1": 0.45164835164835165,
+    "avg_mrr": 0.6923076923076923,
+    "avg_response_time": 0.0970756274003249,
+    "author_attribution_accuracy": 0.0,
+    "total_queries": 13
+  },
+  "discipline_analysis": {
+    "industrial_design": {
+      "three_brain": {
+        "avg_precision": 0.4583333333333333,
+        "avg_recall": 1.0,
+        "avg_f1": 0.6000000000000001,
+        "avg_mrr": 1.0,
+        "avg_response_time": 0.10634720325469971,
+        "author_attribution_accuracy": 0.5,
+        "total_queries": 2
+      },
+      "standard_rag": {
+        "avg_precision": 0.4583333333333333,
+        "avg_recall": 1.0,
+        "avg_f1": 0.6000000000000001,
+        "avg_mrr": 1.0,
+        "avg_response_time": 0.10001182556152344,
+        "author_attribution_accuracy": 0.0,
+        "total_queries": 2
+      },
+      "improvement_factors": {
+        "f1_improvement": 0.0,
+        "recall_improvement": 0.0,
+        "author_attribution_advantage": 0.5
+      }
+    },
+    "mechanical": {
+      "three_brain": {
+        "avg_precision": 0.6666666666666666,
+        "avg_recall": 1.0,
+        "avg_f1": 0.8,
+        "avg_mrr": 0.5,
+        "avg_response_time": 0.12888884544372559,
+        "author_attribution_accuracy": 0.0,
+        "total_queries": 1
+      },
+      "standard_rag": {
+        "avg_precision": 0.6666666666666666,
+        "avg_recall": 1.0,
+        "avg_f1": 0.8,
+        "avg_mrr": 0.5,
+        "avg_response_time": 0.0979158878326416,
+        "author_attribution_accuracy": 0.0,
+        "total_queries": 1
+      },
+      "improvement_factors": {
+        "f1_improvement": 0.0,
+        "recall_improvement": 0.0,
+        "author_attribution_advantage": 0
+      }
+    },
+    "systems": {
+      "three_brain": {
+        "avg_precision": 0.2,
+        "avg_recall": 0.5,
+        "avg_f1": 0.28571428571428575,
+        "avg_mrr": 0.25,
+        "avg_response_time": 1.362333059310913,
+        "author_attribution_accuracy": 0.5,
+        "total_queries": 2
+      },
+      "standard_rag": {
+        "avg_precision": 0.2,
+        "avg_recall": 0.5,
+        "avg_f1": 0.28571428571428575,
+        "avg_mrr": 0.25,
+        "avg_response_time": 0.11753678321838379,
+        "author_attribution_accuracy": 0.0,
+        "total_queries": 2
+      },
+      "improvement_factors": {
+        "f1_improvement": 0.0,
+        "recall_improvement": 0.0,
+        "author_attribution_advantage": 0.5
+      }
+    },
+    "cross_disciplinary": {
+      "three_brain": {
+        "avg_precision": 0.41666666666666663,
+        "avg_recall": 0.41666666666666663,
+        "avg_f1": 0.4,
+        "avg_mrr": 0.75,
+        "avg_response_time": 0.09714412689208984,
+        "author_attribution_accuracy": 0.0,
+        "total_queries": 2
+      },
+      "standard_rag": {
+        "avg_precision": 0.41666666666666663,
+        "avg_recall": 0.41666666666666663,
+        "avg_f1": 0.4,
+        "avg_mrr": 0.75,
+        "avg_response_time": 0.09086906909942627,
+        "author_attribution_accuracy": 0.0,
+        "total_queries": 2
+      },
+      "improvement_factors": {
+        "f1_improvement": 0.0,
+        "recall_improvement": 0.0,
+        "author_attribution_advantage": 0
+      }
+    },
+    "firmware": {
+      "three_brain": {
+        "avg_precision": 0.41666666666666663,
+        "avg_recall": 1.0,
+        "avg_f1": 0.5833333333333333,
+        "avg_mrr": 1.0,
+        "avg_response_time": 0.09294652938842773,
+        "author_attribution_accuracy": 0.0,
+        "total_queries": 2
+      },
+      "standard_rag": {
+        "avg_precision": 0.41666666666666663,
+        "avg_recall": 1.0,
+        "avg_f1": 0.5833333333333333,
+        "avg_mrr": 1.0,
+        "avg_response_time": 0.09867191314697266,
+        "author_attribution_accuracy": 0.0,
+        "total_queries": 2
+      },
+      "improvement_factors": {
+        "f1_improvement": 0.0,
+        "recall_improvement": 0.0,
+        "author_attribution_advantage": 0
+      }
+    },
+    "electrical": {
+      "three_brain": {
+        "avg_precision": 0.29166666666666663,
+        "avg_recall": 0.75,
+        "avg_f1": 0.41666666666666663,
+        "avg_mrr": 1.0,
+        "avg_response_time": 0.09740924835205078,
+        "author_attribution_accuracy": 0.5,
+        "total_queries": 2
+      },
+      "standard_rag": {
+        "avg_precision": 0.29166666666666663,
+        "avg_recall": 0.75,
+        "avg_f1": 0.41666666666666663,
+        "avg_mrr": 1.0,
+        "avg_response_time": 0.08949196338653564,
+        "author_attribution_accuracy": 0.0,
+        "total_queries": 2
+      },
+      "improvement_factors": {
+        "f1_improvement": 0.0,
+        "recall_improvement": 0.0,
+        "author_attribution_advantage": 0.5
+      }
+    },
+    "pm": {
+      "three_brain": {
+        "avg_precision": 0.16666666666666666,
+        "avg_recall": 0.5,
+        "avg_f1": 0.25,
+        "avg_mrr": 0.25,
+        "avg_response_time": 0.1336132287979126,
+        "author_attribution_accuracy": 0.0,
+        "total_queries": 2
+      },
+      "standard_rag": {
+        "avg_precision": 0.16666666666666666,
+        "avg_recall": 0.5,
+        "avg_f1": 0.25,
+        "avg_mrr": 0.25,
+        "avg_response_time": 0.08545207977294922,
+        "author_attribution_accuracy": 0.0,
+        "total_queries": 2
+      },
+      "improvement_factors": {
+        "f1_improvement": 0.0,
+        "recall_improvement": 0.0,
+        "author_attribution_advantage": 0
+      }
+    }
+  },
+  "detailed_results": {
+    "three_brain": [
+      {
+        "query": "What are the system requirements for power consumption?",
+        "discipline": "systems",
+        "query_type": "semantic",
+        "retrieved_docs": [
+          "march_design_review_transcript.txt",
+          "power_analysis_report.txt",
+          "system_requirements_v2.txt",
+          "power_analysis_report.txt",
+          "march_design_review_transcript.txt",
+          "electrical_review_meeting.txt",
+          "power_analysis_report.txt",
+          "firmware_requirements.txt",
+          "firmware_requirements.txt",
+          "power_analysis_report.txt"
+        ],
+        "precision_at_k": 0.4,
+        "recall_at_k": 1.0,
+        "f1_score": 0.5714285714285715,
+        "mrr": 0.5,
+        "response_time": 2.6029303073883057,
+        "found_expected_author": false,
+        "total_results": 10
+      },
+      {
+        "query": "Who defined the thermal constraints for the enclosure?",
+        "discipline": "systems",
+        "query_type": "author_attribution",
+        "retrieved_docs": [
+          "electrical_review_meeting.txt",
+          "electrical_review_meeting.txt",
+          "march_design_review_transcript.txt",
+          "system_requirements_v2.txt",
+          "march_design_review_transcript.txt",
+          "march_design_review_transcript.txt",
+          "electrical_review_meeting.txt",
+          "march_design_review_transcript.txt",
+          "electrical_review_meeting.txt",
+          "electrical_review_meeting.txt"
+        ],
+        "precision_at_k": 0.0,
+        "recall_at_k": 0.0,
+        "f1_score": 0.0,
+        "mrr": 0.0,
+        "response_time": 0.12173581123352051,
+        "found_expected_author": true,
+        "total_results": 10
+      },
+      {
+        "query": "What materials were considered for the housing design?",
+        "discipline": "mechanical",
+        "query_type": "semantic",
+        "retrieved_docs": [
+          "electrical_review_meeting.txt",
+          "march_design_review_transcript.txt",
+          "march_design_review_transcript.txt",
+          "voice_of_customer.txt",
+          "march_design_review_transcript.txt",
+          "march_design_review_transcript.txt",
+          "march_design_review_transcript.txt",
+          "voice_of_customer.txt",
+          "voice_of_customer.txt",
+          "march_design_review_transcript.txt"
+        ],
+        "precision_at_k": 0.6666666666666666,
+        "recall_at_k": 1.0,
+        "f1_score": 0.8,
+        "mrr": 0.5,
+        "response_time": 0.12888884544372559,
+        "found_expected_author": false,
+        "total_results": 10
+      },
+      {
+        "query": "What documents reference the power supply schematic?",
+        "discipline": "electrical",
+        "query_type": "relationship",
+        "retrieved_docs": [
+          "electrical_review_meeting.txt",
+          "electrical_review_meeting.txt",
+          "electrical_review_meeting.txt",
+          "emc_test_results.txt",
+          "electrical_review_meeting.txt",
+          "electrical_review_meeting.txt",
+          "electrical_review_meeting.txt",
+          "emc_test_results.txt",
+          "system_requirements_v2.txt",
+          "power_analysis_report.txt"
+        ],
+        "precision_at_k": 0.25,
+        "recall_at_k": 0.5,
+        "f1_score": 0.3333333333333333,
+        "mrr": 1.0,
+        "response_time": 0.09976601600646973,
+        "found_expected_author": false,
+        "total_results": 10
+      },
+      {
+        "query": "Who approved the EMC testing results?",
+        "discipline": "electrical",
+        "query_type": "author_attribution",
+        "retrieved_docs": [
+          "emc_test_results.txt",
+          "emc_test_results.txt",
+          "emc_test_results.txt",
+          "electrical_review_meeting.txt",
+          "emc_test_results.txt",
+          "electrical_review_meeting.txt",
+          "march_design_review_transcript.txt",
+          "march_design_review_transcript.txt",
+          "electrical_review_meeting.txt",
+          "emc_test_results.txt"
+        ],
+        "precision_at_k": 0.3333333333333333,
+        "recall_at_k": 1.0,
+        "f1_score": 0.5,
+        "mrr": 1.0,
+        "response_time": 0.09505248069763184,
+        "found_expected_author": true,
+        "total_results": 10
+      },
+      {
+        "query": "What are the memory requirements mentioned in firmware specs?",
+        "discipline": "firmware",
+        "query_type": "semantic",
+        "retrieved_docs": [
+          "firmware_requirements.txt",
+          "system_requirements_v2.txt",
+          "firmware_requirements.txt",
+          "march_design_review_transcript.txt",
+          "march_design_review_transcript.txt",
+          "power_analysis_report.txt",
+          "firmware_requirements.txt",
+          "power_analysis_report.txt",
+          "power_analysis_report.txt",
+          "firmware_requirements.txt"
+        ],
+        "precision_at_k": 0.5,
+        "recall_at_k": 1.0,
+        "f1_score": 0.6666666666666666,
+        "mrr": 1.0,
+        "response_time": 0.09303116798400879,
+        "found_expected_author": false,
+        "total_results": 10
+      },
+      {
+        "query": "Which documents discuss the communication protocol implementation?",
+        "discipline": "firmware",
+        "query_type": "semantic",
+        "retrieved_docs": [
+          "system_requirements_v2.txt",
+          "march_design_review_transcript.txt",
+          "firmware_requirements.txt",
+          "electrical_review_meeting.txt",
+          "firmware_requirements.txt",
+          "firmware_requirements.txt",
+          "emc_test_results.txt",
+          "voice_of_customer.txt",
+          "firmware_requirements.txt",
+          "electrical_review_meeting.txt"
+        ],
+        "precision_at_k": 0.3333333333333333,
+        "recall_at_k": 1.0,
+        "f1_score": 0.5,
+        "mrr": 1.0,
+        "response_time": 0.09286189079284668,
+        "found_expected_author": false,
+        "total_results": 10
+      },
+      {
+        "query": "What user feedback influenced the interface design?",
+        "discipline": "industrial_design",
+        "query_type": "semantic",
+        "retrieved_docs": [
+          "ergonomic_analysis.txt",
+          "voice_of_customer.txt",
+          "electrical_review_meeting.txt",
+          "voice_of_customer.txt",
+          "voice_of_customer.txt",
+          "ergonomic_analysis.txt",
+          "voice_of_customer.txt",
+          "ergonomic_analysis.txt",
+          "ergonomic_analysis.txt",
+          "voice_of_customer.txt"
+        ],
+        "precision_at_k": 0.6666666666666666,
+        "recall_at_k": 1.0,
+        "f1_score": 0.8,
+        "mrr": 1.0,
+        "response_time": 0.11266231536865234,
+        "found_expected_author": false,
+        "total_results": 10
+      },
+      {
+        "query": "Who created the ergonomic study for the device?",
+        "discipline": "industrial_design",
+        "query_type": "author_attribution",
+        "retrieved_docs": [
+          "ergonomic_analysis.txt",
+          "ergonomic_analysis.txt",
+          "ergonomic_analysis.txt",
+          "ergonomic_analysis.txt",
+          "ergonomic_analysis.txt",
+          "electrical_review_meeting.txt",
+          "ergonomic_analysis.txt",
+          "voice_of_customer.txt",
+          "march_design_review_transcript.txt",
+          "march_design_review_transcript.txt"
+        ],
+        "precision_at_k": 0.25,
+        "recall_at_k": 1.0,
+        "f1_score": 0.4,
+        "mrr": 1.0,
+        "response_time": 0.10003209114074707,
+        "found_expected_author": true,
+        "total_results": 10
+      },
+      {
+        "query": "What decisions were made in the March design review meeting?",
+        "discipline": "pm",
+        "query_type": "semantic",
+        "retrieved_docs": [
+          "electrical_review_meeting.txt",
+          "march_design_review_transcript.txt",
+          "march_design_review_transcript.txt",
+          "march_design_review_transcript.txt",
+          "march_design_review_transcript.txt",
+          "electrical_review_meeting.txt",
+          "electrical_review_meeting.txt",
+          "march_design_review_transcript.txt",
+          "voice_of_customer.txt",
+          "march_design_review_transcript.txt"
+        ],
+        "precision_at_k": 0.3333333333333333,
+        "recall_at_k": 1.0,
+        "f1_score": 0.5,
+        "mrr": 0.5,
+        "response_time": 0.07828116416931152,
+        "found_expected_author": false,
+        "total_results": 10
+      },
+      {
+        "query": "Which documents are related to the budget constraints discussion?",
+        "discipline": "pm",
+        "query_type": "relationship",
+        "retrieved_docs": [],
+        "precision_at_k": 0.0,
+        "recall_at_k": 0.0,
+        "f1_score": 0.0,
+        "mrr": 0.0,
+        "response_time": 0.18894529342651367,
+        "found_expected_author": false,
+        "total_results": 0
+      },
+      {
+        "query": "What thermal issues did Sarah Chen identify that affected electrical design?",
+        "discipline": "cross_disciplinary",
+        "query_type": "relationship",
+        "retrieved_docs": [
+          "electrical_review_meeting.txt",
+          "electrical_review_meeting.txt",
+          "electrical_review_meeting.txt",
+          "electrical_review_meeting.txt",
+          "electrical_review_meeting.txt",
+          "march_design_review_transcript.txt",
+          "march_design_review_transcript.txt",
+          "march_design_review_transcript.txt",
+          "electrical_review_meeting.txt",
+          "voice_of_customer.txt"
+        ],
+        "precision_at_k": 0.3333333333333333,
+        "recall_at_k": 0.5,
+        "f1_score": 0.4,
+        "mrr": 1.0,
+        "response_time": 0.08495187759399414,
+        "found_expected_author": false,
+        "total_results": 10
+      },
+      {
+        "query": "Show me all documents that mention power consumption",
+        "discipline": "cross_disciplinary",
+        "query_type": "semantic",
+        "retrieved_docs": [
+          "march_design_review_transcript.txt",
+          "power_analysis_report.txt",
+          "power_analysis_report.txt",
+          "power_analysis_report.txt",
+          "march_design_review_transcript.txt",
+          "power_analysis_report.txt",
+          "power_analysis_report.txt"
+        ],
+        "precision_at_k": 0.5,
+        "recall_at_k": 0.3333333333333333,
+        "f1_score": 0.4,
+        "mrr": 0.5,
+        "response_time": 0.10933637619018555,
+        "found_expected_author": false,
+        "total_results": 7
+      }
+    ],
+    "standard_rag": [
+      {
+        "query": "What are the system requirements for power consumption?",
+        "discipline": "systems",
+        "query_type": "semantic",
+        "retrieved_docs": [
+          "march_design_review_transcript.txt",
+          "power_analysis_report.txt",
+          "system_requirements_v2.txt",
+          "power_analysis_report.txt",
+          "march_design_review_transcript.txt",
+          "electrical_review_meeting.txt",
+          "power_analysis_report.txt",
+          "firmware_requirements.txt",
+          "firmware_requirements.txt",
+          "power_analysis_report.txt"
+        ],
+        "precision_at_k": 0.4,
+        "recall_at_k": 1.0,
+        "f1_score": 0.5714285714285715,
+        "mrr": 0.5,
+        "response_time": 0.13168811798095703,
+        "found_expected_author": false,
+        "total_results": 10
+      },
+      {
+        "query": "Who defined the thermal constraints for the enclosure?",
+        "discipline": "systems",
+        "query_type": "author_attribution",
+        "retrieved_docs": [
+          "electrical_review_meeting.txt",
+          "electrical_review_meeting.txt",
+          "march_design_review_transcript.txt",
+          "system_requirements_v2.txt",
+          "march_design_review_transcript.txt",
+          "march_design_review_transcript.txt",
+          "electrical_review_meeting.txt",
+          "march_design_review_transcript.txt",
+          "electrical_review_meeting.txt",
+          "electrical_review_meeting.txt"
+        ],
+        "precision_at_k": 0.0,
+        "recall_at_k": 0.0,
+        "f1_score": 0.0,
+        "mrr": 0.0,
+        "response_time": 0.10338544845581055,
+        "found_expected_author": false,
+        "total_results": 10
+      },
+      {
+        "query": "What materials were considered for the housing design?",
+        "discipline": "mechanical",
+        "query_type": "semantic",
+        "retrieved_docs": [
+          "electrical_review_meeting.txt",
+          "march_design_review_transcript.txt",
+          "march_design_review_transcript.txt",
+          "voice_of_customer.txt",
+          "march_design_review_transcript.txt",
+          "march_design_review_transcript.txt",
+          "march_design_review_transcript.txt",
+          "voice_of_customer.txt",
+          "voice_of_customer.txt",
+          "march_design_review_transcript.txt"
+        ],
+        "precision_at_k": 0.6666666666666666,
+        "recall_at_k": 1.0,
+        "f1_score": 0.8,
+        "mrr": 0.5,
+        "response_time": 0.0979158878326416,
+        "found_expected_author": false,
+        "total_results": 10
+      },
+      {
+        "query": "What documents reference the power supply schematic?",
+        "discipline": "electrical",
+        "query_type": "relationship",
+        "retrieved_docs": [
+          "electrical_review_meeting.txt",
+          "electrical_review_meeting.txt",
+          "electrical_review_meeting.txt",
+          "emc_test_results.txt",
+          "electrical_review_meeting.txt",
+          "electrical_review_meeting.txt",
+          "electrical_review_meeting.txt",
+          "emc_test_results.txt",
+          "system_requirements_v2.txt",
+          "power_analysis_report.txt"
+        ],
+        "precision_at_k": 0.25,
+        "recall_at_k": 0.5,
+        "f1_score": 0.3333333333333333,
+        "mrr": 1.0,
+        "response_time": 0.08236980438232422,
+        "found_expected_author": false,
+        "total_results": 10
+      },
+      {
+        "query": "Who approved the EMC testing results?",
+        "discipline": "electrical",
+        "query_type": "author_attribution",
+        "retrieved_docs": [
+          "emc_test_results.txt",
+          "emc_test_results.txt",
+          "emc_test_results.txt",
+          "electrical_review_meeting.txt",
+          "emc_test_results.txt",
+          "electrical_review_meeting.txt",
+          "march_design_review_transcript.txt",
+          "march_design_review_transcript.txt",
+          "electrical_review_meeting.txt",
+          "emc_test_results.txt"
+        ],
+        "precision_at_k": 0.3333333333333333,
+        "recall_at_k": 1.0,
+        "f1_score": 0.5,
+        "mrr": 1.0,
+        "response_time": 0.09661412239074707,
+        "found_expected_author": false,
+        "total_results": 10
+      },
+      {
+        "query": "What are the memory requirements mentioned in firmware specs?",
+        "discipline": "firmware",
+        "query_type": "semantic",
+        "retrieved_docs": [
+          "firmware_requirements.txt",
+          "system_requirements_v2.txt",
+          "firmware_requirements.txt",
+          "march_design_review_transcript.txt",
+          "march_design_review_transcript.txt",
+          "power_analysis_report.txt",
+          "firmware_requirements.txt",
+          "power_analysis_report.txt",
+          "power_analysis_report.txt",
+          "firmware_requirements.txt"
+        ],
+        "precision_at_k": 0.5,
+        "recall_at_k": 1.0,
+        "f1_score": 0.6666666666666666,
+        "mrr": 1.0,
+        "response_time": 0.09837222099304199,
+        "found_expected_author": false,
+        "total_results": 10
+      },
+      {
+        "query": "Which documents discuss the communication protocol implementation?",
+        "discipline": "firmware",
+        "query_type": "semantic",
+        "retrieved_docs": [
+          "system_requirements_v2.txt",
+          "march_design_review_transcript.txt",
+          "firmware_requirements.txt",
+          "electrical_review_meeting.txt",
+          "firmware_requirements.txt",
+          "firmware_requirements.txt",
+          "emc_test_results.txt",
+          "voice_of_customer.txt",
+          "firmware_requirements.txt",
+          "electrical_review_meeting.txt"
+        ],
+        "precision_at_k": 0.3333333333333333,
+        "recall_at_k": 1.0,
+        "f1_score": 0.5,
+        "mrr": 1.0,
+        "response_time": 0.09897160530090332,
+        "found_expected_author": false,
+        "total_results": 10
+      },
+      {
+        "query": "What user feedback influenced the interface design?",
+        "discipline": "industrial_design",
+        "query_type": "semantic",
+        "retrieved_docs": [
+          "ergonomic_analysis.txt",
+          "voice_of_customer.txt",
+          "electrical_review_meeting.txt",
+          "voice_of_customer.txt",
+          "voice_of_customer.txt",
+          "ergonomic_analysis.txt",
+          "voice_of_customer.txt",
+          "ergonomic_analysis.txt",
+          "ergonomic_analysis.txt",
+          "voice_of_customer.txt"
+        ],
+        "precision_at_k": 0.6666666666666666,
+        "recall_at_k": 1.0,
+        "f1_score": 0.8,
+        "mrr": 1.0,
+        "response_time": 0.11159300804138184,
+        "found_expected_author": false,
+        "total_results": 10
+      },
+      {
+        "query": "Who created the ergonomic study for the device?",
+        "discipline": "industrial_design",
+        "query_type": "author_attribution",
+        "retrieved_docs": [
+          "ergonomic_analysis.txt",
+          "ergonomic_analysis.txt",
+          "ergonomic_analysis.txt",
+          "ergonomic_analysis.txt",
+          "ergonomic_analysis.txt",
+          "electrical_review_meeting.txt",
+          "ergonomic_analysis.txt",
+          "voice_of_customer.txt",
+          "march_design_review_transcript.txt",
+          "march_design_review_transcript.txt"
+        ],
+        "precision_at_k": 0.25,
+        "recall_at_k": 1.0,
+        "f1_score": 0.4,
+        "mrr": 1.0,
+        "response_time": 0.08843064308166504,
+        "found_expected_author": false,
+        "total_results": 10
+      },
+      {
+        "query": "What decisions were made in the March design review meeting?",
+        "discipline": "pm",
+        "query_type": "semantic",
+        "retrieved_docs": [
+          "electrical_review_meeting.txt",
+          "march_design_review_transcript.txt",
+          "march_design_review_transcript.txt",
+          "march_design_review_transcript.txt",
+          "march_design_review_transcript.txt",
+          "electrical_review_meeting.txt",
+          "electrical_review_meeting.txt",
+          "march_design_review_transcript.txt",
+          "voice_of_customer.txt",
+          "march_design_review_transcript.txt"
+        ],
+        "precision_at_k": 0.3333333333333333,
+        "recall_at_k": 1.0,
+        "f1_score": 0.5,
+        "mrr": 0.5,
+        "response_time": 0.10289192199707031,
+        "found_expected_author": false,
+        "total_results": 10
+      },
+      {
+        "query": "Which documents are related to the budget constraints discussion?",
+        "discipline": "pm",
+        "query_type": "relationship",
+        "retrieved_docs": [],
+        "precision_at_k": 0.0,
+        "recall_at_k": 0.0,
+        "f1_score": 0.0,
+        "mrr": 0.0,
+        "response_time": 0.06801223754882812,
+        "found_expected_author": false,
+        "total_results": 0
+      },
+      {
+        "query": "What thermal issues did Sarah Chen identify that affected electrical design?",
+        "discipline": "cross_disciplinary",
+        "query_type": "relationship",
+        "retrieved_docs": [
+          "electrical_review_meeting.txt",
+          "electrical_review_meeting.txt",
+          "electrical_review_meeting.txt",
+          "electrical_review_meeting.txt",
+          "electrical_review_meeting.txt",
+          "march_design_review_transcript.txt",
+          "march_design_review_transcript.txt",
+          "march_design_review_transcript.txt",
+          "electrical_review_meeting.txt",
+          "voice_of_customer.txt"
+        ],
+        "precision_at_k": 0.3333333333333333,
+        "recall_at_k": 0.5,
+        "f1_score": 0.4,
+        "mrr": 1.0,
+        "response_time": 0.09211373329162598,
+        "found_expected_author": false,
+        "total_results": 10
+      },
+      {
+        "query": "Show me all documents that mention power consumption",
+        "discipline": "cross_disciplinary",
+        "query_type": "semantic",
+        "retrieved_docs": [
+          "march_design_review_transcript.txt",
+          "power_analysis_report.txt",
+          "power_analysis_report.txt",
+          "power_analysis_report.txt",
+          "march_design_review_transcript.txt",
+          "power_analysis_report.txt",
+          "power_analysis_report.txt"
+        ],
+        "precision_at_k": 0.5,
+        "recall_at_k": 0.3333333333333333,
+        "f1_score": 0.4,
+        "mrr": 0.5,
+        "response_time": 0.08962440490722656,
+        "found_expected_author": false,
+        "total_results": 7
+      }
+    ]
+  }
+}

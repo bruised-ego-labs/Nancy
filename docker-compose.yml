@@ -6,15 +6,16 @@ services:
       context: ./nancy-services
     ports:
       - "8000:8000"
-    volumes:
-      - ./nancy-services:/app
-      - ./data:/app/data
     depends_on:
       - chromadb
       - neo4j
+      - ollama
+    env_file:
+      - .env
     environment:
       - CHROMA_HOST=chromadb
       - NEO4J_URI=bolt://neo4j:7687
+      - OLLAMA_HOST=http://ollama:11434
 
   chromadb:
     image: chromadb/chroma
@@ -33,6 +34,24 @@ services:
     environment:
       - NEO4J_AUTH=neo4j/password
 
+  ollama:
+    image: ollama/ollama:latest
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_data:/root/.ollama
+    environment:
+      - OLLAMA_MODELS=/root/.ollama/models
+    # Uncomment for GPU support:
+    # deploy:
+    #   resources:
+    #     reservations:
+    #       devices:
+    #         - driver: nvidia
+    #           count: 1
+    #           capabilities: [gpu]
+
 volumes:
   chromadb_data:
   neo4j_data:
+  ollama_data:

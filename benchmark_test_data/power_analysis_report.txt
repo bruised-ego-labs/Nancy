@@ -1,0 +1,120 @@
+Power Analysis Report
+Project: Advanced IoT Device Development
+Author: Tom Wilson
+Date: March 14, 2024
+
+EXECUTIVE SUMMARY
+This report provides detailed power consumption analysis for the IoT device across all operational modes, supporting the system requirement of 2.5W maximum power consumption and 5-year battery life target.
+
+POWER CONSUMPTION BREAKDOWN
+
+ACTIVE MODE (Continuous Operation)
+Total Power: 2.4W (within 2.5W requirement)
+
+Component-level Analysis:
+- Processor (ARM Cortex-M4): 850mW during full processing
+- WiFi Radio (2.4GHz): 620mW during transmission
+- Bluetooth Radio: 180mW during active connection
+- Sensor Interface: 320mW during data acquisition
+- Power Management IC: 180mW (self-consumption)
+- LED Indicators: 45mW (all active)
+- Miscellaneous (clocks, references): 205mW
+
+SLEEP MODE (Low Power Standby)
+Total Power: 8.5μW (well below 10μW requirement)
+
+Component-level Analysis:
+- Processor (sleep mode): 2.1μW
+- WiFi Radio (powered down): 0μW
+- Bluetooth (beacon mode): 4.2μW
+- Real-time clock: 1.8μW
+- Power management (quiescent): 0.4μW
+
+BATTERY LIFE CALCULATIONS
+
+CR2032 Battery Specifications:
+- Nominal capacity: 220mAh at 3V
+- Usable capacity: 200mAh (accounting for voltage drop)
+- End-of-life voltage: 2.7V
+
+Operating Profile Analysis:
+- Active mode: 10% duty cycle (2.4 hours/day)
+- Sleep mode: 90% duty cycle (21.6 hours/day)
+
+Average Current Consumption:
+- Active: 800mA × 0.10 = 80mA (average contribution)
+- Sleep: 2.83mA × 0.90 = 2.55mA (average contribution)
+- Total average: 82.55mA
+
+Battery Life Calculation:
+200mAh ÷ 82.55mA = 2,425 hours = 101 days
+
+DISCREPANCY ANALYSIS
+Current calculation shows 101 days vs 5-year requirement (1,825 days).
+
+Root Cause: Operating profile assumptions incorrect for target application.
+
+REVISED OPERATING PROFILE (Field Deployment)
+Based on customer usage patterns from Lisa Park's research:
+
+- Active mode: 1% duty cycle (14.4 minutes/day)
+- Sleep mode: 99% duty cycle (23.77 hours/day)
+
+Revised Average Current:
+- Active: 800mA × 0.01 = 8mA
+- Sleep: 2.83mA × 0.99 = 2.80mA  
+- Total average: 10.8mA
+
+Revised Battery Life:
+200mAh ÷ 10.8mA = 18,519 hours = 772 days = 2.1 years
+
+RECOMMENDATIONS FOR 5-YEAR TARGET
+
+Hardware Optimizations:
+1. Implement wake-on-radio for reduced monitoring power
+2. Use lower power processor variant (reduces active current to 600mA)
+3. Optimize sensor power sequencing (reduces active current by 100mA)
+4. Implement adaptive transmission power control
+
+Firmware Optimizations:
+1. Aggressive CPU clock scaling during low-activity periods
+2. Intelligent sensor polling based on activity detection
+3. Batch data transmission to reduce radio active time
+4. Deep sleep optimization with faster wake-up sequences
+
+OPTIMIZED POWER BUDGET
+With recommended optimizations:
+
+Active Mode: 1.8W (25% reduction)
+- Processor: 600mW (optimized variant)
+- WiFi Radio: 620mW (unchanged)
+- Bluetooth: 180mW (unchanged) 
+- Sensors: 220mW (power sequencing)
+- Power Management: 135mW (improved efficiency)
+- LED/Misc: 245mW (unchanged)
+
+Sleep Mode: 6.2μW (27% reduction)
+- Processor deep sleep: 1.2μW
+- Wake-on-radio: 3.1μW
+- RTC: 1.8μW
+- Quiescent current: 0.1μW
+
+FINAL BATTERY LIFE PROJECTION
+Optimized average current: 7.8mA
+Battery life: 200mAh ÷ 7.8mA = 25,641 hours = 1,068 days = 2.9 years
+
+Gap Analysis: Still 2.1 years short of 5-year target.
+
+ALTERNATIVE SOLUTIONS
+1. Larger battery (2×CR2032 or rechargeable Li-ion)
+2. Energy harvesting (solar, vibration, thermal)
+3. Reduced functionality mode for extended operation
+4. Field-replaceable battery design
+
+VALIDATION REQUIREMENTS
+1. Prototype power measurement across full temperature range
+2. Accelerated battery drain testing
+3. Real-world usage pattern validation with customers
+4. Power optimization firmware validation
+
+This analysis demonstrates the need for both hardware and firmware optimization to approach the 5-year battery life target. Coordination with electrical team (Mike Rodriguez) required for hardware changes and mechanical team (David Kim) for battery compartment design.

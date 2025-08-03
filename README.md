@@ -8,13 +8,14 @@
 
 ## 2. High-Level Architecture
 
-Project Nancy uses a "Three-Brain" architecture to synthesize information from different kinds of data stores, providing answers with deep contextual awareness.
+Project Nancy uses a **"Four-Brain" architecture** to synthesize information from different kinds of data stores, providing answers with deep contextual awareness and intelligent natural language processing.
 
 *   **🧠 Vector Brain (ChromaDB & FastEmbed):** Handles semantic search. It finds text snippets that are conceptually similar to a user's query, even if the keywords don't match exactly.
 *   **🧠 Analytical Brain (DuckDB):** Handles structured metadata. It stores and retrieves concrete facts about data, such as filenames, file sizes, types, and creation dates.
 *   **🧠 Relational Brain (Neo4j):** Handles the knowledge graph. It stores and queries the *relationships* between data, people, and concepts, such as who `AUTHORED` a specific document.
+*   **🧠 Linguistic Brain (Ollama/Gemma):** Handles intelligent query analysis and response synthesis using a local Gemma LLM for zero-cost, private AI operations.
 
-These three brains are orchestrated by a central **Query Orchestrator** that combines their strengths to produce a single, context-rich answer.
+These four brains are orchestrated by an enhanced **Query Orchestrator** that intelligently combines their strengths to produce natural language responses with comprehensive fallback support (local LLM → cloud APIs → mock responses).
 
 ## 3. Project Structure
 
@@ -41,52 +42,100 @@ The separation of the two `data` directories is intentional and important for ma
 *   `./nancy-services/data/`: This directory is a **placeholder**. Its purpose is to ensure that the `/app/data` path exists inside the container during development. Because the entire `./nancy-services` directory is mounted for live code reloading, this placeholder is necessary. It contains a `.gitkeep` file to ensure it is tracked by source control, preserving the project structure for all developers.
 
 
-## 4. Current Status (MVN Progress)
+## 4. Current Status (Four-Brain Achievement)
 
-The project has achieved a stable, demonstrable proof-of-concept for the "Three-Brain" architecture.
+The project has achieved a fully operational **Four-Brain Architecture** with local LLM integration, providing zero-cost AI operations with complete privacy.
 
 **Completed:**
-*   **Full Docker Environment:** All services (API, ChromaDB, Neo4j) are containerized and managed by `docker-compose`.
-*   **Stable Embedding Service:** Replaced the unstable `sentence-transformers` library with `fastembed` and `ONNX`, resolving all low-level dependency crashes.
-*   **File Ingestion Endpoint (`/api/ingest`):** Users can upload `.txt` files. The service automatically:
-    1.  Stores file metadata in DuckDB.
-    2.  Creates `Document` and `Person` nodes in Neo4j and links them with an `AUTHORED` relationship.
-    3.  Chunks the text and stores its vector embeddings in ChromaDB.
-*   **Hybrid Query Endpoint (`/api/query`):** Users can ask natural language questions. The service:
-    1.  Finds relevant text chunks from ChromaDB.
-    2.  Retrieves file metadata from DuckDB.
-    3.  Finds the document's author from Neo4j.
-    4.  Returns a single, synthesized response containing all three pieces of information.
+*   **Complete Docker Environment:** All services (API, ChromaDB, Neo4j, Ollama) are containerized and managed by `docker-compose`.
+*   **Local LLM Integration:** Ollama service running Gemma 2B model for intelligent query analysis and response synthesis.
+*   **Stable Embedding Service:** Using `fastembed` with ONNX for reliable, CPU-based text embeddings.
+*   **Enhanced File Ingestion (`/api/ingest`):** Users can upload `.txt` files. The service automatically:
+    1.  Stores file metadata in DuckDB (AnalyticalBrain).
+    2.  Creates semantic embeddings and stores in ChromaDB (VectorBrain).
+    3.  Extracts relationships using local Gemma LLM and stores in Neo4j (RelationalBrain).
+    4.  All processing happens locally with zero API costs.
+*   **Intelligent Query Processing (`/api/query`):** Users can ask natural language questions. The enhanced system:
+    1.  Analyzes query intent using local Gemma LLM (LinguisticBrain).
+    2.  Orchestrates searches across Vector, Analytical, and Relational brains.
+    3.  Synthesizes results into natural language responses.
+    4.  Provides comprehensive fallback: Local LLM → Cloud APIs → Mock responses.
+
+**Key Benefits Achieved:**
+*   **Zero Token Costs:** All LLM operations run locally on Gemma 2B
+*   **Complete Privacy:** No data sent to external APIs
+*   **No Rate Limits:** Unlimited local processing
+*   **Consistent Performance:** No dependency on external services
+*   **Production Ready:** Robust fallback systems ensure reliability
 
 ## 5. How to Run the Project
 
 **Prerequisites:**
-*   Docker Desktop
+*   Docker Desktop (with at least 4GB RAM available for containers)
 
-**Steps:**
-1.  **Start the Services:** From the project root, run the following command. This will build the API container and start all three services.
+**Quick Start:**
+1.  **Setup Nancy Four-Brain Architecture:** Run the automated setup script that starts all services and configures the local LLM.
+    ```powershell
+    .\setup_ollama.ps1
+    ```
+    This script will:
+    - Start all Docker services (API, ChromaDB, Neo4j, Ollama)
+    - Pull the Gemma 2B model (~1.6GB download)
+    - Test the complete Four-Brain integration
+    - Verify local LLM processing is working
+
+**Manual Steps (Alternative):**
+1.  **Start the Services:** From the project root, run the following command. This will build the API container and start all four services.
     ```bash
     docker-compose up -d --build
     ```
-2.  **Test Ingestion:** Use the provided PowerShell script to upload a test file with an author.
-    ```powershell
-    .\test_upload_2.ps1
+2.  **Wait for Ollama:** The Gemma model needs to be pulled on first run:
+    ```bash
+    docker-compose exec ollama ollama pull gemma:2b
     ```
-3.  **Test Querying:** Use the provided PowerShell script to ask a question about the ingested file.
+3.  **Test the Complete System:** Use the enhanced demo script to test all four brains:
     ```powershell
-    .\test_query_2.ps1
+    .\test_enhanced_three_brain_demo.ps1
     ```
-    The response will be a JSON object containing the relevant text snippet, its metadata, and the author.
 
-## 6. Development Next Steps
+**Service URLs:**
+- Nancy API: http://localhost:8000
+- ChromaDB: http://localhost:8001
+- Neo4j Browser: http://localhost:7474 (neo4j/password)
+- Ollama API: http://localhost:11434
 
-The current implementation provides a strong foundation for the Minimum Viable Nancy (MVN) demo. The next steps should focus on expanding the system's capabilities and demonstrating more complex, high-value queries.
+## 6. Architecture Benefits & Use Cases
 
-*   **Expand File Type Support:** Add parsers for `.pdf` and `.docx` files in the `IngestionService` to broaden the types of knowledge Nancy can consume.
-*   **Proactive Ingestion:** Implement webhook connectors for sources like GitHub to allow Nancy to autonomously observe project activity (e.g., ingest commit messages and link them to authors and code files).
-*   **Advanced Graph Queries:** Enhance the `QueryOrchestrator` to answer more complex relational questions, such as:
-    *   "What other documents has this author written?"
-    *   "Show me all documents that are related to this one."
-*   **LLM-Powered Synthesis:** Integrate a Large Language Model (LLM) to synthesize the final results into a natural, human-readable answer instead of a JSON object.
+The Four-Brain Architecture provides significant advantages for multidisciplinary engineering teams:
+
+**Key Benefits:**
+*   **Zero Operating Costs:** Local LLM eliminates token charges while providing intelligent query analysis
+*   **Complete Data Privacy:** All processing happens on-premises with no external API calls
+*   **Unlimited Scalability:** No rate limits or API quotas restrict usage
+*   **Robust Reliability:** Multiple fallback layers ensure system availability
+*   **Rich Context Understanding:** Four specialized brains provide comprehensive information synthesis
+
+**Ideal Use Cases:**
+*   **Engineering Documentation:** Quickly find thermal, electrical, and mechanical design information
+*   **Project Knowledge Management:** Track relationships between documents, decisions, and team members
+*   **Regulatory Compliance:** Maintain auditable trails of document relationships and authorship
+*   **Cross-team Collaboration:** Bridge knowledge gaps between different engineering disciplines
+*   **Historical Context Recovery:** Understand decision rationales and design evolution over time
+
+## 7. Development & Extension Opportunities
+
+The Four-Brain Architecture provides a robust foundation for advanced AI-powered knowledge management:
+
+**Immediate Enhancements:**
+*   **Expand File Type Support:** Add parsers for `.pdf`, `.docx`, and `.xlsx` files
+*   **Advanced Relationship Extraction:** Enhance LLM prompts for more sophisticated concept relationships
+*   **Multi-language Support:** Leverage Gemma's multilingual capabilities for international teams
+*   **Query Templates:** Pre-built queries for common engineering workflows
+
+**Future Integrations:**
+*   **GitHub Integration:** Automatic ingestion of commit messages, pull requests, and issues
+*   **CAD File Analysis:** Extract metadata and relationships from design files
+*   **Slack/Teams Connectors:** Capture and index team communications
+*   **Advanced Analytics:** Generate insights about team collaboration patterns and knowledge gaps
 
 ```

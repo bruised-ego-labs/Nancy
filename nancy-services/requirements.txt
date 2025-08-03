@@ -12,3 +12,8 @@ pypdf
 python-docx
 # For Named Entity Recognition
 spacy
+# For loading .env files
+python-dotenv
+requests
+# Local LLM support via Ollama
+ollama
