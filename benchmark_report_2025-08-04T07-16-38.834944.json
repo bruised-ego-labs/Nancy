@@ -1,0 +1,112 @@
+{
+  "run_timestamp": "2025-08-04T07:16:38.834944",
+  "summary": {
+    "basic_rag": {
+      "total_queries": 8,
+      "avg_scores": {
+        "accuracy": 0.225,
+        "relevance": 0.15000000000000002,
+        "completeness": 0.09375,
+        "faithfulness": 0.056249999999999994,
+        "total": 0.11250000000000002
+      },
+      "avg_response_time": 0.0
+    },
+    "nancy_four_brain": {
+      "total_queries": 8,
+      "avg_scores": {
+        "accuracy": 0.36124999999999996,
+        "relevance": 0.6020833333333333,
+        "completeness": 1.0,
+        "faithfulness": 0.8,
+        "total": 0.7853604761904762
+      },
+      "avg_response_time": 0.6367437243461609
+    },
+    "simple_search": {
+      "total_queries": 8,
+      "avg_scores": {
+        "accuracy": 0.225,
+        "relevance": 0.15000000000000002,
+        "completeness": 0.09375,
+        "faithfulness": 0.056249999999999994,
+        "total": 0.11250000000000002
+      },
+      "avg_response_time": 0.0
+    },
+    "vector_only": {
+      "total_queries": 8,
+      "avg_scores": {
+        "accuracy": 0.0,
+        "relevance": 0.0,
+        "completeness": 0.0,
+        "faithfulness": 0.0,
+        "total": 0.0
+      },
+      "avg_response_time": 60.0
+    }
+  },
+  "by_complexity": {
+    "0": {
+      "basic_rag": {
+        "accuracy": 0.225,
+        "relevance": 0.15000000000000002,
+        "completeness": 0.09375,
+        "faithfulness": 0.056249999999999994,
+        "total": 0.11250000000000002,
+        "response_time": 0.0,
+        "query_count": 8
+      },
+      "nancy_four_brain": {
+        "accuracy": 0.36124999999999996,
+        "relevance": 0.6020833333333333,
+        "completeness": 1.0,
+        "faithfulness": 0.8,
+        "total": 0.7853604761904762,
+        "response_time": 0.6367437243461609,
+        "query_count": 8
+      },
+      "simple_search": {
+        "accuracy": 0.225,
+        "relevance": 0.15000000000000002,
+        "completeness": 0.09375,
+        "faithfulness": 0.056249999999999994,
+        "total": 0.11250000000000002,
+        "response_time": 0.0,
+        "query_count": 8
+      },
+      "vector_only": {
+        "accuracy": 0.0,
+        "relevance": 0.0,
+        "completeness": 0.0,
+        "faithfulness": 0.0,
+        "total": 0.0,
+        "response_time": 60.0,
+        "query_count": 8
+      }
+    }
+  },
+  "comparative_analysis": {
+    "basic_rag": {
+      "accuracy": 60.55555555555553,
+      "relevance": 301.3888888888888,
+      "completeness": 966.6666666666666,
+      "faithfulness": 1322.2222222222224,
+      "total": 598.098201058201
+    },
+    "simple_search": {
+      "accuracy": 60.55555555555553,
+      "relevance": 301.3888888888888,
+      "completeness": 966.6666666666666,
+      "faithfulness": 1322.2222222222224,
+      "total": 598.098201058201
+    },
+    "vector_only": {
+      "accuracy": Infinity,
+      "relevance": Infinity,
+      "completeness": Infinity,
+      "faithfulness": Infinity,
+      "total": Infinity
+    }
+  }
+}

@@ -1,5 +1,5 @@
 from .search import AnalyticalBrain
-from .knowledge_graph import RelationalBrain
+from .knowledge_graph import GraphBrain
 from .nlp import VectorBrain
 
 class QueryOrchestrator:
@@ -12,7 +12,7 @@ class QueryOrchestrator:
         Initializes the Query Orchestrator and the three brains.
         """
         self.analytical_brain = AnalyticalBrain()
-        self.relational_brain = RelationalBrain()
+        self.graph_brain = GraphBrain()
         self.vector_brain = VectorBrain()
         print("Query Orchestrator initialized.")
 
@@ -23,7 +23,7 @@ class QueryOrchestrator:
         print(f"Orchestrator received author query for: {author_name}")
         
         # 1. Relational Brain: Get all document filenames for the author
-        filenames = self.relational_brain.get_documents_by_author(author_name)
+        filenames = self.graph_brain.get_documents_by_author(author_name)
         
         # In a real system, you might want to get metadata from DuckDB as well
         
@@ -36,7 +36,7 @@ class QueryOrchestrator:
     def query(self, query_text: str, n_results: int = 5):
         """
         Processes a query by finding semantically similar content in the VectorBrain
-        and augmenting it with metadata from the AnalyticalBrain and RelationalBrain.
+        and augmenting it with metadata from the AnalyticalBrain and GraphBrain.
         """
         print(f"Orchestrator received query: {query_text}")
 
@@ -68,7 +68,7 @@ class QueryOrchestrator:
                     doc_meta = doc_metadata_map.get(doc_id)
                     
                     # 5. Relational Brain: Get author for each document
-                    author = self.relational_brain.get_author_of_document(doc_meta['filename']) if doc_meta else "Unknown"
+                    author = self.graph_brain.get_author_of_document(doc_meta['filename']) if doc_meta else "Unknown"
                     
                     synthesized_results.append({
                         "chunk_id": chunk_id,

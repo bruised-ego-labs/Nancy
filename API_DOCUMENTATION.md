@@ -42,8 +42,14 @@ Uploads and processes documents through all four brains with local LLM relations
 **Processing Flow:**
 1. **VectorBrain**: Creates semantic embeddings using FastEmbed
 2. **AnalyticalBrain**: Stores metadata in DuckDB
-3. **RelationalBrain**: Extracts relationships using local Gemma LLM and stores in Neo4j
-4. **LinguisticBrain**: Analyzes content structure and relationships
+3. **GraphBrain**: Extracts comprehensive project story using local Gemma LLM:
+   - Decisions and decision makers
+   - Meetings and attendees
+   - Features and owners
+   - Project eras and phases
+   - Cross-team collaborations
+   - Technical dependencies and constraints
+4. **LinguisticBrain**: Orchestrates all analysis with local AI processing
 
 **Example Request:**
 ```bash
@@ -61,7 +67,7 @@ curl -X POST "http://localhost:8000/api/ingest" \
 }
 ```
 
-**Local LLM Usage:** ~1,100 tokens for relationship extraction (FREE)
+**Local LLM Usage:** ~1,300+ tokens for comprehensive project story extraction (FREE)
 
 ---
 
@@ -90,25 +96,62 @@ Performs intelligent queries across all four brains with local LLM intent analys
 **Processing Flow:**
 1. **LinguisticBrain**: Analyzes query intent using local Gemma LLM
 2. **Enhanced Orchestrator**: Determines optimal brain combination strategy
-3. **Multi-Brain Search**: Executes searches across Vector, Analytical, and Relational brains
-4. **Response Synthesis**: Combines results into structured response
+3. **Multi-Brain Search**: Executes searches across Vector, Analytical, and Graph brains
+4. **Response Synthesis**: Combines results into structured response with decision context
 
 **Query Strategies:**
 - `semantic`: Pure vector search for conceptual similarity
 - `author_attribution`: Find documents by specific authors
 - `metadata_filter`: Filter by dates, file types, sizes
-- `relationship_discovery`: Find connections between concepts
+- `relationship_discovery`: Find connections between concepts and decisions
+- `decision_provenance`: Trace why decisions were made and their impacts
+- `knowledge_expert`: Identify subject matter experts on topics
 - `hybrid`: Combine multiple brain approaches
-- `temporal_analysis`: Time-based queries
+- `temporal_analysis`: Time-based queries and project phase analysis
 - `cross_reference`: Documents that reference each other
 
-**Example Request:**
+**Example Requests:**
+
+*Basic Query:*
 ```bash
 curl -X POST "http://localhost:8000/api/query" \
   -H "Content-Type: application/json" \
   -d '{
     "query": "What thermal issues affected the electrical design?",
     "n_results": 3,
+    "use_enhanced": true
+  }'
+```
+
+*Decision Archaeology:*
+```bash
+curl -X POST "http://localhost:8000/api/query" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "query": "Why did we choose the Four-Brain Architecture?",
+    "n_results": 5,
+    "use_enhanced": true
+  }'
+```
+
+*Knowledge Expert Identification:*
+```bash
+curl -X POST "http://localhost:8000/api/query" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "query": "Who are the experts on thermal design?",
+    "n_results": 5,
+    "use_enhanced": true
+  }'
+```
+
+*Project Timeline Analysis:*
+```bash
+curl -X POST "http://localhost:8000/api/query" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "query": "What happened during Q4 2024 Architecture Phase?",
+    "n_results": 5,
     "use_enhanced": true
   }'
 ```
@@ -172,12 +215,13 @@ Provides backward compatibility for queries without LLM enhancement.
 - **Storage**: File metadata, ingestion timestamps, file properties
 - **Integration**: Direct SQL queries for filtering and aggregation
 
-### 3. RelationalBrain (Knowledge Graph)
+### 3. GraphBrain (Project Knowledge Graph)
 - **Technology**: Neo4j
-- **Purpose**: Relationship mapping and graph queries
+- **Purpose**: Comprehensive project story capture and decision archaeology
 - **Port**: 7474 (browser), 7687 (bolt)
 - **Credentials**: neo4j/password
-- **Relationships**: AUTHORED, REFERENCES, MENTIONS, AFFECTS, etc.
+- **Entities**: People, Documents, Decisions, Meetings, Features, Eras, Concepts
+- **Relationships**: AUTHORED, MADE, ATTENDED, OWNS, INFLUENCED_BY, LED_TO, RESULTED_IN, CREATED_IN, COLLABORATES_WITH, AFFECTS, CONSTRAINS
 
 ### 4. LinguisticBrain (Local LLM)
 - **Technology**: Ollama + Gemma 2B
@@ -232,10 +276,11 @@ The API implements comprehensive error handling with graceful degradation:
 - **Other Services**: ~2-3GB RAM combined
 
 ### Token Usage (All Local = FREE)
-- **Document Processing**: ~1,100 tokens per document
+- **Enhanced Document Processing**: ~1,300+ tokens per document (includes project story extraction)
 - **Query Analysis**: ~400-800 tokens per query
-- **Relationship Extraction**: ~500-1,500 tokens per document
-- **Total Monthly Savings**: $20-50+ compared to cloud APIs
+- **Decision Archaeology**: ~600-1,200 tokens per complex query
+- **Project Story Extraction**: ~700-1,500 tokens per document
+- **Total Monthly Savings**: $30-75+ compared to cloud APIs (more value with enhanced features)
 
 ## Development & Testing
 

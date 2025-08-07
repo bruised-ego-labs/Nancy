@@ -12,7 +12,7 @@ Project Nancy uses a **"Four-Brain" architecture** to synthesize information fro
 
 *   **🧠 Vector Brain (ChromaDB & FastEmbed):** Handles semantic search. It finds text snippets that are conceptually similar to a user's query, even if the keywords don't match exactly.
 *   **🧠 Analytical Brain (DuckDB):** Handles structured metadata. It stores and retrieves concrete facts about data, such as filenames, file sizes, types, and creation dates.
-*   **🧠 Relational Brain (Neo4j):** Handles the knowledge graph. It stores and queries the *relationships* between data, people, and concepts, such as who `AUTHORED` a specific document.
+*   **🧠 Graph Brain (Neo4j):** Handles the project knowledge graph. It captures the complete project story including decisions, meetings, features, team collaborations, and project evolution - far beyond simple author attribution.
 *   **🧠 Linguistic Brain (Ollama/Gemma):** Handles intelligent query analysis and response synthesis using a local Gemma LLM for zero-cost, private AI operations.
 
 These four brains are orchestrated by an enhanced **Query Orchestrator** that intelligently combines their strengths to produce natural language responses with comprehensive fallback support (local LLM → cloud APIs → mock responses).
@@ -53,12 +53,23 @@ The project has achieved a fully operational **Four-Brain Architecture** with lo
 *   **Enhanced File Ingestion (`/api/ingest`):** Users can upload `.txt` files. The service automatically:
     1.  Stores file metadata in DuckDB (AnalyticalBrain).
     2.  Creates semantic embeddings and stores in ChromaDB (VectorBrain).
-    3.  Extracts relationships using local Gemma LLM and stores in Neo4j (RelationalBrain).
+    3.  Extracts comprehensive project story using local Gemma LLM and stores in Neo4j (GraphBrain):
+        - Decisions and decision makers
+        - Meetings and attendees 
+        - Features and owners
+        - Project eras and phases
+        - Cross-team collaborations
+        - Technical dependencies
     4.  All processing happens locally with zero API costs.
 *   **Intelligent Query Processing (`/api/query`):** Users can ask natural language questions. The enhanced system:
     1.  Analyzes query intent using local Gemma LLM (LinguisticBrain).
-    2.  Orchestrates searches across Vector, Analytical, and Relational brains.
-    3.  Synthesizes results into natural language responses.
+    2.  Orchestrates searches across Vector, Analytical, and Graph brains.
+    3.  Answers complex project questions like:
+        - "Why was this decision made?"
+        - "Who are the experts on thermal design?"  
+        - "What decisions led to this feature?"
+        - "How do teams collaborate on this project?"
+        - "What happened during Q4 2024 Architecture Phase?"
     4.  Provides comprehensive fallback: Local LLM → Cloud APIs → Mock responses.
 
 **Key Benefits Achieved:**
@@ -116,11 +127,13 @@ The Four-Brain Architecture provides significant advantages for multidisciplinar
 *   **Rich Context Understanding:** Four specialized brains provide comprehensive information synthesis
 
 **Ideal Use Cases:**
-*   **Engineering Documentation:** Quickly find thermal, electrical, and mechanical design information
-*   **Project Knowledge Management:** Track relationships between documents, decisions, and team members
-*   **Regulatory Compliance:** Maintain auditable trails of document relationships and authorship
-*   **Cross-team Collaboration:** Bridge knowledge gaps between different engineering disciplines
-*   **Historical Context Recovery:** Understand decision rationales and design evolution over time
+*   **Decision Archaeology:** Instantly recover why decisions were made, who influenced them, and what resulted
+*   **Knowledge Expert Identification:** Find subject matter experts based on decisions, documents, and features
+*   **Project Onboarding:** New team members can quickly understand project evolution and current context
+*   **Impact Analysis:** Predict what changes will affect before making them
+*   **Cross-team Collaboration:** Map collaboration networks and identify knowledge silos
+*   **Regulatory Compliance:** Maintain comprehensive audit trails of decisions and their influences
+*   **Knowledge Transfer:** Mitigate risks when team members leave by understanding their expertise networks
 
 ## 7. Development & Extension Opportunities
 

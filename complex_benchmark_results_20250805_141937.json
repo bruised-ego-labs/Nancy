@@ -1,0 +1,2658 @@
+{
+  "timestamp": "20250805_141937",
+  "summary": {
+    "text_summary": "COMPLEX QUERY BENCHMARK RESULTS:\n\nTotal Queries Tested: 15\nNancy Clear Wins: 0 (0.0%)\nChromaDB Clear Wins: 0 (0.0%)\nMixed Results: 15 (100.0%)\n\nNancy Advantages Realized: 0/15 (0.0%)\n\nAverage Response Times:\n- Nancy: 0.12s\n- ChromaDB: 0.37s\n- Speed Ratio: 0.3x slower\n\nKey Insights:\n- Complex queries requiring cross-document analysis: Nancy advantage expected\n- Simple document retrieval: ChromaDB competitive\n- Multi-step reasoning: Nancy's LLM integration crucial\n- Relationship mapping: Nancy's graph brain essential",
+    "metrics": {
+      "total_queries": 15,
+      "nancy_wins": 0,
+      "chromadb_wins": 0,
+      "mixed_results": 15,
+      "nancy_advantages_realized": 0,
+      "avg_nancy_time": 0.12105801900227865,
+      "avg_chromadb_time": 0.373319149017334
+    }
+  },
+  "detailed_results": [
+    {
+      "query_info": {
+        "id": "cross_doc_001",
+        "category": "cross_document_analysis",
+        "complexity": 4,
+        "query": "Did the person who wrote the thermal analysis report participate in planning meetings?",
+        "why_complex": "Requires connecting authorship info with meeting participation across different documents",
+        "expected_nancy_advantage": "Graph brain can map person -> document -> meeting relationships",
+        "baseline_limitation": "Vector search can't connect person identity across document types"
+      },
+      "chromadb_result": {
+        "success": true,
+        "response_time": 0.5795283317565918,
+        "num_results": 5,
+        "best_distance": 1.6622815,
+        "quality_assessment": "Likely insufficient - requires cross-document relationship analysis",
+        "raw_results": {
+          "ids": [
+            [
+              "5007785582a5b0025f3e67a256245f2f38bcb5995dce53699c8d5e6827864a64_chunk_0",
+              "8e6871a96e778e6de5557982e8f1e7fd3698f1748f42540618bc91b6f9b8b9ad_chunk_0",
+              "5007785582a5b0025f3e67a256245f2f38bcb5995dce53699c8d5e6827864a64_chunk_2",
+              "5a7c68faee998c17477609bea59b502ebf6593769a1dc0bfeeadcec5fc771d31_chunk_3",
+              "5007785582a5b0025f3e67a256245f2f38bcb5995dce53699c8d5e6827864a64_chunk_1"
+            ]
+          ],
+          "distances": [
+            [
+              1.6622815,
+              1.7348909,
+              1.8580388,
+              1.8647443,
+              1.8719938
+            ]
+          ],
+          "embeddings": null,
+          "metadatas": [
+            [
+              {
+                "source": "5007785582a5b0025f3e67a256245f2f38bcb5995dce53699c8d5e6827864a64"
+              },
+              {
+                "source": "8e6871a96e778e6de5557982e8f1e7fd3698f1748f42540618bc91b6f9b8b9ad"
+              },
+              {
+                "source": "5007785582a5b0025f3e67a256245f2f38bcb5995dce53699c8d5e6827864a64"
+              },
+              {
+                "source": "5a7c68faee998c17477609bea59b502ebf6593769a1dc0bfeeadcec5fc771d31"
+              },
+              {
+                "source": "5007785582a5b0025f3e67a256245f2f38bcb5995dce53699c8d5e6827864a64"
+              }
+            ]
+          ],
+          "documents": [
+            [
+              "Project Meeting Notes - Q4 2024 Nancy Architecture Review\n\nMeeting Attendees:\n- Scott Johnson (Project Lead)\n- Sarah Chen (Thermal Engineer) \n- Mike Rodriguez (Electrical Engineer)\n- Lisa Park (Mechanical Engineer)\n\nKey Decisions Made:\n1. DECISION:",
+              "Test document for local LLM processing. This document discusses thermal design coordination between Sarah Chen and Mike Rodriguez for electrical systems integration.",
+              "Use Gemma 2B for Local Processing\n   - DECISION MAKER: Scott Johnson  \n   - CONTEXT: Memory constraints on 16GB development machine\n   - INFLUENCED BY: Docker memory limitations and performance testing\n   - ERA: Q4 2024 Implementation Phase\n\nCross-Team Collaboration:\n- Sarah Chen COLLABORATED WITH Mike Rodriguez on thermal-electrical integration\n- Mike Rodriguez WORKED WITH Lisa Park on mechanical cooling requirements\n- Scott Johnson COORDINATED WITH entire team on architecture decisions\n\nFeatures Developed:\n1.",
+              "Risk Assessment:\n- Thermal runaway scenarios in high-power modes\n- Component derating at temperature extremes\n- Manufacturing tolerances affecting thermal paths\n\nThe relationship between our thermal design and the electrical power management is fundamental to system reliability.",
+              "Adopt Four-Brain Architecture with Local LLM\n   - DECISION MAKER: Scott Johnson\n   - CONTEXT: Need zero-cost AI operations with complete privacy\n   - INFLUENCED BY: Budget constraints and data security requirements\n   - ERA: Q4 2024 Architecture Phase\n\n2. DECISION:"
+            ]
+          ],
+          "uris": null,
+          "data": null,
+          "included": [
+            "metadatas",
+            "documents",
+            "distances"
+          ]
+        }
+      },
+      "nancy_result": {
+        "success": true,
+        "response_time": 0.376251220703125,
+        "strategy": "hybrid",
+        "intent": {
+          "type": "relationship_primary",
+          "primary_brain": "relational",
+          "needs_vector": true,
+          "needs_analytical": true,
+          "needs_relational": true,
+          "focus": "people",
+          "temporal": null,
+          "entities": [
+            "Did"
+          ]
+        },
+        "num_results": 5,
+        "quality_assessment": "No results found - query may be too complex or data insufficient",
+        "raw_results": {
+          "strategy_used": "hybrid",
+          "intent": {
+            "type": "relationship_primary",
+            "primary_brain": "relational",
+            "needs_vector": true,
+            "needs_analytical": true,
+            "needs_relational": true,
+            "focus": "people",
+            "temporal": null,
+            "entities": [
+              "Did"
+            ]
+          },
+          "results": [
+            {
+              "chunk_id": "8e6871a96e778e6de5557982e8f1e7fd3698f1748f42540618bc91b6f9b8b9ad_chunk_0",
+              "document_metadata": {
+                "id": "8e6871a96e778e6de5557982e8f1e7fd3698f1748f42540618bc91b6f9b8b9ad",
+                "filename": "test_doc.txt",
+                "size": 166,
+                "file_type": ".txt",
+                "ingested_at": "2025-08-04T01:22:04.792710"
+              },
+              "author": "Test Engineer",
+              "distance": 0.59192723,
+              "text": "Test document for local LLM processing. This document discusses thermal design coordination between Sarah Chen and Mike Rodriguez for electrical systems integration."
+            },
+            {
+              "chunk_id": "5007785582a5b0025f3e67a256245f2f38bcb5995dce53699c8d5e6827864a64_chunk_0",
+              "document_metadata": {
+                "id": "5007785582a5b0025f3e67a256245f2f38bcb5995dce53699c8d5e6827864a64",
+                "filename": "project_story_demo.txt",
+                "size": 2256,
+                "file_type": ".txt",
+                "ingested_at": "2025-08-04T02:22:05.673827"
+              },
+              "author": "Scott Johnson",
+              "distance": 0.63487875,
+              "text": "Project Meeting Notes - Q4 2024 Nancy Architecture Review\n\nMeeting Attendees:\n- Scott Johnson (Project Lead)\n- Sarah Chen (Thermal Engineer) \n- Mike Rodriguez (Electrical Engineer)\n- Lisa Park (Mechanical Engineer)\n\nKey Decisions Made:\n1. DECISION:"
+            },
+            {
+              "chunk_id": "5007785582a5b0025f3e67a256245f2f38bcb5995dce53699c8d5e6827864a64_chunk_2",
+              "document_metadata": {
+                "id": "5007785582a5b0025f3e67a256245f2f38bcb5995dce53699c8d5e6827864a64",
+                "filename": "project_story_demo.txt",
+                "size": 2256,
+                "file_type": ".txt",
+                "ingested_at": "2025-08-04T02:22:05.673827"
+              },
+              "author": "Scott Johnson",
+              "distance": 0.7526727,
+              "text": "Use Gemma 2B for Local Processing\n   - DECISION MAKER: Scott Johnson  \n   - CONTEXT: Memory constraints on 16GB development machine\n   - INFLUENCED BY: Docker memory limitations and performance testing\n   - ERA: Q4 2024 Implementation Phase\n\nCross-Team Collaboration:\n- Sarah Chen COLLABORATED WITH Mike Rodriguez on thermal-electrical integration\n- Mike Rodriguez WORKED WITH Lisa Park on mechanical cooling requirements\n- Scott Johnson COORDINATED WITH entire team on architecture decisions\n\nFeatures Developed:\n1."
+            },
+            {
+              "chunk_id": "5a7c68faee998c17477609bea59b502ebf6593769a1dc0bfeeadcec5fc771d31_chunk_3",
+              "document_metadata": {
+                "id": "5a7c68faee998c17477609bea59b502ebf6593769a1dc0bfeeadcec5fc771d31",
+                "filename": "thermal_analysis.txt",
+                "size": 1084,
+                "file_type": ".txt",
+                "ingested_at": "2025-08-04T01:23:40.180168"
+              },
+              "author": "Sarah Chen",
+              "distance": 0.7582647,
+              "text": "Risk Assessment:\n- Thermal runaway scenarios in high-power modes\n- Component derating at temperature extremes\n- Manufacturing tolerances affecting thermal paths\n\nThe relationship between our thermal design and the electrical power management is fundamental to system reliability."
+            },
+            {
+              "chunk_id": "5a7c68faee998c17477609bea59b502ebf6593769a1dc0bfeeadcec5fc771d31_chunk_2",
+              "document_metadata": {
+                "id": "5a7c68faee998c17477609bea59b502ebf6593769a1dc0bfeeadcec5fc771d31",
+                "filename": "thermal_analysis.txt",
+                "size": 1084,
+                "file_type": ".txt",
+                "ingested_at": "2025-08-04T01:23:40.180168"
+              },
+              "author": "Sarah Chen",
+              "distance": 0.81213546,
+              "text": "The main power rail efficiency drops significantly above 70C junction temperature.\n\n Mike Rodriguez from the electrical team has proposed a novel switching regulator configuration that could reduce heat generation by 15%."
+            }
+          ]
+        }
+      },
+      "comparison": {
+        "winner": "mixed",
+        "reason": "Both provided results, trade-offs in speed vs. analysis depth",
+        "nancy_advantage_realized": "unclear"
+      }
+    },
+    {
+      "query_info": {
+        "id": "cross_doc_002",
+        "category": "decision_influence_tracking",
+        "complexity": 5,
+        "query": "How did the thermal analysis report author feel about project risks early on?",
+        "why_complex": "Requires identifying author, finding their early statements, and sentiment analysis",
+        "expected_nancy_advantage": "LLM can analyze sentiment, graph can track person over time",
+        "baseline_limitation": "No capability to track individual perspectives over time"
+      },
+      "chromadb_result": {
+        "success": true,
+        "response_time": 0.3838083744049072,
+        "num_results": 5,
+        "best_distance": 1.6622515,
+        "quality_assessment": "Likely insufficient - requires cross-document relationship analysis",
+        "raw_results": {
+          "ids": [
+            [
+              "5007785582a5b0025f3e67a256245f2f38bcb5995dce53699c8d5e6827864a64_chunk_0",
+              "5a7c68faee998c17477609bea59b502ebf6593769a1dc0bfeeadcec5fc771d31_chunk_3",
+              "8e6871a96e778e6de5557982e8f1e7fd3698f1748f42540618bc91b6f9b8b9ad_chunk_0",
+              "5a7c68faee998c17477609bea59b502ebf6593769a1dc0bfeeadcec5fc771d31_chunk_2",
+              "5a7c68faee998c17477609bea59b502ebf6593769a1dc0bfeeadcec5fc771d31_chunk_1"
+            ]
+          ],
+          "distances": [
+            [
+              1.6622515,
+              1.6741701,
+              1.6904113,
+              1.7442377,
+              1.7796967
+            ]
+          ],
+          "embeddings": null,
+          "metadatas": [
+            [
+              {
+                "source": "5007785582a5b0025f3e67a256245f2f38bcb5995dce53699c8d5e6827864a64"
+              },
+              {
+                "source": "5a7c68faee998c17477609bea59b502ebf6593769a1dc0bfeeadcec5fc771d31"
+              },
+              {
+                "source": "8e6871a96e778e6de5557982e8f1e7fd3698f1748f42540618bc91b6f9b8b9ad"
+              },
+              {
+                "source": "5a7c68faee998c17477609bea59b502ebf6593769a1dc0bfeeadcec5fc771d31"
+              },
+              {
+                "source": "5a7c68faee998c17477609bea59b502ebf6593769a1dc0bfeeadcec5fc771d31"
+              }
+            ]
+          ],
+          "documents": [
+            [
+              "Project Meeting Notes - Q4 2024 Nancy Architecture Review\n\nMeeting Attendees:\n- Scott Johnson (Project Lead)\n- Sarah Chen (Thermal Engineer) \n- Mike Rodriguez (Electrical Engineer)\n- Lisa Park (Mechanical Engineer)\n\nKey Decisions Made:\n1. DECISION:",
+              "Risk Assessment:\n- Thermal runaway scenarios in high-power modes\n- Component derating at temperature extremes\n- Manufacturing tolerances affecting thermal paths\n\nThe relationship between our thermal design and the electrical power management is fundamental to system reliability.",
+              "Test document for local LLM processing. This document discusses thermal design coordination between Sarah Chen and Mike Rodriguez for electrical systems integration.",
+              "The main power rail efficiency drops significantly above 70C junction temperature.\n\n Mike Rodriguez from the electrical team has proposed a novel switching regulator configuration that could reduce heat generation by 15%.",
+              "Key Design Considerations:\n- Power density exceeds 150W per cubic inch in critical areas\n- Operating temperature range: -40C to +85C ambient\n- Integration with electrical power distribution system is critical\n\nThe electrical design team has identified several constraints that directly impact our thermal strategy."
+            ]
+          ],
+          "uris": null,
+          "data": null,
+          "included": [
+            "metadatas",
+            "documents",
+            "distances"
+          ]
+        }
+      },
+      "nancy_result": {
+        "success": true,
+        "response_time": 0.12041974067687988,
+        "strategy": "hybrid",
+        "intent": {
+          "type": "relationship_primary",
+          "primary_brain": "relational",
+          "needs_vector": true,
+          "needs_analytical": true,
+          "needs_relational": true,
+          "focus": "people",
+          "temporal": null,
+          "entities": [
+            "How"
+          ]
+        },
+        "num_results": 5,
+        "quality_assessment": "No results found - query may be too complex or data insufficient",
+        "raw_results": {
+          "strategy_used": "hybrid",
+          "intent": {
+            "type": "relationship_primary",
+            "primary_brain": "relational",
+            "needs_vector": true,
+            "needs_analytical": true,
+            "needs_relational": true,
+            "focus": "people",
+            "temporal": null,
+            "entities": [
+              "How"
+            ]
+          },
+          "results": [
+            {
+              "chunk_id": "5a7c68faee998c17477609bea59b502ebf6593769a1dc0bfeeadcec5fc771d31_chunk_3",
+              "document_metadata": {
+                "id": "5a7c68faee998c17477609bea59b502ebf6593769a1dc0bfeeadcec5fc771d31",
+                "filename": "thermal_analysis.txt",
+                "size": 1084,
+                "file_type": ".txt",
+                "ingested_at": "2025-08-04T01:23:40.180168"
+              },
+              "author": "Sarah Chen",
+              "distance": 0.59821784,
+              "text": "Risk Assessment:\n- Thermal runaway scenarios in high-power modes\n- Component derating at temperature extremes\n- Manufacturing tolerances affecting thermal paths\n\nThe relationship between our thermal design and the electrical power management is fundamental to system reliability."
+            },
+            {
+              "chunk_id": "8e6871a96e778e6de5557982e8f1e7fd3698f1748f42540618bc91b6f9b8b9ad_chunk_0",
+              "document_metadata": {
+                "id": "8e6871a96e778e6de5557982e8f1e7fd3698f1748f42540618bc91b6f9b8b9ad",
+                "filename": "test_doc.txt",
+                "size": 166,
+                "file_type": ".txt",
+                "ingested_at": "2025-08-04T01:22:04.792710"
+              },
+              "author": "Test Engineer",
+              "distance": 0.6222433,
+              "text": "Test document for local LLM processing. This document discusses thermal design coordination between Sarah Chen and Mike Rodriguez for electrical systems integration."
+            },
+            {
+              "chunk_id": "5007785582a5b0025f3e67a256245f2f38bcb5995dce53699c8d5e6827864a64_chunk_0",
+              "document_metadata": {
+                "id": "5007785582a5b0025f3e67a256245f2f38bcb5995dce53699c8d5e6827864a64",
+                "filename": "project_story_demo.txt",
+                "size": 2256,
+                "file_type": ".txt",
+                "ingested_at": "2025-08-04T02:22:05.673827"
+              },
+              "author": "Scott Johnson",
+              "distance": 0.66373205,
+              "text": "Project Meeting Notes - Q4 2024 Nancy Architecture Review\n\nMeeting Attendees:\n- Scott Johnson (Project Lead)\n- Sarah Chen (Thermal Engineer) \n- Mike Rodriguez (Electrical Engineer)\n- Lisa Park (Mechanical Engineer)\n\nKey Decisions Made:\n1. DECISION:"
+            },
+            {
+              "chunk_id": "5007785582a5b0025f3e67a256245f2f38bcb5995dce53699c8d5e6827864a64_chunk_2",
+              "document_metadata": {
+                "id": "5007785582a5b0025f3e67a256245f2f38bcb5995dce53699c8d5e6827864a64",
+                "filename": "project_story_demo.txt",
+                "size": 2256,
+                "file_type": ".txt",
+                "ingested_at": "2025-08-04T02:22:05.673827"
+              },
+              "author": "Scott Johnson",
+              "distance": 0.692113,
+              "text": "Use Gemma 2B for Local Processing\n   - DECISION MAKER: Scott Johnson  \n   - CONTEXT: Memory constraints on 16GB development machine\n   - INFLUENCED BY: Docker memory limitations and performance testing\n   - ERA: Q4 2024 Implementation Phase\n\nCross-Team Collaboration:\n- Sarah Chen COLLABORATED WITH Mike Rodriguez on thermal-electrical integration\n- Mike Rodriguez WORKED WITH Lisa Park on mechanical cooling requirements\n- Scott Johnson COORDINATED WITH entire team on architecture decisions\n\nFeatures Developed:\n1."
+            },
+            {
+              "chunk_id": "5007785582a5b0025f3e67a256245f2f38bcb5995dce53699c8d5e6827864a64_chunk_4",
+              "document_metadata": {
+                "id": "5007785582a5b0025f3e67a256245f2f38bcb5995dce53699c8d5e6827864a64",
+                "filename": "project_story_demo.txt",
+                "size": 2256,
+                "file_type": ".txt",
+                "ingested_at": "2025-08-04T02:22:05.673827"
+              },
+              "author": "Scott Johnson",
+              "distance": 0.72554636,
+              "text": "FEATURE: Project Story Capture System\n   - OWNER: Scott Johnson\n   - INFLUENCED BY: Need for decision archaeology and project context\n   - COLLABORATES WITH: Enhanced LLM prompts\n\nTechnical Constraints:\n- Memory usage CONSTRAINS model selection (Gemma 2B vs larger models)\n- Docker container limits AFFECT Ollama configuration\n- Privacy requirements INFLUENCE local-only processing design\n\nProject Phases:\n- PHASE: \"Q4 2024 Architecture Phase\" - Initial four-brain design\n- PHASE: \"Q4 2024 Implementation Phase\" - Local LLM integration and testing\n- PHASE: \"Q4 2024 Demonstration Phase\" - System validation and demo preparation\n\nMeeting Outcomes:\n- This meeting RESULTED IN \"Adopt Four-Brain Architecture\" decision\n- Architecture review RESULTED IN \"Use Gemma 2B\" decision\n- Team alignment achieved on privacy-first approach\n\nDocument References:\n- This document REFERENCES \"Nancy System Requirements\"\n- Architecture decisions INFLUENCED BY \"Budget Analysis Q4 2024\"\n- Implementation plan DEPENDS ON \"Technical Feasibility Study\""
+            }
+          ]
+        }
+      },
+      "comparison": {
+        "winner": "mixed",
+        "reason": "Both provided results, trade-offs in speed vs. analysis depth",
+        "nancy_advantage_realized": "unclear"
+      }
+    },
+    {
+      "query_info": {
+        "id": "cross_doc_003",
+        "category": "decision_timeline",
+        "complexity": 4,
+        "query": "When was it decided that we needed a thermal analysis?",
+        "why_complex": "Requires finding the decision point, not just the analysis document",
+        "expected_nancy_advantage": "Graph brain tracks decision chronology and causation",
+        "baseline_limitation": "Can find the analysis but not when the need was identified"
+      },
+      "chromadb_result": {
+        "success": true,
+        "response_time": 0.3992323875427246,
+        "num_results": 5,
+        "best_distance": 1.7794797,
+        "quality_assessment": "Likely insufficient - requires causal understanding",
+        "raw_results": {
+          "ids": [
+            [
+              "5a7c68faee998c17477609bea59b502ebf6593769a1dc0bfeeadcec5fc771d31_chunk_0",
+              "8e6871a96e778e6de5557982e8f1e7fd3698f1748f42540618bc91b6f9b8b9ad_chunk_0",
+              "5a7c68faee998c17477609bea59b502ebf6593769a1dc0bfeeadcec5fc771d31_chunk_3",
+              "5007785582a5b0025f3e67a256245f2f38bcb5995dce53699c8d5e6827864a64_chunk_0",
+              "5007785582a5b0025f3e67a256245f2f38bcb5995dce53699c8d5e6827864a64_chunk_2"
+            ]
+          ],
+          "distances": [
+            [
+              1.7794797,
+              1.8250092,
+              1.8303022,
+              1.8319633,
+              1.8534249
+            ]
+          ],
+          "embeddings": null,
+          "metadatas": [
+            [
+              {
+                "source": "5a7c68faee998c17477609bea59b502ebf6593769a1dc0bfeeadcec5fc771d31"
+              },
+              {
+                "source": "8e6871a96e778e6de5557982e8f1e7fd3698f1748f42540618bc91b6f9b8b9ad"
+              },
+              {
+                "source": "5a7c68faee998c17477609bea59b502ebf6593769a1dc0bfeeadcec5fc771d31"
+              },
+              {
+                "source": "5007785582a5b0025f3e67a256245f2f38bcb5995dce53699c8d5e6827864a64"
+              },
+              {
+                "source": "5007785582a5b0025f3e67a256245f2f38bcb5995dce53699c8d5e6827864a64"
+              }
+            ]
+          ],
+          "documents": [
+            [
+              "Advanced Thermal Management System Design\n\nThis document outlines the thermal management approach for our next-generation electronic system. The primary challenge involves managing heat dissipation across multiple power domains while maintaining optimal performance.",
+              "Test document for local LLM processing. This document discusses thermal design coordination between Sarah Chen and Mike Rodriguez for electrical systems integration.",
+              "Risk Assessment:\n- Thermal runaway scenarios in high-power modes\n- Component derating at temperature extremes\n- Manufacturing tolerances affecting thermal paths\n\nThe relationship between our thermal design and the electrical power management is fundamental to system reliability.",
+              "Project Meeting Notes - Q4 2024 Nancy Architecture Review\n\nMeeting Attendees:\n- Scott Johnson (Project Lead)\n- Sarah Chen (Thermal Engineer) \n- Mike Rodriguez (Electrical Engineer)\n- Lisa Park (Mechanical Engineer)\n\nKey Decisions Made:\n1. DECISION:",
+              "Use Gemma 2B for Local Processing\n   - DECISION MAKER: Scott Johnson  \n   - CONTEXT: Memory constraints on 16GB development machine\n   - INFLUENCED BY: Docker memory limitations and performance testing\n   - ERA: Q4 2024 Implementation Phase\n\nCross-Team Collaboration:\n- Sarah Chen COLLABORATED WITH Mike Rodriguez on thermal-electrical integration\n- Mike Rodriguez WORKED WITH Lisa Park on mechanical cooling requirements\n- Scott Johnson COORDINATED WITH entire team on architecture decisions\n\nFeatures Developed:\n1."
+            ]
+          ],
+          "uris": null,
+          "data": null,
+          "included": [
+            "metadatas",
+            "documents",
+            "distances"
+          ]
+        }
+      },
+      "nancy_result": {
+        "success": true,
+        "response_time": 0.09524393081665039,
+        "strategy": "hybrid",
+        "intent": {
+          "type": "hybrid",
+          "primary_brain": "vector",
+          "needs_vector": true,
+          "needs_analytical": true,
+          "needs_relational": true,
+          "focus": "content",
+          "temporal": null,
+          "entities": [
+            "When"
+          ]
+        },
+        "num_results": 5,
+        "quality_assessment": "No results found - query may be too complex or data insufficient",
+        "raw_results": {
+          "strategy_used": "hybrid",
+          "intent": {
+            "type": "hybrid",
+            "primary_brain": "vector",
+            "needs_vector": true,
+            "needs_analytical": true,
+            "needs_relational": true,
+            "focus": "content",
+            "temporal": null,
+            "entities": [
+              "When"
+            ]
+          },
+          "results": [
+            {
+              "chunk_id": "8e6871a96e778e6de5557982e8f1e7fd3698f1748f42540618bc91b6f9b8b9ad_chunk_0",
+              "document_metadata": {
+                "id": "8e6871a96e778e6de5557982e8f1e7fd3698f1748f42540618bc91b6f9b8b9ad",
+                "filename": "test_doc.txt",
+                "size": 166,
+                "file_type": ".txt",
+                "ingested_at": "2025-08-04T01:22:04.792710"
+              },
+              "author": "Test Engineer",
+              "distance": 0.68368065,
+              "text": "Test document for local LLM processing. This document discusses thermal design coordination between Sarah Chen and Mike Rodriguez for electrical systems integration."
+            },
+            {
+              "chunk_id": "5a7c68faee998c17477609bea59b502ebf6593769a1dc0bfeeadcec5fc771d31_chunk_3",
+              "document_metadata": {
+                "id": "5a7c68faee998c17477609bea59b502ebf6593769a1dc0bfeeadcec5fc771d31",
+                "filename": "thermal_analysis.txt",
+                "size": 1084,
+                "file_type": ".txt",
+                "ingested_at": "2025-08-04T01:23:40.180168"
+              },
+              "author": "Sarah Chen",
+              "distance": 0.734585,
+              "text": "Risk Assessment:\n- Thermal runaway scenarios in high-power modes\n- Component derating at temperature extremes\n- Manufacturing tolerances affecting thermal paths\n\nThe relationship between our thermal design and the electrical power management is fundamental to system reliability."
+            },
+            {
+              "chunk_id": "5a7c68faee998c17477609bea59b502ebf6593769a1dc0bfeeadcec5fc771d31_chunk_0",
+              "document_metadata": {
+                "id": "5a7c68faee998c17477609bea59b502ebf6593769a1dc0bfeeadcec5fc771d31",
+                "filename": "thermal_analysis.txt",
+                "size": 1084,
+                "file_type": ".txt",
+                "ingested_at": "2025-08-04T01:23:40.180168"
+              },
+              "author": "Sarah Chen",
+              "distance": 0.77749497,
+              "text": "Advanced Thermal Management System Design\n\nThis document outlines the thermal management approach for our next-generation electronic system. The primary challenge involves managing heat dissipation across multiple power domains while maintaining optimal performance."
+            },
+            {
+              "chunk_id": "5007785582a5b0025f3e67a256245f2f38bcb5995dce53699c8d5e6827864a64_chunk_2",
+              "document_metadata": {
+                "id": "5007785582a5b0025f3e67a256245f2f38bcb5995dce53699c8d5e6827864a64",
+                "filename": "project_story_demo.txt",
+                "size": 2256,
+                "file_type": ".txt",
+                "ingested_at": "2025-08-04T02:22:05.673827"
+              },
+              "author": "Scott Johnson",
+              "distance": 0.7972696,
+              "text": "Use Gemma 2B for Local Processing\n   - DECISION MAKER: Scott Johnson  \n   - CONTEXT: Memory constraints on 16GB development machine\n   - INFLUENCED BY: Docker memory limitations and performance testing\n   - ERA: Q4 2024 Implementation Phase\n\nCross-Team Collaboration:\n- Sarah Chen COLLABORATED WITH Mike Rodriguez on thermal-electrical integration\n- Mike Rodriguez WORKED WITH Lisa Park on mechanical cooling requirements\n- Scott Johnson COORDINATED WITH entire team on architecture decisions\n\nFeatures Developed:\n1."
+            },
+            {
+              "chunk_id": "5a7c68faee998c17477609bea59b502ebf6593769a1dc0bfeeadcec5fc771d31_chunk_1",
+              "document_metadata": {
+                "id": "5a7c68faee998c17477609bea59b502ebf6593769a1dc0bfeeadcec5fc771d31",
+                "filename": "thermal_analysis.txt",
+                "size": 1084,
+                "file_type": ".txt",
+                "ingested_at": "2025-08-04T01:23:40.180168"
+              },
+              "author": "Sarah Chen",
+              "distance": 0.8104508,
+              "text": "Key Design Considerations:\n- Power density exceeds 150W per cubic inch in critical areas\n- Operating temperature range: -40C to +85C ambient\n- Integration with electrical power distribution system is critical\n\nThe electrical design team has identified several constraints that directly impact our thermal strategy."
+            }
+          ]
+        }
+      },
+      "comparison": {
+        "winner": "mixed",
+        "reason": "Both provided results, trade-offs in speed vs. analysis depth",
+        "nancy_advantage_realized": "unclear"
+      }
+    },
+    {
+      "query_info": {
+        "id": "collab_001",
+        "category": "collaboration_network",
+        "complexity": 5,
+        "query": "Who influences Mike Rodriguez's technical decisions the most?",
+        "why_complex": "Requires analyzing influence patterns across multiple decisions and documents",
+        "expected_nancy_advantage": "Graph brain maps influence networks and decision patterns",
+        "baseline_limitation": "No understanding of influence relationships"
+      },
+      "chromadb_result": {
+        "success": true,
+        "response_time": 0.3777506351470947,
+        "num_results": 5,
+        "best_distance": 1.6168412,
+        "quality_assessment": "Likely insufficient - requires cross-document relationship analysis",
+        "raw_results": {
+          "ids": [
+            [
+              "5a7c68faee998c17477609bea59b502ebf6593769a1dc0bfeeadcec5fc771d31_chunk_2",
+              "5007785582a5b0025f3e67a256245f2f38bcb5995dce53699c8d5e6827864a64_chunk_3",
+              "5a7c68faee998c17477609bea59b502ebf6593769a1dc0bfeeadcec5fc771d31_chunk_3",
+              "5007785582a5b0025f3e67a256245f2f38bcb5995dce53699c8d5e6827864a64_chunk_2",
+              "8e6871a96e778e6de5557982e8f1e7fd3698f1748f42540618bc91b6f9b8b9ad_chunk_0"
+            ]
+          ],
+          "distances": [
+            [
+              1.6168412,
+              1.6597378,
+              1.7302222,
+              1.7351102,
+              1.7377005
+            ]
+          ],
+          "embeddings": null,
+          "metadatas": [
+            [
+              {
+                "source": "5a7c68faee998c17477609bea59b502ebf6593769a1dc0bfeeadcec5fc771d31"
+              },
+              {
+                "source": "5007785582a5b0025f3e67a256245f2f38bcb5995dce53699c8d5e6827864a64"
+              },
+              {
+                "source": "5a7c68faee998c17477609bea59b502ebf6593769a1dc0bfeeadcec5fc771d31"
+              },
+              {
+                "source": "5007785582a5b0025f3e67a256245f2f38bcb5995dce53699c8d5e6827864a64"
+              },
+              {
+                "source": "8e6871a96e778e6de5557982e8f1e7fd3698f1748f42540618bc91b6f9b8b9ad"
+              }
+            ]
+          ],
+          "documents": [
+            [
+              "The main power rail efficiency drops significantly above 70C junction temperature.\n\n Mike Rodriguez from the electrical team has proposed a novel switching regulator configuration that could reduce heat generation by 15%.",
+              "FEATURE: GraphBrain Enhanced Relationship Extraction\n   - OWNER: Scott Johnson\n   - INFLUENCED BY: \"Adopt Four-Brain Architecture\" decision\n   - DEPENDS ON: Local LLM processing capabilities\n\n2.",
+              "Risk Assessment:\n- Thermal runaway scenarios in high-power modes\n- Component derating at temperature extremes\n- Manufacturing tolerances affecting thermal paths\n\nThe relationship between our thermal design and the electrical power management is fundamental to system reliability.",
+              "Use Gemma 2B for Local Processing\n   - DECISION MAKER: Scott Johnson  \n   - CONTEXT: Memory constraints on 16GB development machine\n   - INFLUENCED BY: Docker memory limitations and performance testing\n   - ERA: Q4 2024 Implementation Phase\n\nCross-Team Collaboration:\n- Sarah Chen COLLABORATED WITH Mike Rodriguez on thermal-electrical integration\n- Mike Rodriguez WORKED WITH Lisa Park on mechanical cooling requirements\n- Scott Johnson COORDINATED WITH entire team on architecture decisions\n\nFeatures Developed:\n1.",
+              "Test document for local LLM processing. This document discusses thermal design coordination between Sarah Chen and Mike Rodriguez for electrical systems integration."
+            ]
+          ],
+          "uris": null,
+          "data": null,
+          "included": [
+            "metadatas",
+            "documents",
+            "distances"
+          ]
+        }
+      },
+      "nancy_result": {
+        "success": true,
+        "response_time": 0.060611724853515625,
+        "strategy": "analytical_first",
+        "intent": {
+          "type": "analytical_primary",
+          "primary_brain": "analytical",
+          "needs_vector": true,
+          "needs_analytical": true,
+          "needs_relational": true,
+          "focus": "metadata",
+          "temporal": null,
+          "entities": [
+            "Who",
+            "Mike Rodriguez"
+          ]
+        },
+        "num_results": 0,
+        "quality_assessment": "No results found - query may be too complex or data insufficient",
+        "raw_results": {
+          "strategy_used": "analytical_first",
+          "intent": {
+            "type": "analytical_primary",
+            "primary_brain": "analytical",
+            "needs_vector": true,
+            "needs_analytical": true,
+            "needs_relational": true,
+            "focus": "metadata",
+            "temporal": null,
+            "entities": [
+              "Who",
+              "Mike Rodriguez"
+            ]
+          },
+          "results": []
+        }
+      },
+      "comparison": {
+        "winner": "mixed",
+        "reason": "Both provided results, trade-offs in speed vs. analysis depth",
+        "nancy_advantage_realized": "unclear"
+      }
+    },
+    {
+      "query_info": {
+        "id": "collab_002",
+        "category": "expertise_evolution",
+        "complexity": 4,
+        "query": "Has Sarah Chen's expertise focus changed over the course of the project?",
+        "why_complex": "Requires tracking expertise domains over time from document contributions",
+        "expected_nancy_advantage": "Can track expertise evolution through document analysis over time",
+        "baseline_limitation": "No temporal understanding of expertise development"
+      },
+      "chromadb_result": {
+        "success": true,
+        "response_time": 0.37608838081359863,
+        "num_results": 5,
+        "best_distance": 1.680129,
+        "quality_assessment": "May provide relevant documents but lacks deeper analysis",
+        "raw_results": {
+          "ids": [
+            [
+              "5007785582a5b0025f3e67a256245f2f38bcb5995dce53699c8d5e6827864a64_chunk_0",
+              "5007785582a5b0025f3e67a256245f2f38bcb5995dce53699c8d5e6827864a64_chunk_4",
+              "5007785582a5b0025f3e67a256245f2f38bcb5995dce53699c8d5e6827864a64_chunk_1",
+              "5007785582a5b0025f3e67a256245f2f38bcb5995dce53699c8d5e6827864a64_chunk_3",
+              "5007785582a5b0025f3e67a256245f2f38bcb5995dce53699c8d5e6827864a64_chunk_2"
+            ]
+          ],
+          "distances": [
+            [
+              1.680129,
+              1.6986405,
+              1.7162769,
+              1.7258233,
+              1.74587
+            ]
+          ],
+          "embeddings": null,
+          "metadatas": [
+            [
+              {
+                "source": "5007785582a5b0025f3e67a256245f2f38bcb5995dce53699c8d5e6827864a64"
+              },
+              {
+                "source": "5007785582a5b0025f3e67a256245f2f38bcb5995dce53699c8d5e6827864a64"
+              },
+              {
+                "source": "5007785582a5b0025f3e67a256245f2f38bcb5995dce53699c8d5e6827864a64"
+              },
+              {
+                "source": "5007785582a5b0025f3e67a256245f2f38bcb5995dce53699c8d5e6827864a64"
+              },
+              {
+                "source": "5007785582a5b0025f3e67a256245f2f38bcb5995dce53699c8d5e6827864a64"
+              }
+            ]
+          ],
+          "documents": [
+            [
+              "Project Meeting Notes - Q4 2024 Nancy Architecture Review\n\nMeeting Attendees:\n- Scott Johnson (Project Lead)\n- Sarah Chen (Thermal Engineer) \n- Mike Rodriguez (Electrical Engineer)\n- Lisa Park (Mechanical Engineer)\n\nKey Decisions Made:\n1. DECISION:",
+              "FEATURE: Project Story Capture System\n   - OWNER: Scott Johnson\n   - INFLUENCED BY: Need for decision archaeology and project context\n   - COLLABORATES WITH: Enhanced LLM prompts\n\nTechnical Constraints:\n- Memory usage CONSTRAINS model selection (Gemma 2B vs larger models)\n- Docker container limits AFFECT Ollama configuration\n- Privacy requirements INFLUENCE local-only processing design\n\nProject Phases:\n- PHASE: \"Q4 2024 Architecture Phase\" - Initial four-brain design\n- PHASE: \"Q4 2024 Implementation Phase\" - Local LLM integration and testing\n- PHASE: \"Q4 2024 Demonstration Phase\" - System validation and demo preparation\n\nMeeting Outcomes:\n- This meeting RESULTED IN \"Adopt Four-Brain Architecture\" decision\n- Architecture review RESULTED IN \"Use Gemma 2B\" decision\n- Team alignment achieved on privacy-first approach\n\nDocument References:\n- This document REFERENCES \"Nancy System Requirements\"\n- Architecture decisions INFLUENCED BY \"Budget Analysis Q4 2024\"\n- Implementation plan DEPENDS ON \"Technical Feasibility Study\"",
+              "Adopt Four-Brain Architecture with Local LLM\n   - DECISION MAKER: Scott Johnson\n   - CONTEXT: Need zero-cost AI operations with complete privacy\n   - INFLUENCED BY: Budget constraints and data security requirements\n   - ERA: Q4 2024 Architecture Phase\n\n2. DECISION:",
+              "FEATURE: GraphBrain Enhanced Relationship Extraction\n   - OWNER: Scott Johnson\n   - INFLUENCED BY: \"Adopt Four-Brain Architecture\" decision\n   - DEPENDS ON: Local LLM processing capabilities\n\n2.",
+              "Use Gemma 2B for Local Processing\n   - DECISION MAKER: Scott Johnson  \n   - CONTEXT: Memory constraints on 16GB development machine\n   - INFLUENCED BY: Docker memory limitations and performance testing\n   - ERA: Q4 2024 Implementation Phase\n\nCross-Team Collaboration:\n- Sarah Chen COLLABORATED WITH Mike Rodriguez on thermal-electrical integration\n- Mike Rodriguez WORKED WITH Lisa Park on mechanical cooling requirements\n- Scott Johnson COORDINATED WITH entire team on architecture decisions\n\nFeatures Developed:\n1."
+            ]
+          ],
+          "uris": null,
+          "data": null,
+          "included": [
+            "metadatas",
+            "documents",
+            "distances"
+          ]
+        }
+      },
+      "nancy_result": {
+        "success": true,
+        "response_time": 0.11648941040039062,
+        "strategy": "hybrid",
+        "intent": {
+          "type": "hybrid",
+          "primary_brain": "vector",
+          "needs_vector": true,
+          "needs_analytical": true,
+          "needs_relational": true,
+          "focus": "content",
+          "temporal": null,
+          "entities": [
+            "Has Sarah Chen"
+          ]
+        },
+        "num_results": 5,
+        "quality_assessment": "No results found - query may be too complex or data insufficient",
+        "raw_results": {
+          "strategy_used": "hybrid",
+          "intent": {
+            "type": "hybrid",
+            "primary_brain": "vector",
+            "needs_vector": true,
+            "needs_analytical": true,
+            "needs_relational": true,
+            "focus": "content",
+            "temporal": null,
+            "entities": [
+              "Has Sarah Chen"
+            ]
+          },
+          "results": [
+            {
+              "chunk_id": "8e6871a96e778e6de5557982e8f1e7fd3698f1748f42540618bc91b6f9b8b9ad_chunk_0",
+              "document_metadata": {
+                "id": "8e6871a96e778e6de5557982e8f1e7fd3698f1748f42540618bc91b6f9b8b9ad",
+                "filename": "test_doc.txt",
+                "size": 166,
+                "file_type": ".txt",
+                "ingested_at": "2025-08-04T01:22:04.792710"
+              },
+              "author": "Test Engineer",
+              "distance": 0.7490071,
+              "text": "Test document for local LLM processing. This document discusses thermal design coordination between Sarah Chen and Mike Rodriguez for electrical systems integration."
+            },
+            {
+              "chunk_id": "5007785582a5b0025f3e67a256245f2f38bcb5995dce53699c8d5e6827864a64_chunk_4",
+              "document_metadata": {
+                "id": "5007785582a5b0025f3e67a256245f2f38bcb5995dce53699c8d5e6827864a64",
+                "filename": "project_story_demo.txt",
+                "size": 2256,
+                "file_type": ".txt",
+                "ingested_at": "2025-08-04T02:22:05.673827"
+              },
+              "author": "Scott Johnson",
+              "distance": 0.7646024,
+              "text": "FEATURE: Project Story Capture System\n   - OWNER: Scott Johnson\n   - INFLUENCED BY: Need for decision archaeology and project context\n   - COLLABORATES WITH: Enhanced LLM prompts\n\nTechnical Constraints:\n- Memory usage CONSTRAINS model selection (Gemma 2B vs larger models)\n- Docker container limits AFFECT Ollama configuration\n- Privacy requirements INFLUENCE local-only processing design\n\nProject Phases:\n- PHASE: \"Q4 2024 Architecture Phase\" - Initial four-brain design\n- PHASE: \"Q4 2024 Implementation Phase\" - Local LLM integration and testing\n- PHASE: \"Q4 2024 Demonstration Phase\" - System validation and demo preparation\n\nMeeting Outcomes:\n- This meeting RESULTED IN \"Adopt Four-Brain Architecture\" decision\n- Architecture review RESULTED IN \"Use Gemma 2B\" decision\n- Team alignment achieved on privacy-first approach\n\nDocument References:\n- This document REFERENCES \"Nancy System Requirements\"\n- Architecture decisions INFLUENCED BY \"Budget Analysis Q4 2024\"\n- Implementation plan DEPENDS ON \"Technical Feasibility Study\""
+            },
+            {
+              "chunk_id": "5007785582a5b0025f3e67a256245f2f38bcb5995dce53699c8d5e6827864a64_chunk_0",
+              "document_metadata": {
+                "id": "5007785582a5b0025f3e67a256245f2f38bcb5995dce53699c8d5e6827864a64",
+                "filename": "project_story_demo.txt",
+                "size": 2256,
+                "file_type": ".txt",
+                "ingested_at": "2025-08-04T02:22:05.673827"
+              },
+              "author": "Scott Johnson",
+              "distance": 0.7796136,
+              "text": "Project Meeting Notes - Q4 2024 Nancy Architecture Review\n\nMeeting Attendees:\n- Scott Johnson (Project Lead)\n- Sarah Chen (Thermal Engineer) \n- Mike Rodriguez (Electrical Engineer)\n- Lisa Park (Mechanical Engineer)\n\nKey Decisions Made:\n1. DECISION:"
+            },
+            {
+              "chunk_id": "5007785582a5b0025f3e67a256245f2f38bcb5995dce53699c8d5e6827864a64_chunk_2",
+              "document_metadata": {
+                "id": "5007785582a5b0025f3e67a256245f2f38bcb5995dce53699c8d5e6827864a64",
+                "filename": "project_story_demo.txt",
+                "size": 2256,
+                "file_type": ".txt",
+                "ingested_at": "2025-08-04T02:22:05.673827"
+              },
+              "author": "Scott Johnson",
+              "distance": 0.8678966,
+              "text": "Use Gemma 2B for Local Processing\n   - DECISION MAKER: Scott Johnson  \n   - CONTEXT: Memory constraints on 16GB development machine\n   - INFLUENCED BY: Docker memory limitations and performance testing\n   - ERA: Q4 2024 Implementation Phase\n\nCross-Team Collaboration:\n- Sarah Chen COLLABORATED WITH Mike Rodriguez on thermal-electrical integration\n- Mike Rodriguez WORKED WITH Lisa Park on mechanical cooling requirements\n- Scott Johnson COORDINATED WITH entire team on architecture decisions\n\nFeatures Developed:\n1."
+            },
+            {
+              "chunk_id": "5007785582a5b0025f3e67a256245f2f38bcb5995dce53699c8d5e6827864a64_chunk_3",
+              "document_metadata": {
+                "id": "5007785582a5b0025f3e67a256245f2f38bcb5995dce53699c8d5e6827864a64",
+                "filename": "project_story_demo.txt",
+                "size": 2256,
+                "file_type": ".txt",
+                "ingested_at": "2025-08-04T02:22:05.673827"
+              },
+              "author": "Scott Johnson",
+              "distance": 0.94509387,
+              "text": "FEATURE: GraphBrain Enhanced Relationship Extraction\n   - OWNER: Scott Johnson\n   - INFLUENCED BY: \"Adopt Four-Brain Architecture\" decision\n   - DEPENDS ON: Local LLM processing capabilities\n\n2."
+            }
+          ]
+        }
+      },
+      "comparison": {
+        "winner": "mixed",
+        "reason": "Both provided results, trade-offs in speed vs. analysis depth",
+        "nancy_advantage_realized": "unclear"
+      }
+    },
+    {
+      "query_info": {
+        "id": "collab_003",
+        "category": "team_dynamics",
+        "complexity": 4,
+        "query": "Which team members collaborate most frequently on thermal-electrical interface issues?",
+        "why_complex": "Requires understanding both collaboration patterns and technical domain intersection",
+        "expected_nancy_advantage": "Graph brain maps collaboration + domain expertise intersection",
+        "baseline_limitation": "Can find domain docs but not collaboration patterns"
+      },
+      "chromadb_result": {
+        "success": true,
+        "response_time": 0.3739290237426758,
+        "num_results": 5,
+        "best_distance": 1.5022435,
+        "quality_assessment": "May provide relevant documents but lacks deeper analysis",
+        "raw_results": {
+          "ids": [
+            [
+              "5a7c68faee998c17477609bea59b502ebf6593769a1dc0bfeeadcec5fc771d31_chunk_3",
+              "8e6871a96e778e6de5557982e8f1e7fd3698f1748f42540618bc91b6f9b8b9ad_chunk_0",
+              "5a7c68faee998c17477609bea59b502ebf6593769a1dc0bfeeadcec5fc771d31_chunk_2",
+              "5a7c68faee998c17477609bea59b502ebf6593769a1dc0bfeeadcec5fc771d31_chunk_0",
+              "5007785582a5b0025f3e67a256245f2f38bcb5995dce53699c8d5e6827864a64_chunk_0"
+            ]
+          ],
+          "distances": [
+            [
+              1.5022435,
+              1.575103,
+              1.6075841,
+              1.6254625,
+              1.6273005
+            ]
+          ],
+          "embeddings": null,
+          "metadatas": [
+            [
+              {
+                "source": "5a7c68faee998c17477609bea59b502ebf6593769a1dc0bfeeadcec5fc771d31"
+              },
+              {
+                "source": "8e6871a96e778e6de5557982e8f1e7fd3698f1748f42540618bc91b6f9b8b9ad"
+              },
+              {
+                "source": "5a7c68faee998c17477609bea59b502ebf6593769a1dc0bfeeadcec5fc771d31"
+              },
+              {
+                "source": "5a7c68faee998c17477609bea59b502ebf6593769a1dc0bfeeadcec5fc771d31"
+              },
+              {
+                "source": "5007785582a5b0025f3e67a256245f2f38bcb5995dce53699c8d5e6827864a64"
+              }
+            ]
+          ],
+          "documents": [
+            [
+              "Risk Assessment:\n- Thermal runaway scenarios in high-power modes\n- Component derating at temperature extremes\n- Manufacturing tolerances affecting thermal paths\n\nThe relationship between our thermal design and the electrical power management is fundamental to system reliability.",
+              "Test document for local LLM processing. This document discusses thermal design coordination between Sarah Chen and Mike Rodriguez for electrical systems integration.",
+              "The main power rail efficiency drops significantly above 70C junction temperature.\n\n Mike Rodriguez from the electrical team has proposed a novel switching regulator configuration that could reduce heat generation by 15%.",
+              "Advanced Thermal Management System Design\n\nThis document outlines the thermal management approach for our next-generation electronic system. The primary challenge involves managing heat dissipation across multiple power domains while maintaining optimal performance.",
+              "Project Meeting Notes - Q4 2024 Nancy Architecture Review\n\nMeeting Attendees:\n- Scott Johnson (Project Lead)\n- Sarah Chen (Thermal Engineer) \n- Mike Rodriguez (Electrical Engineer)\n- Lisa Park (Mechanical Engineer)\n\nKey Decisions Made:\n1. DECISION:"
+            ]
+          ],
+          "uris": null,
+          "data": null,
+          "included": [
+            "metadatas",
+            "documents",
+            "distances"
+          ]
+        }
+      },
+      "nancy_result": {
+        "success": true,
+        "response_time": 0.13615059852600098,
+        "strategy": "analytical_first",
+        "intent": {
+          "type": "analytical_primary",
+          "primary_brain": "analytical",
+          "needs_vector": true,
+          "needs_analytical": true,
+          "needs_relational": true,
+          "focus": "metadata",
+          "temporal": null,
+          "entities": [
+            "Which"
+          ]
+        },
+        "num_results": 5,
+        "quality_assessment": "No results found - query may be too complex or data insufficient",
+        "raw_results": {
+          "strategy_used": "analytical_first",
+          "intent": {
+            "type": "analytical_primary",
+            "primary_brain": "analytical",
+            "needs_vector": true,
+            "needs_analytical": true,
+            "needs_relational": true,
+            "focus": "metadata",
+            "temporal": null,
+            "entities": [
+              "Which"
+            ]
+          },
+          "results": [
+            {
+              "chunk_id": "8e6871a96e778e6de5557982e8f1e7fd3698f1748f42540618bc91b6f9b8b9ad_chunk_0",
+              "document_metadata": {
+                "id": "8e6871a96e778e6de5557982e8f1e7fd3698f1748f42540618bc91b6f9b8b9ad",
+                "filename": "test_doc.txt",
+                "size": 166,
+                "file_type": ".txt",
+                "ingested_at": "2025-08-04T01:22:04.792710"
+              },
+              "author": "Test Engineer",
+              "distance": 0.48438683,
+              "text": "Test document for local LLM processing. This document discusses thermal design coordination between Sarah Chen and Mike Rodriguez for electrical systems integration."
+            },
+            {
+              "chunk_id": "5a7c68faee998c17477609bea59b502ebf6593769a1dc0bfeeadcec5fc771d31_chunk_3",
+              "document_metadata": {
+                "id": "5a7c68faee998c17477609bea59b502ebf6593769a1dc0bfeeadcec5fc771d31",
+                "filename": "thermal_analysis.txt",
+                "size": 1084,
+                "file_type": ".txt",
+                "ingested_at": "2025-08-04T01:23:40.180168"
+              },
+              "author": "Sarah Chen",
+              "distance": 0.5719044,
+              "text": "Risk Assessment:\n- Thermal runaway scenarios in high-power modes\n- Component derating at temperature extremes\n- Manufacturing tolerances affecting thermal paths\n\nThe relationship between our thermal design and the electrical power management is fundamental to system reliability."
+            },
+            {
+              "chunk_id": "5a7c68faee998c17477609bea59b502ebf6593769a1dc0bfeeadcec5fc771d31_chunk_0",
+              "document_metadata": {
+                "id": "5a7c68faee998c17477609bea59b502ebf6593769a1dc0bfeeadcec5fc771d31",
+                "filename": "thermal_analysis.txt",
+                "size": 1084,
+                "file_type": ".txt",
+                "ingested_at": "2025-08-04T01:23:40.180168"
+              },
+              "author": "Sarah Chen",
+              "distance": 0.6534141,
+              "text": "Advanced Thermal Management System Design\n\nThis document outlines the thermal management approach for our next-generation electronic system. The primary challenge involves managing heat dissipation across multiple power domains while maintaining optimal performance."
+            },
+            {
+              "chunk_id": "5007785582a5b0025f3e67a256245f2f38bcb5995dce53699c8d5e6827864a64_chunk_0",
+              "document_metadata": {
+                "id": "5007785582a5b0025f3e67a256245f2f38bcb5995dce53699c8d5e6827864a64",
+                "filename": "project_story_demo.txt",
+                "size": 2256,
+                "file_type": ".txt",
+                "ingested_at": "2025-08-04T02:22:05.673827"
+              },
+              "author": "Scott Johnson",
+              "distance": 0.65566456,
+              "text": "Project Meeting Notes - Q4 2024 Nancy Architecture Review\n\nMeeting Attendees:\n- Scott Johnson (Project Lead)\n- Sarah Chen (Thermal Engineer) \n- Mike Rodriguez (Electrical Engineer)\n- Lisa Park (Mechanical Engineer)\n\nKey Decisions Made:\n1. DECISION:"
+            },
+            {
+              "chunk_id": "5007785582a5b0025f3e67a256245f2f38bcb5995dce53699c8d5e6827864a64_chunk_2",
+              "document_metadata": {
+                "id": "5007785582a5b0025f3e67a256245f2f38bcb5995dce53699c8d5e6827864a64",
+                "filename": "project_story_demo.txt",
+                "size": 2256,
+                "file_type": ".txt",
+                "ingested_at": "2025-08-04T02:22:05.673827"
+              },
+              "author": "Scott Johnson",
+              "distance": 0.6752415,
+              "text": "Use Gemma 2B for Local Processing\n   - DECISION MAKER: Scott Johnson  \n   - CONTEXT: Memory constraints on 16GB development machine\n   - INFLUENCED BY: Docker memory limitations and performance testing\n   - ERA: Q4 2024 Implementation Phase\n\nCross-Team Collaboration:\n- Sarah Chen COLLABORATED WITH Mike Rodriguez on thermal-electrical integration\n- Mike Rodriguez WORKED WITH Lisa Park on mechanical cooling requirements\n- Scott Johnson COORDINATED WITH entire team on architecture decisions\n\nFeatures Developed:\n1."
+            }
+          ]
+        }
+      },
+      "comparison": {
+        "winner": "mixed",
+        "reason": "Both provided results, trade-offs in speed vs. analysis depth",
+        "nancy_advantage_realized": "unclear"
+      }
+    },
+    {
+      "query_info": {
+        "id": "causal_001",
+        "category": "causal_reasoning",
+        "complexity": 5,
+        "query": "What decisions were triggered by thermal constraint discoveries?",
+        "why_complex": "Requires understanding causal chains: discovery -> constraint -> decision",
+        "expected_nancy_advantage": "Graph brain models causal relationships between events",
+        "baseline_limitation": "No understanding of causation, only correlation"
+      },
+      "chromadb_result": {
+        "success": true,
+        "response_time": 0.37204480171203613,
+        "num_results": 5,
+        "best_distance": 1.7428825,
+        "quality_assessment": "Likely insufficient - requires causal understanding",
+        "raw_results": {
+          "ids": [
+            [
+              "5007785582a5b0025f3e67a256245f2f38bcb5995dce53699c8d5e6827864a64_chunk_2",
+              "8e6871a96e778e6de5557982e8f1e7fd3698f1748f42540618bc91b6f9b8b9ad_chunk_0",
+              "5007785582a5b0025f3e67a256245f2f38bcb5995dce53699c8d5e6827864a64_chunk_0",
+              "5a7c68faee998c17477609bea59b502ebf6593769a1dc0bfeeadcec5fc771d31_chunk_3",
+              "5007785582a5b0025f3e67a256245f2f38bcb5995dce53699c8d5e6827864a64_chunk_1"
+            ]
+          ],
+          "distances": [
+            [
+              1.7428825,
+              1.7444494,
+              1.7511678,
+              1.7807566,
+              1.8105993
+            ]
+          ],
+          "embeddings": null,
+          "metadatas": [
+            [
+              {
+                "source": "5007785582a5b0025f3e67a256245f2f38bcb5995dce53699c8d5e6827864a64"
+              },
+              {
+                "source": "8e6871a96e778e6de5557982e8f1e7fd3698f1748f42540618bc91b6f9b8b9ad"
+              },
+              {
+                "source": "5007785582a5b0025f3e67a256245f2f38bcb5995dce53699c8d5e6827864a64"
+              },
+              {
+                "source": "5a7c68faee998c17477609bea59b502ebf6593769a1dc0bfeeadcec5fc771d31"
+              },
+              {
+                "source": "5007785582a5b0025f3e67a256245f2f38bcb5995dce53699c8d5e6827864a64"
+              }
+            ]
+          ],
+          "documents": [
+            [
+              "Use Gemma 2B for Local Processing\n   - DECISION MAKER: Scott Johnson  \n   - CONTEXT: Memory constraints on 16GB development machine\n   - INFLUENCED BY: Docker memory limitations and performance testing\n   - ERA: Q4 2024 Implementation Phase\n\nCross-Team Collaboration:\n- Sarah Chen COLLABORATED WITH Mike Rodriguez on thermal-electrical integration\n- Mike Rodriguez WORKED WITH Lisa Park on mechanical cooling requirements\n- Scott Johnson COORDINATED WITH entire team on architecture decisions\n\nFeatures Developed:\n1.",
+              "Test document for local LLM processing. This document discusses thermal design coordination between Sarah Chen and Mike Rodriguez for electrical systems integration.",
+              "Project Meeting Notes - Q4 2024 Nancy Architecture Review\n\nMeeting Attendees:\n- Scott Johnson (Project Lead)\n- Sarah Chen (Thermal Engineer) \n- Mike Rodriguez (Electrical Engineer)\n- Lisa Park (Mechanical Engineer)\n\nKey Decisions Made:\n1. DECISION:",
+              "Risk Assessment:\n- Thermal runaway scenarios in high-power modes\n- Component derating at temperature extremes\n- Manufacturing tolerances affecting thermal paths\n\nThe relationship between our thermal design and the electrical power management is fundamental to system reliability.",
+              "Adopt Four-Brain Architecture with Local LLM\n   - DECISION MAKER: Scott Johnson\n   - CONTEXT: Need zero-cost AI operations with complete privacy\n   - INFLUENCED BY: Budget constraints and data security requirements\n   - ERA: Q4 2024 Architecture Phase\n\n2. DECISION:"
+            ]
+          ],
+          "uris": null,
+          "data": null,
+          "included": [
+            "metadatas",
+            "documents",
+            "distances"
+          ]
+        }
+      },
+      "nancy_result": {
+        "success": true,
+        "response_time": 0.08123278617858887,
+        "strategy": "hybrid",
+        "intent": {
+          "type": "hybrid",
+          "primary_brain": "vector",
+          "needs_vector": true,
+          "needs_analytical": true,
+          "needs_relational": true,
+          "focus": "content",
+          "temporal": null,
+          "entities": [
+            "What"
+          ]
+        },
+        "num_results": 5,
+        "quality_assessment": "No results found - query may be too complex or data insufficient",
+        "raw_results": {
+          "strategy_used": "hybrid",
+          "intent": {
+            "type": "hybrid",
+            "primary_brain": "vector",
+            "needs_vector": true,
+            "needs_analytical": true,
+            "needs_relational": true,
+            "focus": "content",
+            "temporal": null,
+            "entities": [
+              "What"
+            ]
+          },
+          "results": [
+            {
+              "chunk_id": "5a7c68faee998c17477609bea59b502ebf6593769a1dc0bfeeadcec5fc771d31_chunk_3",
+              "document_metadata": {
+                "id": "5a7c68faee998c17477609bea59b502ebf6593769a1dc0bfeeadcec5fc771d31",
+                "filename": "thermal_analysis.txt",
+                "size": 1084,
+                "file_type": ".txt",
+                "ingested_at": "2025-08-04T01:23:40.180168"
+              },
+              "author": "Sarah Chen",
+              "distance": 0.5522795,
+              "text": "Risk Assessment:\n- Thermal runaway scenarios in high-power modes\n- Component derating at temperature extremes\n- Manufacturing tolerances affecting thermal paths\n\nThe relationship between our thermal design and the electrical power management is fundamental to system reliability."
+            },
+            {
+              "chunk_id": "5a7c68faee998c17477609bea59b502ebf6593769a1dc0bfeeadcec5fc771d31_chunk_0",
+              "document_metadata": {
+                "id": "5a7c68faee998c17477609bea59b502ebf6593769a1dc0bfeeadcec5fc771d31",
+                "filename": "thermal_analysis.txt",
+                "size": 1084,
+                "file_type": ".txt",
+                "ingested_at": "2025-08-04T01:23:40.180168"
+              },
+              "author": "Sarah Chen",
+              "distance": 0.6190161,
+              "text": "Advanced Thermal Management System Design\n\nThis document outlines the thermal management approach for our next-generation electronic system. The primary challenge involves managing heat dissipation across multiple power domains while maintaining optimal performance."
+            },
+            {
+              "chunk_id": "5007785582a5b0025f3e67a256245f2f38bcb5995dce53699c8d5e6827864a64_chunk_2",
+              "document_metadata": {
+                "id": "5007785582a5b0025f3e67a256245f2f38bcb5995dce53699c8d5e6827864a64",
+                "filename": "project_story_demo.txt",
+                "size": 2256,
+                "file_type": ".txt",
+                "ingested_at": "2025-08-04T02:22:05.673827"
+              },
+              "author": "Scott Johnson",
+              "distance": 0.63721544,
+              "text": "Use Gemma 2B for Local Processing\n   - DECISION MAKER: Scott Johnson  \n   - CONTEXT: Memory constraints on 16GB development machine\n   - INFLUENCED BY: Docker memory limitations and performance testing\n   - ERA: Q4 2024 Implementation Phase\n\nCross-Team Collaboration:\n- Sarah Chen COLLABORATED WITH Mike Rodriguez on thermal-electrical integration\n- Mike Rodriguez WORKED WITH Lisa Park on mechanical cooling requirements\n- Scott Johnson COORDINATED WITH entire team on architecture decisions\n\nFeatures Developed:\n1."
+            },
+            {
+              "chunk_id": "8e6871a96e778e6de5557982e8f1e7fd3698f1748f42540618bc91b6f9b8b9ad_chunk_0",
+              "document_metadata": {
+                "id": "8e6871a96e778e6de5557982e8f1e7fd3698f1748f42540618bc91b6f9b8b9ad",
+                "filename": "test_doc.txt",
+                "size": 166,
+                "file_type": ".txt",
+                "ingested_at": "2025-08-04T01:22:04.792710"
+              },
+              "author": "Test Engineer",
+              "distance": 0.653566,
+              "text": "Test document for local LLM processing. This document discusses thermal design coordination between Sarah Chen and Mike Rodriguez for electrical systems integration."
+            },
+            {
+              "chunk_id": "5007785582a5b0025f3e67a256245f2f38bcb5995dce53699c8d5e6827864a64_chunk_4",
+              "document_metadata": {
+                "id": "5007785582a5b0025f3e67a256245f2f38bcb5995dce53699c8d5e6827864a64",
+                "filename": "project_story_demo.txt",
+                "size": 2256,
+                "file_type": ".txt",
+                "ingested_at": "2025-08-04T02:22:05.673827"
+              },
+              "author": "Scott Johnson",
+              "distance": 0.66353524,
+              "text": "FEATURE: Project Story Capture System\n   - OWNER: Scott Johnson\n   - INFLUENCED BY: Need for decision archaeology and project context\n   - COLLABORATES WITH: Enhanced LLM prompts\n\nTechnical Constraints:\n- Memory usage CONSTRAINS model selection (Gemma 2B vs larger models)\n- Docker container limits AFFECT Ollama configuration\n- Privacy requirements INFLUENCE local-only processing design\n\nProject Phases:\n- PHASE: \"Q4 2024 Architecture Phase\" - Initial four-brain design\n- PHASE: \"Q4 2024 Implementation Phase\" - Local LLM integration and testing\n- PHASE: \"Q4 2024 Demonstration Phase\" - System validation and demo preparation\n\nMeeting Outcomes:\n- This meeting RESULTED IN \"Adopt Four-Brain Architecture\" decision\n- Architecture review RESULTED IN \"Use Gemma 2B\" decision\n- Team alignment achieved on privacy-first approach\n\nDocument References:\n- This document REFERENCES \"Nancy System Requirements\"\n- Architecture decisions INFLUENCED BY \"Budget Analysis Q4 2024\"\n- Implementation plan DEPENDS ON \"Technical Feasibility Study\""
+            }
+          ]
+        }
+      },
+      "comparison": {
+        "winner": "mixed",
+        "reason": "Both provided results, trade-offs in speed vs. analysis depth",
+        "nancy_advantage_realized": "unclear"
+      }
+    },
+    {
+      "query_info": {
+        "id": "causal_002",
+        "category": "impact_prediction",
+        "complexity": 5,
+        "query": "If we change the aluminum heat sink design, what other systems need to be reconsidered?",
+        "why_complex": "Requires understanding dependency chains and impact propagation",
+        "expected_nancy_advantage": "Graph brain maps technical dependencies and impacts",
+        "baseline_limitation": "No understanding of system dependencies"
+      },
+      "chromadb_result": {
+        "success": true,
+        "response_time": 0.4083876609802246,
+        "num_results": 5,
+        "best_distance": 1.6348467,
+        "quality_assessment": "Likely insufficient - requires causal understanding",
+        "raw_results": {
+          "ids": [
+            [
+              "5a7c68faee998c17477609bea59b502ebf6593769a1dc0bfeeadcec5fc771d31_chunk_0",
+              "8e6871a96e778e6de5557982e8f1e7fd3698f1748f42540618bc91b6f9b8b9ad_chunk_0",
+              "5a7c68faee998c17477609bea59b502ebf6593769a1dc0bfeeadcec5fc771d31_chunk_2",
+              "5a7c68faee998c17477609bea59b502ebf6593769a1dc0bfeeadcec5fc771d31_chunk_3",
+              "5a7c68faee998c17477609bea59b502ebf6593769a1dc0bfeeadcec5fc771d31_chunk_1"
+            ]
+          ],
+          "distances": [
+            [
+              1.6348467,
+              1.6385235,
+              1.6616093,
+              1.7004447,
+              1.7006757
+            ]
+          ],
+          "embeddings": null,
+          "metadatas": [
+            [
+              {
+                "source": "5a7c68faee998c17477609bea59b502ebf6593769a1dc0bfeeadcec5fc771d31"
+              },
+              {
+                "source": "8e6871a96e778e6de5557982e8f1e7fd3698f1748f42540618bc91b6f9b8b9ad"
+              },
+              {
+                "source": "5a7c68faee998c17477609bea59b502ebf6593769a1dc0bfeeadcec5fc771d31"
+              },
+              {
+                "source": "5a7c68faee998c17477609bea59b502ebf6593769a1dc0bfeeadcec5fc771d31"
+              },
+              {
+                "source": "5a7c68faee998c17477609bea59b502ebf6593769a1dc0bfeeadcec5fc771d31"
+              }
+            ]
+          ],
+          "documents": [
+            [
+              "Advanced Thermal Management System Design\n\nThis document outlines the thermal management approach for our next-generation electronic system. The primary challenge involves managing heat dissipation across multiple power domains while maintaining optimal performance.",
+              "Test document for local LLM processing. This document discusses thermal design coordination between Sarah Chen and Mike Rodriguez for electrical systems integration.",
+              "The main power rail efficiency drops significantly above 70C junction temperature.\n\n Mike Rodriguez from the electrical team has proposed a novel switching regulator configuration that could reduce heat generation by 15%.",
+              "Risk Assessment:\n- Thermal runaway scenarios in high-power modes\n- Component derating at temperature extremes\n- Manufacturing tolerances affecting thermal paths\n\nThe relationship between our thermal design and the electrical power management is fundamental to system reliability.",
+              "Key Design Considerations:\n- Power density exceeds 150W per cubic inch in critical areas\n- Operating temperature range: -40C to +85C ambient\n- Integration with electrical power distribution system is critical\n\nThe electrical design team has identified several constraints that directly impact our thermal strategy."
+            ]
+          ],
+          "uris": null,
+          "data": null,
+          "included": [
+            "metadatas",
+            "documents",
+            "distances"
+          ]
+        }
+      },
+      "nancy_result": {
+        "success": true,
+        "response_time": 0.15146255493164062,
+        "strategy": "graph_exploration",
+        "intent": {
+          "type": "graph_exploration",
+          "primary_brain": "relational",
+          "needs_vector": true,
+          "needs_analytical": true,
+          "needs_relational": true,
+          "focus": "relationships",
+          "temporal": null,
+          "entities": [
+            "If"
+          ]
+        },
+        "num_results": 5,
+        "quality_assessment": "No results found - query may be too complex or data insufficient",
+        "raw_results": {
+          "strategy_used": "graph_exploration",
+          "intent": {
+            "type": "graph_exploration",
+            "primary_brain": "relational",
+            "needs_vector": true,
+            "needs_analytical": true,
+            "needs_relational": true,
+            "focus": "relationships",
+            "temporal": null,
+            "entities": [
+              "If"
+            ]
+          },
+          "results": [
+            {
+              "chunk_id": "5a7c68faee998c17477609bea59b502ebf6593769a1dc0bfeeadcec5fc771d31_chunk_2",
+              "document_metadata": {
+                "id": "5a7c68faee998c17477609bea59b502ebf6593769a1dc0bfeeadcec5fc771d31",
+                "filename": "thermal_analysis.txt",
+                "size": 1084,
+                "file_type": ".txt",
+                "ingested_at": "2025-08-04T01:23:40.180168"
+              },
+              "author": "Sarah Chen",
+              "distance": 0.6178804,
+              "text": "The main power rail efficiency drops significantly above 70C junction temperature.\n\n Mike Rodriguez from the electrical team has proposed a novel switching regulator configuration that could reduce heat generation by 15%."
+            },
+            {
+              "chunk_id": "8e6871a96e778e6de5557982e8f1e7fd3698f1748f42540618bc91b6f9b8b9ad_chunk_0",
+              "document_metadata": {
+                "id": "8e6871a96e778e6de5557982e8f1e7fd3698f1748f42540618bc91b6f9b8b9ad",
+                "filename": "test_doc.txt",
+                "size": 166,
+                "file_type": ".txt",
+                "ingested_at": "2025-08-04T01:22:04.792710"
+              },
+              "author": "Test Engineer",
+              "distance": 0.63275945,
+              "text": "Test document for local LLM processing. This document discusses thermal design coordination between Sarah Chen and Mike Rodriguez for electrical systems integration."
+            },
+            {
+              "chunk_id": "5a7c68faee998c17477609bea59b502ebf6593769a1dc0bfeeadcec5fc771d31_chunk_0",
+              "document_metadata": {
+                "id": "5a7c68faee998c17477609bea59b502ebf6593769a1dc0bfeeadcec5fc771d31",
+                "filename": "thermal_analysis.txt",
+                "size": 1084,
+                "file_type": ".txt",
+                "ingested_at": "2025-08-04T01:23:40.180168"
+              },
+              "author": "Sarah Chen",
+              "distance": 0.6637161,
+              "text": "Advanced Thermal Management System Design\n\nThis document outlines the thermal management approach for our next-generation electronic system. The primary challenge involves managing heat dissipation across multiple power domains while maintaining optimal performance."
+            },
+            {
+              "chunk_id": "5a7c68faee998c17477609bea59b502ebf6593769a1dc0bfeeadcec5fc771d31_chunk_3",
+              "document_metadata": {
+                "id": "5a7c68faee998c17477609bea59b502ebf6593769a1dc0bfeeadcec5fc771d31",
+                "filename": "thermal_analysis.txt",
+                "size": 1084,
+                "file_type": ".txt",
+                "ingested_at": "2025-08-04T01:23:40.180168"
+              },
+              "author": "Sarah Chen",
+              "distance": 0.670907,
+              "text": "Risk Assessment:\n- Thermal runaway scenarios in high-power modes\n- Component derating at temperature extremes\n- Manufacturing tolerances affecting thermal paths\n\nThe relationship between our thermal design and the electrical power management is fundamental to system reliability."
+            },
+            {
+              "chunk_id": "5a7c68faee998c17477609bea59b502ebf6593769a1dc0bfeeadcec5fc771d31_chunk_1",
+              "document_metadata": {
+                "id": "5a7c68faee998c17477609bea59b502ebf6593769a1dc0bfeeadcec5fc771d31",
+                "filename": "thermal_analysis.txt",
+                "size": 1084,
+                "file_type": ".txt",
+                "ingested_at": "2025-08-04T01:23:40.180168"
+              },
+              "author": "Sarah Chen",
+              "distance": 0.73510575,
+              "text": "Key Design Considerations:\n- Power density exceeds 150W per cubic inch in critical areas\n- Operating temperature range: -40C to +85C ambient\n- Integration with electrical power distribution system is critical\n\nThe electrical design team has identified several constraints that directly impact our thermal strategy."
+            }
+          ],
+          "related_authors": [
+            "Test Engineer",
+            "Sarah Chen"
+          ],
+          "explored_connections": 3
+        }
+      },
+      "comparison": {
+        "winner": "mixed",
+        "reason": "Both provided results, trade-offs in speed vs. analysis depth",
+        "nancy_advantage_realized": "unclear"
+      }
+    },
+    {
+      "query_info": {
+        "id": "causal_003",
+        "category": "risk_evolution",
+        "complexity": 4,
+        "query": "How did our understanding of thermal risks evolve throughout the project?",
+        "why_complex": "Requires tracking risk perception changes over time",
+        "expected_nancy_advantage": "Temporal analysis + sentiment tracking of risk discussions",
+        "baseline_limitation": "No temporal understanding of evolving perspectives"
+      },
+      "chromadb_result": {
+        "success": true,
+        "response_time": 0.3435685634613037,
+        "num_results": 5,
+        "best_distance": 1.7070023,
+        "quality_assessment": "May provide relevant documents but lacks deeper analysis",
+        "raw_results": {
+          "ids": [
+            [
+              "5a7c68faee998c17477609bea59b502ebf6593769a1dc0bfeeadcec5fc771d31_chunk_3",
+              "5a7c68faee998c17477609bea59b502ebf6593769a1dc0bfeeadcec5fc771d31_chunk_0",
+              "5007785582a5b0025f3e67a256245f2f38bcb5995dce53699c8d5e6827864a64_chunk_0",
+              "8e6871a96e778e6de5557982e8f1e7fd3698f1748f42540618bc91b6f9b8b9ad_chunk_0",
+              "5a7c68faee998c17477609bea59b502ebf6593769a1dc0bfeeadcec5fc771d31_chunk_2"
+            ]
+          ],
+          "distances": [
+            [
+              1.7070023,
+              1.7305896,
+              1.7431277,
+              1.7467003,
+              1.7712415
+            ]
+          ],
+          "embeddings": null,
+          "metadatas": [
+            [
+              {
+                "source": "5a7c68faee998c17477609bea59b502ebf6593769a1dc0bfeeadcec5fc771d31"
+              },
+              {
+                "source": "5a7c68faee998c17477609bea59b502ebf6593769a1dc0bfeeadcec5fc771d31"
+              },
+              {
+                "source": "5007785582a5b0025f3e67a256245f2f38bcb5995dce53699c8d5e6827864a64"
+              },
+              {
+                "source": "8e6871a96e778e6de5557982e8f1e7fd3698f1748f42540618bc91b6f9b8b9ad"
+              },
+              {
+                "source": "5a7c68faee998c17477609bea59b502ebf6593769a1dc0bfeeadcec5fc771d31"
+              }
+            ]
+          ],
+          "documents": [
+            [
+              "Risk Assessment:\n- Thermal runaway scenarios in high-power modes\n- Component derating at temperature extremes\n- Manufacturing tolerances affecting thermal paths\n\nThe relationship between our thermal design and the electrical power management is fundamental to system reliability.",
+              "Advanced Thermal Management System Design\n\nThis document outlines the thermal management approach for our next-generation electronic system. The primary challenge involves managing heat dissipation across multiple power domains while maintaining optimal performance.",
+              "Project Meeting Notes - Q4 2024 Nancy Architecture Review\n\nMeeting Attendees:\n- Scott Johnson (Project Lead)\n- Sarah Chen (Thermal Engineer) \n- Mike Rodriguez (Electrical Engineer)\n- Lisa Park (Mechanical Engineer)\n\nKey Decisions Made:\n1. DECISION:",
+              "Test document for local LLM processing. This document discusses thermal design coordination between Sarah Chen and Mike Rodriguez for electrical systems integration.",
+              "The main power rail efficiency drops significantly above 70C junction temperature.\n\n Mike Rodriguez from the electrical team has proposed a novel switching regulator configuration that could reduce heat generation by 15%."
+            ]
+          ],
+          "uris": null,
+          "data": null,
+          "included": [
+            "metadatas",
+            "documents",
+            "distances"
+          ]
+        }
+      },
+      "nancy_result": {
+        "success": true,
+        "response_time": 0.09822487831115723,
+        "strategy": "hybrid",
+        "intent": {
+          "type": "hybrid",
+          "primary_brain": "vector",
+          "needs_vector": true,
+          "needs_analytical": true,
+          "needs_relational": true,
+          "focus": "content",
+          "temporal": null,
+          "entities": [
+            "How"
+          ]
+        },
+        "num_results": 5,
+        "quality_assessment": "No results found - query may be too complex or data insufficient",
+        "raw_results": {
+          "strategy_used": "hybrid",
+          "intent": {
+            "type": "hybrid",
+            "primary_brain": "vector",
+            "needs_vector": true,
+            "needs_analytical": true,
+            "needs_relational": true,
+            "focus": "content",
+            "temporal": null,
+            "entities": [
+              "How"
+            ]
+          },
+          "results": [
+            {
+              "chunk_id": "5a7c68faee998c17477609bea59b502ebf6593769a1dc0bfeeadcec5fc771d31_chunk_3",
+              "document_metadata": {
+                "id": "5a7c68faee998c17477609bea59b502ebf6593769a1dc0bfeeadcec5fc771d31",
+                "filename": "thermal_analysis.txt",
+                "size": 1084,
+                "file_type": ".txt",
+                "ingested_at": "2025-08-04T01:23:40.180168"
+              },
+              "author": "Sarah Chen",
+              "distance": 0.46411526,
+              "text": "Risk Assessment:\n- Thermal runaway scenarios in high-power modes\n- Component derating at temperature extremes\n- Manufacturing tolerances affecting thermal paths\n\nThe relationship between our thermal design and the electrical power management is fundamental to system reliability."
+            },
+            {
+              "chunk_id": "5a7c68faee998c17477609bea59b502ebf6593769a1dc0bfeeadcec5fc771d31_chunk_0",
+              "document_metadata": {
+                "id": "5a7c68faee998c17477609bea59b502ebf6593769a1dc0bfeeadcec5fc771d31",
+                "filename": "thermal_analysis.txt",
+                "size": 1084,
+                "file_type": ".txt",
+                "ingested_at": "2025-08-04T01:23:40.180168"
+              },
+              "author": "Sarah Chen",
+              "distance": 0.616008,
+              "text": "Advanced Thermal Management System Design\n\nThis document outlines the thermal management approach for our next-generation electronic system. The primary challenge involves managing heat dissipation across multiple power domains while maintaining optimal performance."
+            },
+            {
+              "chunk_id": "8e6871a96e778e6de5557982e8f1e7fd3698f1748f42540618bc91b6f9b8b9ad_chunk_0",
+              "document_metadata": {
+                "id": "8e6871a96e778e6de5557982e8f1e7fd3698f1748f42540618bc91b6f9b8b9ad",
+                "filename": "test_doc.txt",
+                "size": 166,
+                "file_type": ".txt",
+                "ingested_at": "2025-08-04T01:22:04.792710"
+              },
+              "author": "Test Engineer",
+              "distance": 0.6437289,
+              "text": "Test document for local LLM processing. This document discusses thermal design coordination between Sarah Chen and Mike Rodriguez for electrical systems integration."
+            },
+            {
+              "chunk_id": "5007785582a5b0025f3e67a256245f2f38bcb5995dce53699c8d5e6827864a64_chunk_2",
+              "document_metadata": {
+                "id": "5007785582a5b0025f3e67a256245f2f38bcb5995dce53699c8d5e6827864a64",
+                "filename": "project_story_demo.txt",
+                "size": 2256,
+                "file_type": ".txt",
+                "ingested_at": "2025-08-04T02:22:05.673827"
+              },
+              "author": "Scott Johnson",
+              "distance": 0.72655714,
+              "text": "Use Gemma 2B for Local Processing\n   - DECISION MAKER: Scott Johnson  \n   - CONTEXT: Memory constraints on 16GB development machine\n   - INFLUENCED BY: Docker memory limitations and performance testing\n   - ERA: Q4 2024 Implementation Phase\n\nCross-Team Collaboration:\n- Sarah Chen COLLABORATED WITH Mike Rodriguez on thermal-electrical integration\n- Mike Rodriguez WORKED WITH Lisa Park on mechanical cooling requirements\n- Scott Johnson COORDINATED WITH entire team on architecture decisions\n\nFeatures Developed:\n1."
+            },
+            {
+              "chunk_id": "5007785582a5b0025f3e67a256245f2f38bcb5995dce53699c8d5e6827864a64_chunk_4",
+              "document_metadata": {
+                "id": "5007785582a5b0025f3e67a256245f2f38bcb5995dce53699c8d5e6827864a64",
+                "filename": "project_story_demo.txt",
+                "size": 2256,
+                "file_type": ".txt",
+                "ingested_at": "2025-08-04T02:22:05.673827"
+              },
+              "author": "Scott Johnson",
+              "distance": 0.7463079,
+              "text": "FEATURE: Project Story Capture System\n   - OWNER: Scott Johnson\n   - INFLUENCED BY: Need for decision archaeology and project context\n   - COLLABORATES WITH: Enhanced LLM prompts\n\nTechnical Constraints:\n- Memory usage CONSTRAINS model selection (Gemma 2B vs larger models)\n- Docker container limits AFFECT Ollama configuration\n- Privacy requirements INFLUENCE local-only processing design\n\nProject Phases:\n- PHASE: \"Q4 2024 Architecture Phase\" - Initial four-brain design\n- PHASE: \"Q4 2024 Implementation Phase\" - Local LLM integration and testing\n- PHASE: \"Q4 2024 Demonstration Phase\" - System validation and demo preparation\n\nMeeting Outcomes:\n- This meeting RESULTED IN \"Adopt Four-Brain Architecture\" decision\n- Architecture review RESULTED IN \"Use Gemma 2B\" decision\n- Team alignment achieved on privacy-first approach\n\nDocument References:\n- This document REFERENCES \"Nancy System Requirements\"\n- Architecture decisions INFLUENCED BY \"Budget Analysis Q4 2024\"\n- Implementation plan DEPENDS ON \"Technical Feasibility Study\""
+            }
+          ]
+        }
+      },
+      "comparison": {
+        "winner": "mixed",
+        "reason": "Both provided results, trade-offs in speed vs. analysis depth",
+        "nancy_advantage_realized": "unclear"
+      }
+    },
+    {
+      "query_info": {
+        "id": "knowledge_001",
+        "category": "knowledge_gaps",
+        "complexity": 4,
+        "query": "What technical questions were raised but never answered in our documentation?",
+        "why_complex": "Requires understanding question vs. answer patterns across documents",
+        "expected_nancy_advantage": "LLM can identify question patterns and track resolution status",
+        "baseline_limitation": "No understanding of question-answer relationships"
+      },
+      "chromadb_result": {
+        "success": true,
+        "response_time": 0.3379347324371338,
+        "num_results": 5,
+        "best_distance": 1.7005537,
+        "quality_assessment": "Likely insufficient - requires semantic reasoning",
+        "raw_results": {
+          "ids": [
+            [
+              "5007785582a5b0025f3e67a256245f2f38bcb5995dce53699c8d5e6827864a64_chunk_0",
+              "8e6871a96e778e6de5557982e8f1e7fd3698f1748f42540618bc91b6f9b8b9ad_chunk_0",
+              "5a7c68faee998c17477609bea59b502ebf6593769a1dc0bfeeadcec5fc771d31_chunk_1",
+              "5a7c68faee998c17477609bea59b502ebf6593769a1dc0bfeeadcec5fc771d31_chunk_3",
+              "5a7c68faee998c17477609bea59b502ebf6593769a1dc0bfeeadcec5fc771d31_chunk_0"
+            ]
+          ],
+          "distances": [
+            [
+              1.7005537,
+              1.7010648,
+              1.7831686,
+              1.7862881,
+              1.7865648
+            ]
+          ],
+          "embeddings": null,
+          "metadatas": [
+            [
+              {
+                "source": "5007785582a5b0025f3e67a256245f2f38bcb5995dce53699c8d5e6827864a64"
+              },
+              {
+                "source": "8e6871a96e778e6de5557982e8f1e7fd3698f1748f42540618bc91b6f9b8b9ad"
+              },
+              {
+                "source": "5a7c68faee998c17477609bea59b502ebf6593769a1dc0bfeeadcec5fc771d31"
+              },
+              {
+                "source": "5a7c68faee998c17477609bea59b502ebf6593769a1dc0bfeeadcec5fc771d31"
+              },
+              {
+                "source": "5a7c68faee998c17477609bea59b502ebf6593769a1dc0bfeeadcec5fc771d31"
+              }
+            ]
+          ],
+          "documents": [
+            [
+              "Project Meeting Notes - Q4 2024 Nancy Architecture Review\n\nMeeting Attendees:\n- Scott Johnson (Project Lead)\n- Sarah Chen (Thermal Engineer) \n- Mike Rodriguez (Electrical Engineer)\n- Lisa Park (Mechanical Engineer)\n\nKey Decisions Made:\n1. DECISION:",
+              "Test document for local LLM processing. This document discusses thermal design coordination between Sarah Chen and Mike Rodriguez for electrical systems integration.",
+              "Key Design Considerations:\n- Power density exceeds 150W per cubic inch in critical areas\n- Operating temperature range: -40C to +85C ambient\n- Integration with electrical power distribution system is critical\n\nThe electrical design team has identified several constraints that directly impact our thermal strategy.",
+              "Risk Assessment:\n- Thermal runaway scenarios in high-power modes\n- Component derating at temperature extremes\n- Manufacturing tolerances affecting thermal paths\n\nThe relationship between our thermal design and the electrical power management is fundamental to system reliability.",
+              "Advanced Thermal Management System Design\n\nThis document outlines the thermal management approach for our next-generation electronic system. The primary challenge involves managing heat dissipation across multiple power domains while maintaining optimal performance."
+            ]
+          ],
+          "uris": null,
+          "data": null,
+          "included": [
+            "metadatas",
+            "documents",
+            "distances"
+          ]
+        }
+      },
+      "nancy_result": {
+        "success": true,
+        "response_time": 0.1039736270904541,
+        "strategy": "hybrid",
+        "intent": {
+          "type": "hybrid",
+          "primary_brain": "vector",
+          "needs_vector": true,
+          "needs_analytical": true,
+          "needs_relational": true,
+          "focus": "content",
+          "temporal": null,
+          "entities": [
+            "What"
+          ]
+        },
+        "num_results": 5,
+        "quality_assessment": "No results found - query may be too complex or data insufficient",
+        "raw_results": {
+          "strategy_used": "hybrid",
+          "intent": {
+            "type": "hybrid",
+            "primary_brain": "vector",
+            "needs_vector": true,
+            "needs_analytical": true,
+            "needs_relational": true,
+            "focus": "content",
+            "temporal": null,
+            "entities": [
+              "What"
+            ]
+          },
+          "results": [
+            {
+              "chunk_id": "8e6871a96e778e6de5557982e8f1e7fd3698f1748f42540618bc91b6f9b8b9ad_chunk_0",
+              "document_metadata": {
+                "id": "8e6871a96e778e6de5557982e8f1e7fd3698f1748f42540618bc91b6f9b8b9ad",
+                "filename": "test_doc.txt",
+                "size": 166,
+                "file_type": ".txt",
+                "ingested_at": "2025-08-04T01:22:04.792710"
+              },
+              "author": "Test Engineer",
+              "distance": 0.8024889,
+              "text": "Test document for local LLM processing. This document discusses thermal design coordination between Sarah Chen and Mike Rodriguez for electrical systems integration."
+            },
+            {
+              "chunk_id": "5007785582a5b0025f3e67a256245f2f38bcb5995dce53699c8d5e6827864a64_chunk_4",
+              "document_metadata": {
+                "id": "5007785582a5b0025f3e67a256245f2f38bcb5995dce53699c8d5e6827864a64",
+                "filename": "project_story_demo.txt",
+                "size": 2256,
+                "file_type": ".txt",
+                "ingested_at": "2025-08-04T02:22:05.673827"
+              },
+              "author": "Scott Johnson",
+              "distance": 0.84769857,
+              "text": "FEATURE: Project Story Capture System\n   - OWNER: Scott Johnson\n   - INFLUENCED BY: Need for decision archaeology and project context\n   - COLLABORATES WITH: Enhanced LLM prompts\n\nTechnical Constraints:\n- Memory usage CONSTRAINS model selection (Gemma 2B vs larger models)\n- Docker container limits AFFECT Ollama configuration\n- Privacy requirements INFLUENCE local-only processing design\n\nProject Phases:\n- PHASE: \"Q4 2024 Architecture Phase\" - Initial four-brain design\n- PHASE: \"Q4 2024 Implementation Phase\" - Local LLM integration and testing\n- PHASE: \"Q4 2024 Demonstration Phase\" - System validation and demo preparation\n\nMeeting Outcomes:\n- This meeting RESULTED IN \"Adopt Four-Brain Architecture\" decision\n- Architecture review RESULTED IN \"Use Gemma 2B\" decision\n- Team alignment achieved on privacy-first approach\n\nDocument References:\n- This document REFERENCES \"Nancy System Requirements\"\n- Architecture decisions INFLUENCED BY \"Budget Analysis Q4 2024\"\n- Implementation plan DEPENDS ON \"Technical Feasibility Study\""
+            },
+            {
+              "chunk_id": "5007785582a5b0025f3e67a256245f2f38bcb5995dce53699c8d5e6827864a64_chunk_0",
+              "document_metadata": {
+                "id": "5007785582a5b0025f3e67a256245f2f38bcb5995dce53699c8d5e6827864a64",
+                "filename": "project_story_demo.txt",
+                "size": 2256,
+                "file_type": ".txt",
+                "ingested_at": "2025-08-04T02:22:05.673827"
+              },
+              "author": "Scott Johnson",
+              "distance": 0.88355446,
+              "text": "Project Meeting Notes - Q4 2024 Nancy Architecture Review\n\nMeeting Attendees:\n- Scott Johnson (Project Lead)\n- Sarah Chen (Thermal Engineer) \n- Mike Rodriguez (Electrical Engineer)\n- Lisa Park (Mechanical Engineer)\n\nKey Decisions Made:\n1. DECISION:"
+            },
+            {
+              "chunk_id": "5007785582a5b0025f3e67a256245f2f38bcb5995dce53699c8d5e6827864a64_chunk_2",
+              "document_metadata": {
+                "id": "5007785582a5b0025f3e67a256245f2f38bcb5995dce53699c8d5e6827864a64",
+                "filename": "project_story_demo.txt",
+                "size": 2256,
+                "file_type": ".txt",
+                "ingested_at": "2025-08-04T02:22:05.673827"
+              },
+              "author": "Scott Johnson",
+              "distance": 0.90924984,
+              "text": "Use Gemma 2B for Local Processing\n   - DECISION MAKER: Scott Johnson  \n   - CONTEXT: Memory constraints on 16GB development machine\n   - INFLUENCED BY: Docker memory limitations and performance testing\n   - ERA: Q4 2024 Implementation Phase\n\nCross-Team Collaboration:\n- Sarah Chen COLLABORATED WITH Mike Rodriguez on thermal-electrical integration\n- Mike Rodriguez WORKED WITH Lisa Park on mechanical cooling requirements\n- Scott Johnson COORDINATED WITH entire team on architecture decisions\n\nFeatures Developed:\n1."
+            },
+            {
+              "chunk_id": "5007785582a5b0025f3e67a256245f2f38bcb5995dce53699c8d5e6827864a64_chunk_1",
+              "document_metadata": {
+                "id": "5007785582a5b0025f3e67a256245f2f38bcb5995dce53699c8d5e6827864a64",
+                "filename": "project_story_demo.txt",
+                "size": 2256,
+                "file_type": ".txt",
+                "ingested_at": "2025-08-04T02:22:05.673827"
+              },
+              "author": "Scott Johnson",
+              "distance": 0.9614625,
+              "text": "Adopt Four-Brain Architecture with Local LLM\n   - DECISION MAKER: Scott Johnson\n   - CONTEXT: Need zero-cost AI operations with complete privacy\n   - INFLUENCED BY: Budget constraints and data security requirements\n   - ERA: Q4 2024 Architecture Phase\n\n2. DECISION:"
+            }
+          ]
+        }
+      },
+      "comparison": {
+        "winner": "mixed",
+        "reason": "Both provided results, trade-offs in speed vs. analysis depth",
+        "nancy_advantage_realized": "unclear"
+      }
+    },
+    {
+      "query_info": {
+        "id": "knowledge_002",
+        "category": "learning_progression",
+        "complexity": 4,
+        "query": "What did the team learn about power management that wasn't known at project start?",
+        "why_complex": "Requires comparing early vs. late knowledge states",
+        "expected_nancy_advantage": "Temporal analysis of knowledge evolution",
+        "baseline_limitation": "No temporal comparison capabilities"
+      },
+      "chromadb_result": {
+        "success": true,
+        "response_time": 0.3288264274597168,
+        "num_results": 5,
+        "best_distance": 1.647829,
+        "quality_assessment": "May provide relevant documents but lacks deeper analysis",
+        "raw_results": {
+          "ids": [
+            [
+              "5007785582a5b0025f3e67a256245f2f38bcb5995dce53699c8d5e6827864a64_chunk_0",
+              "5a7c68faee998c17477609bea59b502ebf6593769a1dc0bfeeadcec5fc771d31_chunk_3",
+              "8e6871a96e778e6de5557982e8f1e7fd3698f1748f42540618bc91b6f9b8b9ad_chunk_0",
+              "5a7c68faee998c17477609bea59b502ebf6593769a1dc0bfeeadcec5fc771d31_chunk_1",
+              "5007785582a5b0025f3e67a256245f2f38bcb5995dce53699c8d5e6827864a64_chunk_4"
+            ]
+          ],
+          "distances": [
+            [
+              1.647829,
+              1.7097911,
+              1.7286787,
+              1.7288629,
+              1.755362
+            ]
+          ],
+          "embeddings": null,
+          "metadatas": [
+            [
+              {
+                "source": "5007785582a5b0025f3e67a256245f2f38bcb5995dce53699c8d5e6827864a64"
+              },
+              {
+                "source": "5a7c68faee998c17477609bea59b502ebf6593769a1dc0bfeeadcec5fc771d31"
+              },
+              {
+                "source": "8e6871a96e778e6de5557982e8f1e7fd3698f1748f42540618bc91b6f9b8b9ad"
+              },
+              {
+                "source": "5a7c68faee998c17477609bea59b502ebf6593769a1dc0bfeeadcec5fc771d31"
+              },
+              {
+                "source": "5007785582a5b0025f3e67a256245f2f38bcb5995dce53699c8d5e6827864a64"
+              }
+            ]
+          ],
+          "documents": [
+            [
+              "Project Meeting Notes - Q4 2024 Nancy Architecture Review\n\nMeeting Attendees:\n- Scott Johnson (Project Lead)\n- Sarah Chen (Thermal Engineer) \n- Mike Rodriguez (Electrical Engineer)\n- Lisa Park (Mechanical Engineer)\n\nKey Decisions Made:\n1. DECISION:",
+              "Risk Assessment:\n- Thermal runaway scenarios in high-power modes\n- Component derating at temperature extremes\n- Manufacturing tolerances affecting thermal paths\n\nThe relationship between our thermal design and the electrical power management is fundamental to system reliability.",
+              "Test document for local LLM processing. This document discusses thermal design coordination between Sarah Chen and Mike Rodriguez for electrical systems integration.",
+              "Key Design Considerations:\n- Power density exceeds 150W per cubic inch in critical areas\n- Operating temperature range: -40C to +85C ambient\n- Integration with electrical power distribution system is critical\n\nThe electrical design team has identified several constraints that directly impact our thermal strategy.",
+              "FEATURE: Project Story Capture System\n   - OWNER: Scott Johnson\n   - INFLUENCED BY: Need for decision archaeology and project context\n   - COLLABORATES WITH: Enhanced LLM prompts\n\nTechnical Constraints:\n- Memory usage CONSTRAINS model selection (Gemma 2B vs larger models)\n- Docker container limits AFFECT Ollama configuration\n- Privacy requirements INFLUENCE local-only processing design\n\nProject Phases:\n- PHASE: \"Q4 2024 Architecture Phase\" - Initial four-brain design\n- PHASE: \"Q4 2024 Implementation Phase\" - Local LLM integration and testing\n- PHASE: \"Q4 2024 Demonstration Phase\" - System validation and demo preparation\n\nMeeting Outcomes:\n- This meeting RESULTED IN \"Adopt Four-Brain Architecture\" decision\n- Architecture review RESULTED IN \"Use Gemma 2B\" decision\n- Team alignment achieved on privacy-first approach\n\nDocument References:\n- This document REFERENCES \"Nancy System Requirements\"\n- Architecture decisions INFLUENCED BY \"Budget Analysis Q4 2024\"\n- Implementation plan DEPENDS ON \"Technical Feasibility Study\""
+            ]
+          ],
+          "uris": null,
+          "data": null,
+          "included": [
+            "metadatas",
+            "documents",
+            "distances"
+          ]
+        }
+      },
+      "nancy_result": {
+        "success": true,
+        "response_time": 0.10463762283325195,
+        "strategy": "hybrid",
+        "intent": {
+          "type": "hybrid",
+          "primary_brain": "vector",
+          "needs_vector": true,
+          "needs_analytical": true,
+          "needs_relational": true,
+          "focus": "content",
+          "temporal": null,
+          "entities": [
+            "What"
+          ]
+        },
+        "num_results": 5,
+        "quality_assessment": "No results found - query may be too complex or data insufficient",
+        "raw_results": {
+          "strategy_used": "hybrid",
+          "intent": {
+            "type": "hybrid",
+            "primary_brain": "vector",
+            "needs_vector": true,
+            "needs_analytical": true,
+            "needs_relational": true,
+            "focus": "content",
+            "temporal": null,
+            "entities": [
+              "What"
+            ]
+          },
+          "results": [
+            {
+              "chunk_id": "8e6871a96e778e6de5557982e8f1e7fd3698f1748f42540618bc91b6f9b8b9ad_chunk_0",
+              "document_metadata": {
+                "id": "8e6871a96e778e6de5557982e8f1e7fd3698f1748f42540618bc91b6f9b8b9ad",
+                "filename": "test_doc.txt",
+                "size": 166,
+                "file_type": ".txt",
+                "ingested_at": "2025-08-04T01:22:04.792710"
+              },
+              "author": "Test Engineer",
+              "distance": 0.6766532,
+              "text": "Test document for local LLM processing. This document discusses thermal design coordination between Sarah Chen and Mike Rodriguez for electrical systems integration."
+            },
+            {
+              "chunk_id": "5007785582a5b0025f3e67a256245f2f38bcb5995dce53699c8d5e6827864a64_chunk_4",
+              "document_metadata": {
+                "id": "5007785582a5b0025f3e67a256245f2f38bcb5995dce53699c8d5e6827864a64",
+                "filename": "project_story_demo.txt",
+                "size": 2256,
+                "file_type": ".txt",
+                "ingested_at": "2025-08-04T02:22:05.673827"
+              },
+              "author": "Scott Johnson",
+              "distance": 0.7173525,
+              "text": "FEATURE: Project Story Capture System\n   - OWNER: Scott Johnson\n   - INFLUENCED BY: Need for decision archaeology and project context\n   - COLLABORATES WITH: Enhanced LLM prompts\n\nTechnical Constraints:\n- Memory usage CONSTRAINS model selection (Gemma 2B vs larger models)\n- Docker container limits AFFECT Ollama configuration\n- Privacy requirements INFLUENCE local-only processing design\n\nProject Phases:\n- PHASE: \"Q4 2024 Architecture Phase\" - Initial four-brain design\n- PHASE: \"Q4 2024 Implementation Phase\" - Local LLM integration and testing\n- PHASE: \"Q4 2024 Demonstration Phase\" - System validation and demo preparation\n\nMeeting Outcomes:\n- This meeting RESULTED IN \"Adopt Four-Brain Architecture\" decision\n- Architecture review RESULTED IN \"Use Gemma 2B\" decision\n- Team alignment achieved on privacy-first approach\n\nDocument References:\n- This document REFERENCES \"Nancy System Requirements\"\n- Architecture decisions INFLUENCED BY \"Budget Analysis Q4 2024\"\n- Implementation plan DEPENDS ON \"Technical Feasibility Study\""
+            },
+            {
+              "chunk_id": "5a7c68faee998c17477609bea59b502ebf6593769a1dc0bfeeadcec5fc771d31_chunk_3",
+              "document_metadata": {
+                "id": "5a7c68faee998c17477609bea59b502ebf6593769a1dc0bfeeadcec5fc771d31",
+                "filename": "thermal_analysis.txt",
+                "size": 1084,
+                "file_type": ".txt",
+                "ingested_at": "2025-08-04T01:23:40.180168"
+              },
+              "author": "Sarah Chen",
+              "distance": 0.7338237,
+              "text": "Risk Assessment:\n- Thermal runaway scenarios in high-power modes\n- Component derating at temperature extremes\n- Manufacturing tolerances affecting thermal paths\n\nThe relationship between our thermal design and the electrical power management is fundamental to system reliability."
+            },
+            {
+              "chunk_id": "5a7c68faee998c17477609bea59b502ebf6593769a1dc0bfeeadcec5fc771d31_chunk_0",
+              "document_metadata": {
+                "id": "5a7c68faee998c17477609bea59b502ebf6593769a1dc0bfeeadcec5fc771d31",
+                "filename": "thermal_analysis.txt",
+                "size": 1084,
+                "file_type": ".txt",
+                "ingested_at": "2025-08-04T01:23:40.180168"
+              },
+              "author": "Sarah Chen",
+              "distance": 0.7555381,
+              "text": "Advanced Thermal Management System Design\n\nThis document outlines the thermal management approach for our next-generation electronic system. The primary challenge involves managing heat dissipation across multiple power domains while maintaining optimal performance."
+            },
+            {
+              "chunk_id": "5007785582a5b0025f3e67a256245f2f38bcb5995dce53699c8d5e6827864a64_chunk_0",
+              "document_metadata": {
+                "id": "5007785582a5b0025f3e67a256245f2f38bcb5995dce53699c8d5e6827864a64",
+                "filename": "project_story_demo.txt",
+                "size": 2256,
+                "file_type": ".txt",
+                "ingested_at": "2025-08-04T02:22:05.673827"
+              },
+              "author": "Scott Johnson",
+              "distance": 0.7613802,
+              "text": "Project Meeting Notes - Q4 2024 Nancy Architecture Review\n\nMeeting Attendees:\n- Scott Johnson (Project Lead)\n- Sarah Chen (Thermal Engineer) \n- Mike Rodriguez (Electrical Engineer)\n- Lisa Park (Mechanical Engineer)\n\nKey Decisions Made:\n1. DECISION:"
+            }
+          ]
+        }
+      },
+      "comparison": {
+        "winner": "mixed",
+        "reason": "Both provided results, trade-offs in speed vs. analysis depth",
+        "nancy_advantage_realized": "unclear"
+      }
+    },
+    {
+      "query_info": {
+        "id": "knowledge_003",
+        "category": "expertise_sourcing",
+        "complexity": 3,
+        "query": "When the team encountered thermal issues, who did they typically consult?",
+        "why_complex": "Requires identifying consultation patterns and expertise seeking behavior",
+        "expected_nancy_advantage": "Graph brain maps expertise consultation networks",
+        "baseline_limitation": "No understanding of consultation relationships"
+      },
+      "chromadb_result": {
+        "success": true,
+        "response_time": 0.346235990524292,
+        "num_results": 5,
+        "best_distance": 1.6390516,
+        "quality_assessment": "May provide relevant documents but lacks deeper analysis",
+        "raw_results": {
+          "ids": [
+            [
+              "8e6871a96e778e6de5557982e8f1e7fd3698f1748f42540618bc91b6f9b8b9ad_chunk_0",
+              "5007785582a5b0025f3e67a256245f2f38bcb5995dce53699c8d5e6827864a64_chunk_0",
+              "5a7c68faee998c17477609bea59b502ebf6593769a1dc0bfeeadcec5fc771d31_chunk_3",
+              "5007785582a5b0025f3e67a256245f2f38bcb5995dce53699c8d5e6827864a64_chunk_2",
+              "5a7c68faee998c17477609bea59b502ebf6593769a1dc0bfeeadcec5fc771d31_chunk_0"
+            ]
+          ],
+          "distances": [
+            [
+              1.6390516,
+              1.6839967,
+              1.7778039,
+              1.7856591,
+              1.7949286
+            ]
+          ],
+          "embeddings": null,
+          "metadatas": [
+            [
+              {
+                "source": "8e6871a96e778e6de5557982e8f1e7fd3698f1748f42540618bc91b6f9b8b9ad"
+              },
+              {
+                "source": "5007785582a5b0025f3e67a256245f2f38bcb5995dce53699c8d5e6827864a64"
+              },
+              {
+                "source": "5a7c68faee998c17477609bea59b502ebf6593769a1dc0bfeeadcec5fc771d31"
+              },
+              {
+                "source": "5007785582a5b0025f3e67a256245f2f38bcb5995dce53699c8d5e6827864a64"
+              },
+              {
+                "source": "5a7c68faee998c17477609bea59b502ebf6593769a1dc0bfeeadcec5fc771d31"
+              }
+            ]
+          ],
+          "documents": [
+            [
+              "Test document for local LLM processing. This document discusses thermal design coordination between Sarah Chen and Mike Rodriguez for electrical systems integration.",
+              "Project Meeting Notes - Q4 2024 Nancy Architecture Review\n\nMeeting Attendees:\n- Scott Johnson (Project Lead)\n- Sarah Chen (Thermal Engineer) \n- Mike Rodriguez (Electrical Engineer)\n- Lisa Park (Mechanical Engineer)\n\nKey Decisions Made:\n1. DECISION:",
+              "Risk Assessment:\n- Thermal runaway scenarios in high-power modes\n- Component derating at temperature extremes\n- Manufacturing tolerances affecting thermal paths\n\nThe relationship between our thermal design and the electrical power management is fundamental to system reliability.",
+              "Use Gemma 2B for Local Processing\n   - DECISION MAKER: Scott Johnson  \n   - CONTEXT: Memory constraints on 16GB development machine\n   - INFLUENCED BY: Docker memory limitations and performance testing\n   - ERA: Q4 2024 Implementation Phase\n\nCross-Team Collaboration:\n- Sarah Chen COLLABORATED WITH Mike Rodriguez on thermal-electrical integration\n- Mike Rodriguez WORKED WITH Lisa Park on mechanical cooling requirements\n- Scott Johnson COORDINATED WITH entire team on architecture decisions\n\nFeatures Developed:\n1.",
+              "Advanced Thermal Management System Design\n\nThis document outlines the thermal management approach for our next-generation electronic system. The primary challenge involves managing heat dissipation across multiple power domains while maintaining optimal performance."
+            ]
+          ],
+          "uris": null,
+          "data": null,
+          "included": [
+            "metadatas",
+            "documents",
+            "distances"
+          ]
+        }
+      },
+      "nancy_result": {
+        "success": true,
+        "response_time": 0.10101580619812012,
+        "strategy": "hybrid",
+        "intent": {
+          "type": "hybrid",
+          "primary_brain": "vector",
+          "needs_vector": true,
+          "needs_analytical": true,
+          "needs_relational": true,
+          "focus": "content",
+          "temporal": null,
+          "entities": [
+            "When"
+          ]
+        },
+        "num_results": 5,
+        "quality_assessment": "No results found - query may be too complex or data insufficient",
+        "raw_results": {
+          "strategy_used": "hybrid",
+          "intent": {
+            "type": "hybrid",
+            "primary_brain": "vector",
+            "needs_vector": true,
+            "needs_analytical": true,
+            "needs_relational": true,
+            "focus": "content",
+            "temporal": null,
+            "entities": [
+              "When"
+            ]
+          },
+          "results": [
+            {
+              "chunk_id": "8e6871a96e778e6de5557982e8f1e7fd3698f1748f42540618bc91b6f9b8b9ad_chunk_0",
+              "document_metadata": {
+                "id": "8e6871a96e778e6de5557982e8f1e7fd3698f1748f42540618bc91b6f9b8b9ad",
+                "filename": "test_doc.txt",
+                "size": 166,
+                "file_type": ".txt",
+                "ingested_at": "2025-08-04T01:22:04.792710"
+              },
+              "author": "Test Engineer",
+              "distance": 0.57177544,
+              "text": "Test document for local LLM processing. This document discusses thermal design coordination between Sarah Chen and Mike Rodriguez for electrical systems integration."
+            },
+            {
+              "chunk_id": "5a7c68faee998c17477609bea59b502ebf6593769a1dc0bfeeadcec5fc771d31_chunk_3",
+              "document_metadata": {
+                "id": "5a7c68faee998c17477609bea59b502ebf6593769a1dc0bfeeadcec5fc771d31",
+                "filename": "thermal_analysis.txt",
+                "size": 1084,
+                "file_type": ".txt",
+                "ingested_at": "2025-08-04T01:23:40.180168"
+              },
+              "author": "Sarah Chen",
+              "distance": 0.6618501,
+              "text": "Risk Assessment:\n- Thermal runaway scenarios in high-power modes\n- Component derating at temperature extremes\n- Manufacturing tolerances affecting thermal paths\n\nThe relationship between our thermal design and the electrical power management is fundamental to system reliability."
+            },
+            {
+              "chunk_id": "5a7c68faee998c17477609bea59b502ebf6593769a1dc0bfeeadcec5fc771d31_chunk_0",
+              "document_metadata": {
+                "id": "5a7c68faee998c17477609bea59b502ebf6593769a1dc0bfeeadcec5fc771d31",
+                "filename": "thermal_analysis.txt",
+                "size": 1084,
+                "file_type": ".txt",
+                "ingested_at": "2025-08-04T01:23:40.180168"
+              },
+              "author": "Sarah Chen",
+              "distance": 0.709344,
+              "text": "Advanced Thermal Management System Design\n\nThis document outlines the thermal management approach for our next-generation electronic system. The primary challenge involves managing heat dissipation across multiple power domains while maintaining optimal performance."
+            },
+            {
+              "chunk_id": "5007785582a5b0025f3e67a256245f2f38bcb5995dce53699c8d5e6827864a64_chunk_2",
+              "document_metadata": {
+                "id": "5007785582a5b0025f3e67a256245f2f38bcb5995dce53699c8d5e6827864a64",
+                "filename": "project_story_demo.txt",
+                "size": 2256,
+                "file_type": ".txt",
+                "ingested_at": "2025-08-04T02:22:05.673827"
+              },
+              "author": "Scott Johnson",
+              "distance": 0.719966,
+              "text": "Use Gemma 2B for Local Processing\n   - DECISION MAKER: Scott Johnson  \n   - CONTEXT: Memory constraints on 16GB development machine\n   - INFLUENCED BY: Docker memory limitations and performance testing\n   - ERA: Q4 2024 Implementation Phase\n\nCross-Team Collaboration:\n- Sarah Chen COLLABORATED WITH Mike Rodriguez on thermal-electrical integration\n- Mike Rodriguez WORKED WITH Lisa Park on mechanical cooling requirements\n- Scott Johnson COORDINATED WITH entire team on architecture decisions\n\nFeatures Developed:\n1."
+            },
+            {
+              "chunk_id": "5007785582a5b0025f3e67a256245f2f38bcb5995dce53699c8d5e6827864a64_chunk_0",
+              "document_metadata": {
+                "id": "5007785582a5b0025f3e67a256245f2f38bcb5995dce53699c8d5e6827864a64",
+                "filename": "project_story_demo.txt",
+                "size": 2256,
+                "file_type": ".txt",
+                "ingested_at": "2025-08-04T02:22:05.673827"
+              },
+              "author": "Scott Johnson",
+              "distance": 0.7253549,
+              "text": "Project Meeting Notes - Q4 2024 Nancy Architecture Review\n\nMeeting Attendees:\n- Scott Johnson (Project Lead)\n- Sarah Chen (Thermal Engineer) \n- Mike Rodriguez (Electrical Engineer)\n- Lisa Park (Mechanical Engineer)\n\nKey Decisions Made:\n1. DECISION:"
+            }
+          ]
+        }
+      },
+      "comparison": {
+        "winner": "mixed",
+        "reason": "Both provided results, trade-offs in speed vs. analysis depth",
+        "nancy_advantage_realized": "unclear"
+      }
+    },
+    {
+      "query_info": {
+        "id": "strategic_001",
+        "category": "strategic_alignment",
+        "complexity": 4,
+        "query": "Are our technical decisions aligned with the privacy-first architecture goal?",
+        "why_complex": "Requires understanding strategic goals and evaluating decision alignment",
+        "expected_nancy_advantage": "LLM can assess strategic alignment across decisions",
+        "baseline_limitation": "No understanding of strategic consistency"
+      },
+      "chromadb_result": {
+        "success": true,
+        "response_time": 0.3460426330566406,
+        "num_results": 5,
+        "best_distance": 1.6107807,
+        "quality_assessment": "Likely insufficient - requires semantic reasoning",
+        "raw_results": {
+          "ids": [
+            [
+              "5007785582a5b0025f3e67a256245f2f38bcb5995dce53699c8d5e6827864a64_chunk_1",
+              "5007785582a5b0025f3e67a256245f2f38bcb5995dce53699c8d5e6827864a64_chunk_2",
+              "5007785582a5b0025f3e67a256245f2f38bcb5995dce53699c8d5e6827864a64_chunk_4",
+              "5a7c68faee998c17477609bea59b502ebf6593769a1dc0bfeeadcec5fc771d31_chunk_0",
+              "5a7c68faee998c17477609bea59b502ebf6593769a1dc0bfeeadcec5fc771d31_chunk_3"
+            ]
+          ],
+          "distances": [
+            [
+              1.6107807,
+              1.6822586,
+              1.6890934,
+              1.7046406,
+              1.706429
+            ]
+          ],
+          "embeddings": null,
+          "metadatas": [
+            [
+              {
+                "source": "5007785582a5b0025f3e67a256245f2f38bcb5995dce53699c8d5e6827864a64"
+              },
+              {
+                "source": "5007785582a5b0025f3e67a256245f2f38bcb5995dce53699c8d5e6827864a64"
+              },
+              {
+                "source": "5007785582a5b0025f3e67a256245f2f38bcb5995dce53699c8d5e6827864a64"
+              },
+              {
+                "source": "5a7c68faee998c17477609bea59b502ebf6593769a1dc0bfeeadcec5fc771d31"
+              },
+              {
+                "source": "5a7c68faee998c17477609bea59b502ebf6593769a1dc0bfeeadcec5fc771d31"
+              }
+            ]
+          ],
+          "documents": [
+            [
+              "Adopt Four-Brain Architecture with Local LLM\n   - DECISION MAKER: Scott Johnson\n   - CONTEXT: Need zero-cost AI operations with complete privacy\n   - INFLUENCED BY: Budget constraints and data security requirements\n   - ERA: Q4 2024 Architecture Phase\n\n2. DECISION:",
+              "Use Gemma 2B for Local Processing\n   - DECISION MAKER: Scott Johnson  \n   - CONTEXT: Memory constraints on 16GB development machine\n   - INFLUENCED BY: Docker memory limitations and performance testing\n   - ERA: Q4 2024 Implementation Phase\n\nCross-Team Collaboration:\n- Sarah Chen COLLABORATED WITH Mike Rodriguez on thermal-electrical integration\n- Mike Rodriguez WORKED WITH Lisa Park on mechanical cooling requirements\n- Scott Johnson COORDINATED WITH entire team on architecture decisions\n\nFeatures Developed:\n1.",
+              "FEATURE: Project Story Capture System\n   - OWNER: Scott Johnson\n   - INFLUENCED BY: Need for decision archaeology and project context\n   - COLLABORATES WITH: Enhanced LLM prompts\n\nTechnical Constraints:\n- Memory usage CONSTRAINS model selection (Gemma 2B vs larger models)\n- Docker container limits AFFECT Ollama configuration\n- Privacy requirements INFLUENCE local-only processing design\n\nProject Phases:\n- PHASE: \"Q4 2024 Architecture Phase\" - Initial four-brain design\n- PHASE: \"Q4 2024 Implementation Phase\" - Local LLM integration and testing\n- PHASE: \"Q4 2024 Demonstration Phase\" - System validation and demo preparation\n\nMeeting Outcomes:\n- This meeting RESULTED IN \"Adopt Four-Brain Architecture\" decision\n- Architecture review RESULTED IN \"Use Gemma 2B\" decision\n- Team alignment achieved on privacy-first approach\n\nDocument References:\n- This document REFERENCES \"Nancy System Requirements\"\n- Architecture decisions INFLUENCED BY \"Budget Analysis Q4 2024\"\n- Implementation plan DEPENDS ON \"Technical Feasibility Study\"",
+              "Advanced Thermal Management System Design\n\nThis document outlines the thermal management approach for our next-generation electronic system. The primary challenge involves managing heat dissipation across multiple power domains while maintaining optimal performance.",
+              "Risk Assessment:\n- Thermal runaway scenarios in high-power modes\n- Component derating at temperature extremes\n- Manufacturing tolerances affecting thermal paths\n\nThe relationship between our thermal design and the electrical power management is fundamental to system reliability."
+            ]
+          ],
+          "uris": null,
+          "data": null,
+          "included": [
+            "metadatas",
+            "documents",
+            "distances"
+          ]
+        }
+      },
+      "nancy_result": {
+        "success": true,
+        "response_time": 0.10238146781921387,
+        "strategy": "analytical_first",
+        "intent": {
+          "type": "analytical_primary",
+          "primary_brain": "analytical",
+          "needs_vector": true,
+          "needs_analytical": true,
+          "needs_relational": true,
+          "focus": "metadata",
+          "temporal": "temporal",
+          "entities": [
+            "Are"
+          ]
+        },
+        "num_results": 5,
+        "quality_assessment": "No results found - query may be too complex or data insufficient",
+        "raw_results": {
+          "strategy_used": "analytical_first",
+          "intent": {
+            "type": "analytical_primary",
+            "primary_brain": "analytical",
+            "needs_vector": true,
+            "needs_analytical": true,
+            "needs_relational": true,
+            "focus": "metadata",
+            "temporal": "temporal",
+            "entities": [
+              "Are"
+            ]
+          },
+          "results": [
+            {
+              "chunk_id": "5007785582a5b0025f3e67a256245f2f38bcb5995dce53699c8d5e6827864a64_chunk_4",
+              "document_metadata": {
+                "id": "5007785582a5b0025f3e67a256245f2f38bcb5995dce53699c8d5e6827864a64",
+                "filename": "project_story_demo.txt",
+                "size": 2256,
+                "file_type": ".txt",
+                "ingested_at": "2025-08-04T02:22:05.673827"
+              },
+              "author": "Scott Johnson",
+              "distance": 0.511999,
+              "text": "FEATURE: Project Story Capture System\n   - OWNER: Scott Johnson\n   - INFLUENCED BY: Need for decision archaeology and project context\n   - COLLABORATES WITH: Enhanced LLM prompts\n\nTechnical Constraints:\n- Memory usage CONSTRAINS model selection (Gemma 2B vs larger models)\n- Docker container limits AFFECT Ollama configuration\n- Privacy requirements INFLUENCE local-only processing design\n\nProject Phases:\n- PHASE: \"Q4 2024 Architecture Phase\" - Initial four-brain design\n- PHASE: \"Q4 2024 Implementation Phase\" - Local LLM integration and testing\n- PHASE: \"Q4 2024 Demonstration Phase\" - System validation and demo preparation\n\nMeeting Outcomes:\n- This meeting RESULTED IN \"Adopt Four-Brain Architecture\" decision\n- Architecture review RESULTED IN \"Use Gemma 2B\" decision\n- Team alignment achieved on privacy-first approach\n\nDocument References:\n- This document REFERENCES \"Nancy System Requirements\"\n- Architecture decisions INFLUENCED BY \"Budget Analysis Q4 2024\"\n- Implementation plan DEPENDS ON \"Technical Feasibility Study\""
+            },
+            {
+              "chunk_id": "5007785582a5b0025f3e67a256245f2f38bcb5995dce53699c8d5e6827864a64_chunk_1",
+              "document_metadata": {
+                "id": "5007785582a5b0025f3e67a256245f2f38bcb5995dce53699c8d5e6827864a64",
+                "filename": "project_story_demo.txt",
+                "size": 2256,
+                "file_type": ".txt",
+                "ingested_at": "2025-08-04T02:22:05.673827"
+              },
+              "author": "Scott Johnson",
+              "distance": 0.5162772,
+              "text": "Adopt Four-Brain Architecture with Local LLM\n   - DECISION MAKER: Scott Johnson\n   - CONTEXT: Need zero-cost AI operations with complete privacy\n   - INFLUENCED BY: Budget constraints and data security requirements\n   - ERA: Q4 2024 Architecture Phase\n\n2. DECISION:"
+            },
+            {
+              "chunk_id": "5007785582a5b0025f3e67a256245f2f38bcb5995dce53699c8d5e6827864a64_chunk_2",
+              "document_metadata": {
+                "id": "5007785582a5b0025f3e67a256245f2f38bcb5995dce53699c8d5e6827864a64",
+                "filename": "project_story_demo.txt",
+                "size": 2256,
+                "file_type": ".txt",
+                "ingested_at": "2025-08-04T02:22:05.673827"
+              },
+              "author": "Scott Johnson",
+              "distance": 0.7072619,
+              "text": "Use Gemma 2B for Local Processing\n   - DECISION MAKER: Scott Johnson  \n   - CONTEXT: Memory constraints on 16GB development machine\n   - INFLUENCED BY: Docker memory limitations and performance testing\n   - ERA: Q4 2024 Implementation Phase\n\nCross-Team Collaboration:\n- Sarah Chen COLLABORATED WITH Mike Rodriguez on thermal-electrical integration\n- Mike Rodriguez WORKED WITH Lisa Park on mechanical cooling requirements\n- Scott Johnson COORDINATED WITH entire team on architecture decisions\n\nFeatures Developed:\n1."
+            },
+            {
+              "chunk_id": "5007785582a5b0025f3e67a256245f2f38bcb5995dce53699c8d5e6827864a64_chunk_3",
+              "document_metadata": {
+                "id": "5007785582a5b0025f3e67a256245f2f38bcb5995dce53699c8d5e6827864a64",
+                "filename": "project_story_demo.txt",
+                "size": 2256,
+                "file_type": ".txt",
+                "ingested_at": "2025-08-04T02:22:05.673827"
+              },
+              "author": "Scott Johnson",
+              "distance": 0.7769798,
+              "text": "FEATURE: GraphBrain Enhanced Relationship Extraction\n   - OWNER: Scott Johnson\n   - INFLUENCED BY: \"Adopt Four-Brain Architecture\" decision\n   - DEPENDS ON: Local LLM processing capabilities\n\n2."
+            },
+            {
+              "chunk_id": "5007785582a5b0025f3e67a256245f2f38bcb5995dce53699c8d5e6827864a64_chunk_0",
+              "document_metadata": {
+                "id": "5007785582a5b0025f3e67a256245f2f38bcb5995dce53699c8d5e6827864a64",
+                "filename": "project_story_demo.txt",
+                "size": 2256,
+                "file_type": ".txt",
+                "ingested_at": "2025-08-04T02:22:05.673827"
+              },
+              "author": "Scott Johnson",
+              "distance": 0.78373265,
+              "text": "Project Meeting Notes - Q4 2024 Nancy Architecture Review\n\nMeeting Attendees:\n- Scott Johnson (Project Lead)\n- Sarah Chen (Thermal Engineer) \n- Mike Rodriguez (Electrical Engineer)\n- Lisa Park (Mechanical Engineer)\n\nKey Decisions Made:\n1. DECISION:"
+            }
+          ]
+        }
+      },
+      "comparison": {
+        "winner": "mixed",
+        "reason": "Both provided results, trade-offs in speed vs. analysis depth",
+        "nancy_advantage_realized": "unclear"
+      }
+    },
+    {
+      "query_info": {
+        "id": "strategic_002",
+        "category": "resource_allocation",
+        "complexity": 4,
+        "query": "Which technical challenges consumed the most team discussion time?",
+        "why_complex": "Requires quantifying discussion focus across multiple documents and meetings",
+        "expected_nancy_advantage": "Can analyze discussion volume and categorize by technical domain",
+        "baseline_limitation": "No capability to quantify discussion focus"
+      },
+      "chromadb_result": {
+        "success": true,
+        "response_time": 0.31918835639953613,
+        "num_results": 5,
+        "best_distance": 1.6358603,
+        "quality_assessment": "May provide relevant documents but lacks deeper analysis",
+        "raw_results": {
+          "ids": [
+            [
+              "5a7c68faee998c17477609bea59b502ebf6593769a1dc0bfeeadcec5fc771d31_chunk_1",
+              "5007785582a5b0025f3e67a256245f2f38bcb5995dce53699c8d5e6827864a64_chunk_4",
+              "5007785582a5b0025f3e67a256245f2f38bcb5995dce53699c8d5e6827864a64_chunk_2",
+              "8e6871a96e778e6de5557982e8f1e7fd3698f1748f42540618bc91b6f9b8b9ad_chunk_0",
+              "5a7c68faee998c17477609bea59b502ebf6593769a1dc0bfeeadcec5fc771d31_chunk_3"
+            ]
+          ],
+          "distances": [
+            [
+              1.6358603,
+              1.6456251,
+              1.6539309,
+              1.655189,
+              1.661185
+            ]
+          ],
+          "embeddings": null,
+          "metadatas": [
+            [
+              {
+                "source": "5a7c68faee998c17477609bea59b502ebf6593769a1dc0bfeeadcec5fc771d31"
+              },
+              {
+                "source": "5007785582a5b0025f3e67a256245f2f38bcb5995dce53699c8d5e6827864a64"
+              },
+              {
+                "source": "5007785582a5b0025f3e67a256245f2f38bcb5995dce53699c8d5e6827864a64"
+              },
+              {
+                "source": "8e6871a96e778e6de5557982e8f1e7fd3698f1748f42540618bc91b6f9b8b9ad"
+              },
+              {
+                "source": "5a7c68faee998c17477609bea59b502ebf6593769a1dc0bfeeadcec5fc771d31"
+              }
+            ]
+          ],
+          "documents": [
+            [
+              "Key Design Considerations:\n- Power density exceeds 150W per cubic inch in critical areas\n- Operating temperature range: -40C to +85C ambient\n- Integration with electrical power distribution system is critical\n\nThe electrical design team has identified several constraints that directly impact our thermal strategy.",
+              "FEATURE: Project Story Capture System\n   - OWNER: Scott Johnson\n   - INFLUENCED BY: Need for decision archaeology and project context\n   - COLLABORATES WITH: Enhanced LLM prompts\n\nTechnical Constraints:\n- Memory usage CONSTRAINS model selection (Gemma 2B vs larger models)\n- Docker container limits AFFECT Ollama configuration\n- Privacy requirements INFLUENCE local-only processing design\n\nProject Phases:\n- PHASE: \"Q4 2024 Architecture Phase\" - Initial four-brain design\n- PHASE: \"Q4 2024 Implementation Phase\" - Local LLM integration and testing\n- PHASE: \"Q4 2024 Demonstration Phase\" - System validation and demo preparation\n\nMeeting Outcomes:\n- This meeting RESULTED IN \"Adopt Four-Brain Architecture\" decision\n- Architecture review RESULTED IN \"Use Gemma 2B\" decision\n- Team alignment achieved on privacy-first approach\n\nDocument References:\n- This document REFERENCES \"Nancy System Requirements\"\n- Architecture decisions INFLUENCED BY \"Budget Analysis Q4 2024\"\n- Implementation plan DEPENDS ON \"Technical Feasibility Study\"",
+              "Use Gemma 2B for Local Processing\n   - DECISION MAKER: Scott Johnson  \n   - CONTEXT: Memory constraints on 16GB development machine\n   - INFLUENCED BY: Docker memory limitations and performance testing\n   - ERA: Q4 2024 Implementation Phase\n\nCross-Team Collaboration:\n- Sarah Chen COLLABORATED WITH Mike Rodriguez on thermal-electrical integration\n- Mike Rodriguez WORKED WITH Lisa Park on mechanical cooling requirements\n- Scott Johnson COORDINATED WITH entire team on architecture decisions\n\nFeatures Developed:\n1.",
+              "Test document for local LLM processing. This document discusses thermal design coordination between Sarah Chen and Mike Rodriguez for electrical systems integration.",
+              "Risk Assessment:\n- Thermal runaway scenarios in high-power modes\n- Component derating at temperature extremes\n- Manufacturing tolerances affecting thermal paths\n\nThe relationship between our thermal design and the electrical power management is fundamental to system reliability."
+            ]
+          ],
+          "uris": null,
+          "data": null,
+          "included": [
+            "metadatas",
+            "documents",
+            "distances"
+          ]
+        }
+      },
+      "nancy_result": {
+        "success": true,
+        "response_time": 0.08689475059509277,
+        "strategy": "analytical_first",
+        "intent": {
+          "type": "analytical_primary",
+          "primary_brain": "analytical",
+          "needs_vector": true,
+          "needs_analytical": true,
+          "needs_relational": true,
+          "focus": "metadata",
+          "temporal": null,
+          "entities": [
+            "Which"
+          ]
+        },
+        "num_results": 5,
+        "quality_assessment": "No results found - query may be too complex or data insufficient",
+        "raw_results": {
+          "strategy_used": "analytical_first",
+          "intent": {
+            "type": "analytical_primary",
+            "primary_brain": "analytical",
+            "needs_vector": true,
+            "needs_analytical": true,
+            "needs_relational": true,
+            "focus": "metadata",
+            "temporal": null,
+            "entities": [
+              "Which"
+            ]
+          },
+          "results": [
+            {
+              "chunk_id": "5007785582a5b0025f3e67a256245f2f38bcb5995dce53699c8d5e6827864a64_chunk_4",
+              "document_metadata": {
+                "id": "5007785582a5b0025f3e67a256245f2f38bcb5995dce53699c8d5e6827864a64",
+                "filename": "project_story_demo.txt",
+                "size": 2256,
+                "file_type": ".txt",
+                "ingested_at": "2025-08-04T02:22:05.673827"
+              },
+              "author": "Scott Johnson",
+              "distance": 0.8402324,
+              "text": "FEATURE: Project Story Capture System\n   - OWNER: Scott Johnson\n   - INFLUENCED BY: Need for decision archaeology and project context\n   - COLLABORATES WITH: Enhanced LLM prompts\n\nTechnical Constraints:\n- Memory usage CONSTRAINS model selection (Gemma 2B vs larger models)\n- Docker container limits AFFECT Ollama configuration\n- Privacy requirements INFLUENCE local-only processing design\n\nProject Phases:\n- PHASE: \"Q4 2024 Architecture Phase\" - Initial four-brain design\n- PHASE: \"Q4 2024 Implementation Phase\" - Local LLM integration and testing\n- PHASE: \"Q4 2024 Demonstration Phase\" - System validation and demo preparation\n\nMeeting Outcomes:\n- This meeting RESULTED IN \"Adopt Four-Brain Architecture\" decision\n- Architecture review RESULTED IN \"Use Gemma 2B\" decision\n- Team alignment achieved on privacy-first approach\n\nDocument References:\n- This document REFERENCES \"Nancy System Requirements\"\n- Architecture decisions INFLUENCED BY \"Budget Analysis Q4 2024\"\n- Implementation plan DEPENDS ON \"Technical Feasibility Study\""
+            },
+            {
+              "chunk_id": "5007785582a5b0025f3e67a256245f2f38bcb5995dce53699c8d5e6827864a64_chunk_0",
+              "document_metadata": {
+                "id": "5007785582a5b0025f3e67a256245f2f38bcb5995dce53699c8d5e6827864a64",
+                "filename": "project_story_demo.txt",
+                "size": 2256,
+                "file_type": ".txt",
+                "ingested_at": "2025-08-04T02:22:05.673827"
+              },
+              "author": "Scott Johnson",
+              "distance": 0.890004,
+              "text": "Project Meeting Notes - Q4 2024 Nancy Architecture Review\n\nMeeting Attendees:\n- Scott Johnson (Project Lead)\n- Sarah Chen (Thermal Engineer) \n- Mike Rodriguez (Electrical Engineer)\n- Lisa Park (Mechanical Engineer)\n\nKey Decisions Made:\n1. DECISION:"
+            },
+            {
+              "chunk_id": "5007785582a5b0025f3e67a256245f2f38bcb5995dce53699c8d5e6827864a64_chunk_2",
+              "document_metadata": {
+                "id": "5007785582a5b0025f3e67a256245f2f38bcb5995dce53699c8d5e6827864a64",
+                "filename": "project_story_demo.txt",
+                "size": 2256,
+                "file_type": ".txt",
+                "ingested_at": "2025-08-04T02:22:05.673827"
+              },
+              "author": "Scott Johnson",
+              "distance": 0.9121028,
+              "text": "Use Gemma 2B for Local Processing\n   - DECISION MAKER: Scott Johnson  \n   - CONTEXT: Memory constraints on 16GB development machine\n   - INFLUENCED BY: Docker memory limitations and performance testing\n   - ERA: Q4 2024 Implementation Phase\n\nCross-Team Collaboration:\n- Sarah Chen COLLABORATED WITH Mike Rodriguez on thermal-electrical integration\n- Mike Rodriguez WORKED WITH Lisa Park on mechanical cooling requirements\n- Scott Johnson COORDINATED WITH entire team on architecture decisions\n\nFeatures Developed:\n1."
+            },
+            {
+              "chunk_id": "8e6871a96e778e6de5557982e8f1e7fd3698f1748f42540618bc91b6f9b8b9ad_chunk_0",
+              "document_metadata": {
+                "id": "8e6871a96e778e6de5557982e8f1e7fd3698f1748f42540618bc91b6f9b8b9ad",
+                "filename": "test_doc.txt",
+                "size": 166,
+                "file_type": ".txt",
+                "ingested_at": "2025-08-04T01:22:04.792710"
+              },
+              "author": "Test Engineer",
+              "distance": 0.913014,
+              "text": "Test document for local LLM processing. This document discusses thermal design coordination between Sarah Chen and Mike Rodriguez for electrical systems integration."
+            },
+            {
+              "chunk_id": "5a7c68faee998c17477609bea59b502ebf6593769a1dc0bfeeadcec5fc771d31_chunk_0",
+              "document_metadata": {
+                "id": "5a7c68faee998c17477609bea59b502ebf6593769a1dc0bfeeadcec5fc771d31",
+                "filename": "thermal_analysis.txt",
+                "size": 1084,
+                "file_type": ".txt",
+                "ingested_at": "2025-08-04T01:23:40.180168"
+              },
+              "author": "Sarah Chen",
+              "distance": 0.9156486,
+              "text": "Advanced Thermal Management System Design\n\nThis document outlines the thermal management approach for our next-generation electronic system. The primary challenge involves managing heat dissipation across multiple power domains while maintaining optimal performance."
+            }
+          ]
+        }
+      },
+      "comparison": {
+        "winner": "mixed",
+        "reason": "Both provided results, trade-offs in speed vs. analysis depth",
+        "nancy_advantage_realized": "unclear"
+      }
+    },
+    {
+      "query_info": {
+        "id": "strategic_003",
+        "category": "decision_consistency",
+        "complexity": 5,
+        "query": "Have we made any contradictory decisions about thermal management approaches?",
+        "why_complex": "Requires understanding decision content and identifying contradictions",
+        "expected_nancy_advantage": "LLM can analyze decision consistency + graph tracks decision relationships",
+        "baseline_limitation": "No understanding of decision contradiction"
+      },
+      "chromadb_result": {
+        "success": true,
+        "response_time": 0.3072209358215332,
+        "num_results": 5,
+        "best_distance": 1.6856976,
+        "quality_assessment": "Likely insufficient - requires semantic reasoning",
+        "raw_results": {
+          "ids": [
+            [
+              "5a7c68faee998c17477609bea59b502ebf6593769a1dc0bfeeadcec5fc771d31_chunk_2",
+              "5a7c68faee998c17477609bea59b502ebf6593769a1dc0bfeeadcec5fc771d31_chunk_0",
+              "5a7c68faee998c17477609bea59b502ebf6593769a1dc0bfeeadcec5fc771d31_chunk_3",
+              "8e6871a96e778e6de5557982e8f1e7fd3698f1748f42540618bc91b6f9b8b9ad_chunk_0",
+              "5007785582a5b0025f3e67a256245f2f38bcb5995dce53699c8d5e6827864a64_chunk_2"
+            ]
+          ],
+          "distances": [
+            [
+              1.6856976,
+              1.7260947,
+              1.7774272,
+              1.7953253,
+              1.8005672
+            ]
+          ],
+          "embeddings": null,
+          "metadatas": [
+            [
+              {
+                "source": "5a7c68faee998c17477609bea59b502ebf6593769a1dc0bfeeadcec5fc771d31"
+              },
+              {
+                "source": "5a7c68faee998c17477609bea59b502ebf6593769a1dc0bfeeadcec5fc771d31"
+              },
+              {
+                "source": "5a7c68faee998c17477609bea59b502ebf6593769a1dc0bfeeadcec5fc771d31"
+              },
+              {
+                "source": "8e6871a96e778e6de5557982e8f1e7fd3698f1748f42540618bc91b6f9b8b9ad"
+              },
+              {
+                "source": "5007785582a5b0025f3e67a256245f2f38bcb5995dce53699c8d5e6827864a64"
+              }
+            ]
+          ],
+          "documents": [
+            [
+              "The main power rail efficiency drops significantly above 70C junction temperature.\n\n Mike Rodriguez from the electrical team has proposed a novel switching regulator configuration that could reduce heat generation by 15%.",
+              "Advanced Thermal Management System Design\n\nThis document outlines the thermal management approach for our next-generation electronic system. The primary challenge involves managing heat dissipation across multiple power domains while maintaining optimal performance.",
+              "Risk Assessment:\n- Thermal runaway scenarios in high-power modes\n- Component derating at temperature extremes\n- Manufacturing tolerances affecting thermal paths\n\nThe relationship between our thermal design and the electrical power management is fundamental to system reliability.",
+              "Test document for local LLM processing. This document discusses thermal design coordination between Sarah Chen and Mike Rodriguez for electrical systems integration.",
+              "Use Gemma 2B for Local Processing\n   - DECISION MAKER: Scott Johnson  \n   - CONTEXT: Memory constraints on 16GB development machine\n   - INFLUENCED BY: Docker memory limitations and performance testing\n   - ERA: Q4 2024 Implementation Phase\n\nCross-Team Collaboration:\n- Sarah Chen COLLABORATED WITH Mike Rodriguez on thermal-electrical integration\n- Mike Rodriguez WORKED WITH Lisa Park on mechanical cooling requirements\n- Scott Johnson COORDINATED WITH entire team on architecture decisions\n\nFeatures Developed:\n1."
+            ]
+          ],
+          "uris": null,
+          "data": null,
+          "included": [
+            "metadatas",
+            "documents",
+            "distances"
+          ]
+        }
+      },
+      "nancy_result": {
+        "success": true,
+        "response_time": 0.08088016510009766,
+        "strategy": "hybrid",
+        "intent": {
+          "type": "hybrid",
+          "primary_brain": "vector",
+          "needs_vector": true,
+          "needs_analytical": true,
+          "needs_relational": true,
+          "focus": "content",
+          "temporal": null,
+          "entities": [
+            "Have"
+          ]
+        },
+        "num_results": 5,
+        "quality_assessment": "No results found - query may be too complex or data insufficient",
+        "raw_results": {
+          "strategy_used": "hybrid",
+          "intent": {
+            "type": "hybrid",
+            "primary_brain": "vector",
+            "needs_vector": true,
+            "needs_analytical": true,
+            "needs_relational": true,
+            "focus": "content",
+            "temporal": null,
+            "entities": [
+              "Have"
+            ]
+          },
+          "results": [
+            {
+              "chunk_id": "5a7c68faee998c17477609bea59b502ebf6593769a1dc0bfeeadcec5fc771d31_chunk_0",
+              "document_metadata": {
+                "id": "5a7c68faee998c17477609bea59b502ebf6593769a1dc0bfeeadcec5fc771d31",
+                "filename": "thermal_analysis.txt",
+                "size": 1084,
+                "file_type": ".txt",
+                "ingested_at": "2025-08-04T01:23:40.180168"
+              },
+              "author": "Sarah Chen",
+              "distance": 0.5000807,
+              "text": "Advanced Thermal Management System Design\n\nThis document outlines the thermal management approach for our next-generation electronic system. The primary challenge involves managing heat dissipation across multiple power domains while maintaining optimal performance."
+            },
+            {
+              "chunk_id": "5a7c68faee998c17477609bea59b502ebf6593769a1dc0bfeeadcec5fc771d31_chunk_3",
+              "document_metadata": {
+                "id": "5a7c68faee998c17477609bea59b502ebf6593769a1dc0bfeeadcec5fc771d31",
+                "filename": "thermal_analysis.txt",
+                "size": 1084,
+                "file_type": ".txt",
+                "ingested_at": "2025-08-04T01:23:40.180168"
+              },
+              "author": "Sarah Chen",
+              "distance": 0.57116663,
+              "text": "Risk Assessment:\n- Thermal runaway scenarios in high-power modes\n- Component derating at temperature extremes\n- Manufacturing tolerances affecting thermal paths\n\nThe relationship between our thermal design and the electrical power management is fundamental to system reliability."
+            },
+            {
+              "chunk_id": "8e6871a96e778e6de5557982e8f1e7fd3698f1748f42540618bc91b6f9b8b9ad_chunk_0",
+              "document_metadata": {
+                "id": "8e6871a96e778e6de5557982e8f1e7fd3698f1748f42540618bc91b6f9b8b9ad",
+                "filename": "test_doc.txt",
+                "size": 166,
+                "file_type": ".txt",
+                "ingested_at": "2025-08-04T01:22:04.792710"
+              },
+              "author": "Test Engineer",
+              "distance": 0.6562116,
+              "text": "Test document for local LLM processing. This document discusses thermal design coordination between Sarah Chen and Mike Rodriguez for electrical systems integration."
+            },
+            {
+              "chunk_id": "5007785582a5b0025f3e67a256245f2f38bcb5995dce53699c8d5e6827864a64_chunk_2",
+              "document_metadata": {
+                "id": "5007785582a5b0025f3e67a256245f2f38bcb5995dce53699c8d5e6827864a64",
+                "filename": "project_story_demo.txt",
+                "size": 2256,
+                "file_type": ".txt",
+                "ingested_at": "2025-08-04T02:22:05.673827"
+              },
+              "author": "Scott Johnson",
+              "distance": 0.6687024,
+              "text": "Use Gemma 2B for Local Processing\n   - DECISION MAKER: Scott Johnson  \n   - CONTEXT: Memory constraints on 16GB development machine\n   - INFLUENCED BY: Docker memory limitations and performance testing\n   - ERA: Q4 2024 Implementation Phase\n\nCross-Team Collaboration:\n- Sarah Chen COLLABORATED WITH Mike Rodriguez on thermal-electrical integration\n- Mike Rodriguez WORKED WITH Lisa Park on mechanical cooling requirements\n- Scott Johnson COORDINATED WITH entire team on architecture decisions\n\nFeatures Developed:\n1."
+            },
+            {
+              "chunk_id": "5a7c68faee998c17477609bea59b502ebf6593769a1dc0bfeeadcec5fc771d31_chunk_2",
+              "document_metadata": {
+                "id": "5a7c68faee998c17477609bea59b502ebf6593769a1dc0bfeeadcec5fc771d31",
+                "filename": "thermal_analysis.txt",
+                "size": 1084,
+                "file_type": ".txt",
+                "ingested_at": "2025-08-04T01:23:40.180168"
+              },
+              "author": "Sarah Chen",
+              "distance": 0.72013783,
+              "text": "The main power rail efficiency drops significantly above 70C junction temperature.\n\n Mike Rodriguez from the electrical team has proposed a novel switching regulator configuration that could reduce heat generation by 15%."
+            }
+          ]
+        }
+      },
+      "comparison": {
+        "winner": "mixed",
+        "reason": "Both provided results, trade-offs in speed vs. analysis depth",
+        "nancy_advantage_realized": "unclear"
+      }
+    }
+  ]
+}

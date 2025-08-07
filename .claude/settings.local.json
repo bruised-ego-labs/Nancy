@@ -10,7 +10,14 @@
       "Bash(curl:*)",
       "Bash(docker logs:*)",
       "Bash(touch:*)",
-      "Bash(docker stats:*)"
+      "Bash(docker stats:*)",
+      "Bash(grep:*)",
+      "Bash(ls:*)",
+      "Bash(mkdir:*)",
+      "Bash(pwsh:*)",
+      "Bash(docker inspect:*)",
+      "Bash(time curl:*)",
+      "Bash(timeout 30 curl -X POST \"http://localhost:8000/api/query\" -H \"Content-Type: application/json\" -d \"{\"\"query\"\": \"\"What are the key integration points between electrical and mechanical systems, and how do project timelines affect thermal considerations?\"\"}\")"
     ],
     "deny": []
   }

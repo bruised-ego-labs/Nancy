@@ -1,5 +1,5 @@
 from .search import AnalyticalBrain
-from .knowledge_graph import RelationalBrain
+from .knowledge_graph import GraphBrain
 from .nlp import VectorBrain
 import os
 import hashlib
@@ -12,7 +12,7 @@ class IngestionService:
     """
     def __init__(self):
         self.analytical_brain = AnalyticalBrain()
-        self.relational_brain = RelationalBrain()
+        self.graph_brain = GraphBrain()
         self.vector_brain = VectorBrain()
         # Load the spacy model
         self.nlp = spacy.load("en_core_web_sm")
@@ -34,8 +34,8 @@ class IngestionService:
         for ent in doc.ents:
             if ent.label_ == "PERSON":
                 # Create person nodes and link to document
-                self.relational_brain.add_concept_node(ent.text, "Person")
-                self.relational_brain.add_relationship(
+                self.graph_brain.add_concept_node(ent.text, "Person")
+                self.graph_brain.add_relationship(
                     source_node_label="Person",
                     source_node_name=ent.text,
                     relationship_type="MENTIONED_IN",
@@ -58,7 +58,7 @@ class IngestionService:
             matches = re.findall(pattern, text, re.IGNORECASE)
             for match in matches:
                 if match.lower() != current_filename.lower():
-                    self.relational_brain.add_relationship(
+                    self.graph_brain.add_relationship(
                         source_node_label="Document",
                         source_node_name=current_filename,
                         relationship_type="REFERENCES",
@@ -81,8 +81,8 @@ class IngestionService:
             for keyword in keywords:
                 if keyword in text_lower:
                     # Create concept node and relationship
-                    self.relational_brain.add_concept_node(keyword, "TechnicalConcept")
-                    self.relational_brain.add_relationship(
+                    self.graph_brain.add_concept_node(keyword, "TechnicalConcept")
+                    self.graph_brain.add_relationship(
                         source_node_label="Document",
                         source_node_name=current_filename,
                         relationship_type="DISCUSSES",
@@ -122,8 +122,8 @@ class IngestionService:
                 # Create a concept for the target if it's meaningful
                 if len(target.strip()) > 5 and len(target.strip()) < 100:
                     concept_name = target.strip()[:50]  # Limit length
-                    self.relational_brain.add_concept_node(concept_name, "DecisionTarget")
-                    self.relational_brain.add_relationship(
+                    self.graph_brain.add_concept_node(concept_name, "DecisionTarget")
+                    self.graph_brain.add_relationship(
                         source_node_label="Document",
                         source_node_name=current_filename,
                         relationship_type=rel_type,
@@ -132,17 +132,21 @@ class IngestionService:
                         context=f"{verb} relationship from {current_filename}"
                     )
         
-        # Try to use LLM for enhanced relationship extraction if available
+        # Try to use LLM for enhanced project story extraction if available
         try:
             from .llm_client import LLMClient
             llm_client = LLMClient()
             
-            # Extract a meaningful chunk of text for LLM analysis
-            text_chunk = text[:2000] if len(text) > 2000 else text
+            # Extract enhanced relationships using new prompts
+            text_chunk = text[:3000] if len(text) > 3000 else text
             relationships = llm_client.extract_document_relationships(text_chunk, current_filename)
             
+            # Extract comprehensive project story elements
+            story_elements = llm_client.extract_project_story_elements(text, current_filename)
+            
+            # Process enhanced relationships
             for rel in relationships:
-                self.relational_brain.add_relationship(
+                self.graph_brain.add_relationship(
                     source_node_label=rel.get("source_type", "Document"),
                     source_node_name=rel["source"],
                     relationship_type=rel["relationship"],
@@ -150,11 +154,86 @@ class IngestionService:
                     target_node_name=rel["target"],
                     context=rel.get("context", f"LLM-extracted from {current_filename}")
                 )
+            
+            # Process project story elements
+            self._process_story_elements(story_elements, current_filename)
                 
         except Exception as e:
-            print(f"LLM relationship extraction failed: {e}")
+            print(f"LLM project story extraction failed: {e}")
             # Continue without LLM enhancement
 
+    def _process_story_elements(self, story_elements: dict, document_name: str):
+        """
+        Process extracted project story elements and add them to the GraphBrain
+        """
+        try:
+            # Process decisions
+            for decision in story_elements.get("decisions", []):
+                self.graph_brain.add_decision_node(
+                    decision_name=decision.get("name", ""),
+                    decision_maker=decision.get("maker", "Unknown"),
+                    context=decision.get("context", ""),
+                    era=decision.get("era")
+                )
+                
+                # Link decision to document that influenced it
+                if decision.get("name"):
+                    self.graph_brain.add_relationship(
+                        source_node_label="Document",
+                        source_node_name=document_name,
+                        relationship_type="INFLUENCED_BY",
+                        target_node_label="Decision",
+                        target_node_name=decision["name"],
+                        context=f"Decision influenced by {document_name}"
+                    )
+            
+            # Process meetings
+            for meeting in story_elements.get("meetings", []):
+                self.graph_brain.add_meeting_node(
+                    meeting_name=meeting.get("name", ""),
+                    attendees=meeting.get("attendees", []),
+                    decisions_made=meeting.get("outcomes", []),
+                    era=meeting.get("era")
+                )
+            
+            # Process features
+            for feature in story_elements.get("features", []):
+                self.graph_brain.add_feature_node(
+                    feature_name=feature.get("name", ""),
+                    owner=feature.get("owner"),
+                    influenced_by_decisions=feature.get("influenced_by", []),
+                    era=feature.get("era")
+                )
+            
+            # Process eras
+            for era in story_elements.get("eras", []):
+                self.graph_brain.add_era_node(
+                    era_name=era.get("name", ""),
+                    description=era.get("description", ""),
+                    start_date=None,
+                    end_date=None
+                )
+                
+                # Link document to era
+                if era.get("name"):
+                    self.graph_brain.link_document_to_era(document_name, era["name"])
+            
+            # Process collaborations
+            for collab in story_elements.get("collaborations", []):
+                if collab.get("person1") and collab.get("person2"):
+                    self.graph_brain.add_relationship(
+                        source_node_label="Person",
+                        source_node_name=collab["person1"],
+                        relationship_type="COLLABORATES_WITH",
+                        target_node_label="Person", 
+                        target_node_name=collab["person2"],
+                        context=collab.get("context", "Collaboration mentioned in document")
+                    )
+            
+            print(f"Processed project story elements from {document_name}")
+            
+        except Exception as e:
+            print(f"Error processing story elements: {e}")
 
     def ingest_file(self, filename: str, content: bytes, author: str = "Unknown"):
         """
@@ -172,8 +251,8 @@ class IngestionService:
         )
 
         # 2. Relational Brain: Create a document node and link the author
-        self.relational_brain.add_document_node(filename=filename, file_type=file_type)
-        self.relational_brain.add_author_relationship(filename=filename, author_name=author)
+        self.graph_brain.add_document_node(filename=filename, file_type=file_type)
+        self.graph_brain.add_author_relationship(filename=filename, author_name=author)
 
         # 3. Vector Brain & Entity Extraction
         # Define a list of text-based file extensions to process

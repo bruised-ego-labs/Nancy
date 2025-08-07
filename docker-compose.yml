@@ -17,6 +17,21 @@ services:
       - NEO4J_URI=bolt://neo4j:7687
       - OLLAMA_HOST=http://ollama:11434
 
+  baseline-rag:
+    build:
+      context: ./baseline-rag
+    ports:
+      - "8002:8002"
+    depends_on:
+      - chromadb
+      - ollama
+    environment:
+      - CHROMA_HOST=chromadb
+      - CHROMA_PORT=8000
+      - OLLAMA_HOST=ollama:11434
+    volumes:
+      - ./benchmark_data:/app/benchmark_data
+
   chromadb:
     image: chromadb/chroma
     ports:
@@ -47,9 +62,9 @@ services:
     deploy:
       resources:
         limits:
-          memory: 3G
+          memory: 4G
         reservations:
-          memory: 2.5G
+          memory: 3.5G
     # Uncomment for GPU support:
     # deploy:
     #   resources:

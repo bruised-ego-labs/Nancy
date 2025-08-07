@@ -7,7 +7,7 @@ import re
 from typing import Dict, List, Any, Optional
 from datetime import datetime, timedelta
 from .search import AnalyticalBrain
-from .knowledge_graph import RelationalBrain
+from .knowledge_graph import GraphBrain
 from .nlp import VectorBrain
 
 class QueryAnalyzer:
@@ -111,7 +111,7 @@ class EnhancedQueryOrchestrator:
         Initialize the three brains and query analyzer.
         """
         self.analytical_brain = AnalyticalBrain()
-        self.relational_brain = RelationalBrain()
+        self.graph_brain = GraphBrain()
         self.vector_brain = VectorBrain()
         self.query_analyzer = QueryAnalyzer()
         print("Enhanced Query Orchestrator initialized with intelligent routing.")
@@ -154,7 +154,7 @@ class EnhancedQueryOrchestrator:
         if intent['entities']:
             for entity in intent['entities']:
                 print(f"Searching for documents by potential author: {entity}")
-                documents = self.relational_brain.get_documents_by_author(entity)
+                documents = self.graph_brain.get_documents_by_author(entity)
                 
                 if documents:
                     # Found author, get metadata for their documents
@@ -215,7 +215,7 @@ class EnhancedQueryOrchestrator:
             # Get documents by these authors from Neo4j first
             all_author_docs = []
             for entity in intent['entities']:
-                author_docs = self.relational_brain.get_documents_by_author(entity)
+                author_docs = self.graph_brain.get_documents_by_author(entity)
                 all_author_docs.extend(author_docs)
             
             if all_author_docs:
@@ -245,7 +245,7 @@ class EnhancedQueryOrchestrator:
             # Create author lookup
             author_lookup = {}
             for doc in doc_metadata_list:
-                author = self.relational_brain.get_author_of_document(doc['filename'])
+                author = self.graph_brain.get_author_of_document(doc['filename'])
                 author_lookup[doc['id']] = author or "Unknown"
             
             # Synthesize results
@@ -286,12 +286,12 @@ class EnhancedQueryOrchestrator:
             
             for doc in doc_metadata:
                 # Find the author of this document
-                author = self.relational_brain.get_author_of_document(doc['filename'])
+                author = self.graph_brain.get_author_of_document(doc['filename'])
                 if author and author not in related_authors:
                     related_authors.append(author)
                     
                     # Find other documents by this author
-                    other_docs = self.relational_brain.get_documents_by_author(author)
+                    other_docs = self.graph_brain.get_documents_by_author(author)
                     related_documents.extend([d for d in other_docs if d != doc['filename']])
             
             # Get metadata for related documents
@@ -313,7 +313,7 @@ class EnhancedQueryOrchestrator:
                 # Create comprehensive author lookup
                 author_lookup = {}
                 for author in related_authors:
-                    author_docs = self.relational_brain.get_documents_by_author(author)
+                    author_docs = self.graph_brain.get_documents_by_author(author)
                     for doc_filename in author_docs:
                         # Find the doc_id for this filename
                         for doc in doc_metadata + related_doc_metadata:
@@ -357,7 +357,7 @@ class EnhancedQueryOrchestrator:
                     doc_id = vector_results['metadatas'][i][j]['source']
                     doc_meta = doc_metadata_map.get(doc_id)
                     
-                    author = self.relational_brain.get_author_of_document(doc_meta['filename']) if doc_meta else "Unknown"
+                    author = self.graph_brain.get_author_of_document(doc_meta['filename']) if doc_meta else "Unknown"
                     
                     synthesized_results.append({
                         "chunk_id": chunk_id,
@@ -397,7 +397,7 @@ class EnhancedQueryOrchestrator:
                         elif author_filter:
                             author = author_filter
                         else:
-                            author = self.relational_brain.get_author_of_document(doc_meta['filename']) if doc_meta else "Unknown"
+                            author = self.graph_brain.get_author_of_document(doc_meta['filename']) if doc_meta else "Unknown"
                         
                         filtered_results.append({
                             "chunk_id": chunk_id,
@@ -415,7 +415,7 @@ class EnhancedQueryOrchestrator:
         """
         print(f"Enhanced Orchestrator received author query for: {author_name}")
         
-        filenames = self.relational_brain.get_documents_by_author(author_name)
+        filenames = self.graph_brain.get_documents_by_author(author_name)
         
         if not filenames:
             return {

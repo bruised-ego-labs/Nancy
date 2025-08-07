@@ -14,9 +14,10 @@ def get_neo4j_driver():
     driver = GraphDatabase.driver(uri, auth=(user, password))
     return driver
 
-class RelationalBrain:
+class GraphBrain:
     """
-    Handles interactions with the Relational Brain (Neo4j).
+    Handles interactions with the Graph Brain (Neo4j) - the project knowledge graph.
+    Captures the complete story of project decisions, relationships, and evolution.
     """
     def __init__(self):
         self.driver = get_neo4j_driver()
@@ -340,3 +341,405 @@ class RelationalBrain:
         stats['most_connected_documents'] = connected_docs
         
         return stats
+    
+    # ============================================================================
+    # ENHANCED PROJECT STORY CAPABILITIES
+    # Capturing decisions, meetings, features, and project evolution
+    # ============================================================================
+    
+    def add_decision_node(self, decision_name: str, decision_maker: str, context: str = None, era: str = None):
+        """
+        Add a decision node with the person who made it and optional context.
+        """
+        with self.driver.session() as session:
+            session.write_transaction(self._create_decision_node, decision_name, decision_maker, context, era)
+            print(f"Added Decision '{decision_name}' by {decision_maker} to GraphBrain.")
+    
+    @staticmethod
+    def _create_decision_node(tx, decision_name, decision_maker, context, era):
+        # Create decision node
+        query = "MERGE (d:Decision {name: $decision_name})"
+        if context:
+            query += " SET d.context = $context"
+        if era:
+            query += " SET d.era = $era"
+        tx.run(query, decision_name=decision_name, context=context, era=era)
+        
+        # Link to decision maker
+        tx.run("""
+            MERGE (p:Person {name: $decision_maker})
+            MERGE (d:Decision {name: $decision_name})
+            MERGE (p)-[:MADE]->(d)
+        """, decision_maker=decision_maker, decision_name=decision_name)
+    
+    def add_meeting_node(self, meeting_name: str, attendees: list, decisions_made: list = None, era: str = None):
+        """
+        Add a meeting node with attendees and any decisions that resulted.
+        """
+        with self.driver.session() as session:
+            session.write_transaction(self._create_meeting_node, meeting_name, attendees, decisions_made, era)
+            print(f"Added Meeting '{meeting_name}' with {len(attendees)} attendees to GraphBrain.")
+    
+    @staticmethod
+    def _create_meeting_node(tx, meeting_name, attendees, decisions_made, era):
+        # Create meeting node
+        query = "MERGE (m:Meeting {name: $meeting_name})"
+        if era:
+            query += " SET m.era = $era"
+        tx.run(query, meeting_name=meeting_name, era=era)
+        
+        # Link attendees
+        for attendee in attendees:
+            tx.run("""
+                MERGE (p:Person {name: $attendee})
+                MERGE (m:Meeting {name: $meeting_name})
+                MERGE (p)-[:ATTENDED]->(m)
+            """, attendee=attendee, meeting_name=meeting_name)
+        
+        # Link decisions made in meeting
+        if decisions_made:
+            for decision in decisions_made:
+                tx.run("""
+                    MERGE (m:Meeting {name: $meeting_name})
+                    MERGE (d:Decision {name: $decision})
+                    MERGE (m)-[:RESULTED_IN]->(d)
+                """, meeting_name=meeting_name, decision=decision)
+    
+    def add_feature_node(self, feature_name: str, owner: str = None, influenced_by_decisions: list = None, era: str = None):
+        """
+        Add a feature node and link it to decisions that influenced it.
+        """
+        with self.driver.session() as session:
+            session.write_transaction(self._create_feature_node, feature_name, owner, influenced_by_decisions, era)
+            print(f"Added Feature '{feature_name}' to GraphBrain.")
+    
+    @staticmethod
+    def _create_feature_node(tx, feature_name, owner, influenced_by_decisions, era):
+        # Create feature node
+        query = "MERGE (f:Feature {name: $feature_name})"
+        if era:
+            query += " SET f.era = $era"
+        tx.run(query, feature_name=feature_name, era=era)
+        
+        # Link to owner
+        if owner:
+            tx.run("""
+                MERGE (p:Person {name: $owner})
+                MERGE (f:Feature {name: $feature_name})
+                MERGE (p)-[:OWNS]->(f)
+            """, owner=owner, feature_name=feature_name)
+        
+        # Link to influencing decisions
+        if influenced_by_decisions:
+            for decision in influenced_by_decisions:
+                tx.run("""
+                    MERGE (d:Decision {name: $decision})
+                    MERGE (f:Feature {name: $feature_name})
+                    MERGE (d)-[:LED_TO]->(f)
+                """, decision=decision, feature_name=feature_name)
+    
+    def add_era_node(self, era_name: str, description: str = None, start_date: str = None, end_date: str = None):
+        """
+        Add a project era/phase node (e.g., "Initial Research", "Q3 2025", "MVP Development").
+        """
+        with self.driver.session() as session:
+            session.write_transaction(self._create_era_node, era_name, description, start_date, end_date)
+            print(f"Added Era '{era_name}' to GraphBrain.")
+    
+    @staticmethod
+    def _create_era_node(tx, era_name, description, start_date, end_date):
+        query = "MERGE (e:Era {name: $era_name})"
+        if description:
+            query += " SET e.description = $description"
+        if start_date:
+            query += " SET e.start_date = $start_date"
+        if end_date:
+            query += " SET e.end_date = $end_date"
+        tx.run(query, era_name=era_name, description=description, start_date=start_date, end_date=end_date)
+    
+    def link_document_to_era(self, filename: str, era_name: str):
+        """
+        Link a document to the era when it was created.
+        """
+        with self.driver.session() as session:
+            session.write_transaction(self._link_document_era, filename, era_name)
+            print(f"Linked document {filename} to era {era_name}.")
+    
+    @staticmethod
+    def _link_document_era(tx, filename, era_name):
+        tx.run("""
+            MERGE (d:Document {filename: $filename})
+            MERGE (e:Era {name: $era_name})
+            MERGE (d)-[:CREATED_IN]->(e)
+        """, filename=filename, era_name=era_name)
+    
+    def find_decision_provenance(self, feature_or_topic: str) -> list[dict]:
+        """
+        Trace back to find what decisions led to a feature or influenced work on a topic.
+        This answers "Why did we build this feature this way?"
+        """
+        with self.driver.session() as session:
+            return session.read_transaction(self._find_decision_provenance, feature_or_topic)
+    
+    @staticmethod
+    def _find_decision_provenance(tx, feature_or_topic):
+        query = """
+            // Find decisions that led to features
+            MATCH (d:Decision)-[:LED_TO]->(f:Feature)
+            WHERE f.name CONTAINS $topic
+            MATCH (p:Person)-[:MADE]->(d)
+            OPTIONAL MATCH (m:Meeting)-[:RESULTED_IN]->(d)
+            OPTIONAL MATCH (doc:Document)-[:INFLUENCED_BY]->(d)
+            RETURN 'feature' as type,
+                   f.name as target,
+                   d.name as decision,
+                   p.name as decision_maker,
+                   d.context as decision_context,
+                   d.era as era,
+                   m.name as meeting,
+                   collect(DISTINCT doc.filename) as influencing_documents
+            
+            UNION
+            
+            // Find decisions that influenced documents about the topic
+            MATCH (d:Decision)<-[:INFLUENCED_BY]-(doc:Document)
+            WHERE doc.filename CONTAINS $topic
+            MATCH (p:Person)-[:MADE]->(d)
+            OPTIONAL MATCH (m:Meeting)-[:RESULTED_IN]->(d)
+            RETURN 'document' as type,
+                   doc.filename as target,
+                   d.name as decision,
+                   p.name as decision_maker,
+                   d.context as decision_context,
+                   d.era as era,
+                   m.name as meeting,
+                   [] as influencing_documents
+            
+            ORDER BY era, decision_maker
+        """
+        
+        result = tx.run(query, topic=feature_or_topic)
+        return [record.data() for record in result]
+    
+    def find_knowledge_expert(self, topic: str) -> list[dict]:
+        """
+        Find who are the real experts on a topic by analyzing their connections
+        to decisions, documents, and features related to that topic.
+        """
+        with self.driver.session() as session:
+            return session.read_transaction(self._find_knowledge_expert, topic)
+    
+    @staticmethod
+    def _find_knowledge_expert(tx, topic):
+        query = """
+            MATCH (p:Person)
+            OPTIONAL MATCH (p)-[:AUTHORED]->(doc:Document)
+            WHERE doc.filename CONTAINS $topic
+            OPTIONAL MATCH (p)-[:MADE]->(d:Decision)
+            WHERE d.name CONTAINS $topic OR d.context CONTAINS $topic
+            OPTIONAL MATCH (p)-[:OWNS]->(f:Feature)
+            WHERE f.name CONTAINS $topic
+            
+            WITH p, 
+                 count(DISTINCT doc) as documents_authored,
+                 count(DISTINCT d) as decisions_made,
+                 count(DISTINCT f) as features_owned,
+                 (count(DISTINCT doc) + count(DISTINCT d) * 2 + count(DISTINCT f) * 3) as expertise_score
+            
+            WHERE expertise_score > 0
+            
+            RETURN p.name as expert,
+                   documents_authored,
+                   decisions_made,
+                   features_owned,
+                   expertise_score
+            ORDER BY expertise_score DESC
+            LIMIT 10
+        """
+        
+        result = tx.run(query, topic=topic)
+        return [record.data() for record in result]
+    
+    def find_impact_analysis(self, document_name: str) -> list[dict]:
+        """
+        Find what would be affected if we changed a specific document.
+        Answers "What will this change affect?"
+        """
+        with self.driver.session() as session:
+            return session.read_transaction(self._find_impact_analysis, document_name)
+    
+    @staticmethod
+    def _find_impact_analysis(tx, document_name):
+        query = """
+            MATCH (doc:Document {filename: $document_name})
+            
+            // Find decisions influenced by this document
+            OPTIONAL MATCH (doc)-[:INFLUENCED_BY]->(d:Decision)
+            OPTIONAL MATCH (d)-[:LED_TO]->(f:Feature)
+            OPTIONAL MATCH (f)<-[:OWNS]-(owner:Person)
+            
+            // Find documents that reference this one
+            OPTIONAL MATCH (doc)<-[:REFERENCES|DEPENDS_ON]-(other_doc:Document)
+            OPTIONAL MATCH (other_doc)<-[:AUTHORED]-(author:Person)
+            
+            RETURN 'decision_impact' as impact_type,
+                   d.name as affected_item,
+                   f.name as downstream_feature,
+                   owner.name as stakeholder,
+                   'Decision maker' as stakeholder_role
+            WHERE d IS NOT NULL
+            
+            UNION
+            
+            MATCH (doc:Document {filename: $document_name})
+            OPTIONAL MATCH (doc)<-[:REFERENCES|DEPENDS_ON]-(other_doc:Document)
+            OPTIONAL MATCH (other_doc)<-[:AUTHORED]-(author:Person)
+            
+            RETURN 'document_impact' as impact_type,
+                   other_doc.filename as affected_item,
+                   null as downstream_feature,
+                   author.name as stakeholder,
+                   'Document author' as stakeholder_role
+            WHERE other_doc IS NOT NULL
+            
+            ORDER BY impact_type, affected_item
+        """
+        
+        result = tx.run(query, document_name=document_name)
+        return [record.data() for record in result]
+    
+    def find_project_timeline(self, era_name: str = None) -> list[dict]:
+        """
+        Get a timeline view of project evolution showing decisions, meetings, and documents by era.
+        """
+        with self.driver.session() as session:
+            return session.read_transaction(self._find_project_timeline, era_name)
+    
+    @staticmethod
+    def _find_project_timeline(tx, era_name):
+        if era_name:
+            query = """
+                MATCH (e:Era {name: $era_name})
+                OPTIONAL MATCH (doc:Document)-[:CREATED_IN]->(e)
+                OPTIONAL MATCH (doc)<-[:AUTHORED]-(author:Person)
+                OPTIONAL MATCH (d:Decision {era: $era_name})
+                OPTIONAL MATCH (d)<-[:MADE]-(decision_maker:Person)
+                OPTIONAL MATCH (m:Meeting {era: $era_name})
+                
+                RETURN e.name as era,
+                       e.description as era_description,
+                       collect(DISTINCT {document: doc.filename, author: author.name}) as documents,
+                       collect(DISTINCT {decision: d.name, maker: decision_maker.name, context: d.context}) as decisions,
+                       collect(DISTINCT m.name) as meetings
+                ORDER BY e.start_date
+            """
+            result = tx.run(query, era_name=era_name)
+        else:
+            query = """
+                MATCH (e:Era)
+                OPTIONAL MATCH (doc:Document)-[:CREATED_IN]->(e)
+                OPTIONAL MATCH (doc)<-[:AUTHORED]-(author:Person)
+                OPTIONAL MATCH (d:Decision {era: e.name})
+                OPTIONAL MATCH (d)<-[:MADE]-(decision_maker:Person)
+                OPTIONAL MATCH (m:Meeting {era: e.name})
+                
+                RETURN e.name as era,
+                       e.description as era_description,
+                       collect(DISTINCT {document: doc.filename, author: author.name}) as documents,
+                       collect(DISTINCT {decision: d.name, maker: decision_maker.name, context: d.context}) as decisions,
+                       collect(DISTINCT m.name) as meetings
+                ORDER BY e.start_date, e.name
+            """
+            result = tx.run(query)
+        
+        return [record.data() for record in result]
+    
+    def find_knowledge_silos(self) -> list[dict]:
+        """
+        Identify potential knowledge silos - people who are the only ones connected to certain topics.
+        """
+        with self.driver.session() as session:
+            return session.read_transaction(self._find_knowledge_silos)
+    
+    @staticmethod
+    def _find_knowledge_silos(tx):
+        query = """
+            // Find concepts/topics that only one person is connected to
+            MATCH (concept)
+            WHERE concept:Feature OR concept:Decision OR 
+                  (concept:Document AND concept.filename =~ '.*(?i)(spec |design |architecture ).*')
+            
+            MATCH (concept)<-[r]-(p:Person)
+            
+            WITH concept, count(DISTINCT p) as person_count, collect(DISTINCT p.name) as connected_people
+            WHERE person_count = 1
+            
+            RETURN labels(concept)[0] as concept_type,
+                   concept.name as concept_name,
+                   connected_people[0] as sole_expert,
+                   'Potential knowledge silo' as risk_level
+            
+            ORDER BY concept_type, concept_name
+        """
+        
+        result = tx.run(query)
+        return [record.data() for record in result]
+    
+    def get_authored_documents(self, author_name: str) -> list[dict]:
+        """
+        Get documents authored by a specific person (for IntelligentQueryOrchestrator).
+        """
+        with self.driver.session() as session:
+            return session.read_transaction(self._get_authored_documents, author_name)
+    
+    @staticmethod
+    def _get_authored_documents(tx, author_name):
+        query = """
+            MATCH (p:Person {name: $author_name})-[:AUTHORED]->(d:Document)
+            RETURN d.filename as document, d.file_type as file_type
+            ORDER BY d.filename
+        """
+        result = tx.run(query, author_name=author_name)
+        return [record.data() for record in result]
+    
+    def explore_relationships(self, entity_name: str) -> list[dict]:
+        """
+        Explore relationships for a specific entity (for IntelligentQueryOrchestrator).
+        """
+        with self.driver.session() as session:
+            return session.read_transaction(self._explore_relationships, entity_name)
+    
+    @staticmethod
+    def _explore_relationships(tx, entity_name):
+        query = """
+            MATCH (entity)
+            WHERE entity.name = $entity_name
+            MATCH (entity)-[r]-(related)
+            RETURN entity.name as source,
+                   type(r) as relationship,
+                   related.name as target,
+                   labels(related)[0] as target_type,
+                   r.context as context
+            LIMIT 20
+        """
+        result = tx.run(query, entity_name=entity_name)
+        return [record.data() for record in result]
+    
+    def get_cross_references(self) -> list[dict]:
+        """
+        Get documents that reference each other (for IntelligentQueryOrchestrator).
+        """
+        with self.driver.session() as session:
+            return session.read_transaction(self._get_cross_references)
+    
+    @staticmethod
+    def _get_cross_references(tx):
+        query = """
+            MATCH (d1:Document)-[r:REFERENCES]->(d2:Document)
+            RETURN d1.filename as source,
+                   d2.filename as target,
+                   r.context as context
+            ORDER BY d1.filename, d2.filename
+        """
+        result = tx.run(query)
+        return [record.data() for record in result]

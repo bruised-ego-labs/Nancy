@@ -6,6 +6,7 @@ Supports Claude and Gemini APIs for various AI tasks.
 import os
 import json
 import requests
+import re
 from typing import Dict, List, Optional, Any
 from dataclasses import dataclass
 from enum import Enum
@@ -77,29 +78,36 @@ class LLMClient:
         """
         Use LLM to analyze query intent and determine which brains to use
         """
-        system_prompt = """You are an intelligent query analyzer for Nancy, a three-brain AI system with:
-1. VectorBrain: Semantic search across document content
-2. AnalyticalBrain: Metadata queries (dates, file types, sizes, authors)
-3. RelationalBrain: Relationships between documents, people, and concepts
+        system_prompt = """You are a query analyzer for Nancy. You must return ONLY valid JSON, no other text.
 
-Analyze the user query and return a JSON response with this structure:
+CRITICAL: Your response must be EXACTLY this JSON format with NO additional text before or after:
+
 {
-    "query_type": "semantic|author_attribution|metadata_filter|relationship_discovery|hybrid_complex|temporal_analysis|cross_reference",
-    "semantic_terms": ["key", "search", "terms"],
-    "entities": ["people", "documents", "concepts"],
-    "time_constraints": {"start_date": "2024-03-01", "end_date": "2024-03-31"} or null,
-    "metadata_filters": {"file_type": ".txt", "author": "Sarah Chen"} or null,
-    "relationship_targets": ["document names", "person names"] or null,
-    "confidence": 0.95,
-    "reasoning": "Explanation of why this classification was chosen"
+    "query_type": "semantic",
+    "semantic_terms": ["term1", "term2"],
+    "entities": ["entity1"],
+    "time_constraints": null,
+    "metadata_filters": null,
+    "relationship_targets": null,
+    "confidence": 0.8,
+    "reasoning": "Brief explanation"
 }
 
-Examples:
-- "What are the power requirements?" → semantic search
-- "Who wrote the thermal analysis?" → author_attribution 
-- "Show me documents from March" → metadata_filter with time constraints
-- "What thermal issues affected electrical design?" → relationship_discovery
-- "Find documents by Sarah Chen about power from last month" → hybrid_complex"""
+Query Types:
+- semantic: General content search
+- author_attribution: "Who wrote/created"
+- metadata_filter: Date/file type filters  
+- relationship_discovery: "How are X and Y related"
+- hybrid_complex: Multiple brains needed
+- temporal_analysis: Time-based queries
+- cross_reference: Document relationships
+
+Rules:
+1. ONLY return the JSON object
+2. Use double quotes for all strings
+3. Use null (not "null") for empty values
+4. Keep reasoning under 50 characters
+5. No text before or after the JSON"""
 
         user_prompt = f"Analyze this query: '{query}'"
         
@@ -111,36 +119,23 @@ Examples:
             return self._parse_query_intent(response)
         except Exception as e:
             print(f"Error analyzing query intent: {e}")
-            # Fallback to semantic search
-            return QueryIntent(
-                query_type=QueryType.SEMANTIC,
-                semantic_terms=query.split(),
-                entities=[],
-                time_constraints=None,
-                metadata_filters=None,
-                relationship_targets=None,
-                confidence=0.3,
-                reasoning="LLM analysis failed, defaulting to semantic search"
-            )
+            # Raise the error instead of silently falling back
+            raise RuntimeError(f"Query intent analysis failed: {e}. Nancy requires functional LLM for intelligent query processing.")
     
     def synthesize_response(self, query: str, raw_results: Dict, query_intent: QueryIntent) -> str:
         """
         Use LLM to synthesize raw results into a natural language response
         """
-        system_prompt = """You are Nancy, an intelligent AI assistant that helps engineering teams find and understand project information. You have access to three specialized systems:
+        system_prompt = """You are Nancy, an AI assistant for engineering teams. Provide a clear, direct answer to the user's question based on the search results.
 
-1. Vector search results (semantic similarity)
-2. Document metadata (authors, dates, file types)
-3. Knowledge graph relationships (who created what, document connections)
+IMPORTANT: Write a natural, conversational response. Do NOT try to format as JSON.
 
-Your job is to synthesize the raw technical results into a clear, helpful response that directly answers the user's question. Focus on:
-- Answering the specific question asked
-- Highlighting key findings and relationships
-- Providing context and background when relevant
-- Being concise but comprehensive
-- Citing specific documents and authors when available
-
-Format your response in a conversational, professional tone suitable for engineering teams."""
+Guidelines:
+- Answer the question directly
+- Mention specific documents and authors when available
+- Keep response under 200 words
+- Use professional but friendly tone
+- Focus on the most relevant information"""
 
         user_prompt = f"""Original Query: "{query}"
 Query Intent: {query_intent.query_type.value} (confidence: {query_intent.confidence})
@@ -154,34 +149,67 @@ Please synthesize this into a natural language response that directly answers th
             return self._call_llm(system_prompt, user_prompt)
         except Exception as e:
             print(f"Error synthesizing response: {e}")
-            # Fallback to basic response
-            return self._create_fallback_response(raw_results)
+            # Raise the error instead of silently falling back
+            raise RuntimeError(f"Response synthesis failed: {e}. Nancy requires functional LLM for intelligent response generation.")
     
     def extract_document_relationships(self, text: str, document_name: str) -> List[Dict[str, str]]:
         """
-        Use LLM to extract relationships from document text
+        Use LLM to extract rich project story relationships from document text
         """
-        system_prompt = """You are analyzing engineering documents to extract relationships between:
-- Documents (references, dependencies, relates to)
-- People (mentions, collaborations, decisions)
-- Concepts (affects, influences, constrains)
+        system_prompt = """You are analyzing project documents to build a comprehensive knowledge graph that captures the project's story. Extract relationships between:
 
-Return a JSON array of relationships in this format:
+**Primary Entities:**
+- People (team members, stakeholders, decision makers)
+- Documents (specs, designs, reports, meeting notes)
+- Decisions (architectural choices, feature decisions, technical choices)
+- Features (functionality, components, systems)
+- Concepts (technologies, constraints, requirements)
+- Meetings (design reviews, planning sessions, standups)
+- Eras/Phases (project phases, sprints, milestones)
+
+**Relationship Types:**
+- AUTHORED (person created document)
+- MADE (person made decision)
+- ATTENDED (person attended meeting)
+- OWNS (person owns feature/component)
+- INFLUENCED_BY (decision influenced by document/meeting)
+- LED_TO (decision led to feature/document)
+- RESULTED_IN (meeting resulted in decision)
+- CREATED_IN (document/decision created in era)
+- REFERENCES (document references another)
+- DEPENDS_ON (component depends on another)
+- AFFECTS (change affects another component)
+- INFLUENCES (person/decision influences another)
+- CONSTRAINS (requirement constrains design)
+- COLLABORATES_WITH (person collaborates with another)
+
+Return a JSON array in this format:
 [
     {
-        "source": "current document or entity name",
-        "relationship": "REFERENCES|MENTIONS|AFFECTS|INFLUENCES|CONSTRAINS|COLLABORATES_WITH|DECIDES_ON|DEPENDS_ON",
-        "target": "target document, person, or concept",
-        "context": "brief explanation of the relationship"
+        "source": "entity name",
+        "source_type": "Person|Document|Decision|Feature|Concept|Meeting|Era",
+        "relationship": "relationship type from above",
+        "target": "target entity name", 
+        "target_type": "Person|Document|Decision|Feature|Concept|Meeting|Era",
+        "context": "brief explanation with specific details"
     }
 ]
 
-Focus on engineering-relevant relationships like:
-- Technical dependencies
-- Decision influences
-- Cross-team collaborations
-- Document references
-- Constraint relationships"""
+**Focus on capturing the project story:**
+- Who made what decisions and why?
+- What meetings led to decisions?
+- Which documents influenced decisions?
+- How do team members collaborate?
+- What features resulted from decisions?
+- What constraints affect the project?
+- What era/phase is this from?
+
+**Extract specific mentions of:**
+- Decision points ("decided to", "chosen", "selected")
+- Collaboration ("worked with", "coordinated with", "reviewed by")
+- Dependencies ("requires", "depends on", "affects")
+- Meeting outcomes ("meeting resulted in", "discussed in")
+- Timeline context ("during", "phase", "sprint", "quarter")"""
 
         user_prompt = f"""Document: {document_name}
 
@@ -192,52 +220,115 @@ Extract relationships from this text."""
 
         try:
             response = self._call_llm(system_prompt, user_prompt)
-            return self._parse_relationships(response)
+            return self._parse_enhanced_relationships(response)
         except Exception as e:
             print(f"Error extracting relationships: {e}")
             return []
     
+    def extract_project_story_elements(self, text: str, document_name: str) -> Dict[str, List[Dict]]:
+        """
+        Extract comprehensive project story elements: decisions, meetings, features, eras
+        """
+        system_prompt = """You are analyzing a project document to extract key story elements that build the project's knowledge graph. 
+
+Identify and extract:
+
+1. **Decisions Made** - Look for:
+   - "decided to", "chosen", "selected", "approved"
+   - Architectural choices, technology selections, process decisions
+   - Who made the decision and any context
+
+2. **Meetings Referenced** - Look for:
+   - "meeting", "review", "discussion", "standup", "planning session"
+   - Who attended, what was discussed, outcomes
+
+3. **Features/Components** - Look for:
+   - System components, features, functionality being discussed
+   - Who owns/leads each feature
+
+4. **Project Eras/Phases** - Look for:
+   - Time periods: "Q1", "Sprint 3", "Phase 1", "Initial Design"
+   - Project milestones, phases, development stages
+
+5. **Key Collaborations** - Look for:
+   - Cross-team work, coordination, dependencies
+   - "worked with", "coordinated with", "input from"
+
+Return JSON in this exact format:
+{
+    "decisions": [
+        {
+            "name": "decision name",
+            "maker": "person who made it",
+            "context": "why this decision was made",
+            "era": "time period if mentioned"
+        }
+    ],
+    "meetings": [
+        {
+            "name": "meeting name/description", 
+            "attendees": ["person1", "person2"],
+            "outcomes": ["decision1", "decision2"],
+            "era": "time period if mentioned"
+        }
+    ],
+    "features": [
+        {
+            "name": "feature/component name",
+            "owner": "person responsible",
+            "influenced_by": ["decision1", "decision2"],
+            "era": "time period if mentioned"
+        }
+    ],
+    "eras": [
+        {
+            "name": "era/phase name",
+            "description": "what this phase was about",
+            "key_activities": ["activity1", "activity2"]
+        }
+    ],
+    "collaborations": [
+        {
+            "person1": "first person",
+            "person2": "second person", 
+            "type": "what kind of collaboration",
+            "context": "specific details"
+        }
+    ]
+}"""
+
+        user_prompt = f"""Document: {document_name}
+
+Full text:
+{text[:4000]}
+
+Extract the project story elements from this document."""
+
+        try:
+            response = self._call_llm(system_prompt, user_prompt)
+            return self._parse_project_story(response)
+        except Exception as e:
+            print(f"Error extracting project story: {e}")
+            return {"decisions": [], "meetings": [], "features": [], "eras": [], "collaborations": []}
+    
     def _call_llm(self, system_prompt: str, user_prompt: str) -> str:
         """
-        Call the preferred LLM with comprehensive fallback support
+        Call the preferred LLM with clear error reporting - NO FALLBACKS for security
         """
-        # Try local models first (preferred for privacy and cost)
         if self.preferred_llm == "local_gemma" or self.preferred_llm == "ollama":
             try:
                 return self._call_local_ollama(system_prompt, user_prompt)
             except Exception as e:
-                print(f"Local Ollama failed ({e}), trying transformers fallback...")
-                try:
-                    return self._call_local_transformers(system_prompt, user_prompt)
-                except Exception as e2:
-                    print(f"Local transformers failed ({e2}), trying cloud APIs...")
+                raise RuntimeError(f"Local LLM (Ollama) failed: {e}. Nancy requires a functional local LLM for query intelligence.")
         
         elif self.preferred_llm == "transformers":
             try:
                 return self._call_local_transformers(system_prompt, user_prompt)
             except Exception as e:
-                print(f"Local transformers failed ({e}), trying Ollama fallback...")
-                try:
-                    return self._call_local_ollama(system_prompt, user_prompt)
-                except Exception as e2:
-                    print(f"Ollama failed ({e2}), trying cloud APIs...")
+                raise RuntimeError(f"Local LLM (Transformers) failed: {e}. Nancy requires a functional local LLM for query intelligence.")
         
-        # Try cloud APIs as fallback
-        if self.claude_api_key:
-            try:
-                return self._call_claude(system_prompt, user_prompt)
-            except Exception as e:
-                print(f"Claude API failed ({e})")
-        
-        if self.gemini_api_key:
-            try:
-                return self._call_gemini(system_prompt, user_prompt)
-            except Exception as e:
-                print(f"Gemini API failed ({e})")
-        
-        # Final fallback to mock response
-        print("All LLM options failed, using mock response")
-        return self._mock_llm_response(system_prompt, user_prompt)
+        else:
+            raise RuntimeError(f"Unsupported LLM preference: {self.preferred_llm}. Nancy only supports local LLMs for security.")
     
     def _call_claude(self, system_prompt: str, user_prompt: str) -> str:
         """
@@ -448,33 +539,152 @@ Extract relationships from this text."""
     
     def _parse_query_intent(self, response: str) -> QueryIntent:
         """
-        Parse LLM response into QueryIntent object
+        Parse LLM response into QueryIntent object with robust error handling
         """
+        print(f"Raw LLM response: {response[:200]}...")  # Debug log
+        
+        # Try direct JSON parsing first
         try:
             data = json.loads(response)
-            return QueryIntent(
-                query_type=QueryType(data["query_type"]),
-                semantic_terms=data.get("semantic_terms", []),
-                entities=data.get("entities", []),
-                time_constraints=data.get("time_constraints"),
-                metadata_filters=data.get("metadata_filters"),
-                relationship_targets=data.get("relationship_targets"),
-                confidence=data.get("confidence", 0.5),
-                reasoning=data.get("reasoning", "No reasoning provided")
-            )
-        except (json.JSONDecodeError, KeyError, ValueError) as e:
-            print(f"Error parsing query intent: {e}")
-            # Return fallback
-            return QueryIntent(
-                query_type=QueryType.SEMANTIC,
-                semantic_terms=response.split(),
-                entities=[],
-                time_constraints=None,
-                metadata_filters=None,
-                relationship_targets=None,
-                confidence=0.3,
-                reasoning="Failed to parse LLM response"
-            )
+            return self._create_query_intent_from_data(data)
+        except json.JSONDecodeError as e:
+            print(f"Initial JSON parse failed: {e}")
+            
+        # Strategy 2: Extract JSON from response text
+        cleaned_response = self._extract_json_from_response(response)
+        if cleaned_response:
+            try:
+                data = json.loads(cleaned_response)
+                return self._create_query_intent_from_data(data)
+            except json.JSONDecodeError as e:
+                print(f"Cleaned JSON parse failed: {e}")
+        
+        # Strategy 3: Try to fix common JSON issues
+        fixed_response = self._fix_common_json_issues(response)
+        if fixed_response:
+            try:
+                data = json.loads(fixed_response)
+                return self._create_query_intent_from_data(data)
+            except json.JSONDecodeError as e:
+                print(f"Fixed JSON parse failed: {e}")
+        
+        # Strategy 4: Re-prompt for better formatting
+        print("Attempting re-prompt for better JSON formatting...")
+        try:
+            retry_response = self._retry_json_prompt(response)
+            data = json.loads(retry_response)
+            return self._create_query_intent_from_data(data)
+        except Exception as e:
+            print(f"Re-prompt failed: {e}")
+        
+        # Final fallback: Create reasonable intent from text analysis
+        print("Using text analysis fallback for query intent")
+        return self._create_fallback_intent(response)
+    
+    def _create_query_intent_from_data(self, data: Dict) -> QueryIntent:
+        """Create QueryIntent from parsed JSON data"""
+        return QueryIntent(
+            query_type=QueryType(data.get("query_type", "semantic")),
+            semantic_terms=data.get("semantic_terms", []),
+            entities=data.get("entities", []),
+            time_constraints=data.get("time_constraints"),
+            metadata_filters=data.get("metadata_filters"),
+            relationship_targets=data.get("relationship_targets"),
+            confidence=data.get("confidence", 0.5),
+            reasoning=data.get("reasoning", "No reasoning provided")
+        )
+    
+    def _extract_json_from_response(self, response: str) -> Optional[str]:
+        """Extract JSON from response text that may have extra content"""
+        import re
+        
+        # Look for JSON object in the response
+        json_match = re.search(r'\{.*\}', response, re.DOTALL)
+        if json_match:
+            return json_match.group(0)
+        
+        # Look for JSON array
+        json_match = re.search(r'\[.*\]', response, re.DOTALL)
+        if json_match:
+            return json_match.group(0)
+        
+        return None
+    
+    def _fix_common_json_issues(self, response: str) -> Optional[str]:
+        """Fix common JSON formatting issues in LLM responses"""
+        try:
+            # Remove common prefixes/suffixes
+            cleaned = response.strip()
+            if cleaned.startswith('```json'):
+                cleaned = cleaned[7:]
+            if cleaned.endswith('```'):
+                cleaned = cleaned[:-3]
+            
+            # Remove "Here's the JSON:" type prefixes
+            import re
+            cleaned = re.sub(r'^.*?(?=\{)', '', cleaned, flags=re.DOTALL)
+            cleaned = cleaned.strip()
+            
+            # Fix single quotes to double quotes
+            cleaned = cleaned.replace("'", '"')
+            
+            # Fix Python None/True/False to JSON null/true/false
+            cleaned = re.sub(r'\bNone\b', 'null', cleaned)
+            cleaned = re.sub(r'\bTrue\b', 'true', cleaned)
+            cleaned = re.sub(r'\bFalse\b', 'false', cleaned)
+            
+            return cleaned
+        except Exception:
+            return None
+    
+    def _retry_json_prompt(self, original_response: str) -> str:
+        """Re-prompt the LLM specifically for JSON formatting"""
+        retry_prompt = f"""The previous response was not valid JSON: "{original_response[:100]}..."
+
+Please return ONLY this exact JSON structure with no other text:
+{{
+    "query_type": "semantic",
+    "semantic_terms": [],
+    "entities": [],
+    "time_constraints": null,
+    "metadata_filters": null,
+    "relationship_targets": null,
+    "confidence": 0.7,
+    "reasoning": "Retry formatting"
+}}
+
+Replace the values appropriately but keep the exact structure."""
+        
+        return self._call_llm("Return only valid JSON, no other text.", retry_prompt)
+    
+    def _create_fallback_intent(self, response: str) -> QueryIntent:
+        """Create a reasonable QueryIntent when JSON parsing completely fails"""
+        response_lower = response.lower()
+        
+        # Basic heuristics for query type
+        if any(word in response_lower for word in ['who', 'author', 'wrote', 'created']):
+            query_type = QueryType.AUTHOR_ATTRIBUTION
+        elif any(word in response_lower for word in ['when', 'date', 'time', 'recent']):
+            query_type = QueryType.TEMPORAL_ANALYSIS
+        elif any(word in response_lower for word in ['relationship', 'related', 'connected', 'affect']):
+            query_type = QueryType.RELATIONSHIP_DISCOVERY
+        else:
+            query_type = QueryType.SEMANTIC
+        
+        # Extract potential terms
+        words = response.split()
+        semantic_terms = [w for w in words if len(w) > 3 and w.isalnum()][:5]
+        
+        return QueryIntent(
+            query_type=query_type,
+            semantic_terms=semantic_terms,
+            entities=[],
+            time_constraints=None,
+            metadata_filters=None,
+            relationship_targets=None,
+            confidence=0.4,
+            reasoning="Fallback parsing - JSON format failed"
+        )
     
     def _parse_relationships(self, response: str) -> List[Dict[str, str]]:
         """
@@ -485,6 +695,38 @@ Extract relationships from this text."""
         except json.JSONDecodeError:
             print(f"Error parsing relationships: {response}")
             return []
+    
+    def _parse_enhanced_relationships(self, response: str) -> List[Dict[str, str]]:
+        """
+        Parse enhanced relationship extraction response with entity types
+        """
+        try:
+            relationships = json.loads(response)
+            # Convert enhanced format to compatible format for existing code
+            converted = []
+            for rel in relationships:
+                converted.append({
+                    "source": rel.get("source", ""),
+                    "relationship": rel.get("relationship", "MENTIONS"),
+                    "target": rel.get("target", ""),
+                    "context": rel.get("context", ""),
+                    "source_type": rel.get("source_type", "Unknown"),
+                    "target_type": rel.get("target_type", "Unknown")
+                })
+            return converted
+        except json.JSONDecodeError:
+            print(f"Error parsing enhanced relationships: {response}")
+            return []
+    
+    def _parse_project_story(self, response: str) -> Dict[str, List[Dict]]:
+        """
+        Parse project story extraction response
+        """
+        try:
+            return json.loads(response)
+        except json.JSONDecodeError:
+            print(f"Error parsing project story: {response}")
+            return {"decisions": [], "meetings": [], "features": [], "eras": [], "collaborations": []}
     
     def _create_fallback_response(self, raw_results: Dict) -> str:
         """

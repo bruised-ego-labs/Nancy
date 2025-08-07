@@ -1,0 +1,911 @@
+[
+  {
+    "query": "Who wrote the thermal analysis report?",
+    "results": {
+      "nancy": {
+        "system": "nancy_four_brain",
+        "success": true,
+        "response_time": 0.12056803703308105,
+        "results_count": 5,
+        "strategy": "hybrid",
+        "sources": [
+          "test_doc.txt",
+          "thermal_analysis.txt",
+          "project_story_demo.txt",
+          "project_story_demo.txt",
+          "thermal_analysis.txt"
+        ],
+        "raw_response": {
+          "strategy_used": "hybrid",
+          "intent": {
+            "type": "relationship_primary",
+            "primary_brain": "relational",
+            "needs_vector": true,
+            "needs_analytical": true,
+            "needs_relational": true,
+            "focus": "people",
+            "temporal": null,
+            "entities": [
+              "Who"
+            ]
+          },
+          "results": [
+            {
+              "chunk_id": "8e6871a96e778e6de5557982e8f1e7fd3698f1748f42540618bc91b6f9b8b9ad_chunk_0",
+              "document_metadata": {
+                "id": "8e6871a96e778e6de5557982e8f1e7fd3698f1748f42540618bc91b6f9b8b9ad",
+                "filename": "test_doc.txt",
+                "size": 166,
+                "file_type": ".txt",
+                "ingested_at": "2025-08-04T01:22:04.792710"
+              },
+              "author": "Test Engineer",
+              "distance": 0.6459827,
+              "text": "Test document for local LLM processing. This document discusses thermal design coordination between Sarah Chen and Mike Rodriguez for electrical systems integration."
+            },
+            {
+              "chunk_id": "5a7c68faee998c17477609bea59b502ebf6593769a1dc0bfeeadcec5fc771d31_chunk_3",
+              "document_metadata": {
+                "id": "5a7c68faee998c17477609bea59b502ebf6593769a1dc0bfeeadcec5fc771d31",
+                "filename": "thermal_analysis.txt",
+                "size": 1084,
+                "file_type": ".txt",
+                "ingested_at": "2025-08-04T01:23:40.180168"
+              },
+              "author": "Sarah Chen",
+              "distance": 0.7754903,
+              "text": "Risk Assessment:\n- Thermal runaway scenarios in high-power modes\n- Component derating at temperature extremes\n- Manufacturing tolerances affecting thermal paths\n\nThe relationship between our thermal design and the electrical power management is fundamental to system reliability."
+            },
+            {
+              "chunk_id": "5007785582a5b0025f3e67a256245f2f38bcb5995dce53699c8d5e6827864a64_chunk_2",
+              "document_metadata": {
+                "id": "5007785582a5b0025f3e67a256245f2f38bcb5995dce53699c8d5e6827864a64",
+                "filename": "project_story_demo.txt",
+                "size": 2256,
+                "file_type": ".txt",
+                "ingested_at": "2025-08-04T02:22:05.673827"
+              },
+              "author": "Scott Johnson",
+              "distance": 0.83006305,
+              "text": "Use Gemma 2B for Local Processing\n   - DECISION MAKER: Scott Johnson  \n   - CONTEXT: Memory constraints on 16GB development machine\n   - INFLUENCED BY: Docker memory limitations and performance testing\n   - ERA: Q4 2024 Implementation Phase\n\nCross-Team Collaboration:\n- Sarah Chen COLLABORATED WITH Mike Rodriguez on thermal-electrical integration\n- Mike Rodriguez WORKED WITH Lisa Park on mechanical cooling requirements\n- Scott Johnson COORDINATED WITH entire team on architecture decisions\n\nFeatures Developed:\n1."
+            },
+            {
+              "chunk_id": "5007785582a5b0025f3e67a256245f2f38bcb5995dce53699c8d5e6827864a64_chunk_0",
+              "document_metadata": {
+                "id": "5007785582a5b0025f3e67a256245f2f38bcb5995dce53699c8d5e6827864a64",
+                "filename": "project_story_demo.txt",
+                "size": 2256,
+                "file_type": ".txt",
+                "ingested_at": "2025-08-04T02:22:05.673827"
+              },
+              "author": "Scott Johnson",
+              "distance": 0.84233576,
+              "text": "Project Meeting Notes - Q4 2024 Nancy Architecture Review\n\nMeeting Attendees:\n- Scott Johnson (Project Lead)\n- Sarah Chen (Thermal Engineer) \n- Mike Rodriguez (Electrical Engineer)\n- Lisa Park (Mechanical Engineer)\n\nKey Decisions Made:\n1. DECISION:"
+            },
+            {
+              "chunk_id": "5a7c68faee998c17477609bea59b502ebf6593769a1dc0bfeeadcec5fc771d31_chunk_2",
+              "document_metadata": {
+                "id": "5a7c68faee998c17477609bea59b502ebf6593769a1dc0bfeeadcec5fc771d31",
+                "filename": "thermal_analysis.txt",
+                "size": 1084,
+                "file_type": ".txt",
+                "ingested_at": "2025-08-04T01:23:40.180168"
+              },
+              "author": "Sarah Chen",
+              "distance": 0.8622964,
+              "text": "The main power rail efficiency drops significantly above 70C junction temperature.\n\n Mike Rodriguez from the electrical team has proposed a novel switching regulator configuration that could reduce heat generation by 15%."
+            }
+          ]
+        }
+      },
+      "chromadb": {
+        "system": "chromadb_direct",
+        "success": false,
+        "error": "ChromaDB query failed: 405",
+        "response_time": 0.02241802215576172
+      },
+      "text_search": {
+        "system": "simple_text_search",
+        "success": true,
+        "response_time": 0.14148855209350586,
+        "results_count": 5,
+        "results": [
+          {
+            "file": "data\\benchmark_test_data\\electrical_review_meeting.txt",
+            "matches": 3,
+            "score": 0.5,
+            "snippet": "ware), jennifer adams (project manager)\n\nagenda item 1: power supply design review\nmike rodriguez: \"the power supply schematic v3 has been updated based on sarah's thermal constraints. we've moved the switching regulator to the edge of the pcb for better heat dissipation.\"\n\nsarah chen: \"good. the th"
+          },
+          {
+            "file": "data\\benchmark_test_data\\ergonomic_analysis.txt",
+            "matches": 3,
+            "score": 0.5,
+            "snippet": "ergonomic analysis report\nproject: advanced iot device development\nauthor: lisa park\ndate: march 8, 2024\n\nstudy overview\nthis ergonomic analysis evaluates the human factors aspects of the iot device design to e"
+          },
+          {
+            "file": "data\\benchmark_test_data\\march_design_review_transcript.txt",
+            "matches": 3,
+            "score": 0.5,
+            "snippet": "d to order: 9:00 am\n\njennifer adams: \"good morning everyone. this is our critical design review for the iot device project. we need to make final decisions on several key items today to stay on schedule for prototype delivery in may.\"\n\nagenda item 1: budget constraints and cost analysis\njennifer ada"
+          },
+          {
+            "file": "data\\benchmark_test_data\\power_analysis_report.txt",
+            "matches": 3,
+            "score": 0.5,
+            "snippet": "power analysis report\nproject: advanced iot device development\nauthor: tom wilson\ndate: march 14, 2024\n\nexecutive summary\nthis report provides detailed power consumption analysis for the iot device across a"
+          },
+          {
+            "file": "data\\benchmark_test_data\\thermal_constraints_doc.txt",
+            "matches": 3,
+            "score": 0.5,
+            "snippet": "thermal analysis and constraints document\nproject: advanced iot device development\nauthor: sarah chen\ndate: march 10, 2024\n\nexecutive summary\nthis document establishes thermal design constraints for t"
+          }
+        ]
+      },
+      "keyword": {
+        "system": "keyword_search",
+        "success": true,
+        "response_time": 0.0,
+        "results_count": 2,
+        "results": [
+          {
+            "title": "Thermal Analysis Report",
+            "author": "Sarah Chen",
+            "score": 5,
+            "matches": [
+              "the*",
+              "thermal",
+              "analysis"
+            ],
+            "relevance": 0.8333333333333334,
+            "snippet": "thermal analysis report aluminum heat sink CPU temperatures 85\u00b0C stress testing copper solution insufficient sustained loads aluminum provides 40% better heat dissipation cost 2mm additional clearance..."
+          },
+          {
+            "title": "Electrical Design Review",
+            "author": "Mike Rodriguez",
+            "score": 3,
+            "matches": [
+              "the*",
+              "thermal"
+            ],
+            "relevance": 0.5,
+            "snippet": "electrical design review meeting split power rail design thermal constraints component spacing optimization hotspot risks power efficiency routing optimization..."
+          }
+        ]
+      }
+    }
+  },
+  {
+    "query": "Why was aluminum chosen for the heat sink design?",
+    "results": {
+      "nancy": {
+        "system": "nancy_four_brain",
+        "success": true,
+        "response_time": 0.09657740592956543,
+        "results_count": 5,
+        "strategy": "hybrid",
+        "sources": [
+          "test_doc.txt",
+          "thermal_analysis.txt",
+          "thermal_analysis.txt",
+          "thermal_analysis.txt",
+          "thermal_analysis.txt"
+        ],
+        "raw_response": {
+          "strategy_used": "hybrid",
+          "intent": {
+            "type": "hybrid",
+            "primary_brain": "vector",
+            "needs_vector": true,
+            "needs_analytical": true,
+            "needs_relational": true,
+            "focus": "content",
+            "temporal": null,
+            "entities": [
+              "Why"
+            ]
+          },
+          "results": [
+            {
+              "chunk_id": "8e6871a96e778e6de5557982e8f1e7fd3698f1748f42540618bc91b6f9b8b9ad_chunk_0",
+              "document_metadata": {
+                "id": "8e6871a96e778e6de5557982e8f1e7fd3698f1748f42540618bc91b6f9b8b9ad",
+                "filename": "test_doc.txt",
+                "size": 166,
+                "file_type": ".txt",
+                "ingested_at": "2025-08-04T01:22:04.792710"
+              },
+              "author": "Test Engineer",
+              "distance": 0.71696305,
+              "text": "Test document for local LLM processing. This document discusses thermal design coordination between Sarah Chen and Mike Rodriguez for electrical systems integration."
+            },
+            {
+              "chunk_id": "5a7c68faee998c17477609bea59b502ebf6593769a1dc0bfeeadcec5fc771d31_chunk_3",
+              "document_metadata": {
+                "id": "5a7c68faee998c17477609bea59b502ebf6593769a1dc0bfeeadcec5fc771d31",
+                "filename": "thermal_analysis.txt",
+                "size": 1084,
+                "file_type": ".txt",
+                "ingested_at": "2025-08-04T01:23:40.180168"
+              },
+              "author": "Sarah Chen",
+              "distance": 0.74458194,
+              "text": "Risk Assessment:\n- Thermal runaway scenarios in high-power modes\n- Component derating at temperature extremes\n- Manufacturing tolerances affecting thermal paths\n\nThe relationship between our thermal design and the electrical power management is fundamental to system reliability."
+            },
+            {
+              "chunk_id": "5a7c68faee998c17477609bea59b502ebf6593769a1dc0bfeeadcec5fc771d31_chunk_2",
+              "document_metadata": {
+                "id": "5a7c68faee998c17477609bea59b502ebf6593769a1dc0bfeeadcec5fc771d31",
+                "filename": "thermal_analysis.txt",
+                "size": 1084,
+                "file_type": ".txt",
+                "ingested_at": "2025-08-04T01:23:40.180168"
+              },
+              "author": "Sarah Chen",
+              "distance": 0.7631795,
+              "text": "The main power rail efficiency drops significantly above 70C junction temperature.\n\n Mike Rodriguez from the electrical team has proposed a novel switching regulator configuration that could reduce heat generation by 15%."
+            },
+            {
+              "chunk_id": "5a7c68faee998c17477609bea59b502ebf6593769a1dc0bfeeadcec5fc771d31_chunk_0",
+              "document_metadata": {
+                "id": "5a7c68faee998c17477609bea59b502ebf6593769a1dc0bfeeadcec5fc771d31",
+                "filename": "thermal_analysis.txt",
+                "size": 1084,
+                "file_type": ".txt",
+                "ingested_at": "2025-08-04T01:23:40.180168"
+              },
+              "author": "Sarah Chen",
+              "distance": 0.80686975,
+              "text": "Advanced Thermal Management System Design\n\nThis document outlines the thermal management approach for our next-generation electronic system. The primary challenge involves managing heat dissipation across multiple power domains while maintaining optimal performance."
+            },
+            {
+              "chunk_id": "5a7c68faee998c17477609bea59b502ebf6593769a1dc0bfeeadcec5fc771d31_chunk_1",
+              "document_metadata": {
+                "id": "5a7c68faee998c17477609bea59b502ebf6593769a1dc0bfeeadcec5fc771d31",
+                "filename": "thermal_analysis.txt",
+                "size": 1084,
+                "file_type": ".txt",
+                "ingested_at": "2025-08-04T01:23:40.180168"
+              },
+              "author": "Sarah Chen",
+              "distance": 0.821321,
+              "text": "Key Design Considerations:\n- Power density exceeds 150W per cubic inch in critical areas\n- Operating temperature range: -40C to +85C ambient\n- Integration with electrical power distribution system is critical\n\nThe electrical design team has identified several constraints that directly impact our thermal strategy."
+            }
+          ]
+        }
+      },
+      "chromadb": {
+        "system": "chromadb_direct",
+        "success": false,
+        "error": "ChromaDB query failed: 405",
+        "response_time": 0.021788597106933594
+      },
+      "text_search": {
+        "system": "simple_text_search",
+        "success": true,
+        "response_time": 0.009661436080932617,
+        "results_count": 5,
+        "results": [
+          {
+            "file": "benchmark_data\\electrical_design_review.txt",
+            "matches": 5,
+            "score": 0.5555555555555556,
+            "snippet": " - q4 2024\n\nmeeting: q4 2024 electrical design review\nattendees: mike rodriguez (lead), sarah chen (thermal), lisa park (mechanical), scott johnson (pm)\n\ndecision: implement split power rail design\ndecision maker: mike rodriguez\ncontext: thermal constraints require component spacing optimization\ninf"
+          },
+          {
+            "file": "benchmark_data\\mechanical_integration_plan.txt",
+            "matches": 5,
+            "score": 0.5555555555555556,
+            "snippet": "\ndecision: redesign enclosure with 15% larger volume\ndecision maker: lisa park\ncontext: accommodate aluminum heat sink and split power rail requirements\ninfluenced by: sarah chen's thermal requirements, mike rodriguez's electrical spacing needs\nera: q4 2024 integration phase\n\ndesign changes:\n- enclo"
+          },
+          {
+            "file": "benchmark_data\\thermal_analysis_report.txt",
+            "matches": 5,
+            "score": 0.5555555555555556,
+            "snippet": "thermal analysis report - q4 2024\n                \ndecision: adopt aluminum heat sink design\ndecision maker: sarah chen\ncontext: cpu temperatures exceeded 85\u00b0c during stress testing\ninfluenced by: mik"
+          },
+          {
+            "file": "data\\benchmark_test_data\\electrical_review_meeting.txt",
+            "matches": 4,
+            "score": 0.4444444444444444,
+            "snippet": "ware), jennifer adams (project manager)\n\nagenda item 1: power supply design review\nmike rodriguez: \"the power supply schematic v3 has been updated based on sarah's thermal constraints. we've moved the switching regulator to the edge of the pcb for better heat dissipation.\"\n\nsarah chen: \"good. the th"
+          },
+          {
+            "file": "data\\benchmark_test_data\\march_design_review_transcript.txt",
+            "matches": 4,
+            "score": 0.4444444444444444,
+            "snippet": "alled to order: 9:00 am\n\njennifer adams: \"good morning everyone. this is our critical design review for the iot device project. we need to make final decisions on several key items today to stay on schedule for prototype delivery in may.\"\n\nagenda item 1: budget constraints and cost analysis\njennifer"
+          }
+        ]
+      },
+      "keyword": {
+        "system": "keyword_search",
+        "success": true,
+        "response_time": 0.0,
+        "results_count": 3,
+        "results": [
+          {
+            "title": "Thermal Analysis Report",
+            "author": "Sarah Chen",
+            "score": 7,
+            "matches": [
+              "aluminum",
+              "the*",
+              "heat",
+              "sink"
+            ],
+            "relevance": 0.7777777777777778,
+            "snippet": "thermal analysis report aluminum heat sink CPU temperatures 85\u00b0C stress testing copper solution insufficient sustained loads aluminum provides 40% better heat dissipation cost 2mm additional clearance..."
+          },
+          {
+            "title": "Mechanical Integration Plan",
+            "author": "Lisa Park",
+            "score": 6,
+            "matches": [
+              "aluminum",
+              "heat",
+              "sink"
+            ],
+            "relevance": 0.6666666666666666,
+            "snippet": "mechanical integration enclosure redesign 15% larger volume accommodate aluminum heat sink split power rail requirements height increased 3mm clearance internal partitioning airflow channels..."
+          },
+          {
+            "title": "Electrical Design Review",
+            "author": "Mike Rodriguez",
+            "score": 1,
+            "matches": [
+              "the*"
+            ],
+            "relevance": 0.1111111111111111,
+            "snippet": "electrical design review meeting split power rail design thermal constraints component spacing optimization hotspot risks power efficiency routing optimization..."
+          }
+        ]
+      }
+    }
+  },
+  {
+    "query": "Who is the primary expert on thermal design?",
+    "results": {
+      "nancy": {
+        "system": "nancy_four_brain",
+        "success": true,
+        "response_time": 0.08566451072692871,
+        "results_count": 5,
+        "strategy": "hybrid",
+        "sources": [
+          "test_doc.txt",
+          "thermal_analysis.txt",
+          "thermal_analysis.txt",
+          "project_story_demo.txt",
+          "project_story_demo.txt"
+        ],
+        "raw_response": {
+          "strategy_used": "hybrid",
+          "intent": {
+            "type": "hybrid",
+            "primary_brain": "vector",
+            "needs_vector": true,
+            "needs_analytical": true,
+            "needs_relational": true,
+            "focus": "content",
+            "temporal": null,
+            "entities": [
+              "Who"
+            ]
+          },
+          "results": [
+            {
+              "chunk_id": "8e6871a96e778e6de5557982e8f1e7fd3698f1748f42540618bc91b6f9b8b9ad_chunk_0",
+              "document_metadata": {
+                "id": "8e6871a96e778e6de5557982e8f1e7fd3698f1748f42540618bc91b6f9b8b9ad",
+                "filename": "test_doc.txt",
+                "size": 166,
+                "file_type": ".txt",
+                "ingested_at": "2025-08-04T01:22:04.792710"
+              },
+              "author": "Test Engineer",
+              "distance": 0.6385246,
+              "text": "Test document for local LLM processing. This document discusses thermal design coordination between Sarah Chen and Mike Rodriguez for electrical systems integration."
+            },
+            {
+              "chunk_id": "5a7c68faee998c17477609bea59b502ebf6593769a1dc0bfeeadcec5fc771d31_chunk_0",
+              "document_metadata": {
+                "id": "5a7c68faee998c17477609bea59b502ebf6593769a1dc0bfeeadcec5fc771d31",
+                "filename": "thermal_analysis.txt",
+                "size": 1084,
+                "file_type": ".txt",
+                "ingested_at": "2025-08-04T01:23:40.180168"
+              },
+              "author": "Sarah Chen",
+              "distance": 0.6888279,
+              "text": "Advanced Thermal Management System Design\n\nThis document outlines the thermal management approach for our next-generation electronic system. The primary challenge involves managing heat dissipation across multiple power domains while maintaining optimal performance."
+            },
+            {
+              "chunk_id": "5a7c68faee998c17477609bea59b502ebf6593769a1dc0bfeeadcec5fc771d31_chunk_3",
+              "document_metadata": {
+                "id": "5a7c68faee998c17477609bea59b502ebf6593769a1dc0bfeeadcec5fc771d31",
+                "filename": "thermal_analysis.txt",
+                "size": 1084,
+                "file_type": ".txt",
+                "ingested_at": "2025-08-04T01:23:40.180168"
+              },
+              "author": "Sarah Chen",
+              "distance": 0.71102035,
+              "text": "Risk Assessment:\n- Thermal runaway scenarios in high-power modes\n- Component derating at temperature extremes\n- Manufacturing tolerances affecting thermal paths\n\nThe relationship between our thermal design and the electrical power management is fundamental to system reliability."
+            },
+            {
+              "chunk_id": "5007785582a5b0025f3e67a256245f2f38bcb5995dce53699c8d5e6827864a64_chunk_2",
+              "document_metadata": {
+                "id": "5007785582a5b0025f3e67a256245f2f38bcb5995dce53699c8d5e6827864a64",
+                "filename": "project_story_demo.txt",
+                "size": 2256,
+                "file_type": ".txt",
+                "ingested_at": "2025-08-04T02:22:05.673827"
+              },
+              "author": "Scott Johnson",
+              "distance": 0.74745834,
+              "text": "Use Gemma 2B for Local Processing\n   - DECISION MAKER: Scott Johnson  \n   - CONTEXT: Memory constraints on 16GB development machine\n   - INFLUENCED BY: Docker memory limitations and performance testing\n   - ERA: Q4 2024 Implementation Phase\n\nCross-Team Collaboration:\n- Sarah Chen COLLABORATED WITH Mike Rodriguez on thermal-electrical integration\n- Mike Rodriguez WORKED WITH Lisa Park on mechanical cooling requirements\n- Scott Johnson COORDINATED WITH entire team on architecture decisions\n\nFeatures Developed:\n1."
+            },
+            {
+              "chunk_id": "5007785582a5b0025f3e67a256245f2f38bcb5995dce53699c8d5e6827864a64_chunk_0",
+              "document_metadata": {
+                "id": "5007785582a5b0025f3e67a256245f2f38bcb5995dce53699c8d5e6827864a64",
+                "filename": "project_story_demo.txt",
+                "size": 2256,
+                "file_type": ".txt",
+                "ingested_at": "2025-08-04T02:22:05.673827"
+              },
+              "author": "Scott Johnson",
+              "distance": 0.7803207,
+              "text": "Project Meeting Notes - Q4 2024 Nancy Architecture Review\n\nMeeting Attendees:\n- Scott Johnson (Project Lead)\n- Sarah Chen (Thermal Engineer) \n- Mike Rodriguez (Electrical Engineer)\n- Lisa Park (Mechanical Engineer)\n\nKey Decisions Made:\n1. DECISION:"
+            }
+          ]
+        }
+      },
+      "chromadb": {
+        "system": "chromadb_direct",
+        "success": false,
+        "error": "ChromaDB query failed: 405",
+        "response_time": 0.030652523040771484
+      },
+      "text_search": {
+        "system": "simple_text_search",
+        "success": true,
+        "response_time": 0.005477190017700195,
+        "results_count": 5,
+        "results": [
+          {
+            "file": "benchmark_data\\project_timeline_q4_2024.txt",
+            "matches": 4,
+            "score": 0.6666666666666666,
+            "snippet": "\nproject manager: scott johnson\nduration: october 1 - december 31, 2024\n\ncritical path analysis:\n1. thermal analysis completion \u2192 electrical design \u2192 mechanical integration\n2. dependencies identified between all three subsystems\n3. cross-functional collaboration essential for success\n\ndecision: adop"
+          },
+          {
+            "file": "data\\benchmark_test_data\\electrical_review_meeting.txt",
+            "matches": 3,
+            "score": 0.5,
+            "snippet": "ware), jennifer adams (project manager)\n\nagenda item 1: power supply design review\nmike rodriguez: \"the power supply schematic v3 has been updated based on sarah's thermal constraints. we've moved the switching regulator to the edge of the pcb for better heat dissipation.\"\n\nsarah chen: \"good. the th"
+          },
+          {
+            "file": "data\\benchmark_test_data\\ergonomic_analysis.txt",
+            "matches": 3,
+            "score": 0.5,
+            "snippet": "development\nauthor: lisa park\ndate: march 8, 2024\n\nstudy overview\nthis ergonomic analysis evaluates the human factors aspects of the iot device design to ensure optimal user experience across diverse industrial environments and user populations.\n\nmethodology\n- anthropometric analysis using ansur ii "
+          },
+          {
+            "file": "data\\benchmark_test_data\\thermal_constraints_doc.txt",
+            "matches": 3,
+            "score": 0.5,
+            "snippet": "thermal analysis and constraints document\nproject: advanced iot device development\nauthor: sarah chen\ndate: march 10, 2024\n\nexecutive summary\nthis document establishes thermal design constraints for t"
+          },
+          {
+            "file": "benchmark_data\\electrical_design_review.txt",
+            "matches": 3,
+            "score": 0.5,
+            "snippet": " - q4 2024\n\nmeeting: q4 2024 electrical design review\nattendees: mike rodriguez (lead), sarah chen (thermal), lisa park (mechanical), scott johnson (pm)\n\ndecision: implement split power rail design\ndecision maker: mike rodriguez\ncontext: thermal constraints require component spacing optimization\ninf"
+          }
+        ]
+      },
+      "keyword": {
+        "system": "keyword_search",
+        "success": true,
+        "response_time": 0.0,
+        "results_count": 4,
+        "results": [
+          {
+            "title": "Thermal Analysis Report",
+            "author": "Sarah Chen",
+            "score": 4,
+            "matches": [
+              "is*",
+              "the*",
+              "thermal"
+            ],
+            "relevance": 0.5,
+            "snippet": "thermal analysis report aluminum heat sink CPU temperatures 85\u00b0C stress testing copper solution insufficient sustained loads aluminum provides 40% better heat dissipation cost 2mm additional clearance..."
+          },
+          {
+            "title": "Electrical Design Review",
+            "author": "Mike Rodriguez",
+            "score": 4,
+            "matches": [
+              "the*",
+              "on*",
+              "thermal"
+            ],
+            "relevance": 0.5,
+            "snippet": "electrical design review meeting split power rail design thermal constraints component spacing optimization hotspot risks power efficiency routing optimization..."
+          },
+          {
+            "title": "Mechanical Integration Plan",
+            "author": "Lisa Park",
+            "score": 1,
+            "matches": [
+              "is*"
+            ],
+            "relevance": 0.125,
+            "snippet": "mechanical integration enclosure redesign 15% larger volume accommodate aluminum heat sink split power rail requirements height increased 3mm clearance internal partitioning airflow channels..."
+          },
+          {
+            "title": "Project Timeline Q4 2024",
+            "author": "Scott Johnson",
+            "score": 1,
+            "matches": [
+              "on*"
+            ],
+            "relevance": 0.125,
+            "snippet": "project timeline Q4 2024 integration phase scott johnson thermal analysis electrical design mechanical integration cross-team collaboration architecture decisions..."
+          }
+        ]
+      }
+    }
+  },
+  {
+    "query": "How do thermal and electrical design decisions affect each other?",
+    "results": {
+      "nancy": {
+        "system": "nancy_four_brain",
+        "success": true,
+        "response_time": 0.0753016471862793,
+        "results_count": 5,
+        "strategy": "hybrid",
+        "sources": [
+          "thermal_analysis.txt",
+          "thermal_analysis.txt",
+          "thermal_analysis.txt",
+          "test_doc.txt",
+          "thermal_analysis.txt"
+        ],
+        "raw_response": {
+          "strategy_used": "hybrid",
+          "intent": {
+            "type": "hybrid",
+            "primary_brain": "vector",
+            "needs_vector": true,
+            "needs_analytical": true,
+            "needs_relational": true,
+            "focus": "content",
+            "temporal": null,
+            "entities": [
+              "How"
+            ]
+          },
+          "results": [
+            {
+              "chunk_id": "5a7c68faee998c17477609bea59b502ebf6593769a1dc0bfeeadcec5fc771d31_chunk_3",
+              "document_metadata": {
+                "id": "5a7c68faee998c17477609bea59b502ebf6593769a1dc0bfeeadcec5fc771d31",
+                "filename": "thermal_analysis.txt",
+                "size": 1084,
+                "file_type": ".txt",
+                "ingested_at": "2025-08-04T01:23:40.180168"
+              },
+              "author": "Sarah Chen",
+              "distance": 0.38014886,
+              "text": "Risk Assessment:\n- Thermal runaway scenarios in high-power modes\n- Component derating at temperature extremes\n- Manufacturing tolerances affecting thermal paths\n\nThe relationship between our thermal design and the electrical power management is fundamental to system reliability."
+            },
+            {
+              "chunk_id": "5a7c68faee998c17477609bea59b502ebf6593769a1dc0bfeeadcec5fc771d31_chunk_0",
+              "document_metadata": {
+                "id": "5a7c68faee998c17477609bea59b502ebf6593769a1dc0bfeeadcec5fc771d31",
+                "filename": "thermal_analysis.txt",
+                "size": 1084,
+                "file_type": ".txt",
+                "ingested_at": "2025-08-04T01:23:40.180168"
+              },
+              "author": "Sarah Chen",
+              "distance": 0.57258356,
+              "text": "Advanced Thermal Management System Design\n\nThis document outlines the thermal management approach for our next-generation electronic system. The primary challenge involves managing heat dissipation across multiple power domains while maintaining optimal performance."
+            },
+            {
+              "chunk_id": "5a7c68faee998c17477609bea59b502ebf6593769a1dc0bfeeadcec5fc771d31_chunk_1",
+              "document_metadata": {
+                "id": "5a7c68faee998c17477609bea59b502ebf6593769a1dc0bfeeadcec5fc771d31",
+                "filename": "thermal_analysis.txt",
+                "size": 1084,
+                "file_type": ".txt",
+                "ingested_at": "2025-08-04T01:23:40.180168"
+              },
+              "author": "Sarah Chen",
+              "distance": 0.59365666,
+              "text": "Key Design Considerations:\n- Power density exceeds 150W per cubic inch in critical areas\n- Operating temperature range: -40C to +85C ambient\n- Integration with electrical power distribution system is critical\n\nThe electrical design team has identified several constraints that directly impact our thermal strategy."
+            },
+            {
+              "chunk_id": "8e6871a96e778e6de5557982e8f1e7fd3698f1748f42540618bc91b6f9b8b9ad_chunk_0",
+              "document_metadata": {
+                "id": "8e6871a96e778e6de5557982e8f1e7fd3698f1748f42540618bc91b6f9b8b9ad",
+                "filename": "test_doc.txt",
+                "size": 166,
+                "file_type": ".txt",
+                "ingested_at": "2025-08-04T01:22:04.792710"
+              },
+              "author": "Test Engineer",
+              "distance": 0.59773344,
+              "text": "Test document for local LLM processing. This document discusses thermal design coordination between Sarah Chen and Mike Rodriguez for electrical systems integration."
+            },
+            {
+              "chunk_id": "5a7c68faee998c17477609bea59b502ebf6593769a1dc0bfeeadcec5fc771d31_chunk_2",
+              "document_metadata": {
+                "id": "5a7c68faee998c17477609bea59b502ebf6593769a1dc0bfeeadcec5fc771d31",
+                "filename": "thermal_analysis.txt",
+                "size": 1084,
+                "file_type": ".txt",
+                "ingested_at": "2025-08-04T01:23:40.180168"
+              },
+              "author": "Sarah Chen",
+              "distance": 0.6777718,
+              "text": "The main power rail efficiency drops significantly above 70C junction temperature.\n\n Mike Rodriguez from the electrical team has proposed a novel switching regulator configuration that could reduce heat generation by 15%."
+            }
+          ]
+        }
+      },
+      "chromadb": {
+        "system": "chromadb_direct",
+        "success": false,
+        "error": "ChromaDB query failed: 405",
+        "response_time": 0.03127551078796387
+      },
+      "text_search": {
+        "system": "simple_text_search",
+        "success": true,
+        "response_time": 0.0026712417602539062,
+        "results_count": 5,
+        "results": [
+          {
+            "file": "data\\benchmark_test_data\\electrical_review_meeting.txt",
+            "matches": 7,
+            "score": 0.7777777777777778,
+            "snippet": "electrical design review meeting transcript\nproject: advanced iot device development\ndate: march 18, 2024\nattendees: mike rodriguez (electrical lead), sarah chen (systems), lisa park (industrial desig"
+          },
+          {
+            "file": "data\\benchmark_test_data\\march_design_review_transcript.txt",
+            "matches": 6,
+            "score": 0.6666666666666666,
+            "snippet": "design review meeting transcript\nproject: advanced iot device development\ndate: march 22, 2024\nlocation: conference room b / virtual\nchair: jennifer adams (project manager)\nattendees: sarah chen (syst"
+          },
+          {
+            "file": "data\\benchmark_test_data\\voice_of_customer.txt",
+            "matches": 6,
+            "score": 0.6666666666666666,
+            "snippet": "ments\n- 120 survey responses from existing product users\n- 8 focus group sessions (6-8 participants each)\n- competitive analysis of 12 similar products\n- field observation studies in 5 customer environments\n\nkey customer insights\n\nusability concerns\n\"the device needs to work immediately out of the b"
+          },
+          {
+            "file": "data\\benchmark_test_data\\power_analysis_report.txt",
+            "matches": 5,
+            "score": 0.5555555555555556,
+            "snippet": "e across all operational modes, supporting the system requirement of 2.5w maximum power consumption and 5-year battery life target.\n\npower consumption breakdown\n\nactive mode (continuous operation)\ntotal power: 2.4w (within 2.5w requirement)\n\ncomponent-level analysis:\n- processor (arm cortex-m4): 850"
+          },
+          {
+            "file": "data\\benchmark_test_data\\thermal_constraints_doc.txt",
+            "matches": 5,
+            "score": 0.5555555555555556,
+            "snippet": "thermal analysis and constraints document\nproject: advanced iot device development\nauthor: sarah chen\ndate: march 10, 2024\n\nexecutive summary\nthis document establishes thermal design constraints for t"
+          }
+        ]
+      },
+      "keyword": {
+        "system": "keyword_search",
+        "success": true,
+        "response_time": 0.0,
+        "results_count": 3,
+        "results": [
+          {
+            "title": "Electrical Design Review",
+            "author": "Mike Rodriguez",
+            "score": 6,
+            "matches": [
+              "thermal",
+              "electrical",
+              "design"
+            ],
+            "relevance": 0.6,
+            "snippet": "electrical design review meeting split power rail design thermal constraints component spacing optimization hotspot risks power efficiency routing optimization..."
+          },
+          {
+            "title": "Thermal Analysis Report",
+            "author": "Sarah Chen",
+            "score": 2,
+            "matches": [
+              "thermal"
+            ],
+            "relevance": 0.2,
+            "snippet": "thermal analysis report aluminum heat sink CPU temperatures 85\u00b0C stress testing copper solution insufficient sustained loads aluminum provides 40% better heat dissipation cost 2mm additional clearance..."
+          },
+          {
+            "title": "Mechanical Integration Plan",
+            "author": "Lisa Park",
+            "score": 1,
+            "matches": [
+              "design*"
+            ],
+            "relevance": 0.1,
+            "snippet": "mechanical integration enclosure redesign 15% larger volume accommodate aluminum heat sink split power rail requirements height increased 3mm clearance internal partitioning airflow channels..."
+          }
+        ]
+      }
+    }
+  },
+  {
+    "query": "What decisions were made during Q4 2024?",
+    "results": {
+      "nancy": {
+        "system": "nancy_four_brain",
+        "success": true,
+        "response_time": 0.06765508651733398,
+        "results_count": 5,
+        "strategy": "analytical_first",
+        "sources": [
+          "project_story_demo.txt",
+          "project_story_demo.txt",
+          "project_story_demo.txt",
+          "project_story_demo.txt",
+          "test_doc.txt"
+        ],
+        "raw_response": {
+          "strategy_used": "analytical_first",
+          "intent": {
+            "type": "analytical_primary",
+            "primary_brain": "analytical",
+            "needs_vector": true,
+            "needs_analytical": true,
+            "needs_relational": true,
+            "focus": "metadata",
+            "temporal": "temporal",
+            "entities": [
+              "What"
+            ]
+          },
+          "results": [
+            {
+              "chunk_id": "5007785582a5b0025f3e67a256245f2f38bcb5995dce53699c8d5e6827864a64_chunk_0",
+              "document_metadata": {
+                "id": "5007785582a5b0025f3e67a256245f2f38bcb5995dce53699c8d5e6827864a64",
+                "filename": "project_story_demo.txt",
+                "size": 2256,
+                "file_type": ".txt",
+                "ingested_at": "2025-08-04T02:22:05.673827"
+              },
+              "author": "Scott Johnson",
+              "distance": 0.6942994,
+              "text": "Project Meeting Notes - Q4 2024 Nancy Architecture Review\n\nMeeting Attendees:\n- Scott Johnson (Project Lead)\n- Sarah Chen (Thermal Engineer) \n- Mike Rodriguez (Electrical Engineer)\n- Lisa Park (Mechanical Engineer)\n\nKey Decisions Made:\n1. DECISION:"
+            },
+            {
+              "chunk_id": "5007785582a5b0025f3e67a256245f2f38bcb5995dce53699c8d5e6827864a64_chunk_1",
+              "document_metadata": {
+                "id": "5007785582a5b0025f3e67a256245f2f38bcb5995dce53699c8d5e6827864a64",
+                "filename": "project_story_demo.txt",
+                "size": 2256,
+                "file_type": ".txt",
+                "ingested_at": "2025-08-04T02:22:05.673827"
+              },
+              "author": "Scott Johnson",
+              "distance": 0.8547771,
+              "text": "Adopt Four-Brain Architecture with Local LLM\n   - DECISION MAKER: Scott Johnson\n   - CONTEXT: Need zero-cost AI operations with complete privacy\n   - INFLUENCED BY: Budget constraints and data security requirements\n   - ERA: Q4 2024 Architecture Phase\n\n2. DECISION:"
+            },
+            {
+              "chunk_id": "5007785582a5b0025f3e67a256245f2f38bcb5995dce53699c8d5e6827864a64_chunk_4",
+              "document_metadata": {
+                "id": "5007785582a5b0025f3e67a256245f2f38bcb5995dce53699c8d5e6827864a64",
+                "filename": "project_story_demo.txt",
+                "size": 2256,
+                "file_type": ".txt",
+                "ingested_at": "2025-08-04T02:22:05.673827"
+              },
+              "author": "Scott Johnson",
+              "distance": 0.8888947,
+              "text": "FEATURE: Project Story Capture System\n   - OWNER: Scott Johnson\n   - INFLUENCED BY: Need for decision archaeology and project context\n   - COLLABORATES WITH: Enhanced LLM prompts\n\nTechnical Constraints:\n- Memory usage CONSTRAINS model selection (Gemma 2B vs larger models)\n- Docker container limits AFFECT Ollama configuration\n- Privacy requirements INFLUENCE local-only processing design\n\nProject Phases:\n- PHASE: \"Q4 2024 Architecture Phase\" - Initial four-brain design\n- PHASE: \"Q4 2024 Implementation Phase\" - Local LLM integration and testing\n- PHASE: \"Q4 2024 Demonstration Phase\" - System validation and demo preparation\n\nMeeting Outcomes:\n- This meeting RESULTED IN \"Adopt Four-Brain Architecture\" decision\n- Architecture review RESULTED IN \"Use Gemma 2B\" decision\n- Team alignment achieved on privacy-first approach\n\nDocument References:\n- This document REFERENCES \"Nancy System Requirements\"\n- Architecture decisions INFLUENCED BY \"Budget Analysis Q4 2024\"\n- Implementation plan DEPENDS ON \"Technical Feasibility Study\""
+            },
+            {
+              "chunk_id": "5007785582a5b0025f3e67a256245f2f38bcb5995dce53699c8d5e6827864a64_chunk_2",
+              "document_metadata": {
+                "id": "5007785582a5b0025f3e67a256245f2f38bcb5995dce53699c8d5e6827864a64",
+                "filename": "project_story_demo.txt",
+                "size": 2256,
+                "file_type": ".txt",
+                "ingested_at": "2025-08-04T02:22:05.673827"
+              },
+              "author": "Scott Johnson",
+              "distance": 0.95776856,
+              "text": "Use Gemma 2B for Local Processing\n   - DECISION MAKER: Scott Johnson  \n   - CONTEXT: Memory constraints on 16GB development machine\n   - INFLUENCED BY: Docker memory limitations and performance testing\n   - ERA: Q4 2024 Implementation Phase\n\nCross-Team Collaboration:\n- Sarah Chen COLLABORATED WITH Mike Rodriguez on thermal-electrical integration\n- Mike Rodriguez WORKED WITH Lisa Park on mechanical cooling requirements\n- Scott Johnson COORDINATED WITH entire team on architecture decisions\n\nFeatures Developed:\n1."
+            },
+            {
+              "chunk_id": "8e6871a96e778e6de5557982e8f1e7fd3698f1748f42540618bc91b6f9b8b9ad_chunk_0",
+              "document_metadata": {
+                "id": "8e6871a96e778e6de5557982e8f1e7fd3698f1748f42540618bc91b6f9b8b9ad",
+                "filename": "test_doc.txt",
+                "size": 166,
+                "file_type": ".txt",
+                "ingested_at": "2025-08-04T01:22:04.792710"
+              },
+              "author": "Test Engineer",
+              "distance": 0.9875405,
+              "text": "Test document for local LLM processing. This document discusses thermal design coordination between Sarah Chen and Mike Rodriguez for electrical systems integration."
+            }
+          ]
+        }
+      },
+      "chromadb": {
+        "system": "chromadb_direct",
+        "success": false,
+        "error": "ChromaDB query failed: 405",
+        "response_time": 0.03809833526611328
+      },
+      "text_search": {
+        "system": "simple_text_search",
+        "success": true,
+        "response_time": 0.0,
+        "results_count": 5,
+        "results": [
+          {
+            "file": "data\\benchmark_test_data\\electrical_review_meeting.txt",
+            "matches": 3,
+            "score": 0.5,
+            "snippet": "so added the thermal vias as discussed. the power consumption should now meet the 2.5w maximum even during worst-case scenarios.\"\n\nagenda item 2: emc compliance status\nmike rodriguez: \"emc testing results from the lab show we're passing fcc part 15 class b limits with 6db margin. the new ground plan"
+          },
+          {
+            "file": "data\\benchmark_test_data\\march_design_review_transcript.txt",
+            "matches": 2,
+            "score": 0.3333333333333333,
+            "snippet": "ning everyone. this is our critical design review for the iot device project. we need to make final decisions on several key items today to stay on schedule for prototype delivery in may.\"\n\nagenda item 1: budget constraints and cost analysis\njennifer adams: \"let's start with the budget reality check"
+          },
+          {
+            "file": "data\\benchmark_test_data\\power_analysis_report.txt",
+            "matches": 2,
+            "score": 0.3333333333333333,
+            "snippet": "power: 2.4w (within 2.5w requirement)\n\ncomponent-level analysis:\n- processor (arm cortex-m4): 850mw during full processing\n- wifi radio (2.4ghz): 620mw during transmission\n- bluetooth radio: 180mw during active connection\n- sensor interface: 320mw during data acquisition\n- power management ic: 180mw"
+          },
+          {
+            "file": "data\\benchmark_test_data\\voice_of_customer.txt",
+            "matches": 2,
+            "score": 0.3333333333333333,
+            "snippet": "minent logos\n\nuser interface requirements\nsingle button operation: \"one button should handle 90% of what i need to do\"\nstatus feedback: \"i need to know device status at a glance from across the room\"\nerror indication: \"when something goes wrong, make it obvious what the problem is\"\n\nmounting and ins"
+          },
+          {
+            "file": "data\\benchmark_test_data\\emc_test_results.txt",
+            "matches": 1,
+            "score": 0.16666666666666666,
+            "snippet": "150khz - 30mhz\nmeasurement method: lisn (line impedance stabilization network)\ntest setup: device powered via external dc supply through lisn\n\ncritical frequencies measured:\n- 1.2mhz: -8db\u03bcv (limit: -3db\u03bcv) - pass with 5db margin\n- 2.4mhz: -12db\u03bcv (limit: -3db\u03bcv) - pass with 9db margin  \n- 15.7mhz: "
+          }
+        ]
+      },
+      "keyword": {
+        "system": "keyword_search",
+        "success": true,
+        "response_time": 0.0,
+        "results_count": 1,
+        "results": [
+          {
+            "title": "Project Timeline Q4 2024",
+            "author": "Scott Johnson",
+            "score": 2,
+            "matches": [
+              "q4"
+            ],
+            "relevance": 0.2857142857142857,
+            "snippet": "project timeline Q4 2024 integration phase scott johnson thermal analysis electrical design mechanical integration cross-team collaboration architecture decisions..."
+          }
+        ]
+      }
+    }
+  }
+]

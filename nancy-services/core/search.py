@@ -73,7 +73,7 @@ class AnalyticalBrain:
         Advanced document filtering based on metadata constraints.
         
         Supported filters:
-        - author: string (requires join with RelationalBrain)
+        - author: string (requires join with GraphBrain)
         - file_type: string or list
         - start_date, end_date: datetime strings
         - min_size, max_size: integers (bytes)

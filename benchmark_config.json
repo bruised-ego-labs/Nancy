@@ -1,0 +1,56 @@
+{
+  "nancy_endpoint": "http://localhost:8000",
+  "baseline_systems": {
+    "vector_only": {
+      "type": "chromadb",
+      "endpoint": "http://localhost:8001",
+      "description": "Pure vector search using ChromaDB without LLM analysis"
+    },
+    "simple_search": {
+      "type": "file_search", 
+      "method": "grep",
+      "description": "Basic file system text search using grep patterns"
+    },
+    "basic_rag": {
+      "type": "langchain",
+      "model": "local",
+      "description": "Standard RAG with vector retrieval + LLM generation"
+    }
+  },
+  "evaluation_settings": {
+    "timeout_seconds": 60,
+    "repetitions": 3,
+    "confidence_threshold": 0.7,
+    "parallel_queries": false,
+    "save_intermediate_results": true
+  },
+  "benchmark_categories": {
+    "simple_lookup": {
+      "weight": 0.2,
+      "description": "Basic information retrieval that any system should handle"
+    },
+    "decision_provenance": {
+      "weight": 0.3,
+      "description": "Tracing why decisions were made and their context"
+    },
+    "expert_identification": {
+      "weight": 0.2,
+      "description": "Identifying subject matter experts based on contributions"
+    },
+    "relationship_discovery": {
+      "weight": 0.2,
+      "description": "Finding connections between concepts, people, and decisions"
+    },
+    "temporal_analysis": {
+      "weight": 0.1,
+      "description": "Time-based queries about project evolution"
+    }
+  },
+  "quality_thresholds": {
+    "minimum_accuracy": 0.6,
+    "minimum_relevance": 0.7,
+    "minimum_completeness": 0.5,
+    "minimum_faithfulness": 0.8,
+    "response_time_limit": 30.0
+  }
+}
