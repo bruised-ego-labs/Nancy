@@ -1,0 +1,652 @@
+{
+  "metadata": {
+    "timestamp": "2025-08-10T11:28:58.135707",
+    "total_time": 200.36282920837402,
+    "nancy_url": "http://localhost:8000",
+    "baseline_url": "http://localhost:8002",
+    "test_count": 7
+  },
+  "system_health": {
+    "nancy": {
+      "system": "Nancy Four-Brain",
+      "status": "healthy",
+      "response_code": 200,
+      "details": {
+        "status": "ok"
+      }
+    },
+    "baseline": {
+      "system": "Baseline RAG",
+      "status": "healthy",
+      "response_code": 200,
+      "details": {
+        "status": "ok",
+        "system": "baseline-rag",
+        "rag_initialized": true
+      }
+    }
+  },
+  "test_results": [
+    {
+      "test_id": 1,
+      "category": "Basic Factual",
+      "query": "What is the operating temperature range mentioned in the thermal analysis?",
+      "expected_capabilities": [
+        "basic_retrieval"
+      ],
+      "nancy": {
+        "system": "Nancy",
+        "status": "success",
+        "query_time": 24.90022301673889,
+        "response": "No relevant documents found for 'What is the operating temperature range mentioned in the thermal analysis?'.",
+        "sources": [],
+        "author_info": {
+          "has_author_attribution": false,
+          "identified_authors": [],
+          "author_count": 0
+        },
+        "relationship_info": {
+          "has_relationships": false,
+          "relationship_indicators": [],
+          "relationship_count": 0
+        },
+        "response_length": 109,
+        "source_count": 0,
+        "raw_result": {
+          "query": "What is the operating temperature range mentioned in the thermal analysis?",
+          "strategy_used": "langchain_router",
+          "response": "No relevant documents found for 'What is the operating temperature range mentioned in the thermal analysis?'.",
+          "routing_info": {
+            "selected_brain": "unknown",
+            "confidence": 0.5,
+            "routing_method": "llm_router"
+          },
+          "routing_steps": [],
+          "query_time": 22.449817895889282,
+          "processing_timestamp": "2025-08-10T18:26:02.998648"
+        }
+      },
+      "baseline": {
+        "system": "Baseline",
+        "status": "success",
+        "query_time": 7.22699499130249,
+        "response": "Please provide me with the text containing the thermal analysis. I need that text to answer your question about the operating temperature range. \n",
+        "sources": [],
+        "author_info": {
+          "has_author_attribution": false,
+          "identified_authors": [],
+          "author_count": 0
+        },
+        "relationship_info": {
+          "has_relationships": false,
+          "relationship_indicators": [],
+          "relationship_count": 0
+        },
+        "response_length": 146,
+        "source_count": 0,
+        "raw_result": {
+          "response": "Please provide me with the text containing the thermal analysis. I need that text to answer your question about the operating temperature range. \n",
+          "sources": [],
+          "query_time": 5.494149923324585,
+          "method": "langchain_rag"
+        }
+      },
+      "timestamp": "2025-08-10T11:26:09.972890"
+    },
+    {
+      "test_id": 2,
+      "category": "Author Attribution",
+      "query": "Who wrote the electrical design review document?",
+      "expected_capabilities": [
+        "author_tracking",
+        "metadata_retrieval"
+      ],
+      "nancy": {
+        "system": "Nancy",
+        "status": "success",
+        "query_time": 29.532228231430054,
+        "response": "Author not found. Available authors: Mike Rodriguez, Sarah Chen, Lisa Park, Scott Johnson, Mike Rodriguez\r\nCONTEXT, Sarah Chen's, Mike Rodriguez\r\n, Lisa Park\r\nCONTEXT, Mike Rodriguez's, Sarah + Mike, Lisa + all, Sarah Chen\r\n, Scott, Project Nancy, Nancy, Brain, DuckDB, Graph Brain, Linguistic Brain, nancy, Docker, ChromaDB, Neo4j, Git, Ollama, Graph, Docker Desktop, Gemma, Lisa Park\nDate, WiFi, Size Target",
+        "sources": [],
+        "author_info": {
+          "has_author_attribution": true,
+          "identified_authors": [
+            "Sarah Chen",
+            "Mike Rodriguez"
+          ],
+          "author_count": 2
+        },
+        "relationship_info": {
+          "has_relationships": false,
+          "relationship_indicators": [],
+          "relationship_count": 0
+        },
+        "response_length": 409,
+        "source_count": 0,
+        "raw_result": {
+          "query": "Who wrote the electrical design review document?",
+          "strategy_used": "langchain_router",
+          "response": "Author not found. Available authors: Mike Rodriguez, Sarah Chen, Lisa Park, Scott Johnson, Mike Rodriguez\r\nCONTEXT, Sarah Chen's, Mike Rodriguez\r\n, Lisa Park\r\nCONTEXT, Mike Rodriguez's, Sarah + Mike, Lisa + all, Sarah Chen\r\n, Scott, Project Nancy, Nancy, Brain, DuckDB, Graph Brain, Linguistic Brain, nancy, Docker, ChromaDB, Neo4j, Git, Ollama, Graph, Docker Desktop, Gemma, Lisa Park\nDate, WiFi, Size Target",
+          "routing_info": {
+            "selected_brain": "unknown",
+            "confidence": 0.5,
+            "routing_method": "llm_router"
+          },
+          "routing_steps": [],
+          "query_time": 29.79493546485901,
+          "processing_timestamp": "2025-08-10T18:26:38.307978"
+        }
+      },
+      "baseline": {
+        "system": "Baseline",
+        "status": "success",
+        "query_time": 6.413155794143677,
+        "response": "The provided text does not mention who wrote the electrical design review document. \n",
+        "sources": [],
+        "author_info": {
+          "has_author_attribution": true,
+          "identified_authors": [],
+          "author_count": 0
+        },
+        "relationship_info": {
+          "has_relationships": false,
+          "relationship_indicators": [],
+          "relationship_count": 0
+        },
+        "response_length": 85,
+        "source_count": 0,
+        "raw_result": {
+          "response": "The provided text does not mention who wrote the electrical design review document. \n",
+          "sources": [],
+          "query_time": 6.836070775985718,
+          "method": "langchain_rag"
+        }
+      },
+      "timestamp": "2025-08-10T11:26:45.921166"
+    },
+    {
+      "test_id": 3,
+      "category": "Cross-Domain Relationships",
+      "query": "How do the electrical design requirements affect the mechanical integration plan?",
+      "expected_capabilities": [
+        "relationship_discovery",
+        "cross_document_synthesis"
+      ],
+      "nancy": {
+        "system": "Nancy",
+        "status": "success",
+        "query_time": 18.32003140449524,
+        "response": "No relevant documents found for 'How do the electrical design requirements affect the mechanical integration plan?'.",
+        "sources": [],
+        "author_info": {
+          "has_author_attribution": false,
+          "identified_authors": [],
+          "author_count": 0
+        },
+        "relationship_info": {
+          "has_relationships": false,
+          "relationship_indicators": [],
+          "relationship_count": 0
+        },
+        "response_length": 116,
+        "source_count": 0,
+        "raw_result": {
+          "query": "How do the electrical design requirements affect the mechanical integration plan?",
+          "strategy_used": "langchain_router",
+          "response": "No relevant documents found for 'How do the electrical design requirements affect the mechanical integration plan?'.",
+          "routing_info": {
+            "selected_brain": "unknown",
+            "confidence": 0.5,
+            "routing_method": "llm_router"
+          },
+          "routing_steps": [],
+          "query_time": 19.719743490219116,
+          "processing_timestamp": "2025-08-10T18:27:04.885084"
+        }
+      },
+      "baseline": {
+        "system": "Baseline",
+        "status": "success",
+        "query_time": 7.6024394035339355,
+        "response": "The provided text does not explain how electrical design requirements affect the mechanical integration plan. Therefore, I cannot answer your question based on the context given. \n",
+        "sources": [],
+        "author_info": {
+          "has_author_attribution": false,
+          "identified_authors": [],
+          "author_count": 0
+        },
+        "relationship_info": {
+          "has_relationships": false,
+          "relationship_indicators": [],
+          "relationship_count": 0
+        },
+        "response_length": 180,
+        "source_count": 0,
+        "raw_result": {
+          "response": "The provided text does not explain how electrical design requirements affect the mechanical integration plan. Therefore, I cannot answer your question based on the context given. \n",
+          "sources": [],
+          "query_time": 6.054347991943359,
+          "method": "langchain_rag"
+        }
+      },
+      "timestamp": "2025-08-10T11:27:11.844587"
+    },
+    {
+      "test_id": 4,
+      "category": "Decision Chain Tracking",
+      "query": "What decisions were made in the project timeline that affect the thermal analysis?",
+      "expected_capabilities": [
+        "decision_tracking",
+        "temporal_analysis"
+      ],
+      "nancy": {
+        "system": "Nancy",
+        "status": "success",
+        "query_time": 15.978916645050049,
+        "response": "No relevant documents found for 'What decisions were made in the project timeline that affect the thermal analysis?'.",
+        "sources": [],
+        "author_info": {
+          "has_author_attribution": false,
+          "identified_authors": [],
+          "author_count": 0
+        },
+        "relationship_info": {
+          "has_relationships": false,
+          "relationship_indicators": [],
+          "relationship_count": 0
+        },
+        "response_length": 117,
+        "source_count": 0,
+        "raw_result": {
+          "query": "What decisions were made in the project timeline that affect the thermal analysis?",
+          "strategy_used": "langchain_router",
+          "response": "No relevant documents found for 'What decisions were made in the project timeline that affect the thermal analysis?'.",
+          "routing_info": {
+            "selected_brain": "unknown",
+            "confidence": 0.5,
+            "routing_method": "llm_router"
+          },
+          "routing_steps": [],
+          "query_time": 17.168314218521118,
+          "processing_timestamp": "2025-08-10T18:27:28.124174"
+        }
+      },
+      "baseline": {
+        "system": "Baseline",
+        "status": "success",
+        "query_time": 7.122897386550903,
+        "response": "Please provide me with the project timeline!  I need the actual context of the timeline to tell you what decisions were made and how they affected the thermal analysis. \ud83d\ude0a \n",
+        "sources": [],
+        "author_info": {
+          "has_author_attribution": false,
+          "identified_authors": [],
+          "author_count": 0
+        },
+        "relationship_info": {
+          "has_relationships": false,
+          "relationship_indicators": [],
+          "relationship_count": 0
+        },
+        "response_length": 172,
+        "source_count": 0,
+        "raw_result": {
+          "response": "Please provide me with the project timeline!  I need the actual context of the timeline to tell you what decisions were made and how they affected the thermal analysis. \ud83d\ude0a \n",
+          "sources": [],
+          "query_time": 5.5784807205200195,
+          "method": "langchain_rag"
+        }
+      },
+      "timestamp": "2025-08-10T11:27:34.948261"
+    },
+    {
+      "test_id": 5,
+      "category": "Complex Multi-Document",
+      "query": "What are the key integration points between electrical and mechanical systems, and how do project timelines affect thermal considerations?",
+      "expected_capabilities": [
+        "multi_brain_orchestration",
+        "complex_synthesis",
+        "temporal_relationships"
+      ],
+      "nancy": {
+        "system": "Nancy",
+        "status": "success",
+        "query_time": 17.752514839172363,
+        "response": "No relevant documents found for 'What are the key integration points between electrical and mechanical systems, and how do project timelines affect thermal considerations?'.",
+        "sources": [],
+        "author_info": {
+          "has_author_attribution": false,
+          "identified_authors": [],
+          "author_count": 0
+        },
+        "relationship_info": {
+          "has_relationships": false,
+          "relationship_indicators": [],
+          "relationship_count": 0
+        },
+        "response_length": 173,
+        "source_count": 0,
+        "raw_result": {
+          "query": "What are the key integration points between electrical and mechanical systems, and how do project timelines affect thermal considerations?",
+          "strategy_used": "langchain_router",
+          "response": "No relevant documents found for 'What are the key integration points between electrical and mechanical systems, and how do project timelines affect thermal considerations?'.",
+          "routing_info": {
+            "selected_brain": "unknown",
+            "confidence": 0.5,
+            "routing_method": "llm_router"
+          },
+          "routing_steps": [],
+          "query_time": 19.061389446258545,
+          "processing_timestamp": "2025-08-10T18:27:52.803486"
+        }
+      },
+      "baseline": {
+        "system": "Baseline",
+        "status": "success",
+        "query_time": 10.404023885726929,
+        "response": "The provided text does not contain enough information to fully answer your questions about integration points between electrical and mechanical systems, nor about how project timelines affect thermal considerations. \n",
+        "sources": [],
+        "author_info": {
+          "has_author_attribution": false,
+          "identified_authors": [],
+          "author_count": 0
+        },
+        "relationship_info": {
+          "has_relationships": false,
+          "relationship_indicators": [],
+          "relationship_count": 0
+        },
+        "response_length": 217,
+        "source_count": 0,
+        "raw_result": {
+          "response": "The provided text does not contain enough information to fully answer your questions about integration points between electrical and mechanical systems, nor about how project timelines affect thermal considerations. \n",
+          "sources": [],
+          "query_time": 9.107924222946167,
+          "method": "langchain_rag"
+        }
+      },
+      "timestamp": "2025-08-10T11:28:03.106905"
+    },
+    {
+      "test_id": 6,
+      "category": "Temporal Analysis",
+      "query": "What activities are scheduled for Q4 2024 and how do they relate to thermal considerations?",
+      "expected_capabilities": [
+        "temporal_filtering",
+        "relationship_discovery"
+      ],
+      "nancy": {
+        "system": "Nancy",
+        "status": "success",
+        "query_time": 20.09781837463379,
+        "response": "No relevant documents found for 'What activities are scheduled for Q4 2024 and how do they relate to thermal considerations?'.",
+        "sources": [],
+        "author_info": {
+          "has_author_attribution": false,
+          "identified_authors": [],
+          "author_count": 0
+        },
+        "relationship_info": {
+          "has_relationships": false,
+          "relationship_indicators": [],
+          "relationship_count": 0
+        },
+        "response_length": 126,
+        "source_count": 0,
+        "raw_result": {
+          "query": "What activities are scheduled for Q4 2024 and how do they relate to thermal considerations?",
+          "strategy_used": "langchain_router",
+          "response": "No relevant documents found for 'What activities are scheduled for Q4 2024 and how do they relate to thermal considerations?'.",
+          "routing_info": {
+            "selected_brain": "unknown",
+            "confidence": 0.5,
+            "routing_method": "llm_router"
+          },
+          "routing_steps": [],
+          "query_time": 21.572067975997925,
+          "processing_timestamp": "2025-08-10T18:28:23.538847"
+        }
+      },
+      "baseline": {
+        "system": "Baseline",
+        "status": "success",
+        "query_time": 8.755045890808105,
+        "response": "Please provide the context you'd like me to analyze!  I need the text that mentions \"Q4 2024\" and \"thermal considerations\" so I can answer your question. \ud83d\ude0a \n",
+        "sources": [],
+        "author_info": {
+          "has_author_attribution": false,
+          "identified_authors": [],
+          "author_count": 0
+        },
+        "relationship_info": {
+          "has_relationships": false,
+          "relationship_indicators": [],
+          "relationship_count": 0
+        },
+        "response_length": 157,
+        "source_count": 0,
+        "raw_result": {
+          "response": "Please provide the context you'd like me to analyze!  I need the text that mentions \"Q4 2024\" and \"thermal considerations\" so I can answer your question. \ud83d\ude0a \n",
+          "sources": [],
+          "query_time": 7.178823709487915,
+          "method": "langchain_rag"
+        }
+      },
+      "timestamp": "2025-08-10T11:28:31.961967"
+    },
+    {
+      "test_id": 7,
+      "category": "Technical Detail Synthesis",
+      "query": "What are the power dissipation requirements and how do they impact the enclosure design?",
+      "expected_capabilities": [
+        "technical_synthesis",
+        "cross_domain_analysis"
+      ],
+      "nancy": {
+        "system": "Nancy",
+        "status": "success",
+        "query_time": 17.51451301574707,
+        "response": "No relevant documents found for 'What are the power dissipation requirements and how do they impact the enclosure design?'.",
+        "sources": [],
+        "author_info": {
+          "has_author_attribution": false,
+          "identified_authors": [],
+          "author_count": 0
+        },
+        "relationship_info": {
+          "has_relationships": false,
+          "relationship_indicators": [],
+          "relationship_count": 0
+        },
+        "response_length": 123,
+        "source_count": 0,
+        "raw_result": {
+          "query": "What are the power dissipation requirements and how do they impact the enclosure design?",
+          "strategy_used": "langchain_router",
+          "response": "No relevant documents found for 'What are the power dissipation requirements and how do they impact the enclosure design?'.",
+          "routing_info": {
+            "selected_brain": "unknown",
+            "confidence": 0.5,
+            "routing_method": "llm_router"
+          },
+          "routing_steps": [],
+          "query_time": 18.846390962600708,
+          "processing_timestamp": "2025-08-10T18:28:49.580556"
+        }
+      },
+      "baseline": {
+        "system": "Baseline",
+        "status": "success",
+        "query_time": 8.65772294998169,
+        "response": "Please provide me with the context!  I need the text you want me to use to understand the power dissipation requirements and their impact on enclosure design. \ud83d\ude0a \n",
+        "sources": [],
+        "author_info": {
+          "has_author_attribution": false,
+          "identified_authors": [],
+          "author_count": 0
+        },
+        "relationship_info": {
+          "has_relationships": false,
+          "relationship_indicators": [],
+          "relationship_count": 0
+        },
+        "response_length": 162,
+        "source_count": 0,
+        "raw_result": {
+          "response": "Please provide me with the context!  I need the text you want me to use to understand the power dissipation requirements and their impact on enclosure design. \ud83d\ude0a \n",
+          "sources": [],
+          "query_time": 7.228311777114868,
+          "method": "langchain_rag"
+        }
+      },
+      "timestamp": "2025-08-10T11:28:58.135707"
+    }
+  ],
+  "analysis": {
+    "performance": {
+      "nancy_avg_time": 20.58517793246678,
+      "baseline_avg_time": 8.026040043149676,
+      "nancy_success_rate": 1.0,
+      "baseline_success_rate": 1.0,
+      "nancy_fastest": 15.978916645050049,
+      "baseline_fastest": 6.413155794143677,
+      "nancy_slowest": 29.532228231430054,
+      "baseline_slowest": 10.404023885726929
+    },
+    "capabilities": {
+      "total_tests": 7,
+      "nancy_wins": 1,
+      "baseline_wins": 0,
+      "category_breakdown": {
+        "Basic Factual": {
+          "nancy_better": 0,
+          "baseline_better": 0,
+          "details": [
+            {
+              "query": "What is the operating temperature range mentioned ...",
+              "nancy_score": 0,
+              "baseline_score": 0,
+              "nancy_time": 24.90022301673889,
+              "baseline_time": 7.22699499130249,
+              "nancy_authors": 0,
+              "baseline_authors": 0,
+              "nancy_relationships": 0,
+              "baseline_relationships": 0
+            }
+          ]
+        },
+        "Author Attribution": {
+          "nancy_better": 1,
+          "baseline_better": 0,
+          "details": [
+            {
+              "query": "Who wrote the electrical design review document?...",
+              "nancy_score": 1,
+              "baseline_score": 0,
+              "nancy_time": 29.532228231430054,
+              "baseline_time": 6.413155794143677,
+              "nancy_authors": 2,
+              "baseline_authors": 0,
+              "nancy_relationships": 0,
+              "baseline_relationships": 0
+            }
+          ]
+        },
+        "Cross-Domain Relationships": {
+          "nancy_better": 0,
+          "baseline_better": 0,
+          "details": [
+            {
+              "query": "How do the electrical design requirements affect t...",
+              "nancy_score": 0,
+              "baseline_score": 0,
+              "nancy_time": 18.32003140449524,
+              "baseline_time": 7.6024394035339355,
+              "nancy_authors": 0,
+              "baseline_authors": 0,
+              "nancy_relationships": 0,
+              "baseline_relationships": 0
+            }
+          ]
+        },
+        "Decision Chain Tracking": {
+          "nancy_better": 0,
+          "baseline_better": 0,
+          "details": [
+            {
+              "query": "What decisions were made in the project timeline t...",
+              "nancy_score": 0,
+              "baseline_score": 0,
+              "nancy_time": 15.978916645050049,
+              "baseline_time": 7.122897386550903,
+              "nancy_authors": 0,
+              "baseline_authors": 0,
+              "nancy_relationships": 0,
+              "baseline_relationships": 0
+            }
+          ]
+        },
+        "Complex Multi-Document": {
+          "nancy_better": 0,
+          "baseline_better": 0,
+          "details": [
+            {
+              "query": "What are the key integration points between electr...",
+              "nancy_score": 0,
+              "baseline_score": 0,
+              "nancy_time": 17.752514839172363,
+              "baseline_time": 10.404023885726929,
+              "nancy_authors": 0,
+              "baseline_authors": 0,
+              "nancy_relationships": 0,
+              "baseline_relationships": 0
+            }
+          ]
+        },
+        "Temporal Analysis": {
+          "nancy_better": 0,
+          "baseline_better": 0,
+          "details": [
+            {
+              "query": "What activities are scheduled for Q4 2024 and how ...",
+              "nancy_score": 0,
+              "baseline_score": 0,
+              "nancy_time": 20.09781837463379,
+              "baseline_time": 8.755045890808105,
+              "nancy_authors": 0,
+              "baseline_authors": 0,
+              "nancy_relationships": 0,
+              "baseline_relationships": 0
+            }
+          ]
+        },
+        "Technical Detail Synthesis": {
+          "nancy_better": 0,
+          "baseline_better": 0,
+          "details": [
+            {
+              "query": "What are the power dissipation requirements and ho...",
+              "nancy_score": 0,
+              "baseline_score": 0,
+              "nancy_time": 17.51451301574707,
+              "baseline_time": 8.65772294998169,
+              "nancy_authors": 0,
+              "baseline_authors": 0,
+              "nancy_relationships": 0,
+              "baseline_relationships": 0
+            }
+          ]
+        }
+      }
+    },
+    "summary": {
+      "speed_winner": "Baseline RAG",
+      "capability_winner": "Nancy Four-Brain",
+      "recommendation": "Recommend Nancy Four-Brain: Superior capabilities justify slower response times",
+      "key_insights": [
+        "Nancy excelled in 1 test categories vs Baseline's 0",
+        "Average response time: Nancy 20.6s vs Baseline 8.0s",
+        "Nancy shows strength in author attribution and relationship discovery",
+        "Baseline shows consistent speed advantage but limited advanced capabilities"
+      ]
+    }
+  }
+}

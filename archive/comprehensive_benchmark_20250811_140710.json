@@ -1,0 +1,558 @@
+{
+  "metadata": {
+    "timestamp": "2025-08-11T14:07:10.311678",
+    "total_benchmark_time": 51.00901746749878,
+    "nancy_url": "http://localhost:8000",
+    "baseline_url": "http://localhost:8002",
+    "test_count": 5,
+    "test_data_directory": "benchmark_test_data"
+  },
+  "system_health": {
+    "nancy": {
+      "status": "healthy",
+      "response_code": 200,
+      "details": {
+        "status": "ok"
+      }
+    },
+    "baseline": {
+      "status": "healthy",
+      "response_code": 200,
+      "details": {
+        "status": "ok",
+        "system": "baseline-rag",
+        "rag_initialized": true
+      }
+    }
+  },
+  "ingestion_results": {
+    "nancy": {
+      "status": "completed",
+      "system": "Nancy",
+      "total_files": 9,
+      "successful_uploads": 9,
+      "failed_uploads": 0,
+      "total_bytes": 37358,
+      "ingestion_time": 28.76661491394043,
+      "average_upload_time": 3.1822349495357938,
+      "upload_speed_mbps": 0.001238496959718382,
+      "ingested_files": [
+        {
+          "filename": "electrical_review_meeting.txt",
+          "size_bytes": 3645,
+          "upload_time": 12.12687063217163,
+          "status": "success"
+        },
+        {
+          "filename": "emc_test_results.txt",
+          "size_bytes": 3094,
+          "upload_time": 2.8418893814086914,
+          "status": "success"
+        },
+        {
+          "filename": "ergonomic_analysis.txt",
+          "size_bytes": 5271,
+          "upload_time": 2.9231503009796143,
+          "status": "success"
+        },
+        {
+          "filename": "firmware_requirements.txt",
+          "size_bytes": 6879,
+          "upload_time": 2.2031755447387695,
+          "status": "success"
+        },
+        {
+          "filename": "march_design_review_transcript.txt",
+          "size_bytes": 5820,
+          "upload_time": 2.3331899642944336,
+          "status": "success"
+        },
+        {
+          "filename": "power_analysis_report.txt",
+          "size_bytes": 4045,
+          "upload_time": 1.9207539558410645,
+          "status": "success"
+        },
+        {
+          "filename": "system_requirements_v2.txt",
+          "size_bytes": 1912,
+          "upload_time": 1.2001516819000244,
+          "status": "success"
+        },
+        {
+          "filename": "thermal_constraints_doc.txt",
+          "size_bytes": 2275,
+          "upload_time": 1.1886696815490723,
+          "status": "success"
+        },
+        {
+          "filename": "voice_of_customer.txt",
+          "size_bytes": 4417,
+          "upload_time": 1.9022634029388428,
+          "status": "success"
+        }
+      ],
+      "errors": []
+    },
+    "baseline": {
+      "status": "completed",
+      "system": "Baseline",
+      "total_files": 9,
+      "successful_uploads": 9,
+      "failed_uploads": 0,
+      "total_bytes": 37358,
+      "ingestion_time": 5.452939748764038,
+      "average_upload_time": 0.6048248343997531,
+      "upload_speed_mbps": 0.006533606963176143,
+      "ingested_files": [
+        {
+          "filename": "electrical_review_meeting.txt",
+          "size_bytes": 3645,
+          "upload_time": 1.7479088306427002,
+          "status": "success"
+        },
+        {
+          "filename": "emc_test_results.txt",
+          "size_bytes": 3094,
+          "upload_time": 0.601604700088501,
+          "status": "success"
+        },
+        {
+          "filename": "ergonomic_analysis.txt",
+          "size_bytes": 5271,
+          "upload_time": 0.44678306579589844,
+          "status": "success"
+        },
+        {
+          "filename": "firmware_requirements.txt",
+          "size_bytes": 6879,
+          "upload_time": 0.41081762313842773,
+          "status": "success"
+        },
+        {
+          "filename": "march_design_review_transcript.txt",
+          "size_bytes": 5820,
+          "upload_time": 0.4467771053314209,
+          "status": "success"
+        },
+        {
+          "filename": "power_analysis_report.txt",
+          "size_bytes": 4045,
+          "upload_time": 0.4814798831939697,
+          "status": "success"
+        },
+        {
+          "filename": "system_requirements_v2.txt",
+          "size_bytes": 1912,
+          "upload_time": 0.44151735305786133,
+          "status": "success"
+        },
+        {
+          "filename": "thermal_constraints_doc.txt",
+          "size_bytes": 2275,
+          "upload_time": 0.4067423343658447,
+          "status": "success"
+        },
+        {
+          "filename": "voice_of_customer.txt",
+          "size_bytes": 4417,
+          "upload_time": 0.4597926139831543,
+          "status": "success"
+        }
+      ],
+      "errors": []
+    }
+  },
+  "query_results": [
+    {
+      "test_id": 1,
+      "category": "Basic Factual",
+      "query": "What is the operating temperature range for the thermal system?",
+      "expected_capabilities": [
+        "basic_retrieval"
+      ],
+      "nancy": {
+        "status": "success",
+        "query_time": 5.136759519577026,
+        "response": "I encountered an error processing your query: LangChain router orchestration failed: model 'gemma2:2b' not found (status code: 404)",
+        "sources": [],
+        "response_length": 131,
+        "source_count": 0,
+        "metrics": {
+          "llm_calls": 2,
+          "tokens": {
+            "input": 0,
+            "output": 0,
+            "total": 0
+          },
+          "embedding_operations": 1,
+          "query_time": 5.136759519577026,
+          "network_time": 5.136759519577026,
+          "orchestrator_used": "langchain_router",
+          "routing_info": {}
+        },
+        "raw_result": {
+          "query": "What is the operating temperature range for the thermal system?",
+          "strategy_used": "langchain_router",
+          "response": "I encountered an error processing your query: LangChain router orchestration failed: model 'gemma2:2b' not found (status code: 404)",
+          "error": "LangChain router orchestration failed: model 'gemma2:2b' not found (status code: 404)",
+          "routing_steps": [],
+          "query_time": -1.6825673580169678,
+          "processing_timestamp": "2025-08-11T21:07:08.072805"
+        }
+      },
+      "baseline": {
+        "status": "success",
+        "query_time": 0.2556185722351074,
+        "response": "Error processing query: model 'gemma2:2b' not found (status code: 404)",
+        "sources": [],
+        "response_length": 70,
+        "source_count": 0,
+        "metrics": {
+          "llm_calls": 1,
+          "tokens": {
+            "input": 0,
+            "output": 0,
+            "total": 0
+          },
+          "embedding_operations": 1,
+          "query_time": 0.2556185722351074,
+          "network_time": 0.2556185722351074,
+          "method": "langchain_rag"
+        },
+        "raw_result": {
+          "response": "Error processing query: model 'gemma2:2b' not found (status code: 404)",
+          "sources": [],
+          "query_time": 0.21553325653076172,
+          "method": "langchain_rag"
+        }
+      },
+      "timestamp": "2025-08-11T14:07:10.033496"
+    },
+    {
+      "test_id": 2,
+      "category": "Author Attribution",
+      "query": "Who wrote the electrical design review document?",
+      "expected_capabilities": [
+        "author_tracking",
+        "metadata_retrieval"
+      ],
+      "nancy": {
+        "status": "success",
+        "query_time": 0.027524948120117188,
+        "response": "I encountered an error processing your query: LangChain router orchestration failed: model 'gemma2:2b' not found (status code: 404)",
+        "sources": [],
+        "response_length": 131,
+        "source_count": 0,
+        "metrics": {
+          "llm_calls": 2,
+          "tokens": {
+            "input": 0,
+            "output": 0,
+            "total": 0
+          },
+          "embedding_operations": 1,
+          "query_time": 0.027524948120117188,
+          "network_time": 0.027524948120117188,
+          "orchestrator_used": "langchain_router",
+          "routing_info": {}
+        },
+        "raw_result": {
+          "query": "Who wrote the electrical design review document?",
+          "strategy_used": "langchain_router",
+          "response": "I encountered an error processing your query: LangChain router orchestration failed: model 'gemma2:2b' not found (status code: 404)",
+          "error": "LangChain router orchestration failed: model 'gemma2:2b' not found (status code: 404)",
+          "routing_steps": [],
+          "query_time": 0.009875297546386719,
+          "processing_timestamp": "2025-08-11T21:07:08.385540"
+        }
+      },
+      "baseline": {
+        "status": "success",
+        "query_time": 0.040993452072143555,
+        "response": "Error processing query: model 'gemma2:2b' not found (status code: 404)",
+        "sources": [],
+        "response_length": 70,
+        "source_count": 0,
+        "metrics": {
+          "llm_calls": 1,
+          "tokens": {
+            "input": 0,
+            "output": 0,
+            "total": 0
+          },
+          "embedding_operations": 1,
+          "query_time": 0.040993452072143555,
+          "network_time": 0.040993452072143555,
+          "method": "langchain_rag"
+        },
+        "raw_result": {
+          "response": "Error processing query: model 'gemma2:2b' not found (status code: 404)",
+          "sources": [],
+          "query_time": 0.035683393478393555,
+          "method": "langchain_rag"
+        }
+      },
+      "timestamp": "2025-08-11T14:07:10.105024"
+    },
+    {
+      "test_id": 3,
+      "category": "Cross-Domain Synthesis",
+      "query": "How do the electrical design requirements affect the mechanical integration plan?",
+      "expected_capabilities": [
+        "relationship_discovery",
+        "cross_document_synthesis"
+      ],
+      "nancy": {
+        "status": "success",
+        "query_time": 0.014618396759033203,
+        "response": "I encountered an error processing your query: LangChain router orchestration failed: model 'gemma2:2b' not found (status code: 404)",
+        "sources": [],
+        "response_length": 131,
+        "source_count": 0,
+        "metrics": {
+          "llm_calls": 2,
+          "tokens": {
+            "input": 0,
+            "output": 0,
+            "total": 0
+          },
+          "embedding_operations": 1,
+          "query_time": 0.014618396759033203,
+          "network_time": 0.014618396759033203,
+          "orchestrator_used": "langchain_router",
+          "routing_info": {}
+        },
+        "raw_result": {
+          "query": "How do the electrical design requirements affect the mechanical integration plan?",
+          "strategy_used": "langchain_router",
+          "response": "I encountered an error processing your query: LangChain router orchestration failed: model 'gemma2:2b' not found (status code: 404)",
+          "error": "LangChain router orchestration failed: model 'gemma2:2b' not found (status code: 404)",
+          "routing_steps": [],
+          "query_time": 0.004760265350341797,
+          "processing_timestamp": "2025-08-11T21:07:08.448946"
+        }
+      },
+      "baseline": {
+        "status": "success",
+        "query_time": 0.06356978416442871,
+        "response": "Error processing query: model 'gemma2:2b' not found (status code: 404)",
+        "sources": [],
+        "response_length": 70,
+        "source_count": 0,
+        "metrics": {
+          "llm_calls": 1,
+          "tokens": {
+            "input": 0,
+            "output": 0,
+            "total": 0
+          },
+          "embedding_operations": 1,
+          "query_time": 0.06356978416442871,
+          "network_time": 0.06356978416442871,
+          "method": "langchain_rag"
+        },
+        "raw_result": {
+          "response": "Error processing query: model 'gemma2:2b' not found (status code: 404)",
+          "sources": [],
+          "query_time": 0.041213035583496094,
+          "method": "langchain_rag"
+        }
+      },
+      "timestamp": "2025-08-11T14:07:10.183213"
+    },
+    {
+      "test_id": 4,
+      "category": "Multi-Brain Orchestration",
+      "query": "What are the key integration points between electrical and mechanical systems, and how do project timelines affect thermal considerations?",
+      "expected_capabilities": [
+        "multi_brain_orchestration",
+        "complex_synthesis",
+        "temporal_relationships"
+      ],
+      "nancy": {
+        "status": "success",
+        "query_time": 0.013002634048461914,
+        "response": "I encountered an error processing your query: LangChain router orchestration failed: model 'gemma2:2b' not found (status code: 404)",
+        "sources": [],
+        "response_length": 131,
+        "source_count": 0,
+        "metrics": {
+          "llm_calls": 2,
+          "tokens": {
+            "input": 0,
+            "output": 0,
+            "total": 0
+          },
+          "embedding_operations": 1,
+          "query_time": 0.013002634048461914,
+          "network_time": 0.013002634048461914,
+          "orchestrator_used": "langchain_router",
+          "routing_info": {}
+        },
+        "raw_result": {
+          "query": "What are the key integration points between electrical and mechanical systems, and how do project timelines affect thermal considerations?",
+          "strategy_used": "langchain_router",
+          "response": "I encountered an error processing your query: LangChain router orchestration failed: model 'gemma2:2b' not found (status code: 404)",
+          "error": "LangChain router orchestration failed: model 'gemma2:2b' not found (status code: 404)",
+          "routing_steps": [],
+          "query_time": 0.007768869400024414,
+          "processing_timestamp": "2025-08-11T21:07:08.534445"
+        }
+      },
+      "baseline": {
+        "status": "success",
+        "query_time": 0.04669308662414551,
+        "response": "Error processing query: model 'gemma2:2b' not found (status code: 404)",
+        "sources": [],
+        "response_length": 70,
+        "source_count": 0,
+        "metrics": {
+          "llm_calls": 1,
+          "tokens": {
+            "input": 0,
+            "output": 0,
+            "total": 0
+          },
+          "embedding_operations": 1,
+          "query_time": 0.04669308662414551,
+          "network_time": 0.04669308662414551,
+          "method": "langchain_rag"
+        },
+        "raw_result": {
+          "response": "Error processing query: model 'gemma2:2b' not found (status code: 404)",
+          "sources": [],
+          "query_time": 0.04330563545227051,
+          "method": "langchain_rag"
+        }
+      },
+      "timestamp": "2025-08-11T14:07:10.244884"
+    },
+    {
+      "test_id": 5,
+      "category": "Decision Chain Analysis",
+      "query": "What decisions in the project timeline affect thermal analysis, and who made them?",
+      "expected_capabilities": [
+        "decision_tracking",
+        "temporal_analysis",
+        "author_attribution"
+      ],
+      "nancy": {
+        "status": "success",
+        "query_time": 0.011991024017333984,
+        "response": "I encountered an error processing your query: LangChain router orchestration failed: model 'gemma2:2b' not found (status code: 404)",
+        "sources": [],
+        "response_length": 131,
+        "source_count": 0,
+        "metrics": {
+          "llm_calls": 2,
+          "tokens": {
+            "input": 0,
+            "output": 0,
+            "total": 0
+          },
+          "embedding_operations": 1,
+          "query_time": 0.011991024017333984,
+          "network_time": 0.011991024017333984,
+          "orchestrator_used": "langchain_router",
+          "routing_info": {}
+        },
+        "raw_result": {
+          "query": "What decisions in the project timeline affect thermal analysis, and who made them?",
+          "strategy_used": "langchain_router",
+          "response": "I encountered an error processing your query: LangChain router orchestration failed: model 'gemma2:2b' not found (status code: 404)",
+          "error": "LangChain router orchestration failed: model 'gemma2:2b' not found (status code: 404)",
+          "routing_steps": [],
+          "query_time": 0.004887580871582031,
+          "processing_timestamp": "2025-08-11T21:07:08.601030"
+        }
+      },
+      "baseline": {
+        "status": "success",
+        "query_time": 0.05281782150268555,
+        "response": "Error processing query: model 'gemma2:2b' not found (status code: 404)",
+        "sources": [],
+        "response_length": 70,
+        "source_count": 0,
+        "metrics": {
+          "llm_calls": 1,
+          "tokens": {
+            "input": 0,
+            "output": 0,
+            "total": 0
+          },
+          "embedding_operations": 1,
+          "query_time": 0.05281782150268555,
+          "network_time": 0.05281782150268555,
+          "method": "langchain_rag"
+        },
+        "raw_result": {
+          "response": "Error processing query: model 'gemma2:2b' not found (status code: 404)",
+          "sources": [],
+          "query_time": 0.04760885238647461,
+          "method": "langchain_rag"
+        }
+      },
+      "timestamp": "2025-08-11T14:07:10.310694"
+    }
+  ],
+  "usage_metrics": {
+    "nancy": {
+      "llm_calls": 10,
+      "total_tokens": 0,
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "embedding_operations": 5,
+      "processing_time": 5.203896522521973,
+      "errors": 0
+    },
+    "baseline": {
+      "llm_calls": 5,
+      "total_tokens": 0,
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "embedding_operations": 5,
+      "processing_time": 0.45969271659851074,
+      "errors": 0
+    }
+  },
+  "analysis": {
+    "performance": {
+      "nancy_avg_time": 1.0407793045043945,
+      "baseline_avg_time": 0.09193854331970215,
+      "nancy_success_rate": 1.0,
+      "baseline_success_rate": 1.0,
+      "speed_advantage": "Baseline"
+    },
+    "resource_usage": {
+      "nancy": {
+        "total_llm_calls": 10,
+        "total_embedding_ops": 5,
+        "avg_llm_calls_per_query": 2.0,
+        "total_processing_time": 5.203896522521973,
+        "error_rate": 0.0
+      },
+      "baseline": {
+        "total_llm_calls": 5,
+        "total_embedding_ops": 5,
+        "avg_llm_calls_per_query": 1.0,
+        "total_processing_time": 0.45969271659851074,
+        "error_rate": 0.0
+      }
+    },
+    "efficiency_metrics": {
+      "llm_efficiency": {
+        "nancy_calls_per_success": 2.0,
+        "baseline_calls_per_success": 1.0
+      },
+      "embedding_efficiency": {
+        "nancy_embeds_per_query": 1.0,
+        "baseline_embeds_per_query": 1.0
+      }
+    },
+    "recommendations": [
+      "Nancy uses significantly more LLM calls - consider optimizing orchestration",
+      "Nancy's advanced capabilities come with significant latency cost"
+    ]
+  }
+}

@@ -17,7 +17,15 @@
       "Bash(pwsh:*)",
       "Bash(docker inspect:*)",
       "Bash(time curl:*)",
-      "Bash(timeout 30 curl -X POST \"http://localhost:8000/api/query\" -H \"Content-Type: application/json\" -d \"{\"\"query\"\": \"\"What are the key integration points between electrical and mechanical systems, and how do project timelines affect thermal considerations?\"\"}\")"
+      "Bash(timeout 30 curl -X POST \"http://localhost:8000/api/query\" -H \"Content-Type: application/json\" -d \"{\"\"query\"\": \"\"What are the key integration points between electrical and mechanical systems, and how do project timelines affect thermal considerations?\"\"}\")",
+      "Bash(timeout 30 curl -X POST \"http://localhost:8000/health\")",
+      "Bash(timeout:*)",
+      "Bash(docker cp:*)",
+      "Bash(rm:*)",
+      "Bash(docker restart:*)",
+      "Bash(chcp 65001)",
+      "WebFetch(domain:ai.google.dev)",
+      "Bash(mv:*)"
     ],
     "deny": []
   }

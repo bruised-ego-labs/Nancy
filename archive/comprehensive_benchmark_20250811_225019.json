@@ -1,0 +1,1186 @@
+{
+  "metadata": {
+    "timestamp": "2025-08-11T22:50:19.004811",
+    "total_benchmark_time": 105.76182985305786,
+    "nancy_url": "http://localhost:8000",
+    "baseline_url": "http://localhost:8002",
+    "test_count": 15,
+    "test_data_directory": "benchmark_test_data"
+  },
+  "system_health": {
+    "nancy": {
+      "status": "healthy",
+      "response_code": 200,
+      "details": {
+        "status": "ok"
+      }
+    },
+    "baseline": {
+      "status": "healthy",
+      "response_code": 200,
+      "details": {
+        "status": "ok",
+        "system": "baseline-rag",
+        "rag_initialized": false
+      }
+    }
+  },
+  "ingestion_results": {
+    "nancy": {
+      "status": "completed",
+      "system": "Nancy",
+      "total_files": 9,
+      "successful_uploads": 9,
+      "failed_uploads": 0,
+      "total_bytes": 37358,
+      "ingestion_time": 84.13286828994751,
+      "average_upload_time": 9.347157796223959,
+      "upload_speed_mbps": 0.00042346547593649045,
+      "ingested_files": [
+        {
+          "filename": "electrical_review_meeting.txt",
+          "size_bytes": 3645,
+          "upload_time": 10.901509761810303,
+          "status": "success"
+        },
+        {
+          "filename": "emc_test_results.txt",
+          "size_bytes": 3094,
+          "upload_time": 7.727449417114258,
+          "status": "success"
+        },
+        {
+          "filename": "ergonomic_analysis.txt",
+          "size_bytes": 5271,
+          "upload_time": 10.179933071136475,
+          "status": "success"
+        },
+        {
+          "filename": "firmware_requirements.txt",
+          "size_bytes": 6879,
+          "upload_time": 10.250179529190063,
+          "status": "success"
+        },
+        {
+          "filename": "march_design_review_transcript.txt",
+          "size_bytes": 5820,
+          "upload_time": 9.47664737701416,
+          "status": "success"
+        },
+        {
+          "filename": "power_analysis_report.txt",
+          "size_bytes": 4045,
+          "upload_time": 9.385267496109009,
+          "status": "success"
+        },
+        {
+          "filename": "system_requirements_v2.txt",
+          "size_bytes": 1912,
+          "upload_time": 8.742445230484009,
+          "status": "success"
+        },
+        {
+          "filename": "thermal_constraints_doc.txt",
+          "size_bytes": 2275,
+          "upload_time": 7.40919041633606,
+          "status": "success"
+        },
+        {
+          "filename": "voice_of_customer.txt",
+          "size_bytes": 4417,
+          "upload_time": 10.051797866821289,
+          "status": "success"
+        }
+      ],
+      "errors": []
+    },
+    "baseline": {
+      "status": "completed",
+      "system": "Baseline",
+      "total_files": 9,
+      "successful_uploads": 0,
+      "failed_uploads": 9,
+      "total_bytes": 0,
+      "ingestion_time": 0.1345229148864746,
+      "average_upload_time": 0,
+      "upload_speed_mbps": 0.0,
+      "ingested_files": [],
+      "errors": [
+        {
+          "filename": "electrical_review_meeting.txt",
+          "error": "HTTP 500: {\"detail\":\"RAG system not initialized\"}"
+        },
+        {
+          "filename": "emc_test_results.txt",
+          "error": "HTTP 500: {\"detail\":\"RAG system not initialized\"}"
+        },
+        {
+          "filename": "ergonomic_analysis.txt",
+          "error": "HTTP 500: {\"detail\":\"RAG system not initialized\"}"
+        },
+        {
+          "filename": "firmware_requirements.txt",
+          "error": "HTTP 500: {\"detail\":\"RAG system not initialized\"}"
+        },
+        {
+          "filename": "march_design_review_transcript.txt",
+          "error": "HTTP 500: {\"detail\":\"RAG system not initialized\"}"
+        },
+        {
+          "filename": "power_analysis_report.txt",
+          "error": "HTTP 500: {\"detail\":\"RAG system not initialized\"}"
+        },
+        {
+          "filename": "system_requirements_v2.txt",
+          "error": "HTTP 500: {\"detail\":\"RAG system not initialized\"}"
+        },
+        {
+          "filename": "thermal_constraints_doc.txt",
+          "error": "HTTP 500: {\"detail\":\"RAG system not initialized\"}"
+        },
+        {
+          "filename": "voice_of_customer.txt",
+          "error": "HTTP 500: {\"detail\":\"RAG system not initialized\"}"
+        }
+      ]
+    }
+  },
+  "query_results": [
+    {
+      "test_id": 1,
+      "category": "Systems Engineering - Requirements",
+      "query": "What are the system-level requirements and how do they constrain the mechanical design?",
+      "expected_capabilities": [
+        "basic_retrieval",
+        "cross_document_synthesis"
+      ],
+      "nancy": {
+        "status": "success",
+        "query_time": 0.7784171104431152,
+        "response": "Database results (9 files):\n1. electrical_review_meeting.txt (.txt, 3648 bytes)\n2. emc_test_results.txt (.txt, 3112 bytes)\n3. ergonomic_analysis.txt (.txt, 5285 bytes)\n4. firmware_requirements.txt (.txt, 6884 bytes)\n5. march_design_review_transcript.txt (.txt, 5821 bytes)\n6. power_analysis_report.txt (.txt, 4065 bytes)\n7. system_requirements_v2.txt (.txt, 1922 bytes)\n8. thermal_constraints_doc.txt (.txt, 2282 bytes)\n9. voice_of_customer.txt (.txt, 4417 bytes)",
+        "sources": [],
+        "response_length": 463,
+        "source_count": 0,
+        "metrics": {
+          "llm_calls": 2,
+          "tokens": {
+            "input": 0,
+            "output": 0,
+            "total": 0
+          },
+          "embedding_operations": 1,
+          "query_time": 0.7784171104431152,
+          "network_time": 0.7784171104431152,
+          "orchestrator_used": "langchain_router",
+          "routing_info": {
+            "selected_brain": "unknown",
+            "confidence": 0.5,
+            "routing_method": "llm_router"
+          }
+        },
+        "raw_result": {
+          "query": "What are the system-level requirements and how do they constrain the mechanical design?",
+          "strategy_used": "langchain_router",
+          "response": "Database results (9 files):\n1. electrical_review_meeting.txt (.txt, 3648 bytes)\n2. emc_test_results.txt (.txt, 3112 bytes)\n3. ergonomic_analysis.txt (.txt, 5285 bytes)\n4. firmware_requirements.txt (.txt, 6884 bytes)\n5. march_design_review_transcript.txt (.txt, 5821 bytes)\n6. power_analysis_report.txt (.txt, 4065 bytes)\n7. system_requirements_v2.txt (.txt, 1922 bytes)\n8. thermal_constraints_doc.txt (.txt, 2282 bytes)\n9. voice_of_customer.txt (.txt, 4417 bytes)",
+          "routing_info": {
+            "selected_brain": "unknown",
+            "confidence": 0.5,
+            "routing_method": "llm_router"
+          },
+          "routing_steps": [],
+          "query_time": 0.8375282287597656,
+          "processing_timestamp": "2025-08-12T05:50:08.635555"
+        }
+      },
+      "baseline": {
+        "status": "error",
+        "query_time": 0.0075702667236328125,
+        "error": "HTTP 500",
+        "response": "{\"detail\":\"RAG system not initialized\"}",
+        "metrics": {
+          "llm_calls": 0,
+          "tokens": {
+            "input": 0,
+            "output": 0,
+            "total": 0
+          },
+          "embedding_operations": 0,
+          "query_time": 0.0075702667236328125,
+          "network_time": 0.0075702667236328125
+        }
+      },
+      "timestamp": "2025-08-11T22:50:08.349522"
+    },
+    {
+      "test_id": 2,
+      "category": "Systems Engineering - Integration",
+      "query": "Which integration points between electrical and mechanical systems need special attention?",
+      "expected_capabilities": [
+        "relationship_discovery",
+        "technical_synthesis"
+      ],
+      "nancy": {
+        "status": "success",
+        "query_time": 0.8355653285980225,
+        "response": "Database results (9 files):\n1. electrical_review_meeting.txt (.txt, 3648 bytes)\n2. emc_test_results.txt (.txt, 3112 bytes)\n3. ergonomic_analysis.txt (.txt, 5285 bytes)\n4. firmware_requirements.txt (.txt, 6884 bytes)\n5. march_design_review_transcript.txt (.txt, 5821 bytes)\n6. power_analysis_report.txt (.txt, 4065 bytes)\n7. system_requirements_v2.txt (.txt, 1922 bytes)\n8. thermal_constraints_doc.txt (.txt, 2282 bytes)\n9. voice_of_customer.txt (.txt, 4417 bytes)",
+        "sources": [],
+        "response_length": 463,
+        "source_count": 0,
+        "metrics": {
+          "llm_calls": 2,
+          "tokens": {
+            "input": 0,
+            "output": 0,
+            "total": 0
+          },
+          "embedding_operations": 1,
+          "query_time": 0.8355653285980225,
+          "network_time": 0.8355653285980225,
+          "orchestrator_used": "langchain_router",
+          "routing_info": {
+            "selected_brain": "unknown",
+            "confidence": 0.5,
+            "routing_method": "llm_router"
+          }
+        },
+        "raw_result": {
+          "query": "Which integration points between electrical and mechanical systems need special attention?",
+          "strategy_used": "langchain_router",
+          "response": "Database results (9 files):\n1. electrical_review_meeting.txt (.txt, 3648 bytes)\n2. emc_test_results.txt (.txt, 3112 bytes)\n3. ergonomic_analysis.txt (.txt, 5285 bytes)\n4. firmware_requirements.txt (.txt, 6884 bytes)\n5. march_design_review_transcript.txt (.txt, 5821 bytes)\n6. power_analysis_report.txt (.txt, 4065 bytes)\n7. system_requirements_v2.txt (.txt, 1922 bytes)\n8. thermal_constraints_doc.txt (.txt, 2282 bytes)\n9. voice_of_customer.txt (.txt, 4417 bytes)",
+          "routing_info": {
+            "selected_brain": "unknown",
+            "confidence": 0.5,
+            "routing_method": "llm_router"
+          },
+          "routing_steps": [],
+          "query_time": 0.8894438743591309,
+          "processing_timestamp": "2025-08-12T05:50:09.591746"
+        }
+      },
+      "baseline": {
+        "status": "error",
+        "query_time": 0.006228446960449219,
+        "error": "HTTP 500",
+        "response": "{\"detail\":\"RAG system not initialized\"}",
+        "metrics": {
+          "llm_calls": 0,
+          "tokens": {
+            "input": 0,
+            "output": 0,
+            "total": 0
+          },
+          "embedding_operations": 0,
+          "query_time": 0.006228446960449219,
+          "network_time": 0.006228446960449219
+        }
+      },
+      "timestamp": "2025-08-11T22:50:09.193435"
+    },
+    {
+      "test_id": 3,
+      "category": "Systems Engineering - Verification",
+      "query": "What verification procedures are defined for thermal performance validation?",
+      "expected_capabilities": [
+        "basic_retrieval",
+        "temporal_analysis"
+      ],
+      "nancy": {
+        "status": "success",
+        "query_time": 0.7057986259460449,
+        "response": "Database results (9 files):\n1. electrical_review_meeting.txt (.txt, 3648 bytes)\n2. emc_test_results.txt (.txt, 3112 bytes)\n3. ergonomic_analysis.txt (.txt, 5285 bytes)\n4. firmware_requirements.txt (.txt, 6884 bytes)\n5. march_design_review_transcript.txt (.txt, 5821 bytes)\n6. power_analysis_report.txt (.txt, 4065 bytes)\n7. system_requirements_v2.txt (.txt, 1922 bytes)\n8. thermal_constraints_doc.txt (.txt, 2282 bytes)\n9. voice_of_customer.txt (.txt, 4417 bytes)",
+        "sources": [],
+        "response_length": 463,
+        "source_count": 0,
+        "metrics": {
+          "llm_calls": 2,
+          "tokens": {
+            "input": 0,
+            "output": 0,
+            "total": 0
+          },
+          "embedding_operations": 1,
+          "query_time": 0.7057986259460449,
+          "network_time": 0.7057986259460449,
+          "orchestrator_used": "langchain_router",
+          "routing_info": {
+            "selected_brain": "unknown",
+            "confidence": 0.5,
+            "routing_method": "llm_router"
+          }
+        },
+        "raw_result": {
+          "query": "What verification procedures are defined for thermal performance validation?",
+          "strategy_used": "langchain_router",
+          "response": "Database results (9 files):\n1. electrical_review_meeting.txt (.txt, 3648 bytes)\n2. emc_test_results.txt (.txt, 3112 bytes)\n3. ergonomic_analysis.txt (.txt, 5285 bytes)\n4. firmware_requirements.txt (.txt, 6884 bytes)\n5. march_design_review_transcript.txt (.txt, 5821 bytes)\n6. power_analysis_report.txt (.txt, 4065 bytes)\n7. system_requirements_v2.txt (.txt, 1922 bytes)\n8. thermal_constraints_doc.txt (.txt, 2282 bytes)\n9. voice_of_customer.txt (.txt, 4417 bytes)",
+          "routing_info": {
+            "selected_brain": "unknown",
+            "confidence": 0.5,
+            "routing_method": "llm_router"
+          },
+          "routing_steps": [],
+          "query_time": 0.7526319026947021,
+          "processing_timestamp": "2025-08-12T05:50:10.378263"
+        }
+      },
+      "baseline": {
+        "status": "error",
+        "query_time": 0.029208660125732422,
+        "error": "HTTP 500",
+        "response": "{\"detail\":\"RAG system not initialized\"}",
+        "metrics": {
+          "llm_calls": 0,
+          "tokens": {
+            "input": 0,
+            "output": 0,
+            "total": 0
+          },
+          "embedding_operations": 0,
+          "query_time": 0.029208660125732422,
+          "network_time": 0.029200315475463867
+        }
+      },
+      "timestamp": "2025-08-11T22:50:09.930562"
+    },
+    {
+      "test_id": 4,
+      "category": "Mechanical Engineering - Materials",
+      "query": "What materials are specified for high-temperature components and who selected them?",
+      "expected_capabilities": [
+        "basic_retrieval",
+        "author_tracking"
+      ],
+      "nancy": {
+        "status": "success",
+        "query_time": 0.7268466949462891,
+        "response": "Database results (9 files):\n1. electrical_review_meeting.txt (.txt, 3648 bytes)\n2. emc_test_results.txt (.txt, 3112 bytes)\n3. ergonomic_analysis.txt (.txt, 5285 bytes)\n4. firmware_requirements.txt (.txt, 6884 bytes)\n5. march_design_review_transcript.txt (.txt, 5821 bytes)\n6. power_analysis_report.txt (.txt, 4065 bytes)\n7. system_requirements_v2.txt (.txt, 1922 bytes)\n8. thermal_constraints_doc.txt (.txt, 2282 bytes)\n9. voice_of_customer.txt (.txt, 4417 bytes)",
+        "sources": [],
+        "response_length": 463,
+        "source_count": 0,
+        "metrics": {
+          "llm_calls": 2,
+          "tokens": {
+            "input": 0,
+            "output": 0,
+            "total": 0
+          },
+          "embedding_operations": 1,
+          "query_time": 0.7268466949462891,
+          "network_time": 0.7268466949462891,
+          "orchestrator_used": "langchain_router",
+          "routing_info": {
+            "selected_brain": "unknown",
+            "confidence": 0.5,
+            "routing_method": "llm_router"
+          }
+        },
+        "raw_result": {
+          "query": "What materials are specified for high-temperature components and who selected them?",
+          "strategy_used": "langchain_router",
+          "response": "Database results (9 files):\n1. electrical_review_meeting.txt (.txt, 3648 bytes)\n2. emc_test_results.txt (.txt, 3112 bytes)\n3. ergonomic_analysis.txt (.txt, 5285 bytes)\n4. firmware_requirements.txt (.txt, 6884 bytes)\n5. march_design_review_transcript.txt (.txt, 5821 bytes)\n6. power_analysis_report.txt (.txt, 4065 bytes)\n7. system_requirements_v2.txt (.txt, 1922 bytes)\n8. thermal_constraints_doc.txt (.txt, 2282 bytes)\n9. voice_of_customer.txt (.txt, 4417 bytes)",
+          "routing_info": {
+            "selected_brain": "unknown",
+            "confidence": 0.5,
+            "routing_method": "llm_router"
+          },
+          "routing_steps": [],
+          "query_time": 0.7919921875,
+          "processing_timestamp": "2025-08-12T05:50:11.212480"
+        }
+      },
+      "baseline": {
+        "status": "error",
+        "query_time": 0.018314361572265625,
+        "error": "HTTP 500",
+        "response": "{\"detail\":\"RAG system not initialized\"}",
+        "metrics": {
+          "llm_calls": 0,
+          "tokens": {
+            "input": 0,
+            "output": 0,
+            "total": 0
+          },
+          "embedding_operations": 0,
+          "query_time": 0.018314361572265625,
+          "network_time": 0.018314361572265625
+        }
+      },
+      "timestamp": "2025-08-11T22:50:10.678076"
+    },
+    {
+      "test_id": 5,
+      "category": "Mechanical Engineering - Stress Analysis",
+      "query": "What are the critical stress points identified in the structural analysis documents?",
+      "expected_capabilities": [
+        "technical_synthesis",
+        "basic_retrieval"
+      ],
+      "nancy": {
+        "status": "success",
+        "query_time": 0.7441098690032959,
+        "response": "Database results (9 files):\n1. electrical_review_meeting.txt (.txt, 3648 bytes)\n2. emc_test_results.txt (.txt, 3112 bytes)\n3. ergonomic_analysis.txt (.txt, 5285 bytes)\n4. firmware_requirements.txt (.txt, 6884 bytes)\n5. march_design_review_transcript.txt (.txt, 5821 bytes)\n6. power_analysis_report.txt (.txt, 4065 bytes)\n7. system_requirements_v2.txt (.txt, 1922 bytes)\n8. thermal_constraints_doc.txt (.txt, 2282 bytes)\n9. voice_of_customer.txt (.txt, 4417 bytes)",
+        "sources": [],
+        "response_length": 463,
+        "source_count": 0,
+        "metrics": {
+          "llm_calls": 2,
+          "tokens": {
+            "input": 0,
+            "output": 0,
+            "total": 0
+          },
+          "embedding_operations": 1,
+          "query_time": 0.7441098690032959,
+          "network_time": 0.7441098690032959,
+          "orchestrator_used": "langchain_router",
+          "routing_info": {
+            "selected_brain": "unknown",
+            "confidence": 0.5,
+            "routing_method": "llm_router"
+          }
+        },
+        "raw_result": {
+          "query": "What are the critical stress points identified in the structural analysis documents?",
+          "strategy_used": "langchain_router",
+          "response": "Database results (9 files):\n1. electrical_review_meeting.txt (.txt, 3648 bytes)\n2. emc_test_results.txt (.txt, 3112 bytes)\n3. ergonomic_analysis.txt (.txt, 5285 bytes)\n4. firmware_requirements.txt (.txt, 6884 bytes)\n5. march_design_review_transcript.txt (.txt, 5821 bytes)\n6. power_analysis_report.txt (.txt, 4065 bytes)\n7. system_requirements_v2.txt (.txt, 1922 bytes)\n8. thermal_constraints_doc.txt (.txt, 2282 bytes)\n9. voice_of_customer.txt (.txt, 4417 bytes)",
+          "routing_info": {
+            "selected_brain": "unknown",
+            "confidence": 0.5,
+            "routing_method": "llm_router"
+          },
+          "routing_steps": [],
+          "query_time": 0.7806758880615234,
+          "processing_timestamp": "2025-08-12T05:50:12.053102"
+        }
+      },
+      "baseline": {
+        "status": "error",
+        "query_time": 0.027932167053222656,
+        "error": "HTTP 500",
+        "response": "{\"detail\":\"RAG system not initialized\"}",
+        "metrics": {
+          "llm_calls": 0,
+          "tokens": {
+            "input": 0,
+            "output": 0,
+            "total": 0
+          },
+          "embedding_operations": 0,
+          "query_time": 0.027932167053222656,
+          "network_time": 0.027932167053222656
+        }
+      },
+      "timestamp": "2025-08-11T22:50:11.451654"
+    },
+    {
+      "test_id": 6,
+      "category": "Mechanical Engineering - CAD Integration",
+      "query": "How do the CAD model revisions relate to thermal analysis updates?",
+      "expected_capabilities": [
+        "relationship_discovery",
+        "temporal_analysis"
+      ],
+      "nancy": {
+        "status": "success",
+        "query_time": 0.7132363319396973,
+        "response": "Database results (9 files):\n1. electrical_review_meeting.txt (.txt, 3648 bytes)\n2. emc_test_results.txt (.txt, 3112 bytes)\n3. ergonomic_analysis.txt (.txt, 5285 bytes)\n4. firmware_requirements.txt (.txt, 6884 bytes)\n5. march_design_review_transcript.txt (.txt, 5821 bytes)\n6. power_analysis_report.txt (.txt, 4065 bytes)\n7. system_requirements_v2.txt (.txt, 1922 bytes)\n8. thermal_constraints_doc.txt (.txt, 2282 bytes)\n9. voice_of_customer.txt (.txt, 4417 bytes)",
+        "sources": [],
+        "response_length": 463,
+        "source_count": 0,
+        "metrics": {
+          "llm_calls": 2,
+          "tokens": {
+            "input": 0,
+            "output": 0,
+            "total": 0
+          },
+          "embedding_operations": 1,
+          "query_time": 0.7132363319396973,
+          "network_time": 0.7132363319396973,
+          "orchestrator_used": "langchain_router",
+          "routing_info": {
+            "selected_brain": "unknown",
+            "confidence": 0.5,
+            "routing_method": "llm_router"
+          }
+        },
+        "raw_result": {
+          "query": "How do the CAD model revisions relate to thermal analysis updates?",
+          "strategy_used": "langchain_router",
+          "response": "Database results (9 files):\n1. electrical_review_meeting.txt (.txt, 3648 bytes)\n2. emc_test_results.txt (.txt, 3112 bytes)\n3. ergonomic_analysis.txt (.txt, 5285 bytes)\n4. firmware_requirements.txt (.txt, 6884 bytes)\n5. march_design_review_transcript.txt (.txt, 5821 bytes)\n6. power_analysis_report.txt (.txt, 4065 bytes)\n7. system_requirements_v2.txt (.txt, 1922 bytes)\n8. thermal_constraints_doc.txt (.txt, 2282 bytes)\n9. voice_of_customer.txt (.txt, 4417 bytes)",
+          "routing_info": {
+            "selected_brain": "unknown",
+            "confidence": 0.5,
+            "routing_method": "llm_router"
+          },
+          "routing_steps": [],
+          "query_time": 0.7643544673919678,
+          "processing_timestamp": "2025-08-12T05:50:12.866801"
+        }
+      },
+      "baseline": {
+        "status": "error",
+        "query_time": 0.016368865966796875,
+        "error": "HTTP 500",
+        "response": "{\"detail\":\"RAG system not initialized\"}",
+        "metrics": {
+          "llm_calls": 0,
+          "tokens": {
+            "input": 0,
+            "output": 0,
+            "total": 0
+          },
+          "embedding_operations": 0,
+          "query_time": 0.016368865966796875,
+          "network_time": 0.016368865966796875
+        }
+      },
+      "timestamp": "2025-08-11T22:50:12.182756"
+    },
+    {
+      "test_id": 7,
+      "category": "Electrical Engineering - Power Systems",
+      "query": "What are the power dissipation requirements and how do they impact the enclosure design?",
+      "expected_capabilities": [
+        "technical_synthesis",
+        "cross_domain_analysis"
+      ],
+      "nancy": {
+        "status": "success",
+        "query_time": 0.7104880809783936,
+        "response": "Database results (9 files):\n1. electrical_review_meeting.txt (.txt, 3648 bytes)\n2. emc_test_results.txt (.txt, 3112 bytes)\n3. ergonomic_analysis.txt (.txt, 5285 bytes)\n4. firmware_requirements.txt (.txt, 6884 bytes)\n5. march_design_review_transcript.txt (.txt, 5821 bytes)\n6. power_analysis_report.txt (.txt, 4065 bytes)\n7. system_requirements_v2.txt (.txt, 1922 bytes)\n8. thermal_constraints_doc.txt (.txt, 2282 bytes)\n9. voice_of_customer.txt (.txt, 4417 bytes)",
+        "sources": [],
+        "response_length": 463,
+        "source_count": 0,
+        "metrics": {
+          "llm_calls": 2,
+          "tokens": {
+            "input": 0,
+            "output": 0,
+            "total": 0
+          },
+          "embedding_operations": 1,
+          "query_time": 0.7104880809783936,
+          "network_time": 0.7104880809783936,
+          "orchestrator_used": "langchain_router",
+          "routing_info": {
+            "selected_brain": "unknown",
+            "confidence": 0.5,
+            "routing_method": "llm_router"
+          }
+        },
+        "raw_result": {
+          "query": "What are the power dissipation requirements and how do they impact the enclosure design?",
+          "strategy_used": "langchain_router",
+          "response": "Database results (9 files):\n1. electrical_review_meeting.txt (.txt, 3648 bytes)\n2. emc_test_results.txt (.txt, 3112 bytes)\n3. ergonomic_analysis.txt (.txt, 5285 bytes)\n4. firmware_requirements.txt (.txt, 6884 bytes)\n5. march_design_review_transcript.txt (.txt, 5821 bytes)\n6. power_analysis_report.txt (.txt, 4065 bytes)\n7. system_requirements_v2.txt (.txt, 1922 bytes)\n8. thermal_constraints_doc.txt (.txt, 2282 bytes)\n9. voice_of_customer.txt (.txt, 4417 bytes)",
+          "routing_info": {
+            "selected_brain": "unknown",
+            "confidence": 0.5,
+            "routing_method": "llm_router"
+          },
+          "routing_steps": [],
+          "query_time": 0.7604598999023438,
+          "processing_timestamp": "2025-08-12T05:50:13.664940"
+        }
+      },
+      "baseline": {
+        "status": "error",
+        "query_time": 0.007875680923461914,
+        "error": "HTTP 500",
+        "response": "{\"detail\":\"RAG system not initialized\"}",
+        "metrics": {
+          "llm_calls": 0,
+          "tokens": {
+            "input": 0,
+            "output": 0,
+            "total": 0
+          },
+          "embedding_operations": 0,
+          "query_time": 0.007875680923461914,
+          "network_time": 0.007875680923461914
+        }
+      },
+      "timestamp": "2025-08-11T22:50:12.902628"
+    },
+    {
+      "test_id": 8,
+      "category": "Electrical Engineering - EMC Compliance",
+      "query": "What EMC compliance measures are specified and who is responsible for implementation?",
+      "expected_capabilities": [
+        "basic_retrieval",
+        "author_tracking"
+      ],
+      "nancy": {
+        "status": "success",
+        "query_time": 0.7445998191833496,
+        "response": "Database results (9 files):\n1. electrical_review_meeting.txt (.txt, 3648 bytes)\n2. emc_test_results.txt (.txt, 3112 bytes)\n3. ergonomic_analysis.txt (.txt, 5285 bytes)\n4. firmware_requirements.txt (.txt, 6884 bytes)\n5. march_design_review_transcript.txt (.txt, 5821 bytes)\n6. power_analysis_report.txt (.txt, 4065 bytes)\n7. system_requirements_v2.txt (.txt, 1922 bytes)\n8. thermal_constraints_doc.txt (.txt, 2282 bytes)\n9. voice_of_customer.txt (.txt, 4417 bytes)",
+        "sources": [],
+        "response_length": 463,
+        "source_count": 0,
+        "metrics": {
+          "llm_calls": 2,
+          "tokens": {
+            "input": 0,
+            "output": 0,
+            "total": 0
+          },
+          "embedding_operations": 1,
+          "query_time": 0.7445998191833496,
+          "network_time": 0.7445998191833496,
+          "orchestrator_used": "langchain_router",
+          "routing_info": {
+            "selected_brain": "unknown",
+            "confidence": 0.5,
+            "routing_method": "llm_router"
+          }
+        },
+        "raw_result": {
+          "query": "What EMC compliance measures are specified and who is responsible for implementation?",
+          "strategy_used": "langchain_router",
+          "response": "Database results (9 files):\n1. electrical_review_meeting.txt (.txt, 3648 bytes)\n2. emc_test_results.txt (.txt, 3112 bytes)\n3. ergonomic_analysis.txt (.txt, 5285 bytes)\n4. firmware_requirements.txt (.txt, 6884 bytes)\n5. march_design_review_transcript.txt (.txt, 5821 bytes)\n6. power_analysis_report.txt (.txt, 4065 bytes)\n7. system_requirements_v2.txt (.txt, 1922 bytes)\n8. thermal_constraints_doc.txt (.txt, 2282 bytes)\n9. voice_of_customer.txt (.txt, 4417 bytes)",
+          "routing_info": {
+            "selected_brain": "unknown",
+            "confidence": 0.5,
+            "routing_method": "llm_router"
+          },
+          "routing_steps": [],
+          "query_time": 0.808422327041626,
+          "processing_timestamp": "2025-08-12T05:50:14.491486"
+        }
+      },
+      "baseline": {
+        "status": "error",
+        "query_time": 0.006753444671630859,
+        "error": "HTTP 500",
+        "response": "{\"detail\":\"RAG system not initialized\"}",
+        "metrics": {
+          "llm_calls": 0,
+          "tokens": {
+            "input": 0,
+            "output": 0,
+            "total": 0
+          },
+          "embedding_operations": 0,
+          "query_time": 0.006753444671630859,
+          "network_time": 0.006753444671630859
+        }
+      },
+      "timestamp": "2025-08-11T22:50:13.655666"
+    },
+    {
+      "test_id": 9,
+      "category": "Electrical Engineering - Circuit Design",
+      "query": "How do circuit board layout constraints affect thermal management decisions?",
+      "expected_capabilities": [
+        "cross_domain_analysis",
+        "relationship_discovery"
+      ],
+      "nancy": {
+        "status": "success",
+        "query_time": 0.7256405353546143,
+        "response": "Database results (9 files):\n1. electrical_review_meeting.txt (.txt, 3648 bytes)\n2. emc_test_results.txt (.txt, 3112 bytes)\n3. ergonomic_analysis.txt (.txt, 5285 bytes)\n4. firmware_requirements.txt (.txt, 6884 bytes)\n5. march_design_review_transcript.txt (.txt, 5821 bytes)\n6. power_analysis_report.txt (.txt, 4065 bytes)\n7. system_requirements_v2.txt (.txt, 1922 bytes)\n8. thermal_constraints_doc.txt (.txt, 2282 bytes)\n9. voice_of_customer.txt (.txt, 4417 bytes)",
+        "sources": [],
+        "response_length": 463,
+        "source_count": 0,
+        "metrics": {
+          "llm_calls": 2,
+          "tokens": {
+            "input": 0,
+            "output": 0,
+            "total": 0
+          },
+          "embedding_operations": 1,
+          "query_time": 0.7256405353546143,
+          "network_time": 0.7256405353546143,
+          "orchestrator_used": "langchain_router",
+          "routing_info": {
+            "selected_brain": "unknown",
+            "confidence": 0.5,
+            "routing_method": "llm_router"
+          }
+        },
+        "raw_result": {
+          "query": "How do circuit board layout constraints affect thermal management decisions?",
+          "strategy_used": "langchain_router",
+          "response": "Database results (9 files):\n1. electrical_review_meeting.txt (.txt, 3648 bytes)\n2. emc_test_results.txt (.txt, 3112 bytes)\n3. ergonomic_analysis.txt (.txt, 5285 bytes)\n4. firmware_requirements.txt (.txt, 6884 bytes)\n5. march_design_review_transcript.txt (.txt, 5821 bytes)\n6. power_analysis_report.txt (.txt, 4065 bytes)\n7. system_requirements_v2.txt (.txt, 1922 bytes)\n8. thermal_constraints_doc.txt (.txt, 2282 bytes)\n9. voice_of_customer.txt (.txt, 4417 bytes)",
+          "routing_info": {
+            "selected_brain": "unknown",
+            "confidence": 0.5,
+            "routing_method": "llm_router"
+          },
+          "routing_steps": [],
+          "query_time": -0.12356948852539062,
+          "processing_timestamp": "2025-08-12T05:50:14.385261"
+        }
+      },
+      "baseline": {
+        "status": "error",
+        "query_time": 0.02477240562438965,
+        "error": "HTTP 500",
+        "response": "{\"detail\":\"RAG system not initialized\"}",
+        "metrics": {
+          "llm_calls": 0,
+          "tokens": {
+            "input": 0,
+            "output": 0,
+            "total": 0
+          },
+          "embedding_operations": 0,
+          "query_time": 0.02477240562438965,
+          "network_time": 0.02477240562438965
+        }
+      },
+      "timestamp": "2025-08-11T22:50:14.407157"
+    },
+    {
+      "test_id": 10,
+      "category": "Firmware Engineering - Memory Requirements",
+      "query": "What are the memory allocation requirements for the thermal control algorithms?",
+      "expected_capabilities": [
+        "basic_retrieval",
+        "technical_synthesis"
+      ],
+      "nancy": {
+        "status": "success",
+        "query_time": 0.701197624206543,
+        "response": "Database results (9 files):\n1. electrical_review_meeting.txt (.txt, 3648 bytes)\n2. emc_test_results.txt (.txt, 3112 bytes)\n3. ergonomic_analysis.txt (.txt, 5285 bytes)\n4. firmware_requirements.txt (.txt, 6884 bytes)\n5. march_design_review_transcript.txt (.txt, 5821 bytes)\n6. power_analysis_report.txt (.txt, 4065 bytes)\n7. system_requirements_v2.txt (.txt, 1922 bytes)\n8. thermal_constraints_doc.txt (.txt, 2282 bytes)\n9. voice_of_customer.txt (.txt, 4417 bytes)",
+        "sources": [],
+        "response_length": 463,
+        "source_count": 0,
+        "metrics": {
+          "llm_calls": 2,
+          "tokens": {
+            "input": 0,
+            "output": 0,
+            "total": 0
+          },
+          "embedding_operations": 1,
+          "query_time": 0.701197624206543,
+          "network_time": 0.701197624206543,
+          "orchestrator_used": "langchain_router",
+          "routing_info": {
+            "selected_brain": "unknown",
+            "confidence": 0.5,
+            "routing_method": "llm_router"
+          }
+        },
+        "raw_result": {
+          "query": "What are the memory allocation requirements for the thermal control algorithms?",
+          "strategy_used": "langchain_router",
+          "response": "Database results (9 files):\n1. electrical_review_meeting.txt (.txt, 3648 bytes)\n2. emc_test_results.txt (.txt, 3112 bytes)\n3. ergonomic_analysis.txt (.txt, 5285 bytes)\n4. firmware_requirements.txt (.txt, 6884 bytes)\n5. march_design_review_transcript.txt (.txt, 5821 bytes)\n6. power_analysis_report.txt (.txt, 4065 bytes)\n7. system_requirements_v2.txt (.txt, 1922 bytes)\n8. thermal_constraints_doc.txt (.txt, 2282 bytes)\n9. voice_of_customer.txt (.txt, 4417 bytes)",
+          "routing_info": {
+            "selected_brain": "unknown",
+            "confidence": 0.5,
+            "routing_method": "llm_router"
+          },
+          "routing_steps": [],
+          "query_time": -0.9383604526519775,
+          "processing_timestamp": "2025-08-12T05:50:13.483369"
+        }
+      },
+      "baseline": {
+        "status": "error",
+        "query_time": 0.006186485290527344,
+        "error": "HTTP 500",
+        "response": "{\"detail\":\"RAG system not initialized\"}",
+        "metrics": {
+          "llm_calls": 0,
+          "tokens": {
+            "input": 0,
+            "output": 0,
+            "total": 0
+          },
+          "embedding_operations": 0,
+          "query_time": 0.006186485290527344,
+          "network_time": 0.006186485290527344
+        }
+      },
+      "timestamp": "2025-08-11T22:50:15.116829"
+    },
+    {
+      "test_id": 11,
+      "category": "Firmware Engineering - Control Protocols",
+      "query": "Which communication protocols are used between thermal sensors and the main controller?",
+      "expected_capabilities": [
+        "technical_synthesis",
+        "basic_retrieval"
+      ],
+      "nancy": {
+        "status": "success",
+        "query_time": 0.7871372699737549,
+        "response": "Database results (9 files):\n1. electrical_review_meeting.txt (.txt, 3648 bytes)\n2. emc_test_results.txt (.txt, 3112 bytes)\n3. ergonomic_analysis.txt (.txt, 5285 bytes)\n4. firmware_requirements.txt (.txt, 6884 bytes)\n5. march_design_review_transcript.txt (.txt, 5821 bytes)\n6. power_analysis_report.txt (.txt, 4065 bytes)\n7. system_requirements_v2.txt (.txt, 1922 bytes)\n8. thermal_constraints_doc.txt (.txt, 2282 bytes)\n9. voice_of_customer.txt (.txt, 4417 bytes)",
+        "sources": [],
+        "response_length": 463,
+        "source_count": 0,
+        "metrics": {
+          "llm_calls": 2,
+          "tokens": {
+            "input": 0,
+            "output": 0,
+            "total": 0
+          },
+          "embedding_operations": 1,
+          "query_time": 0.7871372699737549,
+          "network_time": 0.7871372699737549,
+          "orchestrator_used": "langchain_router",
+          "routing_info": {
+            "selected_brain": "unknown",
+            "confidence": 0.5,
+            "routing_method": "llm_router"
+          }
+        },
+        "raw_result": {
+          "query": "Which communication protocols are used between thermal sensors and the main controller?",
+          "strategy_used": "langchain_router",
+          "response": "Database results (9 files):\n1. electrical_review_meeting.txt (.txt, 3648 bytes)\n2. emc_test_results.txt (.txt, 3112 bytes)\n3. ergonomic_analysis.txt (.txt, 5285 bytes)\n4. firmware_requirements.txt (.txt, 6884 bytes)\n5. march_design_review_transcript.txt (.txt, 5821 bytes)\n6. power_analysis_report.txt (.txt, 4065 bytes)\n7. system_requirements_v2.txt (.txt, 1922 bytes)\n8. thermal_constraints_doc.txt (.txt, 2282 bytes)\n9. voice_of_customer.txt (.txt, 4417 bytes)",
+          "routing_info": {
+            "selected_brain": "unknown",
+            "confidence": 0.5,
+            "routing_method": "llm_router"
+          },
+          "routing_steps": [],
+          "query_time": 0.8553874492645264,
+          "processing_timestamp": "2025-08-12T05:50:14.356315"
+        }
+      },
+      "baseline": {
+        "status": "error",
+        "query_time": 0.02559208869934082,
+        "error": "HTTP 500",
+        "response": "{\"detail\":\"RAG system not initialized\"}",
+        "metrics": {
+          "llm_calls": 0,
+          "tokens": {
+            "input": 0,
+            "output": 0,
+            "total": 0
+          },
+          "embedding_operations": 0,
+          "query_time": 0.02559208869934082,
+          "network_time": 0.02559208869934082
+        }
+      },
+      "timestamp": "2025-08-11T22:50:15.930641"
+    },
+    {
+      "test_id": 12,
+      "category": "Industrial Design - User Interface",
+      "query": "What user feedback influenced the thermal management interface design decisions?",
+      "expected_capabilities": [
+        "decision_tracking",
+        "author_attribution"
+      ],
+      "nancy": {
+        "status": "success",
+        "query_time": 0.7310986518859863,
+        "response": "Database results (9 files):\n1. electrical_review_meeting.txt (.txt, 3648 bytes)\n2. emc_test_results.txt (.txt, 3112 bytes)\n3. ergonomic_analysis.txt (.txt, 5285 bytes)\n4. firmware_requirements.txt (.txt, 6884 bytes)\n5. march_design_review_transcript.txt (.txt, 5821 bytes)\n6. power_analysis_report.txt (.txt, 4065 bytes)\n7. system_requirements_v2.txt (.txt, 1922 bytes)\n8. thermal_constraints_doc.txt (.txt, 2282 bytes)\n9. voice_of_customer.txt (.txt, 4417 bytes)",
+        "sources": [],
+        "response_length": 463,
+        "source_count": 0,
+        "metrics": {
+          "llm_calls": 2,
+          "tokens": {
+            "input": 0,
+            "output": 0,
+            "total": 0
+          },
+          "embedding_operations": 1,
+          "query_time": 0.7310986518859863,
+          "network_time": 0.7310986518859863,
+          "orchestrator_used": "langchain_router",
+          "routing_info": {
+            "selected_brain": "unknown",
+            "confidence": 0.5,
+            "routing_method": "llm_router"
+          }
+        },
+        "raw_result": {
+          "query": "What user feedback influenced the thermal management interface design decisions?",
+          "strategy_used": "langchain_router",
+          "response": "Database results (9 files):\n1. electrical_review_meeting.txt (.txt, 3648 bytes)\n2. emc_test_results.txt (.txt, 3112 bytes)\n3. ergonomic_analysis.txt (.txt, 5285 bytes)\n4. firmware_requirements.txt (.txt, 6884 bytes)\n5. march_design_review_transcript.txt (.txt, 5821 bytes)\n6. power_analysis_report.txt (.txt, 4065 bytes)\n7. system_requirements_v2.txt (.txt, 1922 bytes)\n8. thermal_constraints_doc.txt (.txt, 2282 bytes)\n9. voice_of_customer.txt (.txt, 4417 bytes)",
+          "routing_info": {
+            "selected_brain": "unknown",
+            "confidence": 0.5,
+            "routing_method": "llm_router"
+          },
+          "routing_steps": [],
+          "query_time": 0.7837574481964111,
+          "processing_timestamp": "2025-08-12T05:50:15.187003"
+        }
+      },
+      "baseline": {
+        "status": "error",
+        "query_time": 0.00569462776184082,
+        "error": "HTTP 500",
+        "response": "{\"detail\":\"RAG system not initialized\"}",
+        "metrics": {
+          "llm_calls": 0,
+          "tokens": {
+            "input": 0,
+            "output": 0,
+            "total": 0
+          },
+          "embedding_operations": 0,
+          "query_time": 0.00569462776184082,
+          "network_time": 0.00569462776184082
+        }
+      },
+      "timestamp": "2025-08-11T22:50:16.669614"
+    },
+    {
+      "test_id": 13,
+      "category": "Industrial Design - Ergonomics",
+      "query": "How do ergonomic considerations affect the placement of thermal management controls?",
+      "expected_capabilities": [
+        "cross_domain_analysis",
+        "basic_retrieval"
+      ],
+      "nancy": {
+        "status": "success",
+        "query_time": 0.8043434619903564,
+        "response": "Database results (9 files):\n1. electrical_review_meeting.txt (.txt, 3648 bytes)\n2. emc_test_results.txt (.txt, 3112 bytes)\n3. ergonomic_analysis.txt (.txt, 5285 bytes)\n4. firmware_requirements.txt (.txt, 6884 bytes)\n5. march_design_review_transcript.txt (.txt, 5821 bytes)\n6. power_analysis_report.txt (.txt, 4065 bytes)\n7. system_requirements_v2.txt (.txt, 1922 bytes)\n8. thermal_constraints_doc.txt (.txt, 2282 bytes)\n9. voice_of_customer.txt (.txt, 4417 bytes)",
+        "sources": [],
+        "response_length": 463,
+        "source_count": 0,
+        "metrics": {
+          "llm_calls": 2,
+          "tokens": {
+            "input": 0,
+            "output": 0,
+            "total": 0
+          },
+          "embedding_operations": 1,
+          "query_time": 0.8043434619903564,
+          "network_time": 0.8043434619903564,
+          "orchestrator_used": "langchain_router",
+          "routing_info": {
+            "selected_brain": "unknown",
+            "confidence": 0.5,
+            "routing_method": "llm_router"
+          }
+        },
+        "raw_result": {
+          "query": "How do ergonomic considerations affect the placement of thermal management controls?",
+          "strategy_used": "langchain_router",
+          "response": "Database results (9 files):\n1. electrical_review_meeting.txt (.txt, 3648 bytes)\n2. emc_test_results.txt (.txt, 3112 bytes)\n3. ergonomic_analysis.txt (.txt, 5285 bytes)\n4. firmware_requirements.txt (.txt, 6884 bytes)\n5. march_design_review_transcript.txt (.txt, 5821 bytes)\n6. power_analysis_report.txt (.txt, 4065 bytes)\n7. system_requirements_v2.txt (.txt, 1922 bytes)\n8. thermal_constraints_doc.txt (.txt, 2282 bytes)\n9. voice_of_customer.txt (.txt, 4417 bytes)",
+          "routing_info": {
+            "selected_brain": "unknown",
+            "confidence": 0.5,
+            "routing_method": "llm_router"
+          },
+          "routing_steps": [],
+          "query_time": 0.8743295669555664,
+          "processing_timestamp": "2025-08-12T05:50:16.077429"
+        }
+      },
+      "baseline": {
+        "status": "error",
+        "query_time": 0.005418539047241211,
+        "error": "HTTP 500",
+        "response": "{\"detail\":\"RAG system not initialized\"}",
+        "metrics": {
+          "llm_calls": 0,
+          "tokens": {
+            "input": 0,
+            "output": 0,
+            "total": 0
+          },
+          "embedding_operations": 0,
+          "query_time": 0.005418539047241211,
+          "network_time": 0.005418539047241211
+        }
+      },
+      "timestamp": "2025-08-11T22:50:17.480468"
+    },
+    {
+      "test_id": 14,
+      "category": "Project Management - Timeline",
+      "query": "What activities are scheduled for Q4 2024 and how do they relate to thermal considerations?",
+      "expected_capabilities": [
+        "temporal_filtering",
+        "relationship_discovery"
+      ],
+      "nancy": {
+        "status": "success",
+        "query_time": 0.7511956691741943,
+        "response": "Database results (9 files):\n1. electrical_review_meeting.txt (.txt, 3648 bytes)\n2. emc_test_results.txt (.txt, 3112 bytes)\n3. ergonomic_analysis.txt (.txt, 5285 bytes)\n4. firmware_requirements.txt (.txt, 6884 bytes)\n5. march_design_review_transcript.txt (.txt, 5821 bytes)\n6. power_analysis_report.txt (.txt, 4065 bytes)\n7. system_requirements_v2.txt (.txt, 1922 bytes)\n8. thermal_constraints_doc.txt (.txt, 2282 bytes)\n9. voice_of_customer.txt (.txt, 4417 bytes)",
+        "sources": [],
+        "response_length": 463,
+        "source_count": 0,
+        "metrics": {
+          "llm_calls": 2,
+          "tokens": {
+            "input": 0,
+            "output": 0,
+            "total": 0
+          },
+          "embedding_operations": 1,
+          "query_time": 0.7511956691741943,
+          "network_time": 0.7511956691741943,
+          "orchestrator_used": "langchain_router",
+          "routing_info": {
+            "selected_brain": "unknown",
+            "confidence": 0.5,
+            "routing_method": "llm_router"
+          }
+        },
+        "raw_result": {
+          "query": "What activities are scheduled for Q4 2024 and how do they relate to thermal considerations?",
+          "strategy_used": "langchain_router",
+          "response": "Database results (9 files):\n1. electrical_review_meeting.txt (.txt, 3648 bytes)\n2. emc_test_results.txt (.txt, 3112 bytes)\n3. ergonomic_analysis.txt (.txt, 5285 bytes)\n4. firmware_requirements.txt (.txt, 6884 bytes)\n5. march_design_review_transcript.txt (.txt, 5821 bytes)\n6. power_analysis_report.txt (.txt, 4065 bytes)\n7. system_requirements_v2.txt (.txt, 1922 bytes)\n8. thermal_constraints_doc.txt (.txt, 2282 bytes)\n9. voice_of_customer.txt (.txt, 4417 bytes)",
+          "routing_info": {
+            "selected_brain": "unknown",
+            "confidence": 0.5,
+            "routing_method": "llm_router"
+          },
+          "routing_steps": [],
+          "query_time": 0.8029379844665527,
+          "processing_timestamp": "2025-08-12T05:50:16.909309"
+        }
+      },
+      "baseline": {
+        "status": "error",
+        "query_time": 0.0060079097747802734,
+        "error": "HTTP 500",
+        "response": "{\"detail\":\"RAG system not initialized\"}",
+        "metrics": {
+          "llm_calls": 0,
+          "tokens": {
+            "input": 0,
+            "output": 0,
+            "total": 0
+          },
+          "embedding_operations": 0,
+          "query_time": 0.0060079097747802734,
+          "network_time": 0.0060079097747802734
+        }
+      },
+      "timestamp": "2025-08-11T22:50:18.239688"
+    },
+    {
+      "test_id": 15,
+      "category": "Project Management - Decision Tracking",
+      "query": "What decisions were made in the project timeline that affect the thermal analysis, and who made them?",
+      "expected_capabilities": [
+        "decision_tracking",
+        "temporal_analysis",
+        "author_attribution"
+      ],
+      "nancy": {
+        "status": "success",
+        "query_time": 0.7411675453186035,
+        "response": "Database results (9 files):\n1. electrical_review_meeting.txt (.txt, 3648 bytes)\n2. emc_test_results.txt (.txt, 3112 bytes)\n3. ergonomic_analysis.txt (.txt, 5285 bytes)\n4. firmware_requirements.txt (.txt, 6884 bytes)\n5. march_design_review_transcript.txt (.txt, 5821 bytes)\n6. power_analysis_report.txt (.txt, 4065 bytes)\n7. system_requirements_v2.txt (.txt, 1922 bytes)\n8. thermal_constraints_doc.txt (.txt, 2282 bytes)\n9. voice_of_customer.txt (.txt, 4417 bytes)",
+        "sources": [],
+        "response_length": 463,
+        "source_count": 0,
+        "metrics": {
+          "llm_calls": 2,
+          "tokens": {
+            "input": 0,
+            "output": 0,
+            "total": 0
+          },
+          "embedding_operations": 1,
+          "query_time": 0.7411675453186035,
+          "network_time": 0.7411675453186035,
+          "orchestrator_used": "langchain_router",
+          "routing_info": {
+            "selected_brain": "unknown",
+            "confidence": 0.5,
+            "routing_method": "llm_router"
+          }
+        },
+        "raw_result": {
+          "query": "What decisions were made in the project timeline that affect the thermal analysis, and who made them?",
+          "strategy_used": "langchain_router",
+          "response": "Database results (9 files):\n1. electrical_review_meeting.txt (.txt, 3648 bytes)\n2. emc_test_results.txt (.txt, 3112 bytes)\n3. ergonomic_analysis.txt (.txt, 5285 bytes)\n4. firmware_requirements.txt (.txt, 6884 bytes)\n5. march_design_review_transcript.txt (.txt, 5821 bytes)\n6. power_analysis_report.txt (.txt, 4065 bytes)\n7. system_requirements_v2.txt (.txt, 1922 bytes)\n8. thermal_constraints_doc.txt (.txt, 2282 bytes)\n9. voice_of_customer.txt (.txt, 4417 bytes)",
+          "routing_info": {
+            "selected_brain": "unknown",
+            "confidence": 0.5,
+            "routing_method": "llm_router"
+          },
+          "routing_steps": [],
+          "query_time": 0.8026659488677979,
+          "processing_timestamp": "2025-08-12T05:50:17.729983"
+        }
+      },
+      "baseline": {
+        "status": "error",
+        "query_time": 0.021236181259155273,
+        "error": "HTTP 500",
+        "response": "{\"detail\":\"RAG system not initialized\"}",
+        "metrics": {
+          "llm_calls": 0,
+          "tokens": {
+            "input": 0,
+            "output": 0,
+            "total": 0
+          },
+          "embedding_operations": 0,
+          "query_time": 0.021236181259155273,
+          "network_time": 0.021236181259155273
+        }
+      },
+      "timestamp": "2025-08-11T22:50:19.003644"
+    }
+  ],
+  "usage_metrics": {
+    "nancy": {
+      "llm_calls": 30,
+      "total_tokens": 0,
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "embedding_operations": 15,
+      "processing_time": 11.20084261894226,
+      "errors": 0
+    },
+    "baseline": {
+      "llm_calls": 0,
+      "total_tokens": 0,
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "embedding_operations": 0,
+      "processing_time": 0,
+      "errors": 15
+    }
+  },
+  "analysis": {
+    "performance": {
+      "nancy_avg_time": 0.7467228412628174,
+      "baseline_avg_time": 0,
+      "nancy_success_rate": 1.0,
+      "baseline_success_rate": 0.0,
+      "speed_advantage": "Baseline"
+    },
+    "resource_usage": {
+      "nancy": {
+        "total_llm_calls": 30,
+        "total_embedding_ops": 15,
+        "avg_llm_calls_per_query": 2.0,
+        "total_processing_time": 11.20084261894226,
+        "error_rate": 0.0
+      },
+      "baseline": {
+        "total_llm_calls": 0,
+        "total_embedding_ops": 0,
+        "avg_llm_calls_per_query": 0.0,
+        "total_processing_time": 0,
+        "error_rate": 1.0
+      }
+    },
+    "efficiency_metrics": {
+      "llm_efficiency": {
+        "nancy_calls_per_success": 2.0,
+        "baseline_calls_per_success": 0
+      },
+      "embedding_efficiency": {
+        "nancy_embeds_per_query": 1.0,
+        "baseline_embeds_per_query": 0.0
+      }
+    },
+    "recommendations": [
+      "Nancy uses significantly more LLM calls - consider optimizing orchestration",
+      "Nancy's advanced capabilities come with significant latency cost",
+      "Nancy shows better reliability than baseline"
+    ]
+  }
+}

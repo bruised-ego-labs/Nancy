@@ -60,7 +60,7 @@ class IntelligentQueryOrchestrator:
         """Lazy-load LLM Client only when needed"""
         if self._llm_client is None:
             print("  → Initializing LinguisticBrain (Local LLM)...")
-            self._llm_client = LLMClient(preferred_llm="local_gemma")
+            self._llm_client = LLMClient(preferred_llm="gemini")
             print("  ✓ LinguisticBrain ready")
         return self._llm_client
     

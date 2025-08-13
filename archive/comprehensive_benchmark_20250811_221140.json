@@ -1,0 +1,1468 @@
+{
+  "metadata": {
+    "timestamp": "2025-08-11T22:11:40.135445",
+    "total_benchmark_time": 495.8723978996277,
+    "nancy_url": "http://localhost:8000",
+    "baseline_url": "http://localhost:8002",
+    "test_count": 15,
+    "test_data_directory": "benchmark_test_data"
+  },
+  "system_health": {
+    "nancy": {
+      "status": "healthy",
+      "response_code": 200,
+      "details": {
+        "status": "ok"
+      }
+    },
+    "baseline": {
+      "status": "healthy",
+      "response_code": 200,
+      "details": {
+        "status": "ok",
+        "system": "baseline-rag",
+        "rag_initialized": true
+      }
+    }
+  },
+  "ingestion_results": {
+    "nancy": {
+      "status": "completed",
+      "system": "Nancy",
+      "total_files": 9,
+      "successful_uploads": 9,
+      "failed_uploads": 0,
+      "total_bytes": 37358,
+      "ingestion_time": 56.08784532546997,
+      "average_upload_time": 6.204601075914171,
+      "upload_speed_mbps": 0.0006352065212269082,
+      "ingested_files": [
+        {
+          "filename": "electrical_review_meeting.txt",
+          "size_bytes": 3645,
+          "upload_time": 9.536502361297607,
+          "status": "success"
+        },
+        {
+          "filename": "emc_test_results.txt",
+          "size_bytes": 3094,
+          "upload_time": 7.964933633804321,
+          "status": "success"
+        },
+        {
+          "filename": "ergonomic_analysis.txt",
+          "size_bytes": 5271,
+          "upload_time": 9.149789571762085,
+          "status": "success"
+        },
+        {
+          "filename": "firmware_requirements.txt",
+          "size_bytes": 6879,
+          "upload_time": 8.934810876846313,
+          "status": "success"
+        },
+        {
+          "filename": "march_design_review_transcript.txt",
+          "size_bytes": 5820,
+          "upload_time": 10.030721426010132,
+          "status": "success"
+        },
+        {
+          "filename": "power_analysis_report.txt",
+          "size_bytes": 4045,
+          "upload_time": 1.8677113056182861,
+          "status": "success"
+        },
+        {
+          "filename": "system_requirements_v2.txt",
+          "size_bytes": 1912,
+          "upload_time": 5.654080867767334,
+          "status": "success"
+        },
+        {
+          "filename": "thermal_constraints_doc.txt",
+          "size_bytes": 2275,
+          "upload_time": 0.9833278656005859,
+          "status": "success"
+        },
+        {
+          "filename": "voice_of_customer.txt",
+          "size_bytes": 4417,
+          "upload_time": 1.719531774520874,
+          "status": "success"
+        }
+      ],
+      "errors": []
+    },
+    "baseline": {
+      "status": "completed",
+      "system": "Baseline",
+      "total_files": 9,
+      "successful_uploads": 9,
+      "failed_uploads": 0,
+      "total_bytes": 37358,
+      "ingestion_time": 4.441985845565796,
+      "average_upload_time": 0.4930489857991536,
+      "upload_speed_mbps": 0.008020594020548184,
+      "ingested_files": [
+        {
+          "filename": "electrical_review_meeting.txt",
+          "size_bytes": 3645,
+          "upload_time": 0.8155608177185059,
+          "status": "success"
+        },
+        {
+          "filename": "emc_test_results.txt",
+          "size_bytes": 3094,
+          "upload_time": 0.41426634788513184,
+          "status": "success"
+        },
+        {
+          "filename": "ergonomic_analysis.txt",
+          "size_bytes": 5271,
+          "upload_time": 0.4309821128845215,
+          "status": "success"
+        },
+        {
+          "filename": "firmware_requirements.txt",
+          "size_bytes": 6879,
+          "upload_time": 0.4951467514038086,
+          "status": "success"
+        },
+        {
+          "filename": "march_design_review_transcript.txt",
+          "size_bytes": 5820,
+          "upload_time": 0.4622511863708496,
+          "status": "success"
+        },
+        {
+          "filename": "power_analysis_report.txt",
+          "size_bytes": 4045,
+          "upload_time": 0.44844508171081543,
+          "status": "success"
+        },
+        {
+          "filename": "system_requirements_v2.txt",
+          "size_bytes": 1912,
+          "upload_time": 0.4086027145385742,
+          "status": "success"
+        },
+        {
+          "filename": "thermal_constraints_doc.txt",
+          "size_bytes": 2275,
+          "upload_time": 0.44135284423828125,
+          "status": "success"
+        },
+        {
+          "filename": "voice_of_customer.txt",
+          "size_bytes": 4417,
+          "upload_time": 0.5208330154418945,
+          "status": "success"
+        }
+      ],
+      "errors": []
+    }
+  },
+  "query_results": [
+    {
+      "test_id": 1,
+      "category": "Systems Engineering - Requirements",
+      "query": "What are the system-level requirements and how do they constrain the mechanical design?",
+      "expected_capabilities": [
+        "basic_retrieval",
+        "cross_document_synthesis"
+      ],
+      "nancy": {
+        "status": "success",
+        "query_time": 0.7431576251983643,
+        "response": "Vector search results for 'What are the system-level requirements and how do they constrain the mechanical design?':\n\nFrom df4f1782c817ea086aa00b7a07fff9b7706eee4275099d8b5736681931caf866 (relevance: 0.42):\nAirflow Considerations\n   - Natural convection design (no fans)\n   - Ventilation slots sized for IP65 compliance\n   - Orientation-independent thermal performance\n\nIMPACT ON OTHER SYSTEMS\n- Mechanical ...\n\nFrom df4f1782c817ea086aa00b7a07fff9b7706eee4275099d8b5736681931caf866 (relevance: 0.42):\nCoordination required with mechanical team on enclosure thermal paths.\n Industrial design team (Lisa Park) consulted on aesthetic impact of thermal features....\n\nFrom 686d64e4c25dc6f2d82cd61786f6eee63ca18b8d1ebef06b7a2e2dd8ae986191 (relevance: 0.38):\nWithin 25mm of device centerline for thumb reach\n\nVisual Design Requirements:\n- Raised surface for tactile identification\n- Contrasting color from device body\n- Non-reflective surface to prevent glare...",
+        "sources": [],
+        "response_length": 955,
+        "source_count": 0,
+        "metrics": {
+          "llm_calls": 2,
+          "tokens": {
+            "input": 0,
+            "output": 0,
+            "total": 0
+          },
+          "embedding_operations": 1,
+          "query_time": 0.7431576251983643,
+          "network_time": 0.7431576251983643,
+          "orchestrator_used": "langchain_router",
+          "routing_info": {
+            "selected_brain": "unknown",
+            "confidence": 0.5,
+            "routing_method": "llm_router"
+          }
+        },
+        "raw_result": {
+          "query": "What are the system-level requirements and how do they constrain the mechanical design?",
+          "strategy_used": "langchain_router",
+          "response": "Vector search results for 'What are the system-level requirements and how do they constrain the mechanical design?':\n\nFrom df4f1782c817ea086aa00b7a07fff9b7706eee4275099d8b5736681931caf866 (relevance: 0.42):\nAirflow Considerations\n   - Natural convection design (no fans)\n   - Ventilation slots sized for IP65 compliance\n   - Orientation-independent thermal performance\n\nIMPACT ON OTHER SYSTEMS\n- Mechanical ...\n\nFrom df4f1782c817ea086aa00b7a07fff9b7706eee4275099d8b5736681931caf866 (relevance: 0.42):\nCoordination required with mechanical team on enclosure thermal paths.\n Industrial design team (Lisa Park) consulted on aesthetic impact of thermal features....\n\nFrom 686d64e4c25dc6f2d82cd61786f6eee63ca18b8d1ebef06b7a2e2dd8ae986191 (relevance: 0.38):\nWithin 25mm of device centerline for thumb reach\n\nVisual Design Requirements:\n- Raised surface for tactile identification\n- Contrasting color from device body\n- Non-reflective surface to prevent glare...",
+          "routing_info": {
+            "selected_brain": "unknown",
+            "confidence": 0.5,
+            "routing_method": "llm_router"
+          },
+          "routing_steps": [],
+          "query_time": 0.7628381252288818,
+          "processing_timestamp": "2025-08-12T05:04:34.051830"
+        }
+      },
+      "baseline": {
+        "status": "success",
+        "query_time": 20.080554008483887,
+        "response": "The system-level requirement that constrains the mechanical design is to accommodate the aluminum heat sink and split power rail. This need drives decisions like redesigning the enclosure to increase volume (15%) for clearance, modifying internal partitioning, optimizing airflow channels based on thermal analysis, and switching to a material like ABS for better heat dissipation. \n",
+        "sources": [
+          "electrical_design_review.txt",
+          "project_timeline_q4_2024.txt",
+          "mechanical_integration_plan.txt"
+        ],
+        "response_length": 383,
+        "source_count": 3,
+        "metrics": {
+          "llm_calls": 1,
+          "tokens": {
+            "input": 0,
+            "output": 0,
+            "total": 0
+          },
+          "embedding_operations": 1,
+          "query_time": 20.080554008483887,
+          "network_time": 20.080554008483887,
+          "method": "langchain_rag"
+        },
+        "raw_result": {
+          "response": "The system-level requirement that constrains the mechanical design is to accommodate the aluminum heat sink and split power rail. This need drives decisions like redesigning the enclosure to increase volume (15%) for clearance, modifying internal partitioning, optimizing airflow channels based on thermal analysis, and switching to a material like ABS for better heat dissipation. \n",
+          "sources": [
+            "electrical_design_review.txt",
+            "project_timeline_q4_2024.txt",
+            "mechanical_integration_plan.txt"
+          ],
+          "query_time": 21.985119104385376,
+          "method": "langchain_rag"
+        }
+      },
+      "timestamp": "2025-08-11T22:04:55.693733"
+    },
+    {
+      "test_id": 2,
+      "category": "Systems Engineering - Integration",
+      "query": "Which integration points between electrical and mechanical systems need special attention?",
+      "expected_capabilities": [
+        "relationship_discovery",
+        "technical_synthesis"
+      ],
+      "nancy": {
+        "status": "success",
+        "query_time": 0.63680100440979,
+        "response": "Vector search results for 'Which integration points between electrical and mechanical systems need special attention?':\n\nFrom 94fe688a2e3fb9e243574bfd8c83f6ff7d8b69d6eb15f883a10b451f666e89b6 (relevance: 0.33):\nI don't want to spend 30 minutes reading manuals.\" - Manufacturing Engineer, Automotive Industry\n\n \"The interface should be intuitive enough that any technician can operate it without training.\" - Mai...\n\nFrom 561b2d16f8317fbe7626d88d2d807227b8033cf6f4009009c3e30608d83e688f (relevance: 0.31):\nElectrical Design Review Meeting Transcript\nProject:...\n\nFrom f2f3b48f0ba0017ab3e48f744ac7fc1a89ac118526e528720db46b207e33802a (relevance: 0.28):\nAll test procedures followed accredited laboratory standards.\n\n This report demonstrates the electrical design successfully meets electromagnetic compatibility requirements while maintaining functiona...",
+        "sources": [],
+        "response_length": 853,
+        "source_count": 0,
+        "metrics": {
+          "llm_calls": 2,
+          "tokens": {
+            "input": 0,
+            "output": 0,
+            "total": 0
+          },
+          "embedding_operations": 1,
+          "query_time": 0.63680100440979,
+          "network_time": 0.63680100440979,
+          "orchestrator_used": "langchain_router",
+          "routing_info": {
+            "selected_brain": "unknown",
+            "confidence": 0.5,
+            "routing_method": "llm_router"
+          }
+        },
+        "raw_result": {
+          "query": "Which integration points between electrical and mechanical systems need special attention?",
+          "strategy_used": "langchain_router",
+          "response": "Vector search results for 'Which integration points between electrical and mechanical systems need special attention?':\n\nFrom 94fe688a2e3fb9e243574bfd8c83f6ff7d8b69d6eb15f883a10b451f666e89b6 (relevance: 0.33):\nI don't want to spend 30 minutes reading manuals.\" - Manufacturing Engineer, Automotive Industry\n\n \"The interface should be intuitive enough that any technician can operate it without training.\" - Mai...\n\nFrom 561b2d16f8317fbe7626d88d2d807227b8033cf6f4009009c3e30608d83e688f (relevance: 0.31):\nElectrical Design Review Meeting Transcript\nProject:...\n\nFrom f2f3b48f0ba0017ab3e48f744ac7fc1a89ac118526e528720db46b207e33802a (relevance: 0.28):\nAll test procedures followed accredited laboratory standards.\n\n This report demonstrates the electrical design successfully meets electromagnetic compatibility requirements while maintaining functiona...",
+          "routing_info": {
+            "selected_brain": "unknown",
+            "confidence": 0.5,
+            "routing_method": "llm_router"
+          },
+          "routing_steps": [],
+          "query_time": 0.6921365261077881,
+          "processing_timestamp": "2025-08-12T05:04:56.746579"
+        }
+      },
+      "baseline": {
+        "status": "success",
+        "query_time": 30.481041193008423,
+        "response": "The text mentions that the  \"integration challenges discovered in thermal-electrical interface\" require special attention. \n",
+        "sources": [
+          "project_timeline_q4_2024.txt",
+          "mechanical_integration_plan.txt"
+        ],
+        "response_length": 124,
+        "source_count": 2,
+        "metrics": {
+          "llm_calls": 1,
+          "tokens": {
+            "input": 0,
+            "output": 0,
+            "total": 0
+          },
+          "embedding_operations": 1,
+          "query_time": 30.481041193008423,
+          "network_time": 30.481041193008423,
+          "method": "langchain_rag"
+        },
+        "raw_result": {
+          "response": "The text mentions that the  \"integration challenges discovered in thermal-electrical interface\" require special attention. \n",
+          "sources": [
+            "project_timeline_q4_2024.txt",
+            "mechanical_integration_plan.txt"
+          ],
+          "query_time": 30.797993421554565,
+          "method": "langchain_rag"
+        }
+      },
+      "timestamp": "2025-08-11T22:05:26.822871"
+    },
+    {
+      "test_id": 3,
+      "category": "Systems Engineering - Verification",
+      "query": "What verification procedures are defined for thermal performance validation?",
+      "expected_capabilities": [
+        "basic_retrieval",
+        "temporal_analysis"
+      ],
+      "nancy": {
+        "status": "success",
+        "query_time": 0.630476713180542,
+        "response": "Vector search results for 'What verification procedures are defined for thermal performance validation?':\n\nFrom 561b2d16f8317fbe7626d88d2d807227b8033cf6f4009009c3e30608d83e688f (relevance: 0.47):\nIt should maintain \u00b120ppm accuracy across the full temperature range. \"\n\nACTION ITEMS:\n1. Mike to finalize power management IC selection by March 22\n2. Schedule CE certification testing for March 25\n3...\n\nFrom 561b2d16f8317fbe7626d88d2d807227b8033cf6f4009009c3e30608d83e688f (relevance: 0.46):\nValidate firmware power management with new IC specifications\n\nDECISIONS MADE:\n- Approved power management IC change for better efficiency\n- Confirmed antenna placement strategy\n- Agreed on component ...\n\nFrom 9d239f3c5c333d5e814e9b4a4ba02ac1ead055872f45baa95c49a29ca9d5d7fe (relevance: 0.44):\nAGENDA ITEM 4: TESTING AND VALIDATION STRATEGY\nMark Thompson: \"We need to discuss accelerated life testing strategy. Customer requirements specify 5-year minimum operational life.\"\n\n Sarah Chen: \"Ther...",
+        "sources": [],
+        "response_length": 987,
+        "source_count": 0,
+        "metrics": {
+          "llm_calls": 2,
+          "tokens": {
+            "input": 0,
+            "output": 0,
+            "total": 0
+          },
+          "embedding_operations": 1,
+          "query_time": 0.630476713180542,
+          "network_time": 0.630476713180542,
+          "orchestrator_used": "langchain_router",
+          "routing_info": {
+            "selected_brain": "unknown",
+            "confidence": 0.5,
+            "routing_method": "llm_router"
+          }
+        },
+        "raw_result": {
+          "query": "What verification procedures are defined for thermal performance validation?",
+          "strategy_used": "langchain_router",
+          "response": "Vector search results for 'What verification procedures are defined for thermal performance validation?':\n\nFrom 561b2d16f8317fbe7626d88d2d807227b8033cf6f4009009c3e30608d83e688f (relevance: 0.47):\nIt should maintain \u00b120ppm accuracy across the full temperature range. \"\n\nACTION ITEMS:\n1. Mike to finalize power management IC selection by March 22\n2. Schedule CE certification testing for March 25\n3...\n\nFrom 561b2d16f8317fbe7626d88d2d807227b8033cf6f4009009c3e30608d83e688f (relevance: 0.46):\nValidate firmware power management with new IC specifications\n\nDECISIONS MADE:\n- Approved power management IC change for better efficiency\n- Confirmed antenna placement strategy\n- Agreed on component ...\n\nFrom 9d239f3c5c333d5e814e9b4a4ba02ac1ead055872f45baa95c49a29ca9d5d7fe (relevance: 0.44):\nAGENDA ITEM 4: TESTING AND VALIDATION STRATEGY\nMark Thompson: \"We need to discuss accelerated life testing strategy. Customer requirements specify 5-year minimum operational life.\"\n\n Sarah Chen: \"Ther...",
+          "routing_info": {
+            "selected_brain": "unknown",
+            "confidence": 0.5,
+            "routing_method": "llm_router"
+          },
+          "routing_steps": [],
+          "query_time": 0.6742110252380371,
+          "processing_timestamp": "2025-08-12T05:05:28.249572"
+        }
+      },
+      "baseline": {
+        "status": "success",
+        "query_time": 19.144070148468018,
+        "response": "The provided context does not contain information about specific verification procedures for thermal performance validation. \n",
+        "sources": [
+          "thermal_analysis_report.txt",
+          "electrical_design_review.txt",
+          "project_timeline_q4_2024.txt",
+          "mechanical_integration_plan.txt"
+        ],
+        "response_length": 126,
+        "source_count": 4,
+        "metrics": {
+          "llm_calls": 1,
+          "tokens": {
+            "input": 0,
+            "output": 0,
+            "total": 0
+          },
+          "embedding_operations": 1,
+          "query_time": 19.144070148468018,
+          "network_time": 19.144070148468018,
+          "method": "langchain_rag"
+        },
+        "raw_result": {
+          "response": "The provided context does not contain information about specific verification procedures for thermal performance validation. \n",
+          "sources": [
+            "thermal_analysis_report.txt",
+            "electrical_design_review.txt",
+            "project_timeline_q4_2024.txt",
+            "mechanical_integration_plan.txt"
+          ],
+          "query_time": 18.229970932006836,
+          "method": "langchain_rag"
+        }
+      },
+      "timestamp": "2025-08-11T22:05:46.601033"
+    },
+    {
+      "test_id": 4,
+      "category": "Mechanical Engineering - Materials",
+      "query": "What materials are specified for high-temperature components and who selected them?",
+      "expected_capabilities": [
+        "basic_retrieval",
+        "author_tracking"
+      ],
+      "nancy": {
+        "status": "success",
+        "query_time": 0.6516571044921875,
+        "response": "Vector search results for 'What materials are specified for high-temperature components and who selected them?':\n\nFrom df4f1782c817ea086aa00b7a07fff9b7706eee4275099d8b5736681931caf866 (relevance: 0.46):\nEnclosure Material Selection\n   - Aluminum alloy 6061-T6 recommended for base plate\n   - Thermal conductivity: 167 W/m\u00b7K\n   - Provides heat spreading and external convection\n\n2. Internal Heat Manageme...\n\nFrom df4f1782c817ea086aa00b7a07fff9b7706eee4275099d8b5736681931caf866 (relevance: 0.40):\nInternal Temperature Rise Limits\n   - Processor: Junction temp <105\u00b0C (25\u00b0C margin from max rating)\n   - Power management IC: <85\u00b0C case temperature\n   - RF components: <70\u00b0C to maintain performance\n ...\n\nFrom df4f1782c817ea086aa00b7a07fff9b7706eee4275099d8b5736681931caf866 (relevance: 0.38):\nMaximum Surface Temperature: 50\u00b0C\n   - Based on user safety requirements for handheld operation\n   - Complies with IEC 62368-1 safety standards\n   - Critical for industrial design acceptance\n\n2....",
+        "sources": [],
+        "response_length": 988,
+        "source_count": 0,
+        "metrics": {
+          "llm_calls": 2,
+          "tokens": {
+            "input": 0,
+            "output": 0,
+            "total": 0
+          },
+          "embedding_operations": 1,
+          "query_time": 0.6516571044921875,
+          "network_time": 0.6516571044921875,
+          "orchestrator_used": "langchain_router",
+          "routing_info": {
+            "selected_brain": "unknown",
+            "confidence": 0.5,
+            "routing_method": "llm_router"
+          }
+        },
+        "raw_result": {
+          "query": "What materials are specified for high-temperature components and who selected them?",
+          "strategy_used": "langchain_router",
+          "response": "Vector search results for 'What materials are specified for high-temperature components and who selected them?':\n\nFrom df4f1782c817ea086aa00b7a07fff9b7706eee4275099d8b5736681931caf866 (relevance: 0.46):\nEnclosure Material Selection\n   - Aluminum alloy 6061-T6 recommended for base plate\n   - Thermal conductivity: 167 W/m\u00b7K\n   - Provides heat spreading and external convection\n\n2. Internal Heat Manageme...\n\nFrom df4f1782c817ea086aa00b7a07fff9b7706eee4275099d8b5736681931caf866 (relevance: 0.40):\nInternal Temperature Rise Limits\n   - Processor: Junction temp <105\u00b0C (25\u00b0C margin from max rating)\n   - Power management IC: <85\u00b0C case temperature\n   - RF components: <70\u00b0C to maintain performance\n ...\n\nFrom df4f1782c817ea086aa00b7a07fff9b7706eee4275099d8b5736681931caf866 (relevance: 0.38):\nMaximum Surface Temperature: 50\u00b0C\n   - Based on user safety requirements for handheld operation\n   - Complies with IEC 62368-1 safety standards\n   - Critical for industrial design acceptance\n\n2....",
+          "routing_info": {
+            "selected_brain": "unknown",
+            "confidence": 0.5,
+            "routing_method": "llm_router"
+          },
+          "routing_steps": [],
+          "query_time": 0.6913700103759766,
+          "processing_timestamp": "2025-08-12T05:05:47.231720"
+        }
+      },
+      "baseline": {
+        "status": "success",
+        "query_time": 14.894842147827148,
+        "response": "The provided text does not specify the materials used for high-temperature components.  \n",
+        "sources": [
+          "thermal_analysis_report.txt",
+          "electrical_design_review.txt",
+          "mechanical_integration_plan.txt"
+        ],
+        "response_length": 89,
+        "source_count": 3,
+        "metrics": {
+          "llm_calls": 1,
+          "tokens": {
+            "input": 0,
+            "output": 0,
+            "total": 0
+          },
+          "embedding_operations": 1,
+          "query_time": 14.894842147827148,
+          "network_time": 14.894842147827148,
+          "method": "langchain_rag"
+        },
+        "raw_result": {
+          "response": "The provided text does not specify the materials used for high-temperature components.  \n",
+          "sources": [
+            "thermal_analysis_report.txt",
+            "electrical_design_review.txt",
+            "mechanical_integration_plan.txt"
+          ],
+          "query_time": 13.780648708343506,
+          "method": "langchain_rag"
+        }
+      },
+      "timestamp": "2025-08-11T22:06:02.149505"
+    },
+    {
+      "test_id": 5,
+      "category": "Mechanical Engineering - Stress Analysis",
+      "query": "What are the critical stress points identified in the structural analysis documents?",
+      "expected_capabilities": [
+        "technical_synthesis",
+        "basic_retrieval"
+      ],
+      "nancy": {
+        "status": "success",
+        "query_time": 0.662114143371582,
+        "response": "Vector search results for 'What are the critical stress points identified in the structural analysis documents?':\n\nFrom 9d239f3c5c333d5e814e9b4a4ba02ac1ead055872f45baa95c49a29ca9d5d7fe (relevance: 0.28):\n\"\n\nRisk 1: Supply chain delays\nMitigation: Dual-sourcing critical components, maintain 4-week inventory buffer\n\nRisk 2: Thermal performance in worst-case environments\nMitigation: Extended thermal test...\n\nFrom df4f1782c817ea086aa00b7a07fff9b7706eee4275099d8b5736681931caf866 (relevance: 0.26):\nThermal Analysis and Constraints Document\nProject: Advanced IoT Device Development\nAuthor: Sarah Chen\nDate: March 10, 2024\n\nEXECUTIVE SUMMARY\nThis document establishes thermal design constraints for t...\n\nFrom 1af00d065cc1aeec0bac9aac5443a090d48ca1af3b307bfd6e4038a9160b607a (relevance: 0.25):\nRELIABILITY REQUIREMENTS\n- MTBF target: 50,000 hours\n- Component derating: 50% for critical components\n- Redundancy required for power supply circuits\n- Self-diagnostic capabilities for system health ...",
+        "sources": [],
+        "response_length": 995,
+        "source_count": 0,
+        "metrics": {
+          "llm_calls": 2,
+          "tokens": {
+            "input": 0,
+            "output": 0,
+            "total": 0
+          },
+          "embedding_operations": 1,
+          "query_time": 0.662114143371582,
+          "network_time": 0.662114143371582,
+          "orchestrator_used": "langchain_router",
+          "routing_info": {
+            "selected_brain": "unknown",
+            "confidence": 0.5,
+            "routing_method": "llm_router"
+          }
+        },
+        "raw_result": {
+          "query": "What are the critical stress points identified in the structural analysis documents?",
+          "strategy_used": "langchain_router",
+          "response": "Vector search results for 'What are the critical stress points identified in the structural analysis documents?':\n\nFrom 9d239f3c5c333d5e814e9b4a4ba02ac1ead055872f45baa95c49a29ca9d5d7fe (relevance: 0.28):\n\"\n\nRisk 1: Supply chain delays\nMitigation: Dual-sourcing critical components, maintain 4-week inventory buffer\n\nRisk 2: Thermal performance in worst-case environments\nMitigation: Extended thermal test...\n\nFrom df4f1782c817ea086aa00b7a07fff9b7706eee4275099d8b5736681931caf866 (relevance: 0.26):\nThermal Analysis and Constraints Document\nProject: Advanced IoT Device Development\nAuthor: Sarah Chen\nDate: March 10, 2024\n\nEXECUTIVE SUMMARY\nThis document establishes thermal design constraints for t...\n\nFrom 1af00d065cc1aeec0bac9aac5443a090d48ca1af3b307bfd6e4038a9160b607a (relevance: 0.25):\nRELIABILITY REQUIREMENTS\n- MTBF target: 50,000 hours\n- Component derating: 50% for critical components\n- Redundancy required for power supply circuits\n- Self-diagnostic capabilities for system health ...",
+          "routing_info": {
+            "selected_brain": "unknown",
+            "confidence": 0.5,
+            "routing_method": "llm_router"
+          },
+          "routing_steps": [],
+          "query_time": 0.6586663722991943,
+          "processing_timestamp": "2025-08-12T05:06:01.747538"
+        }
+      },
+      "baseline": {
+        "status": "success",
+        "query_time": 19.595240831375122,
+        "response": "The provided context mentions that CPU temperatures exceeded 85\u00b0C during stress testing. This is considered a key stress point related to thermal performance. \n",
+        "sources": [
+          "thermal_analysis_report.txt",
+          "electrical_design_review.txt",
+          "project_timeline_q4_2024.txt",
+          "mechanical_integration_plan.txt"
+        ],
+        "response_length": 160,
+        "source_count": 4,
+        "metrics": {
+          "llm_calls": 1,
+          "tokens": {
+            "input": 0,
+            "output": 0,
+            "total": 0
+          },
+          "embedding_operations": 1,
+          "query_time": 19.595240831375122,
+          "network_time": 19.595240831375122,
+          "method": "langchain_rag"
+        },
+        "raw_result": {
+          "response": "The provided context mentions that CPU temperatures exceeded 85\u00b0C during stress testing. This is considered a key stress point related to thermal performance. \n",
+          "sources": [
+            "thermal_analysis_report.txt",
+            "electrical_design_review.txt",
+            "project_timeline_q4_2024.txt",
+            "mechanical_integration_plan.txt"
+          ],
+          "query_time": 21.45649814605713,
+          "method": "langchain_rag"
+        }
+      },
+      "timestamp": "2025-08-11T22:06:22.406860"
+    },
+    {
+      "test_id": 6,
+      "category": "Mechanical Engineering - CAD Integration",
+      "query": "How do the CAD model revisions relate to thermal analysis updates?",
+      "expected_capabilities": [
+        "relationship_discovery",
+        "temporal_analysis"
+      ],
+      "nancy": {
+        "status": "success",
+        "query_time": 0.6165907382965088,
+        "response": "Vector search results for 'How do the CAD model revisions relate to thermal analysis updates?':\n\nFrom 561b2d16f8317fbe7626d88d2d807227b8033cf6f4009009c3e30608d83e688f (relevance: 0.43):\nWe've moved the switching regulator to the edge of the PCB for better heat dissipation. \"\n\nSarah Chen: \"Good. The thermal analysis shows this placement reduces junction temperature by 12\u00b0C compared to...\n\nFrom df4f1782c817ea086aa00b7a07fff9b7706eee4275099d8b5736681931caf866 (relevance: 0.40):\nCoordination required with mechanical team on enclosure thermal paths.\n Industrial design team (Lisa Park) consulted on aesthetic impact of thermal features....\n\nFrom 561b2d16f8317fbe7626d88d2d807227b8033cf6f4009009c3e30608d83e688f (relevance: 0.39):\nValidate firmware power management with new IC specifications\n\nDECISIONS MADE:\n- Approved power management IC change for better efficiency\n- Confirmed antenna placement strategy\n- Agreed on component ...",
+        "sources": [],
+        "response_length": 934,
+        "source_count": 0,
+        "metrics": {
+          "llm_calls": 2,
+          "tokens": {
+            "input": 0,
+            "output": 0,
+            "total": 0
+          },
+          "embedding_operations": 1,
+          "query_time": 0.6165907382965088,
+          "network_time": 0.6165907382965088,
+          "orchestrator_used": "langchain_router",
+          "routing_info": {
+            "selected_brain": "unknown",
+            "confidence": 0.5,
+            "routing_method": "llm_router"
+          }
+        },
+        "raw_result": {
+          "query": "How do the CAD model revisions relate to thermal analysis updates?",
+          "strategy_used": "langchain_router",
+          "response": "Vector search results for 'How do the CAD model revisions relate to thermal analysis updates?':\n\nFrom 561b2d16f8317fbe7626d88d2d807227b8033cf6f4009009c3e30608d83e688f (relevance: 0.43):\nWe've moved the switching regulator to the edge of the PCB for better heat dissipation. \"\n\nSarah Chen: \"Good. The thermal analysis shows this placement reduces junction temperature by 12\u00b0C compared to...\n\nFrom df4f1782c817ea086aa00b7a07fff9b7706eee4275099d8b5736681931caf866 (relevance: 0.40):\nCoordination required with mechanical team on enclosure thermal paths.\n Industrial design team (Lisa Park) consulted on aesthetic impact of thermal features....\n\nFrom 561b2d16f8317fbe7626d88d2d807227b8033cf6f4009009c3e30608d83e688f (relevance: 0.39):\nValidate firmware power management with new IC specifications\n\nDECISIONS MADE:\n- Approved power management IC change for better efficiency\n- Confirmed antenna placement strategy\n- Agreed on component ...",
+          "routing_info": {
+            "selected_brain": "unknown",
+            "confidence": 0.5,
+            "routing_method": "llm_router"
+          },
+          "routing_steps": [],
+          "query_time": 0.6720402240753174,
+          "processing_timestamp": "2025-08-12T05:06:23.892950"
+        }
+      },
+      "baseline": {
+        "status": "success",
+        "query_time": 35.43770623207092,
+        "response": "The CAD model revisions are directly linked to the thermal analysis results.  Specifically, the following actions were made based on the thermal analysis: \n\n1. **Enclosure height increase:**  This modification is intended for clearance of the heat sink. \n2. **Optimized airflow channels:** These changes aim to improve air circulation and cooling.\n3. **Material change to ABS:** This material helps with better heat dissipation.\n4. **Aluminum heat sink:** The thermal analysis report recommends this as a better solution than copper.\n\nThese updates are directly linked to the \"decision\" for an aluminum heat sink design in the thermal analysis report.  \n\n\nLet me know if you'd like more details on how these revisions impact thermal performance! \n",
+        "sources": [
+          "thermal_analysis_report.txt",
+          "project_timeline_q4_2024.txt",
+          "mechanical_integration_plan.txt"
+        ],
+        "response_length": 747,
+        "source_count": 3,
+        "metrics": {
+          "llm_calls": 1,
+          "tokens": {
+            "input": 0,
+            "output": 0,
+            "total": 0
+          },
+          "embedding_operations": 1,
+          "query_time": 35.43770623207092,
+          "network_time": 35.43770623207092,
+          "method": "langchain_rag"
+        },
+        "raw_result": {
+          "response": "The CAD model revisions are directly linked to the thermal analysis results.  Specifically, the following actions were made based on the thermal analysis: \n\n1. **Enclosure height increase:**  This modification is intended for clearance of the heat sink. \n2. **Optimized airflow channels:** These changes aim to improve air circulation and cooling.\n3. **Material change to ABS:** This material helps with better heat dissipation.\n4. **Aluminum heat sink:** The thermal analysis report recommends this as a better solution than copper.\n\nThese updates are directly linked to the \"decision\" for an aluminum heat sink design in the thermal analysis report.  \n\n\nLet me know if you'd like more details on how these revisions impact thermal performance! \n",
+          "sources": [
+            "thermal_analysis_report.txt",
+            "project_timeline_q4_2024.txt",
+            "mechanical_integration_plan.txt"
+          ],
+          "query_time": 33.48860692977905,
+          "method": "langchain_rag"
+        }
+      },
+      "timestamp": "2025-08-11T22:06:58.465159"
+    },
+    {
+      "test_id": 7,
+      "category": "Electrical Engineering - Power Systems",
+      "query": "What are the power dissipation requirements and how do they impact the enclosure design?",
+      "expected_capabilities": [
+        "technical_synthesis",
+        "cross_domain_analysis"
+      ],
+      "nancy": {
+        "status": "success",
+        "query_time": 0.6794395446777344,
+        "response": "Vector search results for 'What are the power dissipation requirements and how do they impact the enclosure design?':\n\nFrom df4f1782c817ea086aa00b7a07fff9b7706eee4275099d8b5736681931caf866 (relevance: 0.53):\nThermal Analysis and Constraints Document\nProject: Advanced IoT Device Development\nAuthor: Sarah Chen\nDate: March 10, 2024\n\nEXECUTIVE SUMMARY\nThis document establishes thermal design constraints for t...\n\nFrom 561b2d16f8317fbe7626d88d2d807227b8033cf6f4009009c3e30608d83e688f (relevance: 0.53):\nWe've moved the switching regulator to the edge of the PCB for better heat dissipation. \"\n\nSarah Chen: \"Good. The thermal analysis shows this placement reduces junction temperature by 12\u00b0C compared to...\n\nFrom df4f1782c817ea086aa00b7a07fff9b7706eee4275099d8b5736681931caf866 (relevance: 0.51):\nAirflow Considerations\n   - Natural convection design (no fans)\n   - Ventilation slots sized for IP65 compliance\n   - Orientation-independent thermal performance\n\nIMPACT ON OTHER SYSTEMS\n- Mechanical ...",
+        "sources": [],
+        "response_length": 999,
+        "source_count": 0,
+        "metrics": {
+          "llm_calls": 2,
+          "tokens": {
+            "input": 0,
+            "output": 0,
+            "total": 0
+          },
+          "embedding_operations": 1,
+          "query_time": 0.6794395446777344,
+          "network_time": 0.6794395446777344,
+          "orchestrator_used": "langchain_router",
+          "routing_info": {
+            "selected_brain": "unknown",
+            "confidence": 0.5,
+            "routing_method": "llm_router"
+          }
+        },
+        "raw_result": {
+          "query": "What are the power dissipation requirements and how do they impact the enclosure design?",
+          "strategy_used": "langchain_router",
+          "response": "Vector search results for 'What are the power dissipation requirements and how do they impact the enclosure design?':\n\nFrom df4f1782c817ea086aa00b7a07fff9b7706eee4275099d8b5736681931caf866 (relevance: 0.53):\nThermal Analysis and Constraints Document\nProject: Advanced IoT Device Development\nAuthor: Sarah Chen\nDate: March 10, 2024\n\nEXECUTIVE SUMMARY\nThis document establishes thermal design constraints for t...\n\nFrom 561b2d16f8317fbe7626d88d2d807227b8033cf6f4009009c3e30608d83e688f (relevance: 0.53):\nWe've moved the switching regulator to the edge of the PCB for better heat dissipation. \"\n\nSarah Chen: \"Good. The thermal analysis shows this placement reduces junction temperature by 12\u00b0C compared to...\n\nFrom df4f1782c817ea086aa00b7a07fff9b7706eee4275099d8b5736681931caf866 (relevance: 0.51):\nAirflow Considerations\n   - Natural convection design (no fans)\n   - Ventilation slots sized for IP65 compliance\n   - Orientation-independent thermal performance\n\nIMPACT ON OTHER SYSTEMS\n- Mechanical ...",
+          "routing_info": {
+            "selected_brain": "unknown",
+            "confidence": 0.5,
+            "routing_method": "llm_router"
+          },
+          "routing_steps": [],
+          "query_time": 0.7193601131439209,
+          "processing_timestamp": "2025-08-12T05:06:58.158448"
+        }
+      },
+      "baseline": {
+        "status": "success",
+        "query_time": 39.49082136154175,
+        "response": "The thermal analysis report states that the CPU temperatures exceeded 85\u00b0C during stress testing.  This indicates a need for increased power dissipation. To meet this requirement, the decision was made to adopt an aluminum heat sink with 40% better heat dissipation per cost compared to copper. This change in material, coupled with a redesigned enclosure (15% larger volume) directly impacts the electrical component layout. \n",
+        "sources": [
+          "thermal_analysis_report.txt",
+          "mechanical_integration_plan.txt"
+        ],
+        "response_length": 427,
+        "source_count": 2,
+        "metrics": {
+          "llm_calls": 1,
+          "tokens": {
+            "input": 0,
+            "output": 0,
+            "total": 0
+          },
+          "embedding_operations": 1,
+          "query_time": 39.49082136154175,
+          "network_time": 39.49082136154175,
+          "method": "langchain_rag"
+        },
+        "raw_result": {
+          "response": "The thermal analysis report states that the CPU temperatures exceeded 85\u00b0C during stress testing.  This indicates a need for increased power dissipation. To meet this requirement, the decision was made to adopt an aluminum heat sink with 40% better heat dissipation per cost compared to copper. This change in material, coupled with a redesigned enclosure (15% larger volume) directly impacts the electrical component layout. \n",
+          "sources": [
+            "thermal_analysis_report.txt",
+            "mechanical_integration_plan.txt"
+          ],
+          "query_time": 40.65635299682617,
+          "method": "langchain_rag"
+        }
+      },
+      "timestamp": "2025-08-11T22:07:38.637783"
+    },
+    {
+      "test_id": 8,
+      "category": "Electrical Engineering - EMC Compliance",
+      "query": "What EMC compliance measures are specified and who is responsible for implementation?",
+      "expected_capabilities": [
+        "basic_retrieval",
+        "author_tracking"
+      ],
+      "nancy": {
+        "status": "success",
+        "query_time": 0.6730015277862549,
+        "response": "Vector search results for 'What EMC compliance measures are specified and who is responsible for implementation?':\n\nFrom 9d239f3c5c333d5e814e9b4a4ba02ac1ead055872f45baa95c49a29ca9d5d7fe (relevance: 0.43):\nWe should plan for pre-compliance testing on the final mechanical design. \"\n\nTom Wilson: \"Firmware has automated test suites covering 90% of functionality. We need field testing scenarios for the rema...\n\nFrom 561b2d16f8317fbe7626d88d2d807227b8033cf6f4009009c3e30608d83e688f (relevance: 0.42):\nThe power consumption should now meet the 2.5W maximum even during worst-case scenarios. \"\n\nAGENDA ITEM 2: EMC COMPLIANCE STATUS\nMike Rodriguez: \"EMC testing results from the lab show we're passing FC...\n\nFrom f2f3b48f0ba0017ab3e48f744ac7fc1a89ac118526e528720db46b207e33802a (relevance: 0.42):\nFerrite bead selection on power lines effective for conducted emissions\n4. Shielding strategy adequate for radiated emissions control\n\nCERTIFICATION STATUS\n- FCC Part 15 Class B: APPROVED\n- CE EMC Dir...",
+        "sources": [],
+        "response_length": 996,
+        "source_count": 0,
+        "metrics": {
+          "llm_calls": 2,
+          "tokens": {
+            "input": 0,
+            "output": 0,
+            "total": 0
+          },
+          "embedding_operations": 1,
+          "query_time": 0.6730015277862549,
+          "network_time": 0.6730015277862549,
+          "orchestrator_used": "langchain_router",
+          "routing_info": {
+            "selected_brain": "unknown",
+            "confidence": 0.5,
+            "routing_method": "llm_router"
+          }
+        },
+        "raw_result": {
+          "query": "What EMC compliance measures are specified and who is responsible for implementation?",
+          "strategy_used": "langchain_router",
+          "response": "Vector search results for 'What EMC compliance measures are specified and who is responsible for implementation?':\n\nFrom 9d239f3c5c333d5e814e9b4a4ba02ac1ead055872f45baa95c49a29ca9d5d7fe (relevance: 0.43):\nWe should plan for pre-compliance testing on the final mechanical design. \"\n\nTom Wilson: \"Firmware has automated test suites covering 90% of functionality. We need field testing scenarios for the rema...\n\nFrom 561b2d16f8317fbe7626d88d2d807227b8033cf6f4009009c3e30608d83e688f (relevance: 0.42):\nThe power consumption should now meet the 2.5W maximum even during worst-case scenarios. \"\n\nAGENDA ITEM 2: EMC COMPLIANCE STATUS\nMike Rodriguez: \"EMC testing results from the lab show we're passing FC...\n\nFrom f2f3b48f0ba0017ab3e48f744ac7fc1a89ac118526e528720db46b207e33802a (relevance: 0.42):\nFerrite bead selection on power lines effective for conducted emissions\n4. Shielding strategy adequate for radiated emissions control\n\nCERTIFICATION STATUS\n- FCC Part 15 Class B: APPROVED\n- CE EMC Dir...",
+          "routing_info": {
+            "selected_brain": "unknown",
+            "confidence": 0.5,
+            "routing_method": "llm_router"
+          },
+          "routing_steps": [],
+          "query_time": 0.7298920154571533,
+          "processing_timestamp": "2025-08-12T05:07:39.587129"
+        }
+      },
+      "baseline": {
+        "status": "success",
+        "query_time": 41.69798684120178,
+        "response": "The provided context does not specify any EMC (Electromagnetic Compatibility) compliance measures or responsibilities. \n",
+        "sources": [
+          "thermal_analysis_report.txt",
+          "electrical_design_review.txt",
+          "project_timeline_q4_2024.txt",
+          "mechanical_integration_plan.txt"
+        ],
+        "response_length": 120,
+        "source_count": 4,
+        "metrics": {
+          "llm_calls": 1,
+          "tokens": {
+            "input": 0,
+            "output": 0,
+            "total": 0
+          },
+          "embedding_operations": 1,
+          "query_time": 41.69798684120178,
+          "network_time": 41.69798684120178,
+          "method": "langchain_rag"
+        },
+        "raw_result": {
+          "response": "The provided context does not specify any EMC (Electromagnetic Compatibility) compliance measures or responsibilities. \n",
+          "sources": [
+            "thermal_analysis_report.txt",
+            "electrical_design_review.txt",
+            "project_timeline_q4_2024.txt",
+            "mechanical_integration_plan.txt"
+          ],
+          "query_time": 40.42536735534668,
+          "method": "langchain_rag"
+        }
+      },
+      "timestamp": "2025-08-11T22:08:21.009328"
+    },
+    {
+      "test_id": 9,
+      "category": "Electrical Engineering - Circuit Design",
+      "query": "How do circuit board layout constraints affect thermal management decisions?",
+      "expected_capabilities": [
+        "cross_domain_analysis",
+        "relationship_discovery"
+      ],
+      "nancy": {
+        "status": "success",
+        "query_time": 0.6080150604248047,
+        "response": "Vector search results for 'How do circuit board layout constraints affect thermal management decisions?':\n\nFrom 561b2d16f8317fbe7626d88d2d807227b8033cf6f4009009c3e30608d83e688f (relevance: 0.66):\nWe've moved the switching regulator to the edge of the PCB for better heat dissipation. \"\n\nSarah Chen: \"Good. The thermal analysis shows this placement reduces junction temperature by 12\u00b0C compared to...\n\nFrom df4f1782c817ea086aa00b7a07fff9b7706eee4275099d8b5736681931caf866 (relevance: 0.53):\nAirflow Considerations\n   - Natural convection design (no fans)\n   - Ventilation slots sized for IP65 compliance\n   - Orientation-independent thermal performance\n\nIMPACT ON OTHER SYSTEMS\n- Mechanical ...\n\nFrom 561b2d16f8317fbe7626d88d2d807227b8033cf6f4009009c3e30608d83e688f (relevance: 0.52):\nValidate firmware power management with new IC specifications\n\nDECISIONS MADE:\n- Approved power management IC change for better efficiency\n- Confirmed antenna placement strategy\n- Agreed on component ...",
+        "sources": [],
+        "response_length": 987,
+        "source_count": 0,
+        "metrics": {
+          "llm_calls": 2,
+          "tokens": {
+            "input": 0,
+            "output": 0,
+            "total": 0
+          },
+          "embedding_operations": 1,
+          "query_time": 0.6080150604248047,
+          "network_time": 0.6080150604248047,
+          "orchestrator_used": "langchain_router",
+          "routing_info": {
+            "selected_brain": "unknown",
+            "confidence": 0.5,
+            "routing_method": "llm_router"
+          }
+        },
+        "raw_result": {
+          "query": "How do circuit board layout constraints affect thermal management decisions?",
+          "strategy_used": "langchain_router",
+          "response": "Vector search results for 'How do circuit board layout constraints affect thermal management decisions?':\n\nFrom 561b2d16f8317fbe7626d88d2d807227b8033cf6f4009009c3e30608d83e688f (relevance: 0.66):\nWe've moved the switching regulator to the edge of the PCB for better heat dissipation. \"\n\nSarah Chen: \"Good. The thermal analysis shows this placement reduces junction temperature by 12\u00b0C compared to...\n\nFrom df4f1782c817ea086aa00b7a07fff9b7706eee4275099d8b5736681931caf866 (relevance: 0.53):\nAirflow Considerations\n   - Natural convection design (no fans)\n   - Ventilation slots sized for IP65 compliance\n   - Orientation-independent thermal performance\n\nIMPACT ON OTHER SYSTEMS\n- Mechanical ...\n\nFrom 561b2d16f8317fbe7626d88d2d807227b8033cf6f4009009c3e30608d83e688f (relevance: 0.52):\nValidate firmware power management with new IC specifications\n\nDECISIONS MADE:\n- Approved power management IC change for better efficiency\n- Confirmed antenna placement strategy\n- Agreed on component ...",
+          "routing_info": {
+            "selected_brain": "unknown",
+            "confidence": 0.5,
+            "routing_method": "llm_router"
+          },
+          "routing_steps": [],
+          "query_time": 0.6314587593078613,
+          "processing_timestamp": "2025-08-12T05:08:20.684784"
+        }
+      },
+      "baseline": {
+        "status": "success",
+        "query_time": 29.12623643875122,
+        "response": "The context states that the \"Heat sink placement CONSTRAINS electrical component layout\" and  \"Integration with electrical layout critical for effectiveness\". This means the layout of the electrical components, because they are constrained by the heat sink's placement, directly impacts thermal management. \n",
+        "sources": [
+          "thermal_analysis_report.txt",
+          "electrical_design_review.txt",
+          "mechanical_integration_plan.txt"
+        ],
+        "response_length": 308,
+        "source_count": 3,
+        "metrics": {
+          "llm_calls": 1,
+          "tokens": {
+            "input": 0,
+            "output": 0,
+            "total": 0
+          },
+          "embedding_operations": 1,
+          "query_time": 29.12623643875122,
+          "network_time": 29.12623643875122,
+          "method": "langchain_rag"
+        },
+        "raw_result": {
+          "response": "The context states that the \"Heat sink placement CONSTRAINS electrical component layout\" and  \"Integration with electrical layout critical for effectiveness\". This means the layout of the electrical components, because they are constrained by the heat sink's placement, directly impacts thermal management. \n",
+          "sources": [
+            "thermal_analysis_report.txt",
+            "electrical_design_review.txt",
+            "mechanical_integration_plan.txt"
+          ],
+          "query_time": 29.216962099075317,
+          "method": "langchain_rag"
+        }
+      },
+      "timestamp": "2025-08-11T22:08:50.746478"
+    },
+    {
+      "test_id": 10,
+      "category": "Firmware Engineering - Memory Requirements",
+      "query": "What are the memory allocation requirements for the thermal control algorithms?",
+      "expected_capabilities": [
+        "basic_retrieval",
+        "technical_synthesis"
+      ],
+      "nancy": {
+        "status": "success",
+        "query_time": 0.5693776607513428,
+        "response": "Vector search results for 'What are the memory allocation requirements for the thermal control algorithms?':\n\nFrom df4f1782c817ea086aa00b7a07fff9b7706eee4275099d8b5736681931caf866 (relevance: 0.52):\n60\u00b0C to prevent thermal runaway\n\n3. Heat Dissipation Requirements\n   - Primary heat source: Power management IC (1.8W max dissipation)\n   - Secondary: Processor during peak processing (0.5W)\n   - Tota...\n\nFrom feb14599bf70353d58443b2fc35f66c9a8b1ae97c7a48a7517e4240533074f43 (relevance: 0.48):\nSYSTEM ARCHITECTURE\n\nPROCESSOR SPECIFICATIONS\n- ARM Cortex-M4 microcontroller @ 168MHz\n- 512KB Flash memory for application code\n- 128KB SRAM for runtime operations\n- Hardware floating-point unit (FPU...\n\nFrom 945c6d9380d846b33e868f4f4e6cfcea811985084defc67def3b2faf985fb96a (relevance: 0.47):\nImplement adaptive transmission power control\n\nFirmware Optimizations:\n1. Aggressive CPU clock scaling during low-activity periods\n2. Intelligent sensor polling based on activity detection\n3. Batch da...",
+        "sources": [],
+        "response_length": 990,
+        "source_count": 0,
+        "metrics": {
+          "llm_calls": 2,
+          "tokens": {
+            "input": 0,
+            "output": 0,
+            "total": 0
+          },
+          "embedding_operations": 1,
+          "query_time": 0.5693776607513428,
+          "network_time": 0.5693776607513428,
+          "orchestrator_used": "langchain_router",
+          "routing_info": {
+            "selected_brain": "unknown",
+            "confidence": 0.5,
+            "routing_method": "llm_router"
+          }
+        },
+        "raw_result": {
+          "query": "What are the memory allocation requirements for the thermal control algorithms?",
+          "strategy_used": "langchain_router",
+          "response": "Vector search results for 'What are the memory allocation requirements for the thermal control algorithms?':\n\nFrom df4f1782c817ea086aa00b7a07fff9b7706eee4275099d8b5736681931caf866 (relevance: 0.52):\n60\u00b0C to prevent thermal runaway\n\n3. Heat Dissipation Requirements\n   - Primary heat source: Power management IC (1.8W max dissipation)\n   - Secondary: Processor during peak processing (0.5W)\n   - Tota...\n\nFrom feb14599bf70353d58443b2fc35f66c9a8b1ae97c7a48a7517e4240533074f43 (relevance: 0.48):\nSYSTEM ARCHITECTURE\n\nPROCESSOR SPECIFICATIONS\n- ARM Cortex-M4 microcontroller @ 168MHz\n- 512KB Flash memory for application code\n- 128KB SRAM for runtime operations\n- Hardware floating-point unit (FPU...\n\nFrom 945c6d9380d846b33e868f4f4e6cfcea811985084defc67def3b2faf985fb96a (relevance: 0.47):\nImplement adaptive transmission power control\n\nFirmware Optimizations:\n1. Aggressive CPU clock scaling during low-activity periods\n2. Intelligent sensor polling based on activity detection\n3. Batch da...",
+          "routing_info": {
+            "selected_brain": "unknown",
+            "confidence": 0.5,
+            "routing_method": "llm_router"
+          },
+          "routing_steps": [],
+          "query_time": 0.6073882579803467,
+          "processing_timestamp": "2025-08-12T05:08:50.530386"
+        }
+      },
+      "baseline": {
+        "status": "success",
+        "query_time": 16.48490881919861,
+        "response": "This document does not contain information about memory allocation requirements for thermal control algorithms. \n",
+        "sources": [
+          "thermal_analysis_report.txt",
+          "electrical_design_review.txt",
+          "mechanical_integration_plan.txt"
+        ],
+        "response_length": 113,
+        "source_count": 3,
+        "metrics": {
+          "llm_calls": 1,
+          "tokens": {
+            "input": 0,
+            "output": 0,
+            "total": 0
+          },
+          "embedding_operations": 1,
+          "query_time": 16.48490881919861,
+          "network_time": 16.48490881919861,
+          "method": "langchain_rag"
+        },
+        "raw_result": {
+          "response": "This document does not contain information about memory allocation requirements for thermal control algorithms. \n",
+          "sources": [
+            "thermal_analysis_report.txt",
+            "electrical_design_review.txt",
+            "mechanical_integration_plan.txt"
+          ],
+          "query_time": 18.103190898895264,
+          "method": "langchain_rag"
+        }
+      },
+      "timestamp": "2025-08-11T22:09:07.805113"
+    },
+    {
+      "test_id": 11,
+      "category": "Firmware Engineering - Control Protocols",
+      "query": "Which communication protocols are used between thermal sensors and the main controller?",
+      "expected_capabilities": [
+        "technical_synthesis",
+        "basic_retrieval"
+      ],
+      "nancy": {
+        "status": "success",
+        "query_time": 0.651080846786499,
+        "response": "Vector search results for 'Which communication protocols are used between thermal sensors and the main controller?':\n\nFrom 945c6d9380d846b33e868f4f4e6cfcea811985084defc67def3b2faf985fb96a (relevance: 0.39):\nImplement adaptive transmission power control\n\nFirmware Optimizations:\n1. Aggressive CPU clock scaling during low-activity periods\n2. Intelligent sensor polling based on activity detection\n3. Batch da...\n\nFrom feb14599bf70353d58443b2fc35f66c9a8b1ae97c7a48a7517e4240533074f43 (relevance: 0.39):\nProtocol Stack:\n- TCP/IP stack with IPv4 support\n- DHCP client for automatic IP configuration\n- DNS resolution for server connectivity\n- SSL/TLS 1.2 for secure communications\n- Custom application prot...\n\nFrom feb14599bf70353d58443b2fc35f66c9a8b1ae97c7a48a7517e4240533074f43 (relevance: 0.38):\n100Hz \u00b11% accuracy\n- Communication response time: <500ms for status queries\n- Power mode transitions: <100ms wake-up time\n- Over-the-air update: <30 seconds for full firmware\n- Boot time: <5 seconds f...",
+        "sources": [],
+        "response_length": 998,
+        "source_count": 0,
+        "metrics": {
+          "llm_calls": 2,
+          "tokens": {
+            "input": 0,
+            "output": 0,
+            "total": 0
+          },
+          "embedding_operations": 1,
+          "query_time": 0.651080846786499,
+          "network_time": 0.651080846786499,
+          "orchestrator_used": "langchain_router",
+          "routing_info": {
+            "selected_brain": "unknown",
+            "confidence": 0.5,
+            "routing_method": "llm_router"
+          }
+        },
+        "raw_result": {
+          "query": "Which communication protocols are used between thermal sensors and the main controller?",
+          "strategy_used": "langchain_router",
+          "response": "Vector search results for 'Which communication protocols are used between thermal sensors and the main controller?':\n\nFrom 945c6d9380d846b33e868f4f4e6cfcea811985084defc67def3b2faf985fb96a (relevance: 0.39):\nImplement adaptive transmission power control\n\nFirmware Optimizations:\n1. Aggressive CPU clock scaling during low-activity periods\n2. Intelligent sensor polling based on activity detection\n3. Batch da...\n\nFrom feb14599bf70353d58443b2fc35f66c9a8b1ae97c7a48a7517e4240533074f43 (relevance: 0.39):\nProtocol Stack:\n- TCP/IP stack with IPv4 support\n- DHCP client for automatic IP configuration\n- DNS resolution for server connectivity\n- SSL/TLS 1.2 for secure communications\n- Custom application prot...\n\nFrom feb14599bf70353d58443b2fc35f66c9a8b1ae97c7a48a7517e4240533074f43 (relevance: 0.38):\n100Hz \u00b11% accuracy\n- Communication response time: <500ms for status queries\n- Power mode transitions: <100ms wake-up time\n- Over-the-air update: <30 seconds for full firmware\n- Boot time: <5 seconds f...",
+          "routing_info": {
+            "selected_brain": "unknown",
+            "confidence": 0.5,
+            "routing_method": "llm_router"
+          },
+          "routing_steps": [],
+          "query_time": -0.20527100563049316,
+          "processing_timestamp": "2025-08-12T05:09:08.469721"
+        }
+      },
+      "baseline": {
+        "status": "success",
+        "query_time": 15.23317003250122,
+        "response": "This document does not contain information about which communication protocols are used.  \n",
+        "sources": [
+          "electrical_design_review.txt",
+          "project_timeline_q4_2024.txt",
+          "mechanical_integration_plan.txt"
+        ],
+        "response_length": 91,
+        "source_count": 3,
+        "metrics": {
+          "llm_calls": 1,
+          "tokens": {
+            "input": 0,
+            "output": 0,
+            "total": 0
+          },
+          "embedding_operations": 1,
+          "query_time": 15.23317003250122,
+          "network_time": 15.23317003250122,
+          "method": "langchain_rag"
+        },
+        "raw_result": {
+          "response": "This document does not contain information about which communication protocols are used.  \n",
+          "sources": [
+            "electrical_design_review.txt",
+            "project_timeline_q4_2024.txt",
+            "mechanical_integration_plan.txt"
+          ],
+          "query_time": 16.62749457359314,
+          "method": "langchain_rag"
+        }
+      },
+      "timestamp": "2025-08-11T22:09:23.691365"
+    },
+    {
+      "test_id": 12,
+      "category": "Industrial Design - User Interface",
+      "query": "What user feedback influenced the thermal management interface design decisions?",
+      "expected_capabilities": [
+        "decision_tracking",
+        "author_attribution"
+      ],
+      "nancy": {
+        "status": "success",
+        "query_time": 0.5491528511047363,
+        "response": "Vector search results for 'What user feedback influenced the thermal management interface design decisions?':\n\nFrom 561b2d16f8317fbe7626d88d2d807227b8033cf6f4009009c3e30608d83e688f (relevance: 0.49):\nValidate firmware power management with new IC specifications\n\nDECISIONS MADE:\n- Approved power management IC change for better efficiency\n- Confirmed antenna placement strategy\n- Agreed on component ...\n\nFrom df4f1782c817ea086aa00b7a07fff9b7706eee4275099d8b5736681931caf866 (relevance: 0.45):\nCoordination required with mechanical team on enclosure thermal paths.\n Industrial design team (Lisa Park) consulted on aesthetic impact of thermal features....\n\nFrom df4f1782c817ea086aa00b7a07fff9b7706eee4275099d8b5736681931caf866 (relevance: 0.40):\nAirflow Considerations\n   - Natural convection design (no fans)\n   - Ventilation slots sized for IP65 compliance\n   - Orientation-independent thermal performance\n\nIMPACT ON OTHER SYSTEMS\n- Mechanical ...",
+        "sources": [],
+        "response_length": 948,
+        "source_count": 0,
+        "metrics": {
+          "llm_calls": 2,
+          "tokens": {
+            "input": 0,
+            "output": 0,
+            "total": 0
+          },
+          "embedding_operations": 1,
+          "query_time": 0.5491528511047363,
+          "network_time": 0.5491528511047363,
+          "orchestrator_used": "langchain_router",
+          "routing_info": {
+            "selected_brain": "unknown",
+            "confidence": 0.5,
+            "routing_method": "llm_router"
+          }
+        },
+        "raw_result": {
+          "query": "What user feedback influenced the thermal management interface design decisions?",
+          "strategy_used": "langchain_router",
+          "response": "Vector search results for 'What user feedback influenced the thermal management interface design decisions?':\n\nFrom 561b2d16f8317fbe7626d88d2d807227b8033cf6f4009009c3e30608d83e688f (relevance: 0.49):\nValidate firmware power management with new IC specifications\n\nDECISIONS MADE:\n- Approved power management IC change for better efficiency\n- Confirmed antenna placement strategy\n- Agreed on component ...\n\nFrom df4f1782c817ea086aa00b7a07fff9b7706eee4275099d8b5736681931caf866 (relevance: 0.45):\nCoordination required with mechanical team on enclosure thermal paths.\n Industrial design team (Lisa Park) consulted on aesthetic impact of thermal features....\n\nFrom df4f1782c817ea086aa00b7a07fff9b7706eee4275099d8b5736681931caf866 (relevance: 0.40):\nAirflow Considerations\n   - Natural convection design (no fans)\n   - Ventilation slots sized for IP65 compliance\n   - Orientation-independent thermal performance\n\nIMPACT ON OTHER SYSTEMS\n- Mechanical ...",
+          "routing_info": {
+            "selected_brain": "unknown",
+            "confidence": 0.5,
+            "routing_method": "llm_router"
+          },
+          "routing_steps": [],
+          "query_time": 0.5971925258636475,
+          "processing_timestamp": "2025-08-12T05:09:24.041124"
+        }
+      },
+      "baseline": {
+        "status": "success",
+        "query_time": 20.631913423538208,
+        "response": "The provided context doesn't mention any specific user feedback influencing the thermal management interface design. \n",
+        "sources": [
+          "thermal_analysis_report.txt",
+          "electrical_design_review.txt",
+          "project_timeline_q4_2024.txt",
+          "mechanical_integration_plan.txt"
+        ],
+        "response_length": 118,
+        "source_count": 4,
+        "metrics": {
+          "llm_calls": 1,
+          "tokens": {
+            "input": 0,
+            "output": 0,
+            "total": 0
+          },
+          "embedding_operations": 1,
+          "query_time": 20.631913423538208,
+          "network_time": 20.631913423538208,
+          "method": "langchain_rag"
+        },
+        "raw_result": {
+          "response": "The provided context doesn't mention any specific user feedback influencing the thermal management interface design. \n",
+          "sources": [
+            "thermal_analysis_report.txt",
+            "electrical_design_review.txt",
+            "project_timeline_q4_2024.txt",
+            "mechanical_integration_plan.txt"
+          ],
+          "query_time": 19.91944122314453,
+          "method": "langchain_rag"
+        }
+      },
+      "timestamp": "2025-08-11T22:09:44.874966"
+    },
+    {
+      "test_id": 13,
+      "category": "Industrial Design - Ergonomics",
+      "query": "How do ergonomic considerations affect the placement of thermal management controls?",
+      "expected_capabilities": [
+        "cross_domain_analysis",
+        "basic_retrieval"
+      ],
+      "nancy": {
+        "status": "success",
+        "query_time": 0.7447466850280762,
+        "response": "Vector search results for 'How do ergonomic considerations affect the placement of thermal management controls?':\n\nFrom df4f1782c817ea086aa00b7a07fff9b7706eee4275099d8b5736681931caf866 (relevance: 0.43):\nCoordination required with mechanical team on enclosure thermal paths.\n Industrial design team (Lisa Park) consulted on aesthetic impact of thermal features....\n\nFrom df4f1782c817ea086aa00b7a07fff9b7706eee4275099d8b5736681931caf866 (relevance: 0.42):\nAirflow Considerations\n   - Natural convection design (no fans)\n   - Ventilation slots sized for IP65 compliance\n   - Orientation-independent thermal performance\n\nIMPACT ON OTHER SYSTEMS\n- Mechanical ...\n\nFrom 561b2d16f8317fbe7626d88d2d807227b8033cf6f4009009c3e30608d83e688f (relevance: 0.40):\nWe've moved the switching regulator to the edge of the PCB for better heat dissipation. \"\n\nSarah Chen: \"Good. The thermal analysis shows this placement reduces junction temperature by 12\u00b0C compared to...",
+        "sources": [],
+        "response_length": 952,
+        "source_count": 0,
+        "metrics": {
+          "llm_calls": 2,
+          "tokens": {
+            "input": 0,
+            "output": 0,
+            "total": 0
+          },
+          "embedding_operations": 1,
+          "query_time": 0.7447466850280762,
+          "network_time": 0.7447466850280762,
+          "orchestrator_used": "langchain_router",
+          "routing_info": {
+            "selected_brain": "unknown",
+            "confidence": 0.5,
+            "routing_method": "llm_router"
+          }
+        },
+        "raw_result": {
+          "query": "How do ergonomic considerations affect the placement of thermal management controls?",
+          "strategy_used": "langchain_router",
+          "response": "Vector search results for 'How do ergonomic considerations affect the placement of thermal management controls?':\n\nFrom df4f1782c817ea086aa00b7a07fff9b7706eee4275099d8b5736681931caf866 (relevance: 0.43):\nCoordination required with mechanical team on enclosure thermal paths.\n Industrial design team (Lisa Park) consulted on aesthetic impact of thermal features....\n\nFrom df4f1782c817ea086aa00b7a07fff9b7706eee4275099d8b5736681931caf866 (relevance: 0.42):\nAirflow Considerations\n   - Natural convection design (no fans)\n   - Ventilation slots sized for IP65 compliance\n   - Orientation-independent thermal performance\n\nIMPACT ON OTHER SYSTEMS\n- Mechanical ...\n\nFrom 561b2d16f8317fbe7626d88d2d807227b8033cf6f4009009c3e30608d83e688f (relevance: 0.40):\nWe've moved the switching regulator to the edge of the PCB for better heat dissipation. \"\n\nSarah Chen: \"Good. The thermal analysis shows this placement reduces junction temperature by 12\u00b0C compared to...",
+          "routing_info": {
+            "selected_brain": "unknown",
+            "confidence": 0.5,
+            "routing_method": "llm_router"
+          },
+          "routing_steps": [],
+          "query_time": 0.802692174911499,
+          "processing_timestamp": "2025-08-12T05:09:44.810405"
+        }
+      },
+      "baseline": {
+        "status": "success",
+        "query_time": 16.88003420829773,
+        "response": "The provided context does not contain information about ergonomic considerations affecting thermal management control placement. \n",
+        "sources": [
+          "thermal_analysis_report.txt",
+          "electrical_design_review.txt",
+          "project_timeline_q4_2024.txt",
+          "mechanical_integration_plan.txt"
+        ],
+        "response_length": 130,
+        "source_count": 4,
+        "metrics": {
+          "llm_calls": 1,
+          "tokens": {
+            "input": 0,
+            "output": 0,
+            "total": 0
+          },
+          "embedding_operations": 1,
+          "query_time": 16.88003420829773,
+          "network_time": 16.88003420829773,
+          "method": "langchain_rag"
+        },
+        "raw_result": {
+          "response": "The provided context does not contain information about ergonomic considerations affecting thermal management control placement. \n",
+          "sources": [
+            "thermal_analysis_report.txt",
+            "electrical_design_review.txt",
+            "project_timeline_q4_2024.txt",
+            "mechanical_integration_plan.txt"
+          ],
+          "query_time": 18.527465343475342,
+          "method": "langchain_rag"
+        }
+      },
+      "timestamp": "2025-08-11T22:10:02.502727"
+    },
+    {
+      "test_id": 14,
+      "category": "Project Management - Timeline",
+      "query": "What activities are scheduled for Q4 2024 and how do they relate to thermal considerations?",
+      "expected_capabilities": [
+        "temporal_filtering",
+        "relationship_discovery"
+      ],
+      "nancy": {
+        "status": "success",
+        "query_time": 0.6792416572570801,
+        "response": "Vector search results for 'What activities are scheduled for Q4 2024 and how do they relate to thermal considerations?':\n\nFrom 561b2d16f8317fbe7626d88d2d807227b8033cf6f4009009c3e30608d83e688f (relevance: 0.30):\nAdvanced IoT Device Development\nDate: March 18, 2024\nAttendees: Mike Rodriguez (Electrical Lead), Sarah Chen (Systems), Lisa Park (Industrial Design), Tom Wilson (Firmware), Jennifer Adams (Project Ma...\n\nFrom 561b2d16f8317fbe7626d88d2d807227b8033cf6f4009009c3e30608d83e688f (relevance: 0.30):\nIt should maintain \u00b120ppm accuracy across the full temperature range. \"\n\nACTION ITEMS:\n1. Mike to finalize power management IC selection by March 22\n2. Schedule CE certification testing for March 25\n3...\n\nFrom df4f1782c817ea086aa00b7a07fff9b7706eee4275099d8b5736681931caf866 (relevance: 0.29):\nThermal Analysis and Constraints Document\nProject: Advanced IoT Device Development\nAuthor: Sarah Chen\nDate: March 10, 2024\n\nEXECUTIVE SUMMARY\nThis document establishes thermal design constraints for t...",
+        "sources": [],
+        "response_length": 1002,
+        "source_count": 0,
+        "metrics": {
+          "llm_calls": 2,
+          "tokens": {
+            "input": 0,
+            "output": 0,
+            "total": 0
+          },
+          "embedding_operations": 1,
+          "query_time": 0.6792416572570801,
+          "network_time": 0.6792416572570801,
+          "orchestrator_used": "langchain_router",
+          "routing_info": {
+            "selected_brain": "unknown",
+            "confidence": 0.5,
+            "routing_method": "llm_router"
+          }
+        },
+        "raw_result": {
+          "query": "What activities are scheduled for Q4 2024 and how do they relate to thermal considerations?",
+          "strategy_used": "langchain_router",
+          "response": "Vector search results for 'What activities are scheduled for Q4 2024 and how do they relate to thermal considerations?':\n\nFrom 561b2d16f8317fbe7626d88d2d807227b8033cf6f4009009c3e30608d83e688f (relevance: 0.30):\nAdvanced IoT Device Development\nDate: March 18, 2024\nAttendees: Mike Rodriguez (Electrical Lead), Sarah Chen (Systems), Lisa Park (Industrial Design), Tom Wilson (Firmware), Jennifer Adams (Project Ma...\n\nFrom 561b2d16f8317fbe7626d88d2d807227b8033cf6f4009009c3e30608d83e688f (relevance: 0.30):\nIt should maintain \u00b120ppm accuracy across the full temperature range. \"\n\nACTION ITEMS:\n1. Mike to finalize power management IC selection by March 22\n2. Schedule CE certification testing for March 25\n3...\n\nFrom df4f1782c817ea086aa00b7a07fff9b7706eee4275099d8b5736681931caf866 (relevance: 0.29):\nThermal Analysis and Constraints Document\nProject: Advanced IoT Device Development\nAuthor: Sarah Chen\nDate: March 10, 2024\n\nEXECUTIVE SUMMARY\nThis document establishes thermal design constraints for t...",
+          "routing_info": {
+            "selected_brain": "unknown",
+            "confidence": 0.5,
+            "routing_method": "llm_router"
+          },
+          "routing_steps": [],
+          "query_time": -0.18229150772094727,
+          "processing_timestamp": "2025-08-12T05:10:03.185129"
+        }
+      },
+      "baseline": {
+        "status": "success",
+        "query_time": 63.00552797317505,
+        "response": "Here's a breakdown of the Q4 2024 schedule and their connection to thermal aspects:\n\n* **Q4 2024 Integration Phase:** This is the primary focus for Q4.  \n    *  **Thermal analysis completion** is a critical milestone that informs design decisions. The decision to adopt an aluminum heat sink was made based on exceeding temperatures during stress testing. \n    *  **Electrical design** will be refined, considering power requirements from Mike Rodriguez and incorporating the aluminum heat sink's influence on thermal placement. This in turn will impact mechanical integration planning as Lisa Park needs a larger enclosure to accommodate the new components (15% larger volume).\n\n* **Q4 2024 Implementation Phase:**  This phase builds upon earlier efforts and focuses on the implementation of design changes related to thermal management:\n    * **Implementation of split power rail** design addresses the need for component spacing optimization to mitigate thermal risks. Sarah Chen's analysis of hotspots was instrumental in this decision.\n\n\nIn essence, Q4 2024's activities heavily rely on thermal considerations, and decisions are made based on analyzing temperature trends and their impact on component placement, power efficiency, and overall system design.  \n",
+        "sources": [
+          "thermal_analysis_report.txt",
+          "electrical_design_review.txt",
+          "project_timeline_q4_2024.txt",
+          "mechanical_integration_plan.txt"
+        ],
+        "response_length": 1265,
+        "source_count": 4,
+        "metrics": {
+          "llm_calls": 1,
+          "tokens": {
+            "input": 0,
+            "output": 0,
+            "total": 0
+          },
+          "embedding_operations": 1,
+          "query_time": 63.00552797317505,
+          "network_time": 63.00552797317505,
+          "method": "langchain_rag"
+        },
+        "raw_result": {
+          "response": "Here's a breakdown of the Q4 2024 schedule and their connection to thermal aspects:\n\n* **Q4 2024 Integration Phase:** This is the primary focus for Q4.  \n    *  **Thermal analysis completion** is a critical milestone that informs design decisions. The decision to adopt an aluminum heat sink was made based on exceeding temperatures during stress testing. \n    *  **Electrical design** will be refined, considering power requirements from Mike Rodriguez and incorporating the aluminum heat sink's influence on thermal placement. This in turn will impact mechanical integration planning as Lisa Park needs a larger enclosure to accommodate the new components (15% larger volume).\n\n* **Q4 2024 Implementation Phase:**  This phase builds upon earlier efforts and focuses on the implementation of design changes related to thermal management:\n    * **Implementation of split power rail** design addresses the need for component spacing optimization to mitigate thermal risks. Sarah Chen's analysis of hotspots was instrumental in this decision.\n\n\nIn essence, Q4 2024's activities heavily rely on thermal considerations, and decisions are made based on analyzing temperature trends and their impact on component placement, power efficiency, and overall system design.  \n",
+          "sources": [
+            "thermal_analysis_report.txt",
+            "electrical_design_review.txt",
+            "project_timeline_q4_2024.txt",
+            "mechanical_integration_plan.txt"
+          ],
+          "query_time": 61.99776768684387,
+          "method": "langchain_rag"
+        }
+      },
+      "timestamp": "2025-08-11T22:11:06.188492"
+    },
+    {
+      "test_id": 15,
+      "category": "Project Management - Decision Tracking",
+      "query": "What decisions were made in the project timeline that affect the thermal analysis, and who made them?",
+      "expected_capabilities": [
+        "decision_tracking",
+        "temporal_analysis",
+        "author_attribution"
+      ],
+      "nancy": {
+        "status": "success",
+        "query_time": 1.1226344108581543,
+        "response": "Available authors: Benchmark Test User, Mike Rodriguez, Sarah Chen, Lisa Park, Tom Wilson, Jennifer Adams, Sarah, Mike, IC, Mike Rodriguez\nApproved, Mike Rodriguez\nDate, Log Periodic, WiFi 3rd Harmonic, Lisa Park\nDate, Gender Distribution, \u22653mm, Button Size, mm, Screw Mount Design, Flash Memory, KB, apps\n- Low Energy, WiFi, Button Interface, David Kim, Mark Thompson, Tom, Jennifer Adams:, Lisa Park's, Li, Sarah Chen\nDate, mm\n- Weight, max, Size Target",
+        "sources": [],
+        "response_length": 455,
+        "source_count": 0,
+        "metrics": {
+          "llm_calls": 2,
+          "tokens": {
+            "input": 0,
+            "output": 0,
+            "total": 0
+          },
+          "embedding_operations": 1,
+          "query_time": 1.1226344108581543,
+          "network_time": 1.1226344108581543,
+          "orchestrator_used": "langchain_router",
+          "routing_info": {
+            "selected_brain": "unknown",
+            "confidence": 0.5,
+            "routing_method": "llm_router"
+          }
+        },
+        "raw_result": {
+          "query": "What decisions were made in the project timeline that affect the thermal analysis, and who made them?",
+          "strategy_used": "langchain_router",
+          "response": "Available authors: Benchmark Test User, Mike Rodriguez, Sarah Chen, Lisa Park, Tom Wilson, Jennifer Adams, Sarah, Mike, IC, Mike Rodriguez\nApproved, Mike Rodriguez\nDate, Log Periodic, WiFi 3rd Harmonic, Lisa Park\nDate, Gender Distribution, \u22653mm, Button Size, mm, Screw Mount Design, Flash Memory, KB, apps\n- Low Energy, WiFi, Button Interface, David Kim, Mark Thompson, Tom, Jennifer Adams:, Lisa Park's, Li, Sarah Chen\nDate, mm\n- Weight, max, Size Target",
+          "routing_info": {
+            "selected_brain": "unknown",
+            "confidence": 0.5,
+            "routing_method": "llm_router"
+          },
+          "routing_steps": [],
+          "query_time": 1.2053906917572021,
+          "processing_timestamp": "2025-08-12T05:11:06.428853"
+        }
+      },
+      "baseline": {
+        "status": "success",
+        "query_time": 32.819878816604614,
+        "response": "The following decisions were made regarding thermal analysis and who made them: \n\n* **Decision:** Implement split power rail design.  **Made by:** Mike Rodriguez \n* **Decision:** Adopt aluminum heat sink design.  **Made by:** Sarah Chen \n",
+        "sources": [
+          "thermal_analysis_report.txt",
+          "electrical_design_review.txt",
+          "project_timeline_q4_2024.txt",
+          "mechanical_integration_plan.txt"
+        ],
+        "response_length": 238,
+        "source_count": 4,
+        "metrics": {
+          "llm_calls": 1,
+          "tokens": {
+            "input": 0,
+            "output": 0,
+            "total": 0
+          },
+          "embedding_operations": 1,
+          "query_time": 32.819878816604614,
+          "network_time": 32.819878816604614,
+          "method": "langchain_rag"
+        },
+        "raw_result": {
+          "response": "The following decisions were made regarding thermal analysis and who made them: \n\n* **Decision:** Implement split power rail design.  **Made by:** Mike Rodriguez \n* **Decision:** Adopt aluminum heat sink design.  **Made by:** Sarah Chen \n",
+          "sources": [
+            "thermal_analysis_report.txt",
+            "electrical_design_review.txt",
+            "project_timeline_q4_2024.txt",
+            "mechanical_integration_plan.txt"
+          ],
+          "query_time": 33.3690288066864,
+          "method": "langchain_rag"
+        }
+      },
+      "timestamp": "2025-08-11T22:11:40.134443"
+    }
+  ],
+  "usage_metrics": {
+    "nancy": {
+      "llm_calls": 30,
+      "total_tokens": 0,
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "embedding_operations": 15,
+      "processing_time": 10.217487573623657,
+      "errors": 0
+    },
+    "baseline": {
+      "llm_calls": 15,
+      "total_tokens": 0,
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "embedding_operations": 15,
+      "processing_time": 415.0039324760437,
+      "errors": 0
+    }
+  },
+  "analysis": {
+    "performance": {
+      "nancy_avg_time": 0.6811658382415772,
+      "baseline_avg_time": 27.666928831736247,
+      "nancy_success_rate": 1.0,
+      "baseline_success_rate": 1.0,
+      "speed_advantage": "Nancy"
+    },
+    "resource_usage": {
+      "nancy": {
+        "total_llm_calls": 30,
+        "total_embedding_ops": 15,
+        "avg_llm_calls_per_query": 2.0,
+        "total_processing_time": 10.217487573623657,
+        "error_rate": 0.0
+      },
+      "baseline": {
+        "total_llm_calls": 15,
+        "total_embedding_ops": 15,
+        "avg_llm_calls_per_query": 1.0,
+        "total_processing_time": 415.0039324760437,
+        "error_rate": 0.0
+      }
+    },
+    "efficiency_metrics": {
+      "llm_efficiency": {
+        "nancy_calls_per_success": 2.0,
+        "baseline_calls_per_success": 1.0
+      },
+      "embedding_efficiency": {
+        "nancy_embeds_per_query": 1.0,
+        "baseline_embeds_per_query": 1.0
+      }
+    },
+    "recommendations": [
+      "Nancy uses significantly more LLM calls - consider optimizing orchestration",
+      "Nancy provides superior capabilities with competitive speed"
+    ]
+  }
+}

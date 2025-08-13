@@ -1,0 +1,1467 @@
+{
+  "metadata": {
+    "timestamp": "2025-08-12T08:40:13.666395",
+    "total_benchmark_time": 324.51099395751953,
+    "nancy_url": "http://localhost:8000",
+    "baseline_url": "http://localhost:8002",
+    "test_count": 15,
+    "test_data_directory": "benchmark_test_data"
+  },
+  "system_health": {
+    "nancy": {
+      "status": "healthy",
+      "response_code": 200,
+      "details": {
+        "status": "ok"
+      }
+    },
+    "baseline": {
+      "status": "healthy",
+      "response_code": 200,
+      "details": {
+        "status": "ok",
+        "system": "baseline-rag",
+        "rag_initialized": true
+      }
+    }
+  },
+  "ingestion_results": {
+    "nancy": {
+      "status": "completed",
+      "system": "Nancy",
+      "total_files": 9,
+      "successful_uploads": 9,
+      "failed_uploads": 0,
+      "total_bytes": 37358,
+      "ingestion_time": 248.39533352851868,
+      "average_upload_time": 27.5682266553243,
+      "upload_speed_mbps": 0.00014343009027669294,
+      "ingested_files": [
+        {
+          "filename": "electrical_review_meeting.txt",
+          "size_bytes": 3645,
+          "upload_time": 33.15875816345215,
+          "status": "success"
+        },
+        {
+          "filename": "emc_test_results.txt",
+          "size_bytes": 3094,
+          "upload_time": 21.03247618675232,
+          "status": "success"
+        },
+        {
+          "filename": "ergonomic_analysis.txt",
+          "size_bytes": 5271,
+          "upload_time": 18.259865760803223,
+          "status": "success"
+        },
+        {
+          "filename": "firmware_requirements.txt",
+          "size_bytes": 6879,
+          "upload_time": 23.343377828598022,
+          "status": "success"
+        },
+        {
+          "filename": "march_design_review_transcript.txt",
+          "size_bytes": 5820,
+          "upload_time": 43.53161382675171,
+          "status": "success"
+        },
+        {
+          "filename": "power_analysis_report.txt",
+          "size_bytes": 4045,
+          "upload_time": 22.447005033493042,
+          "status": "success"
+        },
+        {
+          "filename": "system_requirements_v2.txt",
+          "size_bytes": 1912,
+          "upload_time": 16.838786602020264,
+          "status": "success"
+        },
+        {
+          "filename": "thermal_constraints_doc.txt",
+          "size_bytes": 2275,
+          "upload_time": 36.280179262161255,
+          "status": "success"
+        },
+        {
+          "filename": "voice_of_customer.txt",
+          "size_bytes": 4417,
+          "upload_time": 33.22197723388672,
+          "status": "success"
+        }
+      ],
+      "errors": []
+    },
+    "baseline": {
+      "status": "completed",
+      "system": "Baseline",
+      "total_files": 9,
+      "successful_uploads": 9,
+      "failed_uploads": 0,
+      "total_bytes": 37358,
+      "ingestion_time": 4.363933563232422,
+      "average_upload_time": 0.48454297913445366,
+      "upload_speed_mbps": 0.008164048465924638,
+      "ingested_files": [
+        {
+          "filename": "electrical_review_meeting.txt",
+          "size_bytes": 3645,
+          "upload_time": 0.544975996017456,
+          "status": "success"
+        },
+        {
+          "filename": "emc_test_results.txt",
+          "size_bytes": 3094,
+          "upload_time": 0.5363354682922363,
+          "status": "success"
+        },
+        {
+          "filename": "ergonomic_analysis.txt",
+          "size_bytes": 5271,
+          "upload_time": 0.4731266498565674,
+          "status": "success"
+        },
+        {
+          "filename": "firmware_requirements.txt",
+          "size_bytes": 6879,
+          "upload_time": 0.4682276248931885,
+          "status": "success"
+        },
+        {
+          "filename": "march_design_review_transcript.txt",
+          "size_bytes": 5820,
+          "upload_time": 0.47206902503967285,
+          "status": "success"
+        },
+        {
+          "filename": "power_analysis_report.txt",
+          "size_bytes": 4045,
+          "upload_time": 0.46819376945495605,
+          "status": "success"
+        },
+        {
+          "filename": "system_requirements_v2.txt",
+          "size_bytes": 1912,
+          "upload_time": 0.4431941509246826,
+          "status": "success"
+        },
+        {
+          "filename": "thermal_constraints_doc.txt",
+          "size_bytes": 2275,
+          "upload_time": 0.4800431728363037,
+          "status": "success"
+        },
+        {
+          "filename": "voice_of_customer.txt",
+          "size_bytes": 4417,
+          "upload_time": 0.47472095489501953,
+          "status": "success"
+        }
+      ],
+      "errors": []
+    }
+  },
+  "query_results": [
+    {
+      "test_id": 1,
+      "category": "Systems Engineering - Requirements",
+      "query": "What are the system-level requirements and how do they constrain the mechanical design?",
+      "expected_capabilities": [
+        "basic_retrieval",
+        "cross_document_synthesis"
+      ],
+      "nancy": {
+        "status": "success",
+        "query_time": 7.93512487411499,
+        "response": "System-level requirements constrain the mechanical design in several ways:\n\n*   **Thermal Management:** The mechanical design must accommodate thermal interface materials and thermal isolation requirements (df4f1782c817ea086aa00b7a07fff9b7706eee4275099d8b5736681931caf866). Coordination with the mechanical team is needed for enclosure thermal paths (686d64e4c25dc6f2d82cd61786f6eee63ca18b8d1ebef06b7a2e2dd8ae986191). Natural convection design dictates ventilation slots sized for IP65 compliance and orientation-independent thermal performance (df4f1782c817ea086aa00b7a07fff9b7706eee4275099d8b5736681931caf866).\n*   **Industrial Design:** Ventilation slot placement is affected by the system's thermal needs (df4f1782c817ea086aa00b7a07fff9b7706eee4275099d8b5736681931caf866). The industrial design team consulted on the aesthetic impact of thermal features (df4f1782c817ea086aa00b7a07fff9b7706eee4275099d8b5736681931caf866).\n*   **Accessibility:**  The design must allow access within 25mm of the device centerline for thumb reach (686d64e4c25dc6f2d82cd61786f6eee63ca18b8d1ebef06b7a2e2dd8ae986191).\n*   **Material Selection:** Material choices impact both cost and manufacturing processes (df4f1782c817ea086aa00b7a07fff9b7706eee4275099d8b5736681931caf866).\n\n\n\n",
+        "sources": [],
+        "response_length": 1261,
+        "source_count": 0,
+        "metrics": {
+          "llm_calls": 2,
+          "tokens": {
+            "input": 0,
+            "output": 0,
+            "total": 0
+          },
+          "embedding_operations": 1,
+          "query_time": 7.93512487411499,
+          "network_time": 7.93512487411499,
+          "orchestrator_used": "langchain_router",
+          "routing_info": {
+            "selected_brain": "unknown",
+            "confidence": 0.5,
+            "routing_method": "llm_router"
+          }
+        },
+        "raw_result": {
+          "query": "What are the system-level requirements and how do they constrain the mechanical design?",
+          "strategy_used": "langchain_router",
+          "response": "System-level requirements constrain the mechanical design in several ways:\n\n*   **Thermal Management:** The mechanical design must accommodate thermal interface materials and thermal isolation requirements (df4f1782c817ea086aa00b7a07fff9b7706eee4275099d8b5736681931caf866). Coordination with the mechanical team is needed for enclosure thermal paths (686d64e4c25dc6f2d82cd61786f6eee63ca18b8d1ebef06b7a2e2dd8ae986191). Natural convection design dictates ventilation slots sized for IP65 compliance and orientation-independent thermal performance (df4f1782c817ea086aa00b7a07fff9b7706eee4275099d8b5736681931caf866).\n*   **Industrial Design:** Ventilation slot placement is affected by the system's thermal needs (df4f1782c817ea086aa00b7a07fff9b7706eee4275099d8b5736681931caf866). The industrial design team consulted on the aesthetic impact of thermal features (df4f1782c817ea086aa00b7a07fff9b7706eee4275099d8b5736681931caf866).\n*   **Accessibility:**  The design must allow access within 25mm of the device centerline for thumb reach (686d64e4c25dc6f2d82cd61786f6eee63ca18b8d1ebef06b7a2e2dd8ae986191).\n*   **Material Selection:** Material choices impact both cost and manufacturing processes (df4f1782c817ea086aa00b7a07fff9b7706eee4275099d8b5736681931caf866).\n\n\n\n",
+          "routing_info": {
+            "selected_brain": "unknown",
+            "confidence": 0.5,
+            "routing_method": "llm_router"
+          },
+          "routing_steps": [],
+          "query_time": 8.676936388015747,
+          "processing_timestamp": "2025-08-12T15:39:19.416600"
+        }
+      },
+      "baseline": {
+        "status": "success",
+        "query_time": 2.848414897918701,
+        "response": "Based on the provided context, the system-level requirements are:\n\n*   **Accommodate aluminum heat sink and split power rail requirements:** This is a key driver for the enclosure redesign.\n*   **Thermal constraints:** Sarah Chen's thermal analysis showed hotspot risks, requiring component spacing optimization.\n*   **Electrical spacing needs:** Mike Rodriguez's electrical spacing needs influenced the design.\n*   **Individual subsystem optimization is insufficient:** This led to an integrated design approach.\n\nThese requirements constrain the mechanical design in the following ways:\n\n*   **Enclosure redesign with a 15% larger volume:** To accommodate the heat sink.\n*   **Enclosure height increased by 3mm:** For heat sink clearance.\n*   **Internal partitioning modified:** For the split power rail layout.\n*   **Airflow channels optimized:** Based on thermal analysis.\n*   **Material changed to ABS:** For better heat dissipation.\n\n\n\n",
+        "sources": [
+          "electrical_design_review.txt",
+          "mechanical_integration_plan.txt",
+          "project_timeline_q4_2024.txt"
+        ],
+        "response_length": 942,
+        "source_count": 3,
+        "metrics": {
+          "llm_calls": 1,
+          "tokens": {
+            "input": 0,
+            "output": 0,
+            "total": 0
+          },
+          "embedding_operations": 1,
+          "query_time": 2.848414897918701,
+          "network_time": 2.848414897918701,
+          "method": "langchain_rag"
+        },
+        "raw_result": {
+          "response": "Based on the provided context, the system-level requirements are:\n\n*   **Accommodate aluminum heat sink and split power rail requirements:** This is a key driver for the enclosure redesign.\n*   **Thermal constraints:** Sarah Chen's thermal analysis showed hotspot risks, requiring component spacing optimization.\n*   **Electrical spacing needs:** Mike Rodriguez's electrical spacing needs influenced the design.\n*   **Individual subsystem optimization is insufficient:** This led to an integrated design approach.\n\nThese requirements constrain the mechanical design in the following ways:\n\n*   **Enclosure redesign with a 15% larger volume:** To accommodate the heat sink.\n*   **Enclosure height increased by 3mm:** For heat sink clearance.\n*   **Internal partitioning modified:** For the split power rail layout.\n*   **Airflow channels optimized:** Based on thermal analysis.\n*   **Material changed to ABS:** For better heat dissipation.\n\n\n\n",
+          "sources": [
+            "electrical_design_review.txt",
+            "mechanical_integration_plan.txt",
+            "project_timeline_q4_2024.txt"
+          ],
+          "query_time": 3.1021876335144043,
+          "method": "langchain_rag"
+        }
+      },
+      "timestamp": "2025-08-12T08:39:22.759604"
+    },
+    {
+      "test_id": 2,
+      "category": "Systems Engineering - Integration",
+      "query": "Which integration points between electrical and mechanical systems need special attention?",
+      "expected_capabilities": [
+        "relationship_discovery",
+        "technical_synthesis"
+      ],
+      "nancy": {
+        "status": "success",
+        "query_time": 2.003606081008911,
+        "response": "Based on the provided information, specific integration points between electrical and mechanical systems requiring special attention are not explicitly detailed. The sources mention general considerations like intuitive interfaces for technicians and LED visibility in industrial lighting, but no specific integration points are listed. The documents focus on design review, test procedures, and electromagnetic compatibility.\n",
+        "sources": [],
+        "response_length": 427,
+        "source_count": 0,
+        "metrics": {
+          "llm_calls": 2,
+          "tokens": {
+            "input": 0,
+            "output": 0,
+            "total": 0
+          },
+          "embedding_operations": 1,
+          "query_time": 2.003606081008911,
+          "network_time": 2.003606081008911,
+          "orchestrator_used": "langchain_router",
+          "routing_info": {
+            "selected_brain": "unknown",
+            "confidence": 0.5,
+            "routing_method": "llm_router"
+          }
+        },
+        "raw_result": {
+          "query": "Which integration points between electrical and mechanical systems need special attention?",
+          "strategy_used": "langchain_router",
+          "response": "Based on the provided information, specific integration points between electrical and mechanical systems requiring special attention are not explicitly detailed. The sources mention general considerations like intuitive interfaces for technicians and LED visibility in industrial lighting, but no specific integration points are listed. The documents focus on design review, test procedures, and electromagnetic compatibility.\n",
+          "routing_info": {
+            "selected_brain": "unknown",
+            "confidence": 0.5,
+            "routing_method": "llm_router"
+          },
+          "routing_steps": [],
+          "query_time": 2.1693084239959717,
+          "processing_timestamp": "2025-08-12T15:39:24.781827"
+        }
+      },
+      "baseline": {
+        "status": "success",
+        "query_time": 1.0986413955688477,
+        "response": "The context states that the redesign of the enclosure (mechanical) was influenced by Sarah Chen's thermal requirements and Mike Rodriguez's electrical spacing needs. It also mentions bi-weekly thermal-electrical coordination meetings. Therefore, the integration points between thermal/electrical and mechanical systems need special attention. \n",
+        "sources": [
+          "mechanical_integration_plan.txt",
+          "project_timeline_q4_2024.txt"
+        ],
+        "response_length": 344,
+        "source_count": 2,
+        "metrics": {
+          "llm_calls": 1,
+          "tokens": {
+            "input": 0,
+            "output": 0,
+            "total": 0
+          },
+          "embedding_operations": 1,
+          "query_time": 1.0986413955688477,
+          "network_time": 1.0986413955688477,
+          "method": "langchain_rag"
+        },
+        "raw_result": {
+          "response": "The context states that the redesign of the enclosure (mechanical) was influenced by Sarah Chen's thermal requirements and Mike Rodriguez's electrical spacing needs. It also mentions bi-weekly thermal-electrical coordination meetings. Therefore, the integration points between thermal/electrical and mechanical systems need special attention. \n",
+          "sources": [
+            "mechanical_integration_plan.txt",
+            "project_timeline_q4_2024.txt"
+          ],
+          "query_time": 1.1789462566375732,
+          "method": "langchain_rag"
+        }
+      },
+      "timestamp": "2025-08-12T08:39:25.863954"
+    },
+    {
+      "test_id": 3,
+      "category": "Systems Engineering - Verification",
+      "query": "What verification procedures are defined for thermal performance validation?",
+      "expected_capabilities": [
+        "basic_retrieval",
+        "temporal_analysis"
+      ],
+      "nancy": {
+        "status": "success",
+        "query_time": 3.3887226581573486,
+        "response": "Thermal performance validation procedures include:\n\n*   Maintaining \u00b120ppm accuracy across the full temperature range (Source: 561b2d16f8317fbe7626d88d2d807227b8033cf6f4009009c3e30608d83e688f).\n*   Thermal cycling tests at 85\u00b0C for a minimum of 1000 hours to simulate equivalent aging (Source: 9d239f3c5c333d5e814e9b4a4ba02ac1ead055872f45baa95c49a29ca9d5d7fe).\n\n\n\n",
+        "sources": [],
+        "response_length": 364,
+        "source_count": 0,
+        "metrics": {
+          "llm_calls": 2,
+          "tokens": {
+            "input": 0,
+            "output": 0,
+            "total": 0
+          },
+          "embedding_operations": 1,
+          "query_time": 3.3887226581573486,
+          "network_time": 3.3887226581573486,
+          "orchestrator_used": "langchain_router",
+          "routing_info": {
+            "selected_brain": "unknown",
+            "confidence": 0.5,
+            "routing_method": "llm_router"
+          }
+        },
+        "raw_result": {
+          "query": "What verification procedures are defined for thermal performance validation?",
+          "strategy_used": "langchain_router",
+          "response": "Thermal performance validation procedures include:\n\n*   Maintaining \u00b120ppm accuracy across the full temperature range (Source: 561b2d16f8317fbe7626d88d2d807227b8033cf6f4009009c3e30608d83e688f).\n*   Thermal cycling tests at 85\u00b0C for a minimum of 1000 hours to simulate equivalent aging (Source: 9d239f3c5c333d5e814e9b4a4ba02ac1ead055872f45baa95c49a29ca9d5d7fe).\n\n\n\n",
+          "routing_info": {
+            "selected_brain": "unknown",
+            "confidence": 0.5,
+            "routing_method": "llm_router"
+          },
+          "routing_steps": [],
+          "query_time": 3.72153902053833,
+          "processing_timestamp": "2025-08-12T15:39:29.720172"
+        }
+      },
+      "baseline": {
+        "status": "success",
+        "query_time": 2.122580051422119,
+        "response": "The provided documents do not explicitly define verification procedures for thermal performance validation. However, the documents indicate that thermal analysis was conducted and influenced design decisions. The documents mention:\n\n*   **Thermal analysis report:** Key findings include the current copper solution being insufficient and aluminum providing better heat dissipation.\n*   **Mechanical integration plan:** Design changes were made to accommodate the heat sink, including increasing enclosure height and optimizing airflow channels based on thermal analysis.\n*   **Electrical design review:** Thermal constraints influenced component spacing optimization.\n\nThe documents imply that thermal performance is validated through thermal analysis and design iterations, but don't detail specific verification procedures. Therefore, I cannot answer the question based on the provided context.\n",
+        "sources": [
+          "mechanical_integration_plan.txt",
+          "thermal_analysis_report.txt",
+          "project_timeline_q4_2024.txt",
+          "electrical_design_review.txt"
+        ],
+        "response_length": 897,
+        "source_count": 4,
+        "metrics": {
+          "llm_calls": 1,
+          "tokens": {
+            "input": 0,
+            "output": 0,
+            "total": 0
+          },
+          "embedding_operations": 1,
+          "query_time": 2.122580051422119,
+          "network_time": 2.122580051422119,
+          "method": "langchain_rag"
+        },
+        "raw_result": {
+          "response": "The provided documents do not explicitly define verification procedures for thermal performance validation. However, the documents indicate that thermal analysis was conducted and influenced design decisions. The documents mention:\n\n*   **Thermal analysis report:** Key findings include the current copper solution being insufficient and aluminum providing better heat dissipation.\n*   **Mechanical integration plan:** Design changes were made to accommodate the heat sink, including increasing enclosure height and optimizing airflow channels based on thermal analysis.\n*   **Electrical design review:** Thermal constraints influenced component spacing optimization.\n\nThe documents imply that thermal performance is validated through thermal analysis and design iterations, but don't detail specific verification procedures. Therefore, I cannot answer the question based on the provided context.\n",
+          "sources": [
+            "mechanical_integration_plan.txt",
+            "thermal_analysis_report.txt",
+            "project_timeline_q4_2024.txt",
+            "electrical_design_review.txt"
+          ],
+          "query_time": 2.3050694465637207,
+          "method": "langchain_rag"
+        }
+      },
+      "timestamp": "2025-08-12T08:39:31.376360"
+    },
+    {
+      "test_id": 4,
+      "category": "Mechanical Engineering - Materials",
+      "query": "What materials are specified for high-temperature components and who selected them?",
+      "expected_capabilities": [
+        "basic_retrieval",
+        "author_tracking"
+      ],
+      "nancy": {
+        "status": "success",
+        "query_time": 0.8657095432281494,
+        "response": "Available authors: Benchmark Test User, Mike Rodriguez, Sarah Chen, Lisa Park, Tom Wilson, Jennifer Adams, Sarah, Mike, IC, Mike Rodriguez\nApproved, Mike Rodriguez\nDate, Log Periodic, WiFi 3rd Harmonic, Lisa Park\nDate, Gender Distribution, \u22653mm, Button Size, mm, Screw Mount Design, Flash Memory, KB, apps\n- Low Energy, WiFi, Button Interface, David Kim, Mark Thompson, Tom, Jennifer Adams:, Lisa Park's, Li, Sarah Chen\nDate, mm\n- Weight, max, Size Target, Scott, Project Nancy, Nancy, Brain, DuckDB, Graph Brain, Linguistic Brain, nancy, Docker, ChromaDB, Neo4j, Git, Ollama, Graph, Docker Desktop, Gemma, Scott Johnson, Mike Rodriguez\r\nCONTEXT, Sarah Chen's, Mike Rodriguez\r\n",
+        "sources": [],
+        "response_length": 677,
+        "source_count": 0,
+        "metrics": {
+          "llm_calls": 2,
+          "tokens": {
+            "input": 0,
+            "output": 0,
+            "total": 0
+          },
+          "embedding_operations": 1,
+          "query_time": 0.8657095432281494,
+          "network_time": 0.8657095432281494,
+          "orchestrator_used": "langchain_router",
+          "routing_info": {
+            "selected_brain": "unknown",
+            "confidence": 0.5,
+            "routing_method": "llm_router"
+          }
+        },
+        "raw_result": {
+          "query": "What materials are specified for high-temperature components and who selected them?",
+          "strategy_used": "langchain_router",
+          "response": "Available authors: Benchmark Test User, Mike Rodriguez, Sarah Chen, Lisa Park, Tom Wilson, Jennifer Adams, Sarah, Mike, IC, Mike Rodriguez\nApproved, Mike Rodriguez\nDate, Log Periodic, WiFi 3rd Harmonic, Lisa Park\nDate, Gender Distribution, \u22653mm, Button Size, mm, Screw Mount Design, Flash Memory, KB, apps\n- Low Energy, WiFi, Button Interface, David Kim, Mark Thompson, Tom, Jennifer Adams:, Lisa Park's, Li, Sarah Chen\nDate, mm\n- Weight, max, Size Target, Scott, Project Nancy, Nancy, Brain, DuckDB, Graph Brain, Linguistic Brain, nancy, Docker, ChromaDB, Neo4j, Git, Ollama, Graph, Docker Desktop, Gemma, Scott Johnson, Mike Rodriguez\r\nCONTEXT, Sarah Chen's, Mike Rodriguez\r\n",
+          "routing_info": {
+            "selected_brain": "unknown",
+            "confidence": 0.5,
+            "routing_method": "llm_router"
+          },
+          "routing_steps": [],
+          "query_time": 0.9318044185638428,
+          "processing_timestamp": "2025-08-12T15:39:33.009955"
+        }
+      },
+      "baseline": {
+        "status": "success",
+        "query_time": 1.1582329273223877,
+        "response": "The context states that the material changed to ABS for better heat dissipation in the mechanical integration plan. Lisa Park selected this material. The aluminum heat sink was chosen to address CPU temperatures exceeding 85\u00b0C. The decision to adopt the aluminum heat sink was made by Sarah Chen. \n",
+        "sources": [
+          "electrical_design_review.txt",
+          "thermal_analysis_report.txt",
+          "mechanical_integration_plan.txt"
+        ],
+        "response_length": 298,
+        "source_count": 3,
+        "metrics": {
+          "llm_calls": 1,
+          "tokens": {
+            "input": 0,
+            "output": 0,
+            "total": 0
+          },
+          "embedding_operations": 1,
+          "query_time": 1.1582329273223877,
+          "network_time": 1.1582329273223877,
+          "method": "langchain_rag"
+        },
+        "raw_result": {
+          "response": "The context states that the material changed to ABS for better heat dissipation in the mechanical integration plan. Lisa Park selected this material. The aluminum heat sink was chosen to address CPU temperatures exceeding 85\u00b0C. The decision to adopt the aluminum heat sink was made by Sarah Chen. \n",
+          "sources": [
+            "electrical_design_review.txt",
+            "thermal_analysis_report.txt",
+            "mechanical_integration_plan.txt"
+          ],
+          "query_time": 1.2632455825805664,
+          "method": "langchain_rag"
+        }
+      },
+      "timestamp": "2025-08-12T08:39:33.403096"
+    },
+    {
+      "test_id": 5,
+      "category": "Mechanical Engineering - Stress Analysis",
+      "query": "What are the critical stress points identified in the structural analysis documents?",
+      "expected_capabilities": [
+        "technical_synthesis",
+        "basic_retrieval"
+      ],
+      "nancy": {
+        "status": "success",
+        "query_time": 2.6193387508392334,
+        "response": "Based on the provided documents, the critical stress points identified in the structural analysis are related to **thermal performance and hotspot risks**. Sarah Chen's thermal analysis (df4f1782c817ea086aa00b7a07fff9b7706eee4275099d8b5736681931caf866) highlighted these risks, which influenced the decision to implement a split power rail design to optimize component spacing.\n\n\n\n",
+        "sources": [],
+        "response_length": 381,
+        "source_count": 0,
+        "metrics": {
+          "llm_calls": 2,
+          "tokens": {
+            "input": 0,
+            "output": 0,
+            "total": 0
+          },
+          "embedding_operations": 1,
+          "query_time": 2.6193387508392334,
+          "network_time": 2.6193387508392334,
+          "orchestrator_used": "langchain_router",
+          "routing_info": {
+            "selected_brain": "unknown",
+            "confidence": 0.5,
+            "routing_method": "llm_router"
+          }
+        },
+        "raw_result": {
+          "query": "What are the critical stress points identified in the structural analysis documents?",
+          "strategy_used": "langchain_router",
+          "response": "Based on the provided documents, the critical stress points identified in the structural analysis are related to **thermal performance and hotspot risks**. Sarah Chen's thermal analysis (df4f1782c817ea086aa00b7a07fff9b7706eee4275099d8b5736681931caf866) highlighted these risks, which influenced the decision to implement a split power rail design to optimize component spacing.\n\n\n\n",
+          "routing_info": {
+            "selected_brain": "unknown",
+            "confidence": 0.5,
+            "routing_method": "llm_router"
+          },
+          "routing_steps": [],
+          "query_time": 0.14589381217956543,
+          "processing_timestamp": "2025-08-12T15:39:34.461456"
+        }
+      },
+      "baseline": {
+        "status": "success",
+        "query_time": 1.8701186180114746,
+        "response": "The provided documents mention that CPU temperatures exceeded 85\u00b0C during stress testing, and the current copper solution is insufficient for sustained loads. The thermal analysis report also indicates that heat sink placement constrains electrical component layout. However, the documents do not explicitly state \"critical stress points identified in the structural analysis documents.\" \n\nTherefore, based on the context, I cannot definitively answer what the critical stress points are. The documents highlight overheating issues and constraints related to heat sink placement, but don't label them as \"critical stress points\" in a structural analysis sense.\n",
+        "sources": [
+          "electrical_design_review.txt",
+          "thermal_analysis_report.txt",
+          "project_timeline_q4_2024.txt",
+          "mechanical_integration_plan.txt"
+        ],
+        "response_length": 661,
+        "source_count": 4,
+        "metrics": {
+          "llm_calls": 1,
+          "tokens": {
+            "input": 0,
+            "output": 0,
+            "total": 0
+          },
+          "embedding_operations": 1,
+          "query_time": 1.8701186180114746,
+          "network_time": 1.8701186180114746,
+          "method": "langchain_rag"
+        },
+        "raw_result": {
+          "response": "The provided documents mention that CPU temperatures exceeded 85\u00b0C during stress testing, and the current copper solution is insufficient for sustained loads. The thermal analysis report also indicates that heat sink placement constrains electrical component layout. However, the documents do not explicitly state \"critical stress points identified in the structural analysis documents.\" \n\nTherefore, based on the context, I cannot definitively answer what the critical stress points are. The documents highlight overheating issues and constraints related to heat sink placement, but don't label them as \"critical stress points\" in a structural analysis sense.\n",
+          "sources": [
+            "electrical_design_review.txt",
+            "thermal_analysis_report.txt",
+            "project_timeline_q4_2024.txt",
+            "mechanical_integration_plan.txt"
+          ],
+          "query_time": 2.022397756576538,
+          "method": "langchain_rag"
+        }
+      },
+      "timestamp": "2025-08-12T08:39:37.894200"
+    },
+    {
+      "test_id": 6,
+      "category": "Mechanical Engineering - CAD Integration",
+      "query": "How do the CAD model revisions relate to thermal analysis updates?",
+      "expected_capabilities": [
+        "relationship_discovery",
+        "temporal_analysis"
+      ],
+      "nancy": {
+        "status": "success",
+        "query_time": 0.876727819442749,
+        "response": "Available authors: Benchmark Test User, Mike Rodriguez, Sarah Chen, Lisa Park, Tom Wilson, Jennifer Adams, Sarah, Mike, IC, Mike Rodriguez\nApproved, Mike Rodriguez\nDate, Log Periodic, WiFi 3rd Harmonic, Lisa Park\nDate, Gender Distribution, \u22653mm, Button Size, mm, Screw Mount Design, Flash Memory, KB, apps\n- Low Energy, WiFi, Button Interface, David Kim, Mark Thompson, Tom, Jennifer Adams:, Lisa Park's, Li, Sarah Chen\nDate, mm\n- Weight, max, Size Target, Scott, Project Nancy, Nancy, Brain, DuckDB, Graph Brain, Linguistic Brain, nancy, Docker, ChromaDB, Neo4j, Git, Ollama, Graph, Docker Desktop, Gemma, Scott Johnson, Mike Rodriguez\r\nCONTEXT, Sarah Chen's, Mike Rodriguez\r\n",
+        "sources": [],
+        "response_length": 677,
+        "source_count": 0,
+        "metrics": {
+          "llm_calls": 2,
+          "tokens": {
+            "input": 0,
+            "output": 0,
+            "total": 0
+          },
+          "embedding_operations": 1,
+          "query_time": 0.876727819442749,
+          "network_time": 0.876727819442749,
+          "orchestrator_used": "langchain_router",
+          "routing_info": {
+            "selected_brain": "unknown",
+            "confidence": 0.5,
+            "routing_method": "llm_router"
+          }
+        },
+        "raw_result": {
+          "query": "How do the CAD model revisions relate to thermal analysis updates?",
+          "strategy_used": "langchain_router",
+          "response": "Available authors: Benchmark Test User, Mike Rodriguez, Sarah Chen, Lisa Park, Tom Wilson, Jennifer Adams, Sarah, Mike, IC, Mike Rodriguez\nApproved, Mike Rodriguez\nDate, Log Periodic, WiFi 3rd Harmonic, Lisa Park\nDate, Gender Distribution, \u22653mm, Button Size, mm, Screw Mount Design, Flash Memory, KB, apps\n- Low Energy, WiFi, Button Interface, David Kim, Mark Thompson, Tom, Jennifer Adams:, Lisa Park's, Li, Sarah Chen\nDate, mm\n- Weight, max, Size Target, Scott, Project Nancy, Nancy, Brain, DuckDB, Graph Brain, Linguistic Brain, nancy, Docker, ChromaDB, Neo4j, Git, Ollama, Graph, Docker Desktop, Gemma, Scott Johnson, Mike Rodriguez\r\nCONTEXT, Sarah Chen's, Mike Rodriguez\r\n",
+          "routing_info": {
+            "selected_brain": "unknown",
+            "confidence": 0.5,
+            "routing_method": "llm_router"
+          },
+          "routing_steps": [],
+          "query_time": 0.9215826988220215,
+          "processing_timestamp": "2025-08-12T15:39:37.473272"
+        }
+      },
+      "baseline": {
+        "status": "success",
+        "query_time": 1.6247830390930176,
+        "response": "The context doesn't explicitly state how the CAD model revisions relate to thermal analysis updates. However, it does mention that the mechanical changes (like the enclosure height increase and internal partitioning modification) enable both thermal and electrical optimizations. It also states that the thermal analysis completion is a step in the critical path analysis, which leads to electrical design and then mechanical integration. This implies a relationship, but the specific details of how CAD model revisions are affected by thermal analysis updates are not provided.\n",
+        "sources": [
+          "project_timeline_q4_2024.txt",
+          "mechanical_integration_plan.txt",
+          "thermal_analysis_report.txt"
+        ],
+        "response_length": 579,
+        "source_count": 3,
+        "metrics": {
+          "llm_calls": 1,
+          "tokens": {
+            "input": 0,
+            "output": 0,
+            "total": 0
+          },
+          "embedding_operations": 1,
+          "query_time": 1.6247830390930176,
+          "network_time": 1.6247830390930176,
+          "method": "langchain_rag"
+        },
+        "raw_result": {
+          "response": "The context doesn't explicitly state how the CAD model revisions relate to thermal analysis updates. However, it does mention that the mechanical changes (like the enclosure height increase and internal partitioning modification) enable both thermal and electrical optimizations. It also states that the thermal analysis completion is a step in the critical path analysis, which leads to electrical design and then mechanical integration. This implies a relationship, but the specific details of how CAD model revisions are affected by thermal analysis updates are not provided.\n",
+          "sources": [
+            "project_timeline_q4_2024.txt",
+            "mechanical_integration_plan.txt",
+            "thermal_analysis_report.txt"
+          ],
+          "query_time": 1.7557339668273926,
+          "method": "langchain_rag"
+        }
+      },
+      "timestamp": "2025-08-12T08:39:40.398792"
+    },
+    {
+      "test_id": 7,
+      "category": "Electrical Engineering - Power Systems",
+      "query": "What are the power dissipation requirements and how do they impact the enclosure design?",
+      "expected_capabilities": [
+        "technical_synthesis",
+        "cross_domain_analysis"
+      ],
+      "nancy": {
+        "status": "success",
+        "query_time": 2.4744372367858887,
+        "response": "The power dissipation requirements for the Advanced IoT Device Development project necessitate a surface temperature requirement of 50\u00b0C. To manage this, the switching regulator was moved to the edge of the PCB, which reduces junction temperature by 12\u00b0C compared to a central placement. The enclosure design must accommodate natural convection airflow through ventilation slots sized for IP65 compliance, and incorporate thermal interface materials.  Material selection is impacted by both cost and manufacturing processes. Thermal simulation using ANSYS Ice is required for validation.\n\n\n\n",
+        "sources": [],
+        "response_length": 591,
+        "source_count": 0,
+        "metrics": {
+          "llm_calls": 2,
+          "tokens": {
+            "input": 0,
+            "output": 0,
+            "total": 0
+          },
+          "embedding_operations": 1,
+          "query_time": 2.4744372367858887,
+          "network_time": 2.4744372367858887,
+          "orchestrator_used": "langchain_router",
+          "routing_info": {
+            "selected_brain": "unknown",
+            "confidence": 0.5,
+            "routing_method": "llm_router"
+          }
+        },
+        "raw_result": {
+          "query": "What are the power dissipation requirements and how do they impact the enclosure design?",
+          "strategy_used": "langchain_router",
+          "response": "The power dissipation requirements for the Advanced IoT Device Development project necessitate a surface temperature requirement of 50\u00b0C. To manage this, the switching regulator was moved to the edge of the PCB, which reduces junction temperature by 12\u00b0C compared to a central placement. The enclosure design must accommodate natural convection airflow through ventilation slots sized for IP65 compliance, and incorporate thermal interface materials.  Material selection is impacted by both cost and manufacturing processes. Thermal simulation using ANSYS Ice is required for validation.\n\n\n\n",
+          "routing_info": {
+            "selected_brain": "unknown",
+            "confidence": 0.5,
+            "routing_method": "llm_router"
+          },
+          "routing_steps": [],
+          "query_time": 2.6712582111358643,
+          "processing_timestamp": "2025-08-12T15:39:41.959336"
+        }
+      },
+      "baseline": {
+        "status": "success",
+        "query_time": 1.2530040740966797,
+        "response": "The thermal analysis report indicates a 15W TDP (Thermal Design Power) which led to the decision to adopt an aluminum heat sink design. The context states that the aluminum heat sink design influences the mechanical enclosure design, specifically requiring a redesign with a 15% larger volume to accommodate it. The context also mentions that the current copper solution is insufficient for sustained loads.",
+        "sources": [
+          "mechanical_integration_plan.txt",
+          "thermal_analysis_report.txt"
+        ],
+        "response_length": 407,
+        "source_count": 2,
+        "metrics": {
+          "llm_calls": 1,
+          "tokens": {
+            "input": 0,
+            "output": 0,
+            "total": 0
+          },
+          "embedding_operations": 1,
+          "query_time": 1.2530040740966797,
+          "network_time": 1.2530040740966797,
+          "method": "langchain_rag"
+        },
+        "raw_result": {
+          "response": "The thermal analysis report indicates a 15W TDP (Thermal Design Power) which led to the decision to adopt an aluminum heat sink design. The context states that the aluminum heat sink design influences the mechanical enclosure design, specifically requiring a redesign with a 15% larger volume to accommodate it. The context also mentions that the current copper solution is insufficient for sustained loads.",
+          "sources": [
+            "mechanical_integration_plan.txt",
+            "thermal_analysis_report.txt"
+          ],
+          "query_time": 1.3616478443145752,
+          "method": "langchain_rag"
+        }
+      },
+      "timestamp": "2025-08-12T08:39:44.127630"
+    },
+    {
+      "test_id": 8,
+      "category": "Electrical Engineering - EMC Compliance",
+      "query": "What EMC compliance measures are specified and who is responsible for implementation?",
+      "expected_capabilities": [
+        "basic_retrieval",
+        "author_tracking"
+      ],
+      "nancy": {
+        "status": "success",
+        "query_time": 0.8359196186065674,
+        "response": "Available authors: Benchmark Test User, Mike Rodriguez, Sarah Chen, Lisa Park, Tom Wilson, Jennifer Adams, Sarah, Mike, IC, Mike Rodriguez\nApproved, Mike Rodriguez\nDate, Log Periodic, WiFi 3rd Harmonic, Lisa Park\nDate, Gender Distribution, \u22653mm, Button Size, mm, Screw Mount Design, Flash Memory, KB, apps\n- Low Energy, WiFi, Button Interface, David Kim, Mark Thompson, Tom, Jennifer Adams:, Lisa Park's, Li, Sarah Chen\nDate, mm\n- Weight, max, Size Target, Scott, Project Nancy, Nancy, Brain, DuckDB, Graph Brain, Linguistic Brain, nancy, Docker, ChromaDB, Neo4j, Git, Ollama, Graph, Docker Desktop, Gemma, Scott Johnson, Mike Rodriguez\r\nCONTEXT, Sarah Chen's, Mike Rodriguez\r\n",
+        "sources": [],
+        "response_length": 677,
+        "source_count": 0,
+        "metrics": {
+          "llm_calls": 2,
+          "tokens": {
+            "input": 0,
+            "output": 0,
+            "total": 0
+          },
+          "embedding_operations": 1,
+          "query_time": 0.8359196186065674,
+          "network_time": 0.8359196186065674,
+          "orchestrator_used": "langchain_router",
+          "routing_info": {
+            "selected_brain": "unknown",
+            "confidence": 0.5,
+            "routing_method": "llm_router"
+          }
+        },
+        "raw_result": {
+          "query": "What EMC compliance measures are specified and who is responsible for implementation?",
+          "strategy_used": "langchain_router",
+          "response": "Available authors: Benchmark Test User, Mike Rodriguez, Sarah Chen, Lisa Park, Tom Wilson, Jennifer Adams, Sarah, Mike, IC, Mike Rodriguez\nApproved, Mike Rodriguez\nDate, Log Periodic, WiFi 3rd Harmonic, Lisa Park\nDate, Gender Distribution, \u22653mm, Button Size, mm, Screw Mount Design, Flash Memory, KB, apps\n- Low Energy, WiFi, Button Interface, David Kim, Mark Thompson, Tom, Jennifer Adams:, Lisa Park's, Li, Sarah Chen\nDate, mm\n- Weight, max, Size Target, Scott, Project Nancy, Nancy, Brain, DuckDB, Graph Brain, Linguistic Brain, nancy, Docker, ChromaDB, Neo4j, Git, Ollama, Graph, Docker Desktop, Gemma, Scott Johnson, Mike Rodriguez\r\nCONTEXT, Sarah Chen's, Mike Rodriguez\r\n",
+          "routing_info": {
+            "selected_brain": "unknown",
+            "confidence": 0.5,
+            "routing_method": "llm_router"
+          },
+          "routing_steps": [],
+          "query_time": 0.9120388031005859,
+          "processing_timestamp": "2025-08-12T15:39:44.254355"
+        }
+      },
+      "baseline": {
+        "status": "success",
+        "query_time": 0.7416059970855713,
+        "response": "The provided context does not contain information about EMC compliance measures or who is responsible for their implementation. Therefore, I cannot answer the question.\n",
+        "sources": [
+          "electrical_design_review.txt",
+          "mechanical_integration_plan.txt",
+          "project_timeline_q4_2024.txt",
+          "thermal_analysis_report.txt"
+        ],
+        "response_length": 169,
+        "source_count": 4,
+        "metrics": {
+          "llm_calls": 1,
+          "tokens": {
+            "input": 0,
+            "output": 0,
+            "total": 0
+          },
+          "embedding_operations": 1,
+          "query_time": 0.7416059970855713,
+          "network_time": 0.7416059970855713,
+          "method": "langchain_rag"
+        },
+        "raw_result": {
+          "response": "The provided context does not contain information about EMC compliance measures or who is responsible for their implementation. Therefore, I cannot answer the question.\n",
+          "sources": [
+            "electrical_design_review.txt",
+            "mechanical_integration_plan.txt",
+            "project_timeline_q4_2024.txt",
+            "thermal_analysis_report.txt"
+          ],
+          "query_time": 0.7770819664001465,
+          "method": "langchain_rag"
+        }
+      },
+      "timestamp": "2025-08-12T08:39:45.708046"
+    },
+    {
+      "test_id": 9,
+      "category": "Electrical Engineering - Circuit Design",
+      "query": "How do circuit board layout constraints affect thermal management decisions?",
+      "expected_capabilities": [
+        "cross_domain_analysis",
+        "relationship_discovery"
+      ],
+      "nancy": {
+        "status": "success",
+        "query_time": 6.774965047836304,
+        "response": "Circuit board layout constraints significantly impact thermal management decisions. Component placement, such as moving the switching regulator to the edge of the PCB (Source: 561b2d16f8317fbe7626d88d2d807227b8033cf6f4009009c3e30608d83e688f), is crucial for heat dissipation, as demonstrated by a 12\u00b0C reduction in junction temperature (Source: 561b2d16f8317fbe7626d88d2d807227b8033cf6f4009009c3e30608d83e688f).  Electrical layout is constrained by thermal isolation requirements (df4f1782c817ea086aa00b7a07fff9b7706eee4275099d8b5736681931caf866) and component spacing optimization is often necessary to address hotspot risks (b6796755e2165a96447cabc933be0994f645b97b581b7030672ef93a3e8bf425).  Furthermore, mechanical design must accommodate thermal interface materials (df4f1782c817ea086aa00b7a07fff9b7706eee4275099d8b5736681931caf866) and industrial design is affected by ventilation slot placement (df4f1782c817ea086aa00b7a07fff9b7706eee4275099d8b5736681931caf866).\n",
+        "sources": [],
+        "response_length": 970,
+        "source_count": 0,
+        "metrics": {
+          "llm_calls": 2,
+          "tokens": {
+            "input": 0,
+            "output": 0,
+            "total": 0
+          },
+          "embedding_operations": 1,
+          "query_time": 6.774965047836304,
+          "network_time": 6.774965047836304,
+          "orchestrator_used": "langchain_router",
+          "routing_info": {
+            "selected_brain": "unknown",
+            "confidence": 0.5,
+            "routing_method": "llm_router"
+          }
+        },
+        "raw_result": {
+          "query": "How do circuit board layout constraints affect thermal management decisions?",
+          "strategy_used": "langchain_router",
+          "response": "Circuit board layout constraints significantly impact thermal management decisions. Component placement, such as moving the switching regulator to the edge of the PCB (Source: 561b2d16f8317fbe7626d88d2d807227b8033cf6f4009009c3e30608d83e688f), is crucial for heat dissipation, as demonstrated by a 12\u00b0C reduction in junction temperature (Source: 561b2d16f8317fbe7626d88d2d807227b8033cf6f4009009c3e30608d83e688f).  Electrical layout is constrained by thermal isolation requirements (df4f1782c817ea086aa00b7a07fff9b7706eee4275099d8b5736681931caf866) and component spacing optimization is often necessary to address hotspot risks (b6796755e2165a96447cabc933be0994f645b97b581b7030672ef93a3e8bf425).  Furthermore, mechanical design must accommodate thermal interface materials (df4f1782c817ea086aa00b7a07fff9b7706eee4275099d8b5736681931caf866) and industrial design is affected by ventilation slot placement (df4f1782c817ea086aa00b7a07fff9b7706eee4275099d8b5736681931caf866).\n",
+          "routing_info": {
+            "selected_brain": "unknown",
+            "confidence": 0.5,
+            "routing_method": "llm_router"
+          },
+          "routing_steps": [],
+          "query_time": 7.442979574203491,
+          "processing_timestamp": "2025-08-12T15:39:52.524734"
+        }
+      },
+      "baseline": {
+        "status": "success",
+        "query_time": 0.8817305564880371,
+        "response": "According to the context, heat sink placement CONSTRAINS electrical component layout. Thermal constraints also require component spacing optimization. Therefore, circuit board layout constraints affect thermal management decisions. \n",
+        "sources": [
+          "electrical_design_review.txt",
+          "thermal_analysis_report.txt",
+          "mechanical_integration_plan.txt"
+        ],
+        "response_length": 233,
+        "source_count": 3,
+        "metrics": {
+          "llm_calls": 1,
+          "tokens": {
+            "input": 0,
+            "output": 0,
+            "total": 0
+          },
+          "embedding_operations": 1,
+          "query_time": 0.8817305564880371,
+          "network_time": 0.8817305564880371,
+          "method": "langchain_rag"
+        },
+        "raw_result": {
+          "response": "According to the context, heat sink placement CONSTRAINS electrical component layout. Thermal constraints also require component spacing optimization. Therefore, circuit board layout constraints affect thermal management decisions. \n",
+          "sources": [
+            "electrical_design_review.txt",
+            "thermal_analysis_report.txt",
+            "mechanical_integration_plan.txt"
+          ],
+          "query_time": 0.9641885757446289,
+          "method": "langchain_rag"
+        }
+      },
+      "timestamp": "2025-08-12T08:39:53.366423"
+    },
+    {
+      "test_id": 10,
+      "category": "Firmware Engineering - Memory Requirements",
+      "query": "What are the memory allocation requirements for the thermal control algorithms?",
+      "expected_capabilities": [
+        "basic_retrieval",
+        "technical_synthesis"
+      ],
+      "nancy": {
+        "status": "success",
+        "query_time": 2.1166257858276367,
+        "response": "The thermal control algorithms require 128KB of SRAM for runtime operations, as specified in the processor specifications. The application firmware utilizes 384KB of Flash memory, while 64KB is allocated for configuration storage and 32KB for Over-the-air updates.\n",
+        "sources": [],
+        "response_length": 265,
+        "source_count": 0,
+        "metrics": {
+          "llm_calls": 2,
+          "tokens": {
+            "input": 0,
+            "output": 0,
+            "total": 0
+          },
+          "embedding_operations": 1,
+          "query_time": 2.1166257858276367,
+          "network_time": 2.1166257858276367,
+          "orchestrator_used": "langchain_router",
+          "routing_info": {
+            "selected_brain": "unknown",
+            "confidence": 0.5,
+            "routing_method": "llm_router"
+          }
+        },
+        "raw_result": {
+          "query": "What are the memory allocation requirements for the thermal control algorithms?",
+          "strategy_used": "langchain_router",
+          "response": "The thermal control algorithms require 128KB of SRAM for runtime operations, as specified in the processor specifications. The application firmware utilizes 384KB of Flash memory, while 64KB is allocated for configuration storage and 32KB for Over-the-air updates.\n",
+          "routing_info": {
+            "selected_brain": "unknown",
+            "confidence": 0.5,
+            "routing_method": "llm_router"
+          },
+          "routing_steps": [],
+          "query_time": 2.3197031021118164,
+          "processing_timestamp": "2025-08-12T15:39:55.824061"
+        }
+      },
+      "baseline": {
+        "status": "success",
+        "query_time": 0.7352657318115234,
+        "response": "The provided context doesn't contain information about memory allocation requirements for thermal control algorithms. Therefore, I cannot answer the question.\n",
+        "sources": [
+          "electrical_design_review.txt",
+          "thermal_analysis_report.txt",
+          "mechanical_integration_plan.txt"
+        ],
+        "response_length": 159,
+        "source_count": 3,
+        "metrics": {
+          "llm_calls": 1,
+          "tokens": {
+            "input": 0,
+            "output": 0,
+            "total": 0
+          },
+          "embedding_operations": 1,
+          "query_time": 0.7352657318115234,
+          "network_time": 0.7352657318115234,
+          "method": "langchain_rag"
+        },
+        "raw_result": {
+          "response": "The provided context doesn't contain information about memory allocation requirements for thermal control algorithms. Therefore, I cannot answer the question.\n",
+          "sources": [
+            "electrical_design_review.txt",
+            "thermal_analysis_report.txt",
+            "mechanical_integration_plan.txt"
+          ],
+          "query_time": 0.7708902359008789,
+          "method": "langchain_rag"
+        }
+      },
+      "timestamp": "2025-08-12T08:39:56.219919"
+    },
+    {
+      "test_id": 11,
+      "category": "Firmware Engineering - Control Protocols",
+      "query": "Which communication protocols are used between thermal sensors and the main controller?",
+      "expected_capabilities": [
+        "technical_synthesis",
+        "basic_retrieval"
+      ],
+      "nancy": {
+        "status": "success",
+        "query_time": 2.2578940391540527,
+        "response": "Based on the provided information, the communication protocols used between thermal sensors and the main controller are:\n\n*   **Custom application protocol over HTTPS**\n*   **Bluetooth 5.0 Protocol Stack:** Including GAP, GATT, and BLE.\n*   **TCP/IP stack with IPv4 support** \n\nThese are mentioned within the \"Protocol Stack\" section of the provided data.",
+        "sources": [],
+        "response_length": 355,
+        "source_count": 0,
+        "metrics": {
+          "llm_calls": 2,
+          "tokens": {
+            "input": 0,
+            "output": 0,
+            "total": 0
+          },
+          "embedding_operations": 1,
+          "query_time": 2.2578940391540527,
+          "network_time": 2.2578940391540527,
+          "orchestrator_used": "langchain_router",
+          "routing_info": {
+            "selected_brain": "unknown",
+            "confidence": 0.5,
+            "routing_method": "llm_router"
+          }
+        },
+        "raw_result": {
+          "query": "Which communication protocols are used between thermal sensors and the main controller?",
+          "strategy_used": "langchain_router",
+          "response": "Based on the provided information, the communication protocols used between thermal sensors and the main controller are:\n\n*   **Custom application protocol over HTTPS**\n*   **Bluetooth 5.0 Protocol Stack:** Including GAP, GATT, and BLE.\n*   **TCP/IP stack with IPv4 support** \n\nThese are mentioned within the \"Protocol Stack\" section of the provided data.",
+          "routing_info": {
+            "selected_brain": "unknown",
+            "confidence": 0.5,
+            "routing_method": "llm_router"
+          },
+          "routing_steps": [],
+          "query_time": 2.4774467945098877,
+          "processing_timestamp": "2025-08-12T15:39:59.118577"
+        }
+      },
+      "baseline": {
+        "status": "success",
+        "query_time": 0.7274720668792725,
+        "response": "The provided context does not contain information about communication protocols used between thermal sensors and the main controller. Therefore, I cannot answer the question.",
+        "sources": [
+          "electrical_design_review.txt",
+          "mechanical_integration_plan.txt",
+          "project_timeline_q4_2024.txt"
+        ],
+        "response_length": 174,
+        "source_count": 3,
+        "metrics": {
+          "llm_calls": 1,
+          "tokens": {
+            "input": 0,
+            "output": 0,
+            "total": 0
+          },
+          "embedding_operations": 1,
+          "query_time": 0.7274720668792725,
+          "network_time": 0.7274720668792725,
+          "method": "langchain_rag"
+        },
+        "raw_result": {
+          "response": "The provided context does not contain information about communication protocols used between thermal sensors and the main controller. Therefore, I cannot answer the question.",
+          "sources": [
+            "electrical_design_review.txt",
+            "mechanical_integration_plan.txt",
+            "project_timeline_q4_2024.txt"
+          ],
+          "query_time": 0.7922427654266357,
+          "method": "langchain_rag"
+        }
+      },
+      "timestamp": "2025-08-12T08:39:59.208029"
+    },
+    {
+      "test_id": 12,
+      "category": "Industrial Design - User Interface",
+      "query": "What user feedback influenced the thermal management interface design decisions?",
+      "expected_capabilities": [
+        "decision_tracking",
+        "author_attribution"
+      ],
+      "nancy": {
+        "status": "success",
+        "query_time": 0.8958733081817627,
+        "response": "Available authors: Benchmark Test User, Mike Rodriguez, Sarah Chen, Lisa Park, Tom Wilson, Jennifer Adams, Sarah, Mike, IC, Mike Rodriguez\nApproved, Mike Rodriguez\nDate, Log Periodic, WiFi 3rd Harmonic, Lisa Park\nDate, Gender Distribution, \u22653mm, Button Size, mm, Screw Mount Design, Flash Memory, KB, apps\n- Low Energy, WiFi, Button Interface, David Kim, Mark Thompson, Tom, Jennifer Adams:, Lisa Park's, Li, Sarah Chen\nDate, mm\n- Weight, max, Size Target, Scott, Project Nancy, Nancy, Brain, DuckDB, Graph Brain, Linguistic Brain, nancy, Docker, ChromaDB, Neo4j, Git, Ollama, Graph, Docker Desktop, Gemma, Scott Johnson, Mike Rodriguez\r\nCONTEXT, Sarah Chen's, Mike Rodriguez\r\n",
+        "sources": [],
+        "response_length": 677,
+        "source_count": 0,
+        "metrics": {
+          "llm_calls": 2,
+          "tokens": {
+            "input": 0,
+            "output": 0,
+            "total": 0
+          },
+          "embedding_operations": 1,
+          "query_time": 0.8958733081817627,
+          "network_time": 0.8958733081817627,
+          "orchestrator_used": "langchain_router",
+          "routing_info": {
+            "selected_brain": "unknown",
+            "confidence": 0.5,
+            "routing_method": "llm_router"
+          }
+        },
+        "raw_result": {
+          "query": "What user feedback influenced the thermal management interface design decisions?",
+          "strategy_used": "langchain_router",
+          "response": "Available authors: Benchmark Test User, Mike Rodriguez, Sarah Chen, Lisa Park, Tom Wilson, Jennifer Adams, Sarah, Mike, IC, Mike Rodriguez\nApproved, Mike Rodriguez\nDate, Log Periodic, WiFi 3rd Harmonic, Lisa Park\nDate, Gender Distribution, \u22653mm, Button Size, mm, Screw Mount Design, Flash Memory, KB, apps\n- Low Energy, WiFi, Button Interface, David Kim, Mark Thompson, Tom, Jennifer Adams:, Lisa Park's, Li, Sarah Chen\nDate, mm\n- Weight, max, Size Target, Scott, Project Nancy, Nancy, Brain, DuckDB, Graph Brain, Linguistic Brain, nancy, Docker, ChromaDB, Neo4j, Git, Ollama, Graph, Docker Desktop, Gemma, Scott Johnson, Mike Rodriguez\r\nCONTEXT, Sarah Chen's, Mike Rodriguez\r\n",
+          "routing_info": {
+            "selected_brain": "unknown",
+            "confidence": 0.5,
+            "routing_method": "llm_router"
+          },
+          "routing_steps": [],
+          "query_time": 0.9580726623535156,
+          "processing_timestamp": "2025-08-12T15:40:00.907388"
+        }
+      },
+      "baseline": {
+        "status": "success",
+        "query_time": 0.8285908699035645,
+        "response": "The provided text does not mention any user feedback influencing the thermal management interface design decisions. The decisions appear to be driven by technical constraints and analysis. \n",
+        "sources": [
+          "electrical_design_review.txt",
+          "thermal_analysis_report.txt",
+          "project_timeline_q4_2024.txt",
+          "mechanical_integration_plan.txt"
+        ],
+        "response_length": 190,
+        "source_count": 4,
+        "metrics": {
+          "llm_calls": 1,
+          "tokens": {
+            "input": 0,
+            "output": 0,
+            "total": 0
+          },
+          "embedding_operations": 1,
+          "query_time": 0.8285908699035645,
+          "network_time": 0.8285908699035645,
+          "method": "langchain_rag"
+        },
+        "raw_result": {
+          "response": "The provided text does not mention any user feedback influencing the thermal management interface design decisions. The decisions appear to be driven by technical constraints and analysis. \n",
+          "sources": [
+            "electrical_design_review.txt",
+            "thermal_analysis_report.txt",
+            "project_timeline_q4_2024.txt",
+            "mechanical_integration_plan.txt"
+          ],
+          "query_time": 0.8836534023284912,
+          "method": "langchain_rag"
+        }
+      },
+      "timestamp": "2025-08-12T08:40:00.934200"
+    },
+    {
+      "test_id": 13,
+      "category": "Industrial Design - Ergonomics",
+      "query": "How do ergonomic considerations affect the placement of thermal management controls?",
+      "expected_capabilities": [
+        "cross_domain_analysis",
+        "basic_retrieval"
+      ],
+      "nancy": {
+        "status": "success",
+        "query_time": 2.5604379177093506,
+        "response": "Ergonomic considerations directly impact the placement of thermal management controls through airflow considerations and coordination with other teams. Airflow design, including ventilation slot placement (affecting industrial design), must be carefully considered. Placement decisions also require coordination with the mechanical team regarding enclosure thermal paths and accommodation of thermal interface materials. Thermal analysis, like the one using ANSYS Ice, is used to validate the effectiveness of these placements, aiming for desired junction temperatures and meeting surface temperature requirements (e.g., the 50\u00b0C requirement mentioned).\n",
+        "sources": [],
+        "response_length": 654,
+        "source_count": 0,
+        "metrics": {
+          "llm_calls": 2,
+          "tokens": {
+            "input": 0,
+            "output": 0,
+            "total": 0
+          },
+          "embedding_operations": 1,
+          "query_time": 2.5604379177093506,
+          "network_time": 2.5604379177093506,
+          "orchestrator_used": "langchain_router",
+          "routing_info": {
+            "selected_brain": "unknown",
+            "confidence": 0.5,
+            "routing_method": "llm_router"
+          }
+        },
+        "raw_result": {
+          "query": "How do ergonomic considerations affect the placement of thermal management controls?",
+          "strategy_used": "langchain_router",
+          "response": "Ergonomic considerations directly impact the placement of thermal management controls through airflow considerations and coordination with other teams. Airflow design, including ventilation slot placement (affecting industrial design), must be carefully considered. Placement decisions also require coordination with the mechanical team regarding enclosure thermal paths and accommodation of thermal interface materials. Thermal analysis, like the one using ANSYS Ice, is used to validate the effectiveness of these placements, aiming for desired junction temperatures and meeting surface temperature requirements (e.g., the 50\u00b0C requirement mentioned).\n",
+          "routing_info": {
+            "selected_brain": "unknown",
+            "confidence": 0.5,
+            "routing_method": "llm_router"
+          },
+          "routing_steps": [],
+          "query_time": 0.9911699295043945,
+          "processing_timestamp": "2025-08-12T15:40:01.953012"
+        }
+      },
+      "baseline": {
+        "status": "success",
+        "query_time": 0.6483039855957031,
+        "response": "The provided context does not contain any information about ergonomic considerations. Therefore, I cannot answer the question.",
+        "sources": [
+          "project_timeline_q4_2024.txt",
+          "electrical_design_review.txt",
+          "thermal_analysis_report.txt",
+          "mechanical_integration_plan.txt"
+        ],
+        "response_length": 126,
+        "source_count": 4,
+        "metrics": {
+          "llm_calls": 1,
+          "tokens": {
+            "input": 0,
+            "output": 0,
+            "total": 0
+          },
+          "embedding_operations": 1,
+          "query_time": 0.6483039855957031,
+          "network_time": 0.6483039855957031,
+          "method": "langchain_rag"
+        },
+        "raw_result": {
+          "response": "The provided context does not contain any information about ergonomic considerations. Therefore, I cannot answer the question.",
+          "sources": [
+            "project_timeline_q4_2024.txt",
+            "electrical_design_review.txt",
+            "thermal_analysis_report.txt",
+            "mechanical_integration_plan.txt"
+          ],
+          "query_time": 0.6780016422271729,
+          "method": "langchain_rag"
+        }
+      },
+      "timestamp": "2025-08-12T08:40:04.144576"
+    },
+    {
+      "test_id": 14,
+      "category": "Project Management - Timeline",
+      "query": "What activities are scheduled for Q4 2024 and how do they relate to thermal considerations?",
+      "expected_capabilities": [
+        "temporal_filtering",
+        "relationship_discovery"
+      ],
+      "nancy": {
+        "status": "success",
+        "query_time": 3.525329113006592,
+        "response": "Q4 2024 includes an Electrical Design Review meeting, where thermal considerations are addressed. Specifically, the power supply design review was updated based on thermal constraints (source: 561b2d16f8317fbe7626d88d2d807227b8033cf6f4009009c3e30608d83e688f). The Architecture Phase also occurred during Q4 2024 (source: 600b446bc25309e97cda04100fa9266ff83179e2247c38fcbb280378a26b9d41).\n\n\n\n",
+        "sources": [],
+        "response_length": 391,
+        "source_count": 0,
+        "metrics": {
+          "llm_calls": 2,
+          "tokens": {
+            "input": 0,
+            "output": 0,
+            "total": 0
+          },
+          "embedding_operations": 1,
+          "query_time": 3.525329113006592,
+          "network_time": 3.525329113006592,
+          "orchestrator_used": "langchain_router",
+          "routing_info": {
+            "selected_brain": "unknown",
+            "confidence": 0.5,
+            "routing_method": "llm_router"
+          }
+        },
+        "raw_result": {
+          "query": "What activities are scheduled for Q4 2024 and how do they relate to thermal considerations?",
+          "strategy_used": "langchain_router",
+          "response": "Q4 2024 includes an Electrical Design Review meeting, where thermal considerations are addressed. Specifically, the power supply design review was updated based on thermal constraints (source: 561b2d16f8317fbe7626d88d2d807227b8033cf6f4009009c3e30608d83e688f). The Architecture Phase also occurred during Q4 2024 (source: 600b446bc25309e97cda04100fa9266ff83179e2247c38fcbb280378a26b9d41).\n\n\n\n",
+          "routing_info": {
+            "selected_brain": "unknown",
+            "confidence": 0.5,
+            "routing_method": "llm_router"
+          },
+          "routing_steps": [],
+          "query_time": 3.8430426120758057,
+          "processing_timestamp": "2025-08-12T15:40:06.545746"
+        }
+      },
+      "baseline": {
+        "status": "success",
+        "query_time": 3.76712703704834,
+        "response": "Activities scheduled for Q4 2024 are:\n\n*   **Integration Phase:** This phase runs from October 1 to December 31, 2024, and is managed by Scott Johnson. Critical path analysis includes Thermal analysis completion \u2192 Electrical design \u2192 Mechanical integration, identification of dependencies between subsystems, and cross-functional collaboration.\n*   **Mechanical Integration:** A decision was made to redesign the enclosure with a 15% larger volume to accommodate an aluminum heat sink and split power rail requirements. This decision was influenced by Sarah Chen's thermal requirements and Mike Rodriguez's electrical spacing needs.\n*   **Electrical Design:** A split power rail design was implemented to address thermal constraints requiring component spacing optimization. This resulted in component placement redesign and power efficiency improvements.\n*   **Thermal Analysis:** The decision to adopt an aluminum heat sink design was made because CPU temperatures exceeded 85\u00b0C during stress testing. This decision impacted the mechanical enclosure design and electrical placement constraints and collaborated with Mike Rodriguez (electrical) and Lisa Park (mechanical).\n\nThermal considerations are central to the mechanical and electrical designs. Sarah Chen's thermal analysis and requirements influenced both the mechanical enclosure redesign and the electrical split power rail design. The thermal analysis report directly led to the adoption of the aluminum heat sink.\n",
+        "sources": [
+          "electrical_design_review.txt",
+          "mechanical_integration_plan.txt",
+          "project_timeline_q4_2024.txt",
+          "thermal_analysis_report.txt"
+        ],
+        "response_length": 1477,
+        "source_count": 4,
+        "metrics": {
+          "llm_calls": 1,
+          "tokens": {
+            "input": 0,
+            "output": 0,
+            "total": 0
+          },
+          "embedding_operations": 1,
+          "query_time": 3.76712703704834,
+          "network_time": 3.76712703704834,
+          "method": "langchain_rag"
+        },
+        "raw_result": {
+          "response": "Activities scheduled for Q4 2024 are:\n\n*   **Integration Phase:** This phase runs from October 1 to December 31, 2024, and is managed by Scott Johnson. Critical path analysis includes Thermal analysis completion \u2192 Electrical design \u2192 Mechanical integration, identification of dependencies between subsystems, and cross-functional collaboration.\n*   **Mechanical Integration:** A decision was made to redesign the enclosure with a 15% larger volume to accommodate an aluminum heat sink and split power rail requirements. This decision was influenced by Sarah Chen's thermal requirements and Mike Rodriguez's electrical spacing needs.\n*   **Electrical Design:** A split power rail design was implemented to address thermal constraints requiring component spacing optimization. This resulted in component placement redesign and power efficiency improvements.\n*   **Thermal Analysis:** The decision to adopt an aluminum heat sink design was made because CPU temperatures exceeded 85\u00b0C during stress testing. This decision impacted the mechanical enclosure design and electrical placement constraints and collaborated with Mike Rodriguez (electrical) and Lisa Park (mechanical).\n\nThermal considerations are central to the mechanical and electrical designs. Sarah Chen's thermal analysis and requirements influenced both the mechanical enclosure redesign and the electrical split power rail design. The thermal analysis report directly led to the adoption of the aluminum heat sink.\n",
+          "sources": [
+            "electrical_design_review.txt",
+            "mechanical_integration_plan.txt",
+            "project_timeline_q4_2024.txt",
+            "thermal_analysis_report.txt"
+          ],
+          "query_time": 4.098663806915283,
+          "method": "langchain_rag"
+        }
+      },
+      "timestamp": "2025-08-12T08:40:11.438725"
+    },
+    {
+      "test_id": 15,
+      "category": "Project Management - Decision Tracking",
+      "query": "What decisions were made in the project timeline that affect the thermal analysis, and who made them?",
+      "expected_capabilities": [
+        "decision_tracking",
+        "temporal_analysis",
+        "author_attribution"
+      ],
+      "nancy": {
+        "status": "success",
+        "query_time": 0.9065134525299072,
+        "response": "Available authors: Benchmark Test User, Mike Rodriguez, Sarah Chen, Lisa Park, Tom Wilson, Jennifer Adams, Sarah, Mike, IC, Mike Rodriguez\nApproved, Mike Rodriguez\nDate, Log Periodic, WiFi 3rd Harmonic, Lisa Park\nDate, Gender Distribution, \u22653mm, Button Size, mm, Screw Mount Design, Flash Memory, KB, apps\n- Low Energy, WiFi, Button Interface, David Kim, Mark Thompson, Tom, Jennifer Adams:, Lisa Park's, Li, Sarah Chen\nDate, mm\n- Weight, max, Size Target, Scott, Project Nancy, Nancy, Brain, DuckDB, Graph Brain, Linguistic Brain, nancy, Docker, ChromaDB, Neo4j, Git, Ollama, Graph, Docker Desktop, Gemma, Scott Johnson, Mike Rodriguez\r\nCONTEXT, Sarah Chen's, Mike Rodriguez\r\n",
+        "sources": [],
+        "response_length": 677,
+        "source_count": 0,
+        "metrics": {
+          "llm_calls": 2,
+          "tokens": {
+            "input": 0,
+            "output": 0,
+            "total": 0
+          },
+          "embedding_operations": 1,
+          "query_time": 0.9065134525299072,
+          "network_time": 0.9065134525299072,
+          "orchestrator_used": "langchain_router",
+          "routing_info": {
+            "selected_brain": "unknown",
+            "confidence": 0.5,
+            "routing_method": "llm_router"
+          }
+        },
+        "raw_result": {
+          "query": "What decisions were made in the project timeline that affect the thermal analysis, and who made them?",
+          "strategy_used": "langchain_router",
+          "response": "Available authors: Benchmark Test User, Mike Rodriguez, Sarah Chen, Lisa Park, Tom Wilson, Jennifer Adams, Sarah, Mike, IC, Mike Rodriguez\nApproved, Mike Rodriguez\nDate, Log Periodic, WiFi 3rd Harmonic, Lisa Park\nDate, Gender Distribution, \u22653mm, Button Size, mm, Screw Mount Design, Flash Memory, KB, apps\n- Low Energy, WiFi, Button Interface, David Kim, Mark Thompson, Tom, Jennifer Adams:, Lisa Park's, Li, Sarah Chen\nDate, mm\n- Weight, max, Size Target, Scott, Project Nancy, Nancy, Brain, DuckDB, Graph Brain, Linguistic Brain, nancy, Docker, ChromaDB, Neo4j, Git, Ollama, Graph, Docker Desktop, Gemma, Scott Johnson, Mike Rodriguez\r\nCONTEXT, Sarah Chen's, Mike Rodriguez\r\n",
+          "routing_info": {
+            "selected_brain": "unknown",
+            "confidence": 0.5,
+            "routing_method": "llm_router"
+          },
+          "routing_steps": [],
+          "query_time": 0.955754280090332,
+          "processing_timestamp": "2025-08-12T15:40:11.669340"
+        }
+      },
+      "baseline": {
+        "status": "success",
+        "query_time": 1.3194825649261475,
+        "response": "Based on the provided context, the following decisions made in the project timeline affect the thermal analysis:\n\n*   **Adopt aluminum heat sink design:** Made by Sarah Chen.\n*   **Implement split power rail design:** Made by Mike Rodriguez.\n\nThe context also indicates that thermal constraints influenced the electrical design decisions. The thermal analysis also affected the mechanical enclosure design.",
+        "sources": [
+          "electrical_design_review.txt",
+          "thermal_analysis_report.txt",
+          "project_timeline_q4_2024.txt",
+          "mechanical_integration_plan.txt"
+        ],
+        "response_length": 406,
+        "source_count": 4,
+        "metrics": {
+          "llm_calls": 1,
+          "tokens": {
+            "input": 0,
+            "output": 0,
+            "total": 0
+          },
+          "embedding_operations": 1,
+          "query_time": 1.3194825649261475,
+          "network_time": 1.3194825649261475,
+          "method": "langchain_rag"
+        },
+        "raw_result": {
+          "response": "Based on the provided context, the following decisions made in the project timeline affect the thermal analysis:\n\n*   **Adopt aluminum heat sink design:** Made by Sarah Chen.\n*   **Implement split power rail design:** Made by Mike Rodriguez.\n\nThe context also indicates that thermal constraints influenced the electrical design decisions. The thermal analysis also affected the mechanical enclosure design.",
+          "sources": [
+            "electrical_design_review.txt",
+            "thermal_analysis_report.txt",
+            "project_timeline_q4_2024.txt",
+            "mechanical_integration_plan.txt"
+          ],
+          "query_time": 1.4124641418457031,
+          "method": "langchain_rag"
+        }
+      },
+      "timestamp": "2025-08-12T08:40:13.665811"
+    }
+  ],
+  "usage_metrics": {
+    "nancy": {
+      "llm_calls": 30,
+      "total_tokens": 0,
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "embedding_operations": 15,
+      "processing_time": 40.03722524642944,
+      "errors": 0
+    },
+    "baseline": {
+      "llm_calls": 15,
+      "total_tokens": 0,
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "embedding_operations": 15,
+      "processing_time": 21.625353813171387,
+      "errors": 0
+    }
+  },
+  "analysis": {
+    "performance": {
+      "nancy_avg_time": 2.669148349761963,
+      "baseline_avg_time": 1.4416902542114258,
+      "nancy_success_rate": 1.0,
+      "baseline_success_rate": 1.0,
+      "speed_advantage": "Baseline"
+    },
+    "resource_usage": {
+      "nancy": {
+        "total_llm_calls": 30,
+        "total_embedding_ops": 15,
+        "avg_llm_calls_per_query": 2.0,
+        "total_processing_time": 40.03722524642944,
+        "error_rate": 0.0
+      },
+      "baseline": {
+        "total_llm_calls": 15,
+        "total_embedding_ops": 15,
+        "avg_llm_calls_per_query": 1.0,
+        "total_processing_time": 21.625353813171387,
+        "error_rate": 0.0
+      }
+    },
+    "efficiency_metrics": {
+      "llm_efficiency": {
+        "nancy_calls_per_success": 2.0,
+        "baseline_calls_per_success": 1.0
+      },
+      "embedding_efficiency": {
+        "nancy_embeds_per_query": 1.0,
+        "baseline_embeds_per_query": 1.0
+      }
+    },
+    "recommendations": [
+      "Nancy uses significantly more LLM calls - consider optimizing orchestration"
+    ]
+  }
+}

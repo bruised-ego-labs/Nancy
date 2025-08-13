@@ -20,49 +20,100 @@ class RAGComparison:
         self.baseline_url = "http://localhost:8002"
         self.results = []
         
-        # Test queries across different complexity levels
+        # Test queries across different complexity levels - 15 queries covering multiple disciplines
         self.test_queries = [
+            # Systems Engineering (3 queries)
             {
-                "category": "Basic Factual",
-                "query": "What is the operating temperature range mentioned in the thermal analysis?",
-                "expected_capabilities": ["basic_retrieval"]
+                "category": "Systems Engineering - Requirements",
+                "query": "What are the system-level requirements and how do they constrain the mechanical design?",
+                "expected_capabilities": ["basic_retrieval", "cross_document_synthesis"]
             },
             {
-                "category": "Author Attribution", 
-                "query": "Who wrote the electrical design review document?",
-                "expected_capabilities": ["author_tracking", "metadata_retrieval"]
+                "category": "Systems Engineering - Integration",
+                "query": "Which integration points between electrical and mechanical systems need special attention?",
+                "expected_capabilities": ["relationship_discovery", "technical_synthesis"]
             },
             {
-                "category": "Cross-Domain Relationships",
-                "query": "How do the electrical design requirements affect the mechanical integration plan?",
-                "expected_capabilities": ["relationship_discovery", "cross_document_synthesis"]
+                "category": "Systems Engineering - Verification",
+                "query": "What verification procedures are defined for thermal performance validation?",
+                "expected_capabilities": ["basic_retrieval", "temporal_analysis"]
+            },
+            
+            # Mechanical Engineering (3 queries)
+            {
+                "category": "Mechanical Engineering - Materials",
+                "query": "What materials are specified for high-temperature components and who selected them?",
+                "expected_capabilities": ["basic_retrieval", "author_tracking"]
             },
             {
-                "category": "Decision Chain Tracking",
-                "query": "What decisions were made in the project timeline that affect the thermal analysis?",
-                "expected_capabilities": ["decision_tracking", "temporal_analysis"]
+                "category": "Mechanical Engineering - Stress Analysis",
+                "query": "What are the critical stress points identified in the structural analysis documents?",
+                "expected_capabilities": ["technical_synthesis", "basic_retrieval"]
             },
             {
-                "category": "Complex Multi-Document",
-                "query": "What are the key integration points between electrical and mechanical systems, and how do project timelines affect thermal considerations?",
-                "expected_capabilities": ["multi_brain_orchestration", "complex_synthesis", "temporal_relationships"]
+                "category": "Mechanical Engineering - CAD Integration",
+                "query": "How do the CAD model revisions relate to thermal analysis updates?",
+                "expected_capabilities": ["relationship_discovery", "temporal_analysis"]
+            },
+            
+            # Electrical Engineering (3 queries)
+            {
+                "category": "Electrical Engineering - Power Systems",
+                "query": "What are the power dissipation requirements and how do they impact the enclosure design?",
+                "expected_capabilities": ["technical_synthesis", "cross_domain_analysis"]
             },
             {
-                "category": "Temporal Analysis",
+                "category": "Electrical Engineering - EMC Compliance",
+                "query": "What EMC compliance measures are specified and who is responsible for implementation?",
+                "expected_capabilities": ["basic_retrieval", "author_tracking"]
+            },
+            {
+                "category": "Electrical Engineering - Circuit Design",
+                "query": "How do circuit board layout constraints affect thermal management decisions?",
+                "expected_capabilities": ["cross_domain_analysis", "relationship_discovery"]
+            },
+            
+            # Firmware Engineering (2 queries)
+            {
+                "category": "Firmware Engineering - Memory Requirements",
+                "query": "What are the memory allocation requirements for the thermal control algorithms?",
+                "expected_capabilities": ["basic_retrieval", "technical_synthesis"]
+            },
+            {
+                "category": "Firmware Engineering - Control Protocols",
+                "query": "Which communication protocols are used between thermal sensors and the main controller?",
+                "expected_capabilities": ["technical_synthesis", "basic_retrieval"]
+            },
+            
+            # Industrial Design (2 queries)
+            {
+                "category": "Industrial Design - User Interface",
+                "query": "What user feedback influenced the thermal management interface design decisions?",
+                "expected_capabilities": ["decision_tracking", "author_attribution"]
+            },
+            {
+                "category": "Industrial Design - Ergonomics",
+                "query": "How do ergonomic considerations affect the placement of thermal management controls?",
+                "expected_capabilities": ["cross_domain_analysis", "basic_retrieval"]
+            },
+            
+            # Project Management (2 queries)
+            {
+                "category": "Project Management - Timeline",
                 "query": "What activities are scheduled for Q4 2024 and how do they relate to thermal considerations?",
                 "expected_capabilities": ["temporal_filtering", "relationship_discovery"]
             },
             {
-                "category": "Technical Detail Synthesis",
-                "query": "What are the power dissipation requirements and how do they impact the enclosure design?",
-                "expected_capabilities": ["technical_synthesis", "cross_domain_analysis"]
+                "category": "Project Management - Decision Tracking",
+                "query": "What decisions were made in the project timeline that affect the thermal analysis, and who made them?",
+                "expected_capabilities": ["decision_tracking", "temporal_analysis", "author_attribution"]
             }
         ]
     
     def test_system_health(self, system_name: str, base_url: str) -> Dict[str, Any]:
         """Test if system is responsive"""
         try:
-            response = requests.get(f"{base_url}/health", timeout=5)
+            response = requests.get(f"{base_url}/health", timeout=30)
             return {
                 "system": system_name,
                 "status": "healthy" if response.status_code == 200 else "unhealthy",

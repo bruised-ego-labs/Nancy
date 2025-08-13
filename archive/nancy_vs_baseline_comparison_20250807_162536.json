@@ -1,0 +1,784 @@
+{
+  "metadata": {
+    "timestamp": "2025-08-07T16:25:36.472972",
+    "total_time": 1317.000561952591,
+    "nancy_url": "http://localhost:8000",
+    "baseline_url": "http://localhost:8002",
+    "test_count": 7
+  },
+  "system_health": {
+    "nancy": {
+      "system": "Nancy Four-Brain",
+      "status": "healthy",
+      "response_code": 200,
+      "details": {
+        "status": "ok"
+      }
+    },
+    "baseline": {
+      "system": "Baseline RAG",
+      "status": "healthy",
+      "response_code": 200,
+      "details": {
+        "status": "ok",
+        "system": "baseline-rag",
+        "rag_initialized": true
+      }
+    }
+  },
+  "test_results": [
+    {
+      "test_id": 1,
+      "category": "Basic Factual",
+      "query": "What is the operating temperature range mentioned in the thermal analysis?",
+      "expected_capabilities": [
+        "basic_retrieval"
+      ],
+      "nancy": {
+        "system": "Nancy",
+        "status": "success",
+        "query_time": 103.39059209823608,
+        "response": "The operating temperature range for this device is not explicitly stated, but it's implied that the thermal analysis report indicates a need to maintain temperatures within a specific range.  The document mentions \"CPU temperatures exceeded 85\u00b0C during stress testing\" and \"the heat sink design was chosen to accommodate higher performance modes.\" This suggests that the operating temperature needs to be kept below a certain threshold for optimal performance.",
+        "sources": [],
+        "author_info": {
+          "has_author_attribution": false,
+          "identified_authors": [],
+          "author_count": 0
+        },
+        "relationship_info": {
+          "has_relationships": false,
+          "relationship_indicators": [],
+          "relationship_count": 0
+        },
+        "response_length": 460,
+        "source_count": 0,
+        "raw_result": {
+          "query": "What is the operating temperature range mentioned in the thermal analysis?",
+          "strategy_used": "langchain_four_brain",
+          "response": "The operating temperature range for this device is not explicitly stated, but it's implied that the thermal analysis report indicates a need to maintain temperatures within a specific range.  The document mentions \"CPU temperatures exceeded 85\u00b0C during stress testing\" and \"the heat sink design was chosen to accommodate higher performance modes.\" This suggests that the operating temperature needs to be kept below a certain threshold for optimal performance.",
+          "tools_used": [
+            "graph_brain",
+            "vector_brain"
+          ],
+          "agent_steps": [
+            {
+              "type": "action",
+              "tool": "vector_brain",
+              "input": "operating temperature range",
+              "timestamp": "2025-08-07T23:04:27.949938"
+            },
+            {
+              "type": "action",
+              "tool": "graph_brain",
+              "input": "'author:John Doe'",
+              "timestamp": "2025-08-07T23:04:44.075639"
+            }
+          ],
+          "query_time": 102.80763053894043,
+          "processing_timestamp": "2025-08-07T23:05:22.467227"
+        }
+      },
+      "baseline": {
+        "system": "Baseline",
+        "status": "success",
+        "query_time": 40.785139083862305,
+        "response": "The context states that CPU temperatures exceeded 85\u00b0C during stress testing. However, it doesn't provide a specific operating temperature range.  \n",
+        "sources": [
+          "thermal_analysis_report.txt",
+          "project_timeline_q4_2024.txt",
+          "mechanical_integration_plan.txt",
+          "electrical_design_review.txt"
+        ],
+        "author_info": {
+          "has_author_attribution": false,
+          "identified_authors": [],
+          "author_count": 0
+        },
+        "relationship_info": {
+          "has_relationships": false,
+          "relationship_indicators": [],
+          "relationship_count": 0
+        },
+        "response_length": 148,
+        "source_count": 4,
+        "raw_result": {
+          "response": "The context states that CPU temperatures exceeded 85\u00b0C during stress testing. However, it doesn't provide a specific operating temperature range.  \n",
+          "sources": [
+            "thermal_analysis_report.txt",
+            "project_timeline_q4_2024.txt",
+            "mechanical_integration_plan.txt",
+            "electrical_design_review.txt"
+          ],
+          "query_time": 41.57356262207031,
+          "method": "langchain_rag"
+        }
+      },
+      "timestamp": "2025-08-07T16:06:03.726988"
+    },
+    {
+      "test_id": 2,
+      "category": "Author Attribution",
+      "query": "Who wrote the electrical design review document?",
+      "expected_capabilities": [
+        "author_tracking",
+        "metadata_retrieval"
+      ],
+      "nancy": {
+        "system": "Nancy",
+        "status": "success",
+        "query_time": 74.07098865509033,
+        "response": "To determine who wrote the electrical design review document, I need more information about the specific document in question. Please provide the name of the document or its file path. \n\n\nLet me know if you have any other questions!",
+        "sources": [],
+        "author_info": {
+          "has_author_attribution": true,
+          "identified_authors": [],
+          "author_count": 0
+        },
+        "relationship_info": {
+          "has_relationships": false,
+          "relationship_indicators": [],
+          "relationship_count": 0
+        },
+        "response_length": 232,
+        "source_count": 0,
+        "raw_result": {
+          "query": "Who wrote the electrical design review document?",
+          "strategy_used": "langchain_four_brain",
+          "response": "To determine who wrote the electrical design review document, I need more information about the specific document in question. Please provide the name of the document or its file path. \n\n\nLet me know if you have any other questions!",
+          "tools_used": [
+            "graph_brain"
+          ],
+          "agent_steps": [
+            {
+              "type": "action",
+              "tool": "graph_brain",
+              "input": "'author:John Doe'",
+              "timestamp": "2025-08-07T23:06:45.425710"
+            },
+            {
+              "type": "action",
+              "tool": "graph_brain",
+              "input": "'author:John Doe'",
+              "timestamp": "2025-08-07T23:06:55.747948"
+            },
+            {
+              "type": "action",
+              "tool": "graph_brain",
+              "input": "'author:John Doe'",
+              "timestamp": "2025-08-07T23:07:05.202654"
+            }
+          ],
+          "query_time": 73.36386799812317,
+          "processing_timestamp": "2025-08-07T23:07:17.473926"
+        }
+      },
+      "baseline": {
+        "system": "Baseline",
+        "status": "success",
+        "query_time": 17.776668071746826,
+        "response": "The provided context doesn't specify who wrote the electrical design review document. \n",
+        "sources": [
+          "project_timeline_q4_2024.txt",
+          "mechanical_integration_plan.txt",
+          "electrical_design_review.txt"
+        ],
+        "author_info": {
+          "has_author_attribution": true,
+          "identified_authors": [],
+          "author_count": 0
+        },
+        "relationship_info": {
+          "has_relationships": false,
+          "relationship_indicators": [],
+          "relationship_count": 0
+        },
+        "response_length": 87,
+        "source_count": 3,
+        "raw_result": {
+          "response": "The provided context doesn't specify who wrote the electrical design review document. \n",
+          "sources": [
+            "project_timeline_q4_2024.txt",
+            "mechanical_integration_plan.txt",
+            "electrical_design_review.txt"
+          ],
+          "query_time": 17.07366132736206,
+          "method": "langchain_rag"
+        }
+      },
+      "timestamp": "2025-08-07T16:07:35.574644"
+    },
+    {
+      "test_id": 3,
+      "category": "Cross-Domain Relationships",
+      "query": "How do the electrical design requirements affect the mechanical integration plan?",
+      "expected_capabilities": [
+        "relationship_discovery",
+        "cross_document_synthesis"
+      ],
+      "nancy": {
+        "system": "Nancy",
+        "status": "success",
+        "query_time": 173.61815094947815,
+        "response": "The electrical design requirements directly influence the mechanical integration plan by impacting the thermal-electrical interface. This leads to design reviews, milestone tracking, and enclosure redesign.  The user's query highlights the importance of understanding how these two aspects are interconnected.",
+        "sources": [],
+        "author_info": {
+          "has_author_attribution": true,
+          "identified_authors": [],
+          "author_count": 0
+        },
+        "relationship_info": {
+          "has_relationships": false,
+          "relationship_indicators": [],
+          "relationship_count": 0
+        },
+        "response_length": 309,
+        "source_count": 0,
+        "raw_result": {
+          "query": "How do the electrical design requirements affect the mechanical integration plan?",
+          "strategy_used": "langchain_four_brain",
+          "response": "The electrical design requirements directly influence the mechanical integration plan by impacting the thermal-electrical interface. This leads to design reviews, milestone tracking, and enclosure redesign.  The user's query highlights the importance of understanding how these two aspects are interconnected.",
+          "tools_used": [
+            "vector_brain"
+          ],
+          "agent_steps": [
+            {
+              "type": "action",
+              "tool": "vector_brain",
+              "input": "electrical design requirements\" AND \"mechanical integration plan",
+              "timestamp": "2025-08-07T23:08:18.304067"
+            },
+            {
+              "type": "action",
+              "tool": "vector_brain",
+              "input": "electrical design requirements\" AND \"mechanical integration plan",
+              "timestamp": "2025-08-07T23:08:57.608973"
+            },
+            {
+              "type": "action",
+              "tool": "vector_brain",
+              "input": "electrical design requirements\" AND \"mechanical integration plan",
+              "timestamp": "2025-08-07T23:09:38.967972"
+            }
+          ],
+          "query_time": 173.9454689025879,
+          "processing_timestamp": "2025-08-07T23:10:28.527071"
+        }
+      },
+      "baseline": {
+        "system": "Baseline",
+        "status": "success",
+        "query_time": 21.617360830307007,
+        "response": "The electrical design requirements, specifically Mike Rodriguez's need for electrical spacing, directly influence the mechanical integration plan. This is because the design changes needed in the enclosure (increased height and partitioning modifications) are to accommodate those requirements. \n",
+        "sources": [
+          "thermal_analysis_report.txt",
+          "project_timeline_q4_2024.txt",
+          "mechanical_integration_plan.txt"
+        ],
+        "author_info": {
+          "has_author_attribution": false,
+          "identified_authors": [
+            "Mike Rodriguez"
+          ],
+          "author_count": 1
+        },
+        "relationship_info": {
+          "has_relationships": false,
+          "relationship_indicators": [],
+          "relationship_count": 0
+        },
+        "response_length": 296,
+        "source_count": 3,
+        "raw_result": {
+          "response": "The electrical design requirements, specifically Mike Rodriguez's need for electrical spacing, directly influence the mechanical integration plan. This is because the design changes needed in the enclosure (increased height and partitioning modifications) are to accommodate those requirements. \n",
+          "sources": [
+            "thermal_analysis_report.txt",
+            "project_timeline_q4_2024.txt",
+            "mechanical_integration_plan.txt"
+          ],
+          "query_time": 23.062175035476685,
+          "method": "langchain_rag"
+        }
+      },
+      "timestamp": "2025-08-07T16:10:50.810156"
+    },
+    {
+      "test_id": 4,
+      "category": "Decision Chain Tracking",
+      "query": "What decisions were made in the project timeline that affect the thermal analysis?",
+      "expected_capabilities": [
+        "decision_tracking",
+        "temporal_analysis"
+      ],
+      "nancy": {
+        "system": "Nancy",
+        "status": "success",
+        "query_time": 139.52468299865723,
+        "response": "Based on the available information, we know there were several decisions related to thermal analysis within the project timeline. These include: \"Individual subsystem optimization insufficient\" which was influenced by integration challenges in the thermal-electrical interface.  This resulted in weekly cross-team design reviews and milestone tracking. The decision to implement a split power rail design was made by Mike Rodriguez, with Lisa Park coordinating with Sarah Chen and Mike Rodriguez for mechanical changes that enabled both thermal and electrical optimizations.",
+        "sources": [],
+        "author_info": {
+          "has_author_attribution": true,
+          "identified_authors": [
+            "Sarah Chen",
+            "Mike Rodriguez"
+          ],
+          "author_count": 2
+        },
+        "relationship_info": {
+          "has_relationships": true,
+          "relationship_indicators": [
+            "related to"
+          ],
+          "relationship_count": 1
+        },
+        "response_length": 574,
+        "source_count": 0,
+        "raw_result": {
+          "query": "What decisions were made in the project timeline that affect the thermal analysis?",
+          "strategy_used": "langchain_four_brain",
+          "response": "Based on the available information, we know there were several decisions related to thermal analysis within the project timeline. These include: \"Individual subsystem optimization insufficient\" which was influenced by integration challenges in the thermal-electrical interface.  This resulted in weekly cross-team design reviews and milestone tracking. The decision to implement a split power rail design was made by Mike Rodriguez, with Lisa Park coordinating with Sarah Chen and Mike Rodriguez for mechanical changes that enabled both thermal and electrical optimizations.",
+          "tools_used": [
+            "analytical_brain",
+            "vector_brain"
+          ],
+          "agent_steps": [
+            {
+              "type": "action",
+              "tool": "vector_brain",
+              "input": "project timeline\" AND \"thermal analysis",
+              "timestamp": "2025-08-07T23:11:33.713417"
+            },
+            {
+              "type": "action",
+              "tool": "analytical_brain",
+              "input": "'recent_docs'",
+              "timestamp": "2025-08-07T23:12:09.460076"
+            },
+            {
+              "type": "action",
+              "tool": "vector_brain",
+              "input": "project timeline\" AND \"thermal analysis",
+              "timestamp": "2025-08-07T23:12:19.661490"
+            }
+          ],
+          "query_time": 139.3881652355194,
+          "processing_timestamp": "2025-08-07T23:13:10.993856"
+        }
+      },
+      "baseline": {
+        "system": "Baseline",
+        "status": "success",
+        "query_time": 39.85527467727661,
+        "response": "The following decisions impacted the thermal analysis:\n\n* **Decision:** Adopt aluminum heat sink design. \n* **Decision Maker:** Sarah Chen\n* **Context:** CPU temperatures exceeded 85\u00b0C during stress testing.\n* **Influenced by:** Mike Rodriguez's electrical power analysis showing a 15W TDP\n* **AFFECTS:**  Mechanical enclosure design, electrical placement constraints. \n \n**Additionally,** \n* **Decision:** Implement split power rail design.\n* **Decision Maker:** Mike Rodriguez\n* **Context:** Thermal constraints require component spacing optimization. \n* **Influenced by:** Sarah Chen's thermal analysis showing hotspot risks.\n* **Result:** Component placement redesign, power efficiency improvements. \n\nLet me know if you have any other questions! \n",
+        "sources": [
+          "thermal_analysis_report.txt",
+          "project_timeline_q4_2024.txt",
+          "mechanical_integration_plan.txt",
+          "electrical_design_review.txt"
+        ],
+        "author_info": {
+          "has_author_attribution": true,
+          "identified_authors": [
+            "Sarah Chen",
+            "Mike Rodriguez"
+          ],
+          "author_count": 2
+        },
+        "relationship_info": {
+          "has_relationships": true,
+          "relationship_indicators": [
+            "affects"
+          ],
+          "relationship_count": 1
+        },
+        "response_length": 752,
+        "source_count": 4,
+        "raw_result": {
+          "response": "The following decisions impacted the thermal analysis:\n\n* **Decision:** Adopt aluminum heat sink design. \n* **Decision Maker:** Sarah Chen\n* **Context:** CPU temperatures exceeded 85\u00b0C during stress testing.\n* **Influenced by:** Mike Rodriguez's electrical power analysis showing a 15W TDP\n* **AFFECTS:**  Mechanical enclosure design, electrical placement constraints. \n \n**Additionally,** \n* **Decision:** Implement split power rail design.\n* **Decision Maker:** Mike Rodriguez\n* **Context:** Thermal constraints require component spacing optimization. \n* **Influenced by:** Sarah Chen's thermal analysis showing hotspot risks.\n* **Result:** Component placement redesign, power efficiency improvements. \n\nLet me know if you have any other questions! \n",
+          "sources": [
+            "thermal_analysis_report.txt",
+            "project_timeline_q4_2024.txt",
+            "mechanical_integration_plan.txt",
+            "electrical_design_review.txt"
+          ],
+          "query_time": 38.73105072975159,
+          "method": "langchain_rag"
+        }
+      },
+      "timestamp": "2025-08-07T16:13:50.191114"
+    },
+    {
+      "test_id": 5,
+      "category": "Complex Multi-Document",
+      "query": "What are the key integration points between electrical and mechanical systems, and how do project timelines affect thermal considerations?",
+      "expected_capabilities": [
+        "multi_brain_orchestration",
+        "complex_synthesis",
+        "temporal_relationships"
+      ],
+      "nancy": {
+        "system": "Nancy",
+        "status": "success",
+        "query_time": 173.29528522491455,
+        "response": "Thought:  The user is asking about integration points between electrical and mechanical systems, how project timelines affect thermal considerations. I can use the vector_brain tool to find relevant documents that address these topics. \n\nAction: vector_brain\nAction Input: \"electrical and mechanical systems integration points\" AND \"project timelines\" AND \"thermal considerations\" ",
+        "sources": [],
+        "author_info": {
+          "has_author_attribution": false,
+          "identified_authors": [],
+          "author_count": 0
+        },
+        "relationship_info": {
+          "has_relationships": false,
+          "relationship_indicators": [],
+          "relationship_count": 0
+        },
+        "response_length": 381,
+        "source_count": 0,
+        "raw_result": {
+          "query": "What are the key integration points between electrical and mechanical systems, and how do project timelines affect thermal considerations?",
+          "strategy_used": "langchain_four_brain",
+          "response": "Thought:  The user is asking about integration points between electrical and mechanical systems, how project timelines affect thermal considerations. I can use the vector_brain tool to find relevant documents that address these topics. \n\nAction: vector_brain\nAction Input: \"electrical and mechanical systems integration points\" AND \"project timelines\" AND \"thermal considerations\" ",
+          "tools_used": [
+            "linguistic_brain",
+            "vector_brain"
+          ],
+          "agent_steps": [
+            {
+              "type": "action",
+              "tool": "linguistic_brain",
+              "input": "What are the key integration points between electrical and mechanical systems, and how do project timelines affect thermal considerations?",
+              "timestamp": "2025-08-07T23:14:36.828968"
+            },
+            {
+              "type": "action",
+              "tool": "vector_brain",
+              "input": "electrical and mechanical systems integration points\" AND \"project timelines\" AND \"thermal considerations",
+              "timestamp": "2025-08-07T23:16:02.709514"
+            }
+          ],
+          "query_time": 173.63421487808228,
+          "processing_timestamp": "2025-08-07T23:16:43.373892"
+        }
+      },
+      "baseline": {
+        "system": "Baseline",
+        "status": "success",
+        "query_time": 31.61115002632141,
+        "response": "The critical path analysis shows these crucial integration points between electrical and mechanical systems: \n\n1. **Electrical design** needs to be finalized before the **mechanical integration** begins.\n2. The **thermal analysis completion** is dependent on **electrical design** and this in turn leads to mechanical integration. \n\n\nThis context also highlights how project timelines influence thermal considerations, specifically through the decision to redesign the enclosure for a 15% increase in volume to accommodate the aluminum heat sink and split power rail needs.  \n",
+        "sources": [
+          "project_timeline_q4_2024.txt",
+          "mechanical_integration_plan.txt"
+        ],
+        "author_info": {
+          "has_author_attribution": false,
+          "identified_authors": [],
+          "author_count": 0
+        },
+        "relationship_info": {
+          "has_relationships": false,
+          "relationship_indicators": [],
+          "relationship_count": 0
+        },
+        "response_length": 576,
+        "source_count": 2,
+        "raw_result": {
+          "response": "The critical path analysis shows these crucial integration points between electrical and mechanical systems: \n\n1. **Electrical design** needs to be finalized before the **mechanical integration** begins.\n2. The **thermal analysis completion** is dependent on **electrical design** and this in turn leads to mechanical integration. \n\n\nThis context also highlights how project timelines influence thermal considerations, specifically through the decision to redesign the enclosure for a 15% increase in volume to accommodate the aluminum heat sink and split power rail needs.  \n",
+          "sources": [
+            "project_timeline_q4_2024.txt",
+            "mechanical_integration_plan.txt"
+          ],
+          "query_time": 31.837877988815308,
+          "method": "langchain_rag"
+        }
+      },
+      "timestamp": "2025-08-07T16:17:15.099062"
+    },
+    {
+      "test_id": 6,
+      "category": "Temporal Analysis",
+      "query": "What activities are scheduled for Q4 2024 and how do they relate to thermal considerations?",
+      "expected_capabilities": [
+        "temporal_filtering",
+        "relationship_discovery"
+      ],
+      "nancy": {
+        "system": "Nancy",
+        "status": "success",
+        "query_time": 169.468976020813,
+        "response": "The user is asking for information about activities scheduled in Q4 2024 and how they relate to thermal considerations.  The document \"Thermal Analysis Report - Q4 2024\" provides details on thermal analysis activities during this period. Additionally, the project timeline update, electrical design review meeting notes, and mechanical integration plan provide insights into the schedule and its relation to thermal aspects.",
+        "sources": [],
+        "author_info": {
+          "has_author_attribution": false,
+          "identified_authors": [],
+          "author_count": 0
+        },
+        "relationship_info": {
+          "has_relationships": false,
+          "relationship_indicators": [],
+          "relationship_count": 0
+        },
+        "response_length": 424,
+        "source_count": 0,
+        "raw_result": {
+          "query": "What activities are scheduled for Q4 2024 and how do they relate to thermal considerations?",
+          "strategy_used": "langchain_four_brain",
+          "response": "The user is asking for information about activities scheduled in Q4 2024 and how they relate to thermal considerations.  The document \"Thermal Analysis Report - Q4 2024\" provides details on thermal analysis activities during this period. Additionally, the project timeline update, electrical design review meeting notes, and mechanical integration plan provide insights into the schedule and its relation to thermal aspects.",
+          "tools_used": [
+            "linguistic_brain",
+            "vector_brain"
+          ],
+          "agent_steps": [
+            {
+              "type": "action",
+              "tool": "linguistic_brain",
+              "input": "What activities are scheduled for Q4 2024 and how do they relate to thermal considerations?",
+              "timestamp": "2025-08-07T23:18:04.544832"
+            },
+            {
+              "type": "action",
+              "tool": "vector_brain",
+              "input": "What activities are scheduled for Q4 2024 and how do they relate to thermal considerations?",
+              "timestamp": "2025-08-07T23:19:20.291942"
+            }
+          ],
+          "query_time": 168.53054428100586,
+          "processing_timestamp": "2025-08-07T23:20:03.755511"
+        }
+      },
+      "baseline": {
+        "system": "Baseline",
+        "status": "success",
+        "query_time": 94.77776408195496,
+        "response": "Q4 2024 activities related to thermal considerations include:\n\n* **Thermal Analysis Completion:**  This is a critical step in the project timeline that informs subsequent design decisions.\n    \n* **Mechanical Integration:** This phase will address the needs of the aluminum heat sink and split power rail, which are crucial for managing temperature. \n\n* **Electrical Design:**   The electrical placement constraints and optimization must be addressed to ensure thermal efficiency.  The decision was made to implement a split power rail design to optimize component spacing due to the high thermal demands of the CPU. \n    \n* **Mechanical Enclosure Redesign:** The enclosure size will be increased by 15% to accommodate the aluminum heat sink and split power rails. \n\n* **Thermal Analysis Report:** This report, based on stress tests,  led the decision to adopt a specific aluminum heat sink design.\n\n\nThese activities are all interconnected in that the thermal analysis and subsequent design decisions are crucial to ensure optimal performance of the product throughout Q4 2024. \n",
+        "sources": [
+          "thermal_analysis_report.txt",
+          "project_timeline_q4_2024.txt",
+          "mechanical_integration_plan.txt",
+          "electrical_design_review.txt"
+        ],
+        "author_info": {
+          "has_author_attribution": true,
+          "identified_authors": [],
+          "author_count": 0
+        },
+        "relationship_info": {
+          "has_relationships": true,
+          "relationship_indicators": [
+            "related to",
+            "due to"
+          ],
+          "relationship_count": 2
+        },
+        "response_length": 1080,
+        "source_count": 4,
+        "raw_result": {
+          "response": "Q4 2024 activities related to thermal considerations include:\n\n* **Thermal Analysis Completion:**  This is a critical step in the project timeline that informs subsequent design decisions.\n    \n* **Mechanical Integration:** This phase will address the needs of the aluminum heat sink and split power rail, which are crucial for managing temperature. \n\n* **Electrical Design:**   The electrical placement constraints and optimization must be addressed to ensure thermal efficiency.  The decision was made to implement a split power rail design to optimize component spacing due to the high thermal demands of the CPU. \n    \n* **Mechanical Enclosure Redesign:** The enclosure size will be increased by 15% to accommodate the aluminum heat sink and split power rails. \n\n* **Thermal Analysis Report:** This report, based on stress tests,  led the decision to adopt a specific aluminum heat sink design.\n\n\nThese activities are all interconnected in that the thermal analysis and subsequent design decisions are crucial to ensure optimal performance of the product throughout Q4 2024. \n",
+          "sources": [
+            "thermal_analysis_report.txt",
+            "project_timeline_q4_2024.txt",
+            "mechanical_integration_plan.txt",
+            "electrical_design_review.txt"
+          ],
+          "query_time": 94.55280590057373,
+          "method": "langchain_rag"
+        }
+      },
+      "timestamp": "2025-08-07T16:21:39.347097"
+    },
+    {
+      "test_id": 7,
+      "category": "Technical Detail Synthesis",
+      "query": "What are the power dissipation requirements and how do they impact the enclosure design?",
+      "expected_capabilities": [
+        "technical_synthesis",
+        "cross_domain_analysis"
+      ],
+      "nancy": {
+        "system": "Nancy",
+        "status": "timeout",
+        "query_time": 180,
+        "error": "Query timed out after 180 seconds"
+      },
+      "baseline": {
+        "system": "Baseline",
+        "status": "success",
+        "query_time": 57.09360885620117,
+        "response": "The thermal analysis report indicates that the CPU temperatures exceeded 85\u00b0C during stress testing. This suggests a need for improved heat dissipation to meet power consumption requirements. \n\nAccording to the report, the aluminum heat sink offers 40% better heat dissipation per cost compared to copper, which is crucial for achieving the required performance levels. \n\nThe design decision to switch to an aluminum heat sink and modify the enclosure volume reflects these findings and seeks to achieve adequate cooling capacity to support the device's power requirements.  \n",
+        "sources": [
+          "thermal_analysis_report.txt",
+          "mechanical_integration_plan.txt"
+        ],
+        "author_info": {
+          "has_author_attribution": false,
+          "identified_authors": [],
+          "author_count": 0
+        },
+        "relationship_info": {
+          "has_relationships": false,
+          "relationship_indicators": [],
+          "relationship_count": 0
+        },
+        "response_length": 576,
+        "source_count": 2,
+        "raw_result": {
+          "response": "The thermal analysis report indicates that the CPU temperatures exceeded 85\u00b0C during stress testing. This suggests a need for improved heat dissipation to meet power consumption requirements. \n\nAccording to the report, the aluminum heat sink offers 40% better heat dissipation per cost compared to copper, which is crucial for achieving the required performance levels. \n\nThe design decision to switch to an aluminum heat sink and modify the enclosure volume reflects these findings and seeks to achieve adequate cooling capacity to support the device's power requirements.  \n",
+          "sources": [
+            "thermal_analysis_report.txt",
+            "mechanical_integration_plan.txt"
+          ],
+          "query_time": 57.141194343566895,
+          "method": "langchain_rag"
+        }
+      },
+      "timestamp": "2025-08-07T16:25:36.472955"
+    }
+  ],
+  "analysis": {
+    "performance": {
+      "nancy_avg_time": 138.89477932453156,
+      "baseline_avg_time": 43.359566518238616,
+      "nancy_success_rate": 0.8571428571428571,
+      "baseline_success_rate": 1.0,
+      "nancy_fastest": 74.07098865509033,
+      "baseline_fastest": 17.776668071746826,
+      "nancy_slowest": 173.61815094947815,
+      "baseline_slowest": 94.77776408195496
+    },
+    "capabilities": {
+      "total_tests": 7,
+      "nancy_wins": 0,
+      "baseline_wins": 7,
+      "category_breakdown": {
+        "Basic Factual": {
+          "nancy_better": 0,
+          "baseline_better": 1,
+          "details": [
+            {
+              "query": "What is the operating temperature range mentioned ...",
+              "nancy_score": 0,
+              "baseline_score": 1,
+              "nancy_time": 103.39059209823608,
+              "baseline_time": 40.785139083862305,
+              "nancy_authors": 0,
+              "baseline_authors": 0,
+              "nancy_relationships": 0,
+              "baseline_relationships": 0
+            }
+          ]
+        },
+        "Author Attribution": {
+          "nancy_better": 0,
+          "baseline_better": 1,
+          "details": [
+            {
+              "query": "Who wrote the electrical design review document?...",
+              "nancy_score": 0,
+              "baseline_score": 1,
+              "nancy_time": 74.07098865509033,
+              "baseline_time": 17.776668071746826,
+              "nancy_authors": 0,
+              "baseline_authors": 0,
+              "nancy_relationships": 0,
+              "baseline_relationships": 0
+            }
+          ]
+        },
+        "Cross-Domain Relationships": {
+          "nancy_better": 0,
+          "baseline_better": 1,
+          "details": [
+            {
+              "query": "How do the electrical design requirements affect t...",
+              "nancy_score": 0,
+              "baseline_score": 2,
+              "nancy_time": 173.61815094947815,
+              "baseline_time": 21.617360830307007,
+              "nancy_authors": 0,
+              "baseline_authors": 1,
+              "nancy_relationships": 0,
+              "baseline_relationships": 0
+            }
+          ]
+        },
+        "Decision Chain Tracking": {
+          "nancy_better": 0,
+          "baseline_better": 1,
+          "details": [
+            {
+              "query": "What decisions were made in the project timeline t...",
+              "nancy_score": 0,
+              "baseline_score": 1,
+              "nancy_time": 139.52468299865723,
+              "baseline_time": 39.85527467727661,
+              "nancy_authors": 2,
+              "baseline_authors": 2,
+              "nancy_relationships": 1,
+              "baseline_relationships": 1
+            }
+          ]
+        },
+        "Complex Multi-Document": {
+          "nancy_better": 0,
+          "baseline_better": 1,
+          "details": [
+            {
+              "query": "What are the key integration points between electr...",
+              "nancy_score": 0,
+              "baseline_score": 1,
+              "nancy_time": 173.29528522491455,
+              "baseline_time": 31.61115002632141,
+              "nancy_authors": 0,
+              "baseline_authors": 0,
+              "nancy_relationships": 0,
+              "baseline_relationships": 0
+            }
+          ]
+        },
+        "Temporal Analysis": {
+          "nancy_better": 0,
+          "baseline_better": 1,
+          "details": [
+            {
+              "query": "What activities are scheduled for Q4 2024 and how ...",
+              "nancy_score": 0,
+              "baseline_score": 2,
+              "nancy_time": 169.468976020813,
+              "baseline_time": 94.77776408195496,
+              "nancy_authors": 0,
+              "baseline_authors": 0,
+              "nancy_relationships": 0,
+              "baseline_relationships": 2
+            }
+          ]
+        },
+        "Technical Detail Synthesis": {
+          "nancy_better": 0,
+          "baseline_better": 1,
+          "details": [
+            {
+              "query": "What are the power dissipation requirements and ho...",
+              "nancy_score": 0,
+              "baseline_score": 1,
+              "nancy_time": 180,
+              "baseline_time": 57.09360885620117,
+              "nancy_authors": 0,
+              "baseline_authors": 0,
+              "nancy_relationships": 0,
+              "baseline_relationships": 0
+            }
+          ]
+        }
+      }
+    },
+    "summary": {
+      "speed_winner": "Baseline RAG",
+      "capability_winner": "Baseline RAG",
+      "recommendation": "Consider Baseline RAG: Significantly faster with comparable capabilities",
+      "key_insights": [
+        "Nancy excelled in 0 test categories vs Baseline's 7",
+        "Average response time: Nancy 138.9s vs Baseline 43.4s",
+        "Nancy shows strength in author attribution and relationship discovery",
+        "Baseline shows consistent speed advantage but limited advanced capabilities"
+      ]
+    }
+  }
+}

@@ -1,0 +1,780 @@
+{
+  "metadata": {
+    "timestamp": "2025-08-10T08:24:32.275166",
+    "total_time": 636.3035259246826,
+    "nancy_url": "http://localhost:8000",
+    "baseline_url": "http://localhost:8002",
+    "test_count": 7
+  },
+  "system_health": {
+    "nancy": {
+      "system": "Nancy Four-Brain",
+      "status": "healthy",
+      "response_code": 200,
+      "details": {
+        "status": "ok"
+      }
+    },
+    "baseline": {
+      "system": "Baseline RAG",
+      "status": "healthy",
+      "response_code": 200,
+      "details": {
+        "status": "ok",
+        "system": "baseline-rag",
+        "rag_initialized": true
+      }
+    }
+  },
+  "test_results": [
+    {
+      "test_id": 1,
+      "category": "Basic Factual",
+      "query": "What is the operating temperature range mentioned in the thermal analysis?",
+      "expected_capabilities": [
+        "basic_retrieval"
+      ],
+      "nancy": {
+        "system": "Nancy",
+        "status": "success",
+        "query_time": 20.573781967163086,
+        "response": "Agent stopped due to iteration limit or time limit.",
+        "sources": [],
+        "author_info": {
+          "has_author_attribution": false,
+          "identified_authors": [],
+          "author_count": 0
+        },
+        "relationship_info": {
+          "has_relationships": true,
+          "relationship_indicators": [
+            "due to"
+          ],
+          "relationship_count": 1
+        },
+        "response_length": 51,
+        "source_count": 0,
+        "raw_result": {
+          "query": "What is the operating temperature range mentioned in the thermal analysis?",
+          "strategy_used": "langchain_four_brain",
+          "response": "Agent stopped due to iteration limit or time limit.",
+          "tools_used": [
+            "vector_brain",
+            "analytical_brain"
+          ],
+          "agent_steps": [
+            {
+              "type": "action",
+              "tool": "vector_brain",
+              "input": "operating temperature range",
+              "timestamp": "2025-08-10T15:14:02.332509"
+            },
+            {
+              "type": "action",
+              "tool": "analytical_brain",
+              "input": "'file_stats'",
+              "timestamp": "2025-08-10T15:14:08.435183"
+            },
+            {
+              "type": "action",
+              "tool": "analytical_brain",
+              "input": "'recent_docs'",
+              "timestamp": "2025-08-10T15:14:15.881815"
+            }
+          ],
+          "query_time": 20.181913137435913,
+          "processing_timestamp": "2025-08-10T15:14:15.882387"
+        }
+      },
+      "baseline": {
+        "system": "Baseline",
+        "status": "success",
+        "query_time": 8.65683650970459,
+        "response": "Please provide the thermal analysis text you are referring to. I need the context to answer your question accurately. \n",
+        "sources": [],
+        "author_info": {
+          "has_author_attribution": false,
+          "identified_authors": [],
+          "author_count": 0
+        },
+        "relationship_info": {
+          "has_relationships": false,
+          "relationship_indicators": [],
+          "relationship_count": 0
+        },
+        "response_length": 119,
+        "source_count": 0,
+        "raw_result": {
+          "response": "Please provide the thermal analysis text you are referring to. I need the context to answer your question accurately. \n",
+          "sources": [],
+          "query_time": 9.14178466796875,
+          "method": "langchain_rag"
+        }
+      },
+      "timestamp": "2025-08-10T08:14:25.255039"
+    },
+    {
+      "test_id": 2,
+      "category": "Author Attribution",
+      "query": "Who wrote the electrical design review document?",
+      "expected_capabilities": [
+        "author_tracking",
+        "metadata_retrieval"
+      ],
+      "nancy": {
+        "system": "Nancy",
+        "status": "success",
+        "query_time": 91.55174374580383,
+        "response": "Agent stopped due to iteration limit or time limit.",
+        "sources": [],
+        "author_info": {
+          "has_author_attribution": false,
+          "identified_authors": [],
+          "author_count": 0
+        },
+        "relationship_info": {
+          "has_relationships": true,
+          "relationship_indicators": [
+            "due to"
+          ],
+          "relationship_count": 1
+        },
+        "response_length": 51,
+        "source_count": 0,
+        "raw_result": {
+          "query": "Who wrote the electrical design review document?",
+          "strategy_used": "langchain_four_brain",
+          "response": "Agent stopped due to iteration limit or time limit.",
+          "tools_used": [
+            "linguistic_brain",
+            "graph_brain"
+          ],
+          "agent_steps": [
+            {
+              "type": "action",
+              "tool": "graph_brain",
+              "input": "'author:ACTUAL_NAME'",
+              "timestamp": "2025-08-10T15:15:16.239025"
+            },
+            {
+              "type": "action",
+              "tool": "graph_brain",
+              "input": "'authors_list'",
+              "timestamp": "2025-08-10T15:15:24.834779"
+            },
+            {
+              "type": "action",
+              "tool": "linguistic_brain",
+              "input": "Who wrote the electrical design review document?",
+              "timestamp": "2025-08-10T15:15:33.815877"
+            }
+          ],
+          "query_time": 91.79414558410645,
+          "processing_timestamp": "2025-08-10T15:15:56.837440"
+        }
+      },
+      "baseline": {
+        "system": "Baseline",
+        "status": "success",
+        "query_time": 5.546838283538818,
+        "response": "The text provided does not mention who wrote the electrical design review document. \n",
+        "sources": [],
+        "author_info": {
+          "has_author_attribution": true,
+          "identified_authors": [],
+          "author_count": 0
+        },
+        "relationship_info": {
+          "has_relationships": false,
+          "relationship_indicators": [],
+          "relationship_count": 0
+        },
+        "response_length": 85,
+        "source_count": 0,
+        "raw_result": {
+          "response": "The text provided does not mention who wrote the electrical design review document. \n",
+          "sources": [],
+          "query_time": 4.32712197303772,
+          "method": "langchain_rag"
+        }
+      },
+      "timestamp": "2025-08-10T08:16:02.354139"
+    },
+    {
+      "test_id": 3,
+      "category": "Cross-Domain Relationships",
+      "query": "How do the electrical design requirements affect the mechanical integration plan?",
+      "expected_capabilities": [
+        "relationship_discovery",
+        "cross_document_synthesis"
+      ],
+      "nancy": {
+        "system": "Nancy",
+        "status": "success",
+        "query_time": 72.60130143165588,
+        "response": "Agent stopped due to iteration limit or time limit.",
+        "sources": [],
+        "author_info": {
+          "has_author_attribution": false,
+          "identified_authors": [],
+          "author_count": 0
+        },
+        "relationship_info": {
+          "has_relationships": true,
+          "relationship_indicators": [
+            "due to"
+          ],
+          "relationship_count": 1
+        },
+        "response_length": 51,
+        "source_count": 0,
+        "raw_result": {
+          "query": "How do the electrical design requirements affect the mechanical integration plan?",
+          "strategy_used": "langchain_four_brain",
+          "response": "Agent stopped due to iteration limit or time limit.",
+          "tools_used": [
+            "vector_brain",
+            "graph_brain",
+            "analytical_brain"
+          ],
+          "agent_steps": [
+            {
+              "type": "action",
+              "tool": "graph_brain",
+              "input": "authors_list",
+              "timestamp": "2025-08-10T15:16:44.881399"
+            },
+            {
+              "type": "action",
+              "tool": "vector_brain",
+              "input": "electrical design requirements\" AND \"mechanical integration plan\"\r",
+              "timestamp": "2025-08-10T15:17:00.283941"
+            },
+            {
+              "type": "action",
+              "tool": "analytical_brain",
+              "input": "'recent_docs'",
+              "timestamp": "2025-08-10T15:17:14.961256"
+            }
+          ],
+          "query_time": 73.7409553527832,
+          "processing_timestamp": "2025-08-10T15:17:14.961810"
+        }
+      },
+      "baseline": {
+        "system": "Baseline",
+        "status": "success",
+        "query_time": 7.173760890960693,
+        "response": "The provided context does not contain information on how electrical design requirements affect the mechanical integration plan. Therefore, I cannot provide an answer. \n",
+        "sources": [],
+        "author_info": {
+          "has_author_attribution": false,
+          "identified_authors": [],
+          "author_count": 0
+        },
+        "relationship_info": {
+          "has_relationships": false,
+          "relationship_indicators": [],
+          "relationship_count": 0
+        },
+        "response_length": 168,
+        "source_count": 0,
+        "raw_result": {
+          "response": "The provided context does not contain information on how electrical design requirements affect the mechanical integration plan. Therefore, I cannot provide an answer. \n",
+          "sources": [],
+          "query_time": 7.506792068481445,
+          "method": "langchain_rag"
+        }
+      },
+      "timestamp": "2025-08-10T08:17:22.129730"
+    },
+    {
+      "test_id": 4,
+      "category": "Decision Chain Tracking",
+      "query": "What decisions were made in the project timeline that affect the thermal analysis?",
+      "expected_capabilities": [
+        "decision_tracking",
+        "temporal_analysis"
+      ],
+      "nancy": {
+        "system": "Nancy",
+        "status": "success",
+        "query_time": 72.78362202644348,
+        "response": "Agent stopped due to iteration limit or time limit.",
+        "sources": [],
+        "author_info": {
+          "has_author_attribution": false,
+          "identified_authors": [],
+          "author_count": 0
+        },
+        "relationship_info": {
+          "has_relationships": true,
+          "relationship_indicators": [
+            "due to"
+          ],
+          "relationship_count": 1
+        },
+        "response_length": 51,
+        "source_count": 0,
+        "raw_result": {
+          "query": "What decisions were made in the project timeline that affect the thermal analysis?",
+          "strategy_used": "langchain_four_brain",
+          "response": "Agent stopped due to iteration limit or time limit.",
+          "tools_used": [
+            "vector_brain",
+            "graph_brain",
+            "analytical_brain"
+          ],
+          "agent_steps": [
+            {
+              "type": "action",
+              "tool": "graph_brain",
+              "input": "authors_list",
+              "timestamp": "2025-08-10T15:18:09.793508"
+            },
+            {
+              "type": "action",
+              "tool": "vector_brain",
+              "input": "thermal analysis project timeline",
+              "timestamp": "2025-08-10T15:18:23.788138"
+            },
+            {
+              "type": "action",
+              "tool": "analytical_brain",
+              "input": "'recent_docs'",
+              "timestamp": "2025-08-10T15:18:34.478621"
+            }
+          ],
+          "query_time": 71.98143696784973,
+          "processing_timestamp": "2025-08-10T15:18:34.479279"
+        }
+      },
+      "baseline": {
+        "system": "Baseline",
+        "status": "success",
+        "query_time": 7.474547624588013,
+        "response": "Please provide me with the project timeline or any relevant information about decisions made in relation to the thermal analysis. I need context to answer your question accurately. \n",
+        "sources": [],
+        "author_info": {
+          "has_author_attribution": false,
+          "identified_authors": [],
+          "author_count": 0
+        },
+        "relationship_info": {
+          "has_relationships": false,
+          "relationship_indicators": [],
+          "relationship_count": 0
+        },
+        "response_length": 182,
+        "source_count": 0,
+        "raw_result": {
+          "response": "Please provide me with the project timeline or any relevant information about decisions made in relation to the thermal analysis. I need context to answer your question accurately. \n",
+          "sources": [],
+          "query_time": 7.932433605194092,
+          "method": "langchain_rag"
+        }
+      },
+      "timestamp": "2025-08-10T08:18:42.390894"
+    },
+    {
+      "test_id": 5,
+      "category": "Complex Multi-Document",
+      "query": "What are the key integration points between electrical and mechanical systems, and how do project timelines affect thermal considerations?",
+      "expected_capabilities": [
+        "multi_brain_orchestration",
+        "complex_synthesis",
+        "temporal_relationships"
+      ],
+      "nancy": {
+        "system": "Nancy",
+        "status": "success",
+        "query_time": 134.4735403060913,
+        "response": "Agent stopped due to iteration limit or time limit.",
+        "sources": [],
+        "author_info": {
+          "has_author_attribution": false,
+          "identified_authors": [],
+          "author_count": 0
+        },
+        "relationship_info": {
+          "has_relationships": true,
+          "relationship_indicators": [
+            "due to"
+          ],
+          "relationship_count": 1
+        },
+        "response_length": 51,
+        "source_count": 0,
+        "raw_result": {
+          "query": "What are the key integration points between electrical and mechanical systems, and how do project timelines affect thermal considerations?",
+          "strategy_used": "langchain_four_brain",
+          "response": "Agent stopped due to iteration limit or time limit.",
+          "tools_used": [
+            "vector_brain",
+            "linguistic_brain"
+          ],
+          "agent_steps": [
+            {
+              "type": "action",
+              "tool": "linguistic_brain",
+              "input": "What are the key integration points between electrical and mechanical systems, and how do project timelines affect thermal considerations?",
+              "timestamp": "2025-08-10T15:19:33.220111"
+            },
+            {
+              "type": "action",
+              "tool": "vector_brain",
+              "input": "electrical system\" AND \"mechanical system\" integration points",
+              "timestamp": "2025-08-10T15:20:56.511751"
+            }
+          ],
+          "query_time": 134.1469190120697,
+          "processing_timestamp": "2025-08-10T15:20:56.609548"
+        }
+      },
+      "baseline": {
+        "system": "Baseline",
+        "status": "success",
+        "query_time": 9.730749368667603,
+        "response": "The provided text does not contain the answer to your questions about integration points and thermal considerations in relation to project timelines. \n\n\nPlease provide more context or information regarding this topic.  \n",
+        "sources": [],
+        "author_info": {
+          "has_author_attribution": false,
+          "identified_authors": [],
+          "author_count": 0
+        },
+        "relationship_info": {
+          "has_relationships": false,
+          "relationship_indicators": [],
+          "relationship_count": 0
+        },
+        "response_length": 220,
+        "source_count": 0,
+        "raw_result": {
+          "response": "The provided text does not contain the answer to your questions about integration points and thermal considerations in relation to project timelines. \n\n\nPlease provide more context or information regarding this topic.  \n",
+          "sources": [],
+          "query_time": 10.41661262512207,
+          "method": "langchain_rag"
+        }
+      },
+      "timestamp": "2025-08-10T08:21:06.597877"
+    },
+    {
+      "test_id": 6,
+      "category": "Temporal Analysis",
+      "query": "What activities are scheduled for Q4 2024 and how do they relate to thermal considerations?",
+      "expected_capabilities": [
+        "temporal_filtering",
+        "relationship_discovery"
+      ],
+      "nancy": {
+        "system": "Nancy",
+        "status": "success",
+        "query_time": 128.23347735404968,
+        "response": "Agent stopped due to iteration limit or time limit.",
+        "sources": [],
+        "author_info": {
+          "has_author_attribution": false,
+          "identified_authors": [],
+          "author_count": 0
+        },
+        "relationship_info": {
+          "has_relationships": true,
+          "relationship_indicators": [
+            "due to"
+          ],
+          "relationship_count": 1
+        },
+        "response_length": 51,
+        "source_count": 0,
+        "raw_result": {
+          "query": "What activities are scheduled for Q4 2024 and how do they relate to thermal considerations?",
+          "strategy_used": "langchain_four_brain",
+          "response": "Agent stopped due to iteration limit or time limit.",
+          "tools_used": [
+            "vector_brain",
+            "linguistic_brain"
+          ],
+          "agent_steps": [
+            {
+              "type": "action",
+              "tool": "linguistic_brain",
+              "input": "What activities are scheduled for Q4 2024 and how do they relate to thermal considerations?",
+              "timestamp": "2025-08-10T15:21:55.643360"
+            },
+            {
+              "type": "action",
+              "tool": "vector_brain",
+              "input": "Q4 2024 activities and thermal considerations",
+              "timestamp": "2025-08-10T15:23:14.376309"
+            }
+          ],
+          "query_time": 127.38495421409607,
+          "processing_timestamp": "2025-08-10T15:23:14.445134"
+        }
+      },
+      "baseline": {
+        "system": "Baseline",
+        "status": "success",
+        "query_time": 8.360653400421143,
+        "response": "Please provide the context you want me to analyze.  I need the text containing information about Q4 2024 activities, including any potential thermal considerations, in order to answer your question accurately. \n",
+        "sources": [],
+        "author_info": {
+          "has_author_attribution": false,
+          "identified_authors": [],
+          "author_count": 0
+        },
+        "relationship_info": {
+          "has_relationships": false,
+          "relationship_indicators": [],
+          "relationship_count": 0
+        },
+        "response_length": 211,
+        "source_count": 0,
+        "raw_result": {
+          "response": "Please provide the context you want me to analyze.  I need the text containing information about Q4 2024 activities, including any potential thermal considerations, in order to answer your question accurately. \n",
+          "sources": [],
+          "query_time": 9.004483938217163,
+          "method": "langchain_rag"
+        }
+      },
+      "timestamp": "2025-08-10T08:23:23.199628"
+    },
+    {
+      "test_id": 7,
+      "category": "Technical Detail Synthesis",
+      "query": "What are the power dissipation requirements and how do they impact the enclosure design?",
+      "expected_capabilities": [
+        "technical_synthesis",
+        "cross_domain_analysis"
+      ],
+      "nancy": {
+        "system": "Nancy",
+        "status": "success",
+        "query_time": 62.73707318305969,
+        "response": "Agent stopped due to iteration limit or time limit.",
+        "sources": [],
+        "author_info": {
+          "has_author_attribution": false,
+          "identified_authors": [],
+          "author_count": 0
+        },
+        "relationship_info": {
+          "has_relationships": true,
+          "relationship_indicators": [
+            "due to"
+          ],
+          "relationship_count": 1
+        },
+        "response_length": 51,
+        "source_count": 0,
+        "raw_result": {
+          "query": "What are the power dissipation requirements and how do they impact the enclosure design?",
+          "strategy_used": "langchain_four_brain",
+          "response": "Agent stopped due to iteration limit or time limit.",
+          "tools_used": [
+            "vector_brain",
+            "graph_brain",
+            "analytical_brain"
+          ],
+          "agent_steps": [
+            {
+              "type": "action",
+              "tool": "vector_brain",
+              "input": "power dissipation requirements\" AND \"enclosure design",
+              "timestamp": "2025-08-10T15:24:05.392234"
+            },
+            {
+              "type": "action",
+              "tool": "analytical_brain",
+              "input": "'recent_docs'",
+              "timestamp": "2025-08-10T15:24:15.645334"
+            },
+            {
+              "type": "action",
+              "tool": "graph_brain",
+              "input": "'authors_list'",
+              "timestamp": "2025-08-10T15:24:26.383800"
+            }
+          ],
+          "query_time": 62.916473150253296,
+          "processing_timestamp": "2025-08-10T15:24:26.384324"
+        }
+      },
+      "baseline": {
+        "system": "Baseline",
+        "status": "success",
+        "query_time": 6.336786508560181,
+        "response": "The provided context does not contain enough information to determine the power dissipation requirements or their impact on the enclosure design. \n",
+        "sources": [],
+        "author_info": {
+          "has_author_attribution": false,
+          "identified_authors": [],
+          "author_count": 0
+        },
+        "relationship_info": {
+          "has_relationships": false,
+          "relationship_indicators": [],
+          "relationship_count": 0
+        },
+        "response_length": 147,
+        "source_count": 0,
+        "raw_result": {
+          "response": "The provided context does not contain enough information to determine the power dissipation requirements or their impact on the enclosure design. \n",
+          "sources": [],
+          "query_time": 4.846984148025513,
+          "method": "langchain_rag"
+        }
+      },
+      "timestamp": "2025-08-10T08:24:32.275166"
+    }
+  ],
+  "analysis": {
+    "performance": {
+      "nancy_avg_time": 83.27922000203814,
+      "baseline_avg_time": 7.611453226634434,
+      "nancy_success_rate": 1.0,
+      "baseline_success_rate": 1.0,
+      "nancy_fastest": 20.573781967163086,
+      "baseline_fastest": 5.546838283538818,
+      "nancy_slowest": 134.4735403060913,
+      "baseline_slowest": 9.730749368667603
+    },
+    "capabilities": {
+      "total_tests": 7,
+      "nancy_wins": 7,
+      "baseline_wins": 0,
+      "category_breakdown": {
+        "Basic Factual": {
+          "nancy_better": 1,
+          "baseline_better": 0,
+          "details": [
+            {
+              "query": "What is the operating temperature range mentioned ...",
+              "nancy_score": 1,
+              "baseline_score": 0,
+              "nancy_time": 20.573781967163086,
+              "baseline_time": 8.65683650970459,
+              "nancy_authors": 0,
+              "baseline_authors": 0,
+              "nancy_relationships": 1,
+              "baseline_relationships": 0
+            }
+          ]
+        },
+        "Author Attribution": {
+          "nancy_better": 1,
+          "baseline_better": 0,
+          "details": [
+            {
+              "query": "Who wrote the electrical design review document?...",
+              "nancy_score": 1,
+              "baseline_score": 0,
+              "nancy_time": 91.55174374580383,
+              "baseline_time": 5.546838283538818,
+              "nancy_authors": 0,
+              "baseline_authors": 0,
+              "nancy_relationships": 1,
+              "baseline_relationships": 0
+            }
+          ]
+        },
+        "Cross-Domain Relationships": {
+          "nancy_better": 1,
+          "baseline_better": 0,
+          "details": [
+            {
+              "query": "How do the electrical design requirements affect t...",
+              "nancy_score": 1,
+              "baseline_score": 0,
+              "nancy_time": 72.60130143165588,
+              "baseline_time": 7.173760890960693,
+              "nancy_authors": 0,
+              "baseline_authors": 0,
+              "nancy_relationships": 1,
+              "baseline_relationships": 0
+            }
+          ]
+        },
+        "Decision Chain Tracking": {
+          "nancy_better": 1,
+          "baseline_better": 0,
+          "details": [
+            {
+              "query": "What decisions were made in the project timeline t...",
+              "nancy_score": 1,
+              "baseline_score": 0,
+              "nancy_time": 72.78362202644348,
+              "baseline_time": 7.474547624588013,
+              "nancy_authors": 0,
+              "baseline_authors": 0,
+              "nancy_relationships": 1,
+              "baseline_relationships": 0
+            }
+          ]
+        },
+        "Complex Multi-Document": {
+          "nancy_better": 1,
+          "baseline_better": 0,
+          "details": [
+            {
+              "query": "What are the key integration points between electr...",
+              "nancy_score": 1,
+              "baseline_score": 0,
+              "nancy_time": 134.4735403060913,
+              "baseline_time": 9.730749368667603,
+              "nancy_authors": 0,
+              "baseline_authors": 0,
+              "nancy_relationships": 1,
+              "baseline_relationships": 0
+            }
+          ]
+        },
+        "Temporal Analysis": {
+          "nancy_better": 1,
+          "baseline_better": 0,
+          "details": [
+            {
+              "query": "What activities are scheduled for Q4 2024 and how ...",
+              "nancy_score": 1,
+              "baseline_score": 0,
+              "nancy_time": 128.23347735404968,
+              "baseline_time": 8.360653400421143,
+              "nancy_authors": 0,
+              "baseline_authors": 0,
+              "nancy_relationships": 1,
+              "baseline_relationships": 0
+            }
+          ]
+        },
+        "Technical Detail Synthesis": {
+          "nancy_better": 1,
+          "baseline_better": 0,
+          "details": [
+            {
+              "query": "What are the power dissipation requirements and ho...",
+              "nancy_score": 1,
+              "baseline_score": 0,
+              "nancy_time": 62.73707318305969,
+              "baseline_time": 6.336786508560181,
+              "nancy_authors": 0,
+              "baseline_authors": 0,
+              "nancy_relationships": 1,
+              "baseline_relationships": 0
+            }
+          ]
+        }
+      }
+    },
+    "summary": {
+      "speed_winner": "Baseline RAG",
+      "capability_winner": "Nancy Four-Brain",
+      "recommendation": "Recommend Nancy Four-Brain: Superior capabilities justify slower response times",
+      "key_insights": [
+        "Nancy excelled in 7 test categories vs Baseline's 0",
+        "Average response time: Nancy 83.3s vs Baseline 7.6s",
+        "Nancy shows strength in author attribution and relationship discovery",
+        "Baseline shows consistent speed advantage but limited advanced capabilities"
+      ]
+    }
+  }
+}

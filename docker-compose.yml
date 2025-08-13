@@ -25,6 +25,8 @@ services:
     depends_on:
       - chromadb
       - ollama
+    env_file:
+      - .env
     environment:
       - CHROMA_HOST=chromadb
       - CHROMA_PORT=8000

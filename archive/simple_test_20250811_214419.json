@@ -1,0 +1,20 @@
+{
+  "timestamp": "2025-08-11T21:44:19.435558",
+  "query": "What are the key integration points between electrical and mechanical systems?",
+  "nancy": {
+    "system": "Nancy",
+    "status": "success",
+    "query_time": 0.8180499076843262,
+    "response": "No relevant documents found for 'What are the key integration points between electrical and mechanical systems?'.",
+    "sources": 0,
+    "strategy": "langchain_router"
+  },
+  "baseline": {
+    "system": "Baseline",
+    "status": "success",
+    "query_time": 13.796651601791382,
+    "response": "The provided context does not explain which specific points exist for electrical and mechanical system integration.  Please provide more information about the context or ask a different question. \n",
+    "sources": 0,
+    "strategy": "langchain_rag"
+  }
+}

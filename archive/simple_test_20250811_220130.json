@@ -1,0 +1,20 @@
+{
+  "timestamp": "2025-08-11T22:01:30.704721",
+  "query": "What are the key integration points between electrical and mechanical systems?",
+  "nancy": {
+    "system": "Nancy",
+    "status": "success",
+    "query_time": 0.6224384307861328,
+    "response": "Vector search results for 'What are the key integration points between electrical and mechanical systems?':\n\nFrom 561b2d16f8317fbe7626d88d2d807227b8033cf6f4009009c3e30608d83e688f (relevance: 0.28):\nElectrical Design Review Meeting Transcript\nProject:...\n\nFrom 561b2d16f8317fbe7626d88d2d807227b8033cf6f4009009c3e30608d83e688f (relevance: 0.21):\nThe power supply architecture changes should resolve both efficiency and thermal concerns while maintaining EMC compliance....\n\nFrom 561b2d16f8317fbe7626d88d2d807227b8033cf6f4009009c3e30608d83e688f (relevance: 0.19):\nValidate firmware power management with new IC specifications\n\nDECISIONS MADE:\n- Approved power management IC change for better efficiency\n- Confirmed antenna placement strategy\n- Agreed on component ...",
+    "sources": 0,
+    "strategy": "langchain_router"
+  },
+  "baseline": {
+    "system": "Baseline",
+    "status": "success",
+    "query_time": 14.183603286743164,
+    "response": "The provided context does not specify the key integration points between electrical and mechanical systems.  \n",
+    "sources": 0,
+    "strategy": "langchain_rag"
+  }
+}

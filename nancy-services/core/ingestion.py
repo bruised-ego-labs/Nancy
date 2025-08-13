@@ -135,7 +135,7 @@ class IngestionService:
         # Try to use LLM for enhanced project story extraction if available
         try:
             from .llm_client import LLMClient
-            llm_client = LLMClient()
+            llm_client = LLMClient(preferred_llm="gemini")
             
             # Extract enhanced relationships using new prompts
             text_chunk = text[:3000] if len(text) > 3000 else text

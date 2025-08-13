@@ -24,13 +24,49 @@ import uvicorn
 from langchain.schema import Document
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.prompts import PromptTemplate
-from langchain_ollama import OllamaLLM
+from langchain.llms.base import LLM
+import requests
 
 # Direct imports for vector operations
 import chromadb
 from fastembed import TextEmbedding
 
 app = FastAPI(title="Baseline RAG System", version="1.0.0")
+
+class Gemma3BaselineLLM(LLM):
+    """Custom LangChain LLM wrapper for Gemma 3 1B via Google AI API for baseline"""
+    
+    def __init__(self):
+        super().__init__()
+        # Check API key availability but don't store as field to avoid Pydantic validation
+        api_key = os.getenv("GEMINI_API_KEY")
+        if not api_key:
+            raise ValueError("GEMINI_API_KEY environment variable required")
+    
+    def _get_api_key(self):
+        """Get API key when needed"""
+        return os.getenv("GEMINI_API_KEY")
+    
+    @property
+    def _llm_type(self) -> str:
+        return "gemma-3n-e4b-it-baseline"
+    
+    def _call(self, prompt: str, stop: Optional[List[str]] = None, **kwargs) -> str:
+        url = f"https://generativelanguage.googleapis.com/v1beta/models/gemma-3n-e4b-it:generateContent?key={self._get_api_key()}"
+        
+        data = {
+            "contents": [{
+                "parts": [{"text": prompt}]
+            }]
+        }
+        
+        try:
+            response = requests.post(url, json=data, timeout=30)
+            response.raise_for_status()
+            result = response.json()
+            return result["candidates"][0]["content"]["parts"][0]["text"]
+        except Exception as e:
+            return f"Error calling Gemma 3: {str(e)}"
 
 class QueryRequest(BaseModel):
     query: str
@@ -47,14 +83,12 @@ class BaselineRAGSystem:
     def __init__(self, 
                  chroma_host: str = None,
                  chroma_port: int = None,
-                 ollama_host: str = None,
                  chunk_size: int = 500,
                  chunk_overlap: int = 50):
         
         # Use environment variables or defaults
         chroma_host = chroma_host or os.getenv("CHROMA_HOST", "localhost")
         chroma_port = chroma_port or int(os.getenv("CHROMA_PORT", "8001"))
-        ollama_host = ollama_host or os.getenv("OLLAMA_HOST", "localhost:11434")
         
         self.chunk_size = chunk_size
         self.chunk_overlap = chunk_overlap
@@ -73,12 +107,9 @@ class BaselineRAGSystem:
             separators=["\n\n", "\n", " ", ""]
         )
         
-        # Initialize LLM (same as Nancy)
-        print("Initializing Ollama LLM...")
-        self.llm = OllamaLLM(
-            base_url=f"http://{ollama_host}",
-            model="gemma2:2b"
-        )
+        # Initialize LLM (Gemma 3 1B via Google AI API)
+        print("Initializing Gemma 3 1B LLM via Google AI API...")
+        self.llm = Gemma3BaselineLLM()
         
         # Initialize ChromaDB client
         print("Connecting to ChromaDB...")

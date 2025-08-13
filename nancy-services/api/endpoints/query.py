@@ -5,10 +5,17 @@ from typing import Optional
 from core.query_orchestrator import QueryOrchestrator
 from core.enhanced_query_orchestrator import EnhancedQueryOrchestrator
 from core.intelligent_query_orchestrator import IntelligentQueryOrchestrator
+from core.langchain_orchestrator import LangChainOrchestrator
 
 router = APIRouter()
 
-# NEW: Intelligent orchestrator with true LLM-based processing
+# NEW: LangChain-integrated orchestrator (RECOMMENDED)
+@lru_cache()
+def get_langchain_orchestrator():
+    print("Creating LangChain-integrated Nancy Orchestrator...")
+    return LangChainOrchestrator()
+
+# Intelligent orchestrator with true LLM-based processing
 @lru_cache()
 def get_intelligent_query_orchestrator():
     print("Creating Intelligent QueryOrchestrator instance (LLM-based)...")
@@ -29,7 +36,7 @@ def get_query_orchestrator():
 class QueryRequest(BaseModel):
     query: str
     n_results: int = 5
-    orchestrator: str = "intelligent"  # Default to intelligent (LLM-based)
+    orchestrator: str = "langchain"  # Default to LangChain-integrated (RECOMMENDED)
 
 @router.post("/query")
 def query_data(request: QueryRequest):
@@ -37,13 +44,17 @@ def query_data(request: QueryRequest):
     Receives a user query and processes it with conditional orchestrator loading.
     
     Orchestrator options:
-    - "intelligent" (default): Uses LLM for query analysis and response synthesis
+    - "langchain" (default): LangChain-integrated Nancy with professional agent orchestration
+    - "intelligent": Uses LLM for query analysis and response synthesis
     - "enhanced": Uses rule-based pattern matching (no LLM)
     - "legacy": Basic orchestration for compatibility
     """
     try:
         # Conditional orchestrator loading - only create what we need!
-        if request.orchestrator == "intelligent":
+        if request.orchestrator == "langchain":
+            orchestrator = get_langchain_orchestrator()
+            result = orchestrator.query(request.query, request.n_results)
+        elif request.orchestrator == "intelligent":
             orchestrator = get_intelligent_query_orchestrator()
             result = orchestrator.query(request.query, request.n_results)
         elif request.orchestrator == "enhanced":

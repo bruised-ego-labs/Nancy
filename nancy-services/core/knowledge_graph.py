@@ -743,3 +743,120 @@ class GraphBrain:
         """
         result = tx.run(query)
         return [record.data() for record in result]
+    
+    # ============================================================================
+    # FOUNDATIONAL RELATIONSHIP SCHEMA IMPLEMENTATION
+    # Based on gemini.log analysis - expanded beyond just "who" questions
+    # ============================================================================
+    
+    def add_foundational_relationships(self, relationships: list[dict]):
+        """
+        Add relationships using the foundational schema:
+        - People & Organization: MEMBER_OF, HAS_ROLE, HAS_EXPERTISE, MADE, ATTENDED
+        - Technical Subsystems: PART_OF, INTERFACES_WITH, CONSTRAINED_BY, AFFECTS
+        - Project Management: VALIDATED_BY, PRODUCED, MITIGATED_BY, INFLUENCED_BY
+        """
+        with self.driver.session() as session:
+            for rel in relationships:
+                session.write_transaction(self._create_foundational_relationship, rel)
+    
+    @staticmethod
+    def _create_foundational_relationship(tx, relationship):
+        """
+        Create a relationship using the foundational schema pattern
+        """
+        source = relationship['source']
+        target = relationship['target']
+        rel_type = relationship['relationship']
+        context = relationship.get('context', '')
+        
+        query = f"""
+            MERGE (a:{source['type']} {{name: $source_name}})
+            MERGE (b:{target['type']} {{name: $target_name}})
+            MERGE (a)-[r:{rel_type}]->(b)
+        """
+        if context:
+            query += " SET r.context = $context"
+        
+        tx.run(query, source_name=source['name'], target_name=target['name'], context=context)
+    
+    def find_technical_relationships(self, component_or_subsystem: str) -> list[dict]:
+        """
+        Find technical relationships for components/subsystems using foundational schema
+        """
+        with self.driver.session() as session:
+            return session.read_transaction(self._find_technical_relationships, component_or_subsystem)
+    
+    @staticmethod
+    def _find_technical_relationships(tx, entity):
+        query = """
+            MATCH (entity)
+            WHERE entity.name CONTAINS $entity OR entity.name = $entity
+            
+            OPTIONAL MATCH (entity)-[:PART_OF]->(parent)
+            OPTIONAL MATCH (part)-[:PART_OF]->(entity)
+            OPTIONAL MATCH (entity)-[:INTERFACES_WITH]-(interface)
+            OPTIONAL MATCH (entity)-[:CONSTRAINED_BY]->(constraint)
+            OPTIONAL MATCH (decision)-[:AFFECTS]->(entity)
+            
+            RETURN entity.name as focus_entity,
+                   labels(entity)[0] as entity_type,
+                   collect(DISTINCT parent.name) as parents,
+                   collect(DISTINCT part.name) as components,
+                   collect(DISTINCT interface.name) as interfaces,
+                   collect(DISTINCT constraint.name) as constraints,
+                   collect(DISTINCT decision.name) as affected_by_decisions
+        """
+        result = tx.run(query, entity=entity)
+        return [record.data() for record in result]
+    
+    def find_expertise_and_roles(self, person_name: str = None, topic: str = None) -> list[dict]:
+        """
+        Find people's expertise and roles using foundational schema
+        """
+        with self.driver.session() as session:
+            return session.read_transaction(self._find_expertise_and_roles, person_name, topic)
+    
+    @staticmethod  
+    def _find_expertise_and_roles(tx, person_name, topic):
+        if person_name:
+            query = """
+                MATCH (p:Person {name: $person_name})
+                OPTIONAL MATCH (p)-[:HAS_EXPERTISE]->(expertise)
+                OPTIONAL MATCH (p)-[:HAS_ROLE]->(role)  
+                OPTIONAL MATCH (p)-[:MEMBER_OF]->(team)
+                OPTIONAL MATCH (p)-[:MADE]->(decision)
+                
+                RETURN p.name as person,
+                       collect(DISTINCT expertise.name) as expertise_areas,
+                       collect(DISTINCT role.name) as roles,
+                       collect(DISTINCT team.name) as teams,
+                       collect(DISTINCT decision.name) as decisions_made
+            """
+            result = tx.run(query, person_name=person_name)
+        elif topic:
+            query = """
+                MATCH (expertise {name: $topic})<-[:HAS_EXPERTISE]-(p:Person)
+                OPTIONAL MATCH (p)-[:HAS_ROLE]->(role)
+                OPTIONAL MATCH (p)-[:MADE]->(decision)
+                WHERE decision.name CONTAINS $topic OR decision.context CONTAINS $topic
+                
+                RETURN p.name as person,
+                       collect(DISTINCT role.name) as roles,
+                       collect(DISTINCT decision.name) as related_decisions
+                ORDER BY size(related_decisions) DESC
+            """
+            result = tx.run(query, topic=topic)
+        else:
+            query = """
+                MATCH (p:Person)-[:HAS_EXPERTISE]->(expertise)
+                OPTIONAL MATCH (p)-[:HAS_ROLE]->(role)
+                
+                RETURN p.name as person,
+                       expertise.name as expertise_area,
+                       collect(DISTINCT role.name) as roles
+                ORDER BY p.name, expertise.name
+            """
+            result = tx.run(query)
+        
+        return [record.data() for record in result]

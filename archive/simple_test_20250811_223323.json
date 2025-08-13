@@ -1,0 +1,18 @@
+{
+  "timestamp": "2025-08-11T22:33:23.908299",
+  "query": "What are the key integration points between electrical and mechanical systems?",
+  "nancy": {
+    "system": "Nancy",
+    "status": "success",
+    "query_time": 4.774801015853882,
+    "response": "No database results found.",
+    "sources": 0,
+    "strategy": "langchain_router"
+  },
+  "baseline": {
+    "system": "Baseline",
+    "status": "error",
+    "query_time": 0.02646040916442871,
+    "error": "HTTP 500"
+  }
+}

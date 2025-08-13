@@ -1,0 +1,745 @@
+{
+  "metadata": {
+    "timestamp": "2025-08-07T20:21:19.270201",
+    "total_time": 605.5304477214813,
+    "nancy_url": "http://localhost:8000",
+    "baseline_url": "http://localhost:8002",
+    "test_count": 7
+  },
+  "system_health": {
+    "nancy": {
+      "system": "Nancy Four-Brain",
+      "status": "healthy",
+      "response_code": 200,
+      "details": {
+        "status": "ok"
+      }
+    },
+    "baseline": {
+      "system": "Baseline RAG",
+      "status": "healthy",
+      "response_code": 200,
+      "details": {
+        "status": "ok",
+        "system": "baseline-rag",
+        "rag_initialized": true
+      }
+    }
+  },
+  "test_results": [
+    {
+      "test_id": 1,
+      "category": "Basic Factual",
+      "query": "What is the operating temperature range mentioned in the thermal analysis?",
+      "expected_capabilities": [
+        "basic_retrieval"
+      ],
+      "nancy": {
+        "system": "Nancy",
+        "status": "success",
+        "query_time": 70.13475108146667,
+        "response": "I encountered an error processing your query: LangChain orchestration failed: Got unsupported early_stopping_method `generate`",
+        "sources": [],
+        "author_info": {
+          "has_author_attribution": false,
+          "identified_authors": [],
+          "author_count": 0
+        },
+        "relationship_info": {
+          "has_relationships": false,
+          "relationship_indicators": [],
+          "relationship_count": 0
+        },
+        "response_length": 126,
+        "source_count": 0,
+        "raw_result": {
+          "query": "What is the operating temperature range mentioned in the thermal analysis?",
+          "strategy_used": "langchain_four_brain",
+          "response": "I encountered an error processing your query: LangChain orchestration failed: Got unsupported early_stopping_method `generate`",
+          "error": "LangChain orchestration failed: Got unsupported early_stopping_method `generate`",
+          "tools_used": [],
+          "agent_steps": [
+            {
+              "type": "action",
+              "tool": "vector_brain",
+              "input": "operating temperature range",
+              "timestamp": "2025-08-08T03:12:03.880030"
+            },
+            {
+              "type": "action",
+              "tool": "analytical_brain",
+              "input": "'recent_docs'",
+              "timestamp": "2025-08-08T03:12:15.227749"
+            },
+            {
+              "type": "action",
+              "tool": "vector_brain",
+              "input": "operating temperature range",
+              "timestamp": "2025-08-08T03:12:23.187600"
+            }
+          ],
+          "query_time": 65.17090582847595,
+          "processing_timestamp": "2025-08-08T03:12:23.235552"
+        }
+      },
+      "baseline": {
+        "system": "Baseline",
+        "status": "success",
+        "query_time": 6.341030120849609,
+        "response": "Please provide the text containing the thermal analysis so I can answer your question accurately.  \ud83d\ude0a \n",
+        "sources": [],
+        "author_info": {
+          "has_author_attribution": false,
+          "identified_authors": [],
+          "author_count": 0
+        },
+        "relationship_info": {
+          "has_relationships": false,
+          "relationship_indicators": [],
+          "relationship_count": 0
+        },
+        "response_length": 102,
+        "source_count": 0,
+        "raw_result": {
+          "response": "Please provide the text containing the thermal analysis so I can answer your question accurately.  \ud83d\ude0a \n",
+          "sources": [],
+          "query_time": 6.770756483078003,
+          "method": "langchain_rag"
+        }
+      },
+      "timestamp": "2025-08-07T20:12:30.306908"
+    },
+    {
+      "test_id": 2,
+      "category": "Author Attribution",
+      "query": "Who wrote the electrical design review document?",
+      "expected_capabilities": [
+        "author_tracking",
+        "metadata_retrieval"
+      ],
+      "nancy": {
+        "system": "Nancy",
+        "status": "success",
+        "query_time": 57.459877252578735,
+        "response": "I encountered an error processing your query: LangChain orchestration failed: Got unsupported early_stopping_method `generate`",
+        "sources": [],
+        "author_info": {
+          "has_author_attribution": false,
+          "identified_authors": [],
+          "author_count": 0
+        },
+        "relationship_info": {
+          "has_relationships": false,
+          "relationship_indicators": [],
+          "relationship_count": 0
+        },
+        "response_length": 126,
+        "source_count": 0,
+        "raw_result": {
+          "query": "Who wrote the electrical design review document?",
+          "strategy_used": "langchain_four_brain",
+          "response": "I encountered an error processing your query: LangChain orchestration failed: Got unsupported early_stopping_method `generate`",
+          "error": "LangChain orchestration failed: Got unsupported early_stopping_method `generate`",
+          "tools_used": [],
+          "agent_steps": [
+            {
+              "type": "action",
+              "tool": "graph_brain",
+              "input": "'author:ACTUAL_NAME'",
+              "timestamp": "2025-08-08T03:13:08.873554"
+            },
+            {
+              "type": "action",
+              "tool": "graph_brain",
+              "input": "'author:ACTUAL_NAME'",
+              "timestamp": "2025-08-08T03:13:18.669407"
+            },
+            {
+              "type": "action",
+              "tool": "graph_brain",
+              "input": "'authors_list'",
+              "timestamp": "2025-08-08T03:13:27.537677"
+            }
+          ],
+          "query_time": 57.50423455238342,
+          "processing_timestamp": "2025-08-08T03:13:27.538206"
+        }
+      },
+      "baseline": {
+        "system": "Baseline",
+        "status": "success",
+        "query_time": 5.094545364379883,
+        "response": "The provided text does not specify who wrote the electrical design review document.  \n",
+        "sources": [],
+        "author_info": {
+          "has_author_attribution": true,
+          "identified_authors": [],
+          "author_count": 0
+        },
+        "relationship_info": {
+          "has_relationships": false,
+          "relationship_indicators": [],
+          "relationship_count": 0
+        },
+        "response_length": 86,
+        "source_count": 0,
+        "raw_result": {
+          "response": "The provided text does not specify who wrote the electrical design review document.  \n",
+          "sources": [],
+          "query_time": 5.437676906585693,
+          "method": "langchain_rag"
+        }
+      },
+      "timestamp": "2025-08-07T20:13:32.863336"
+    },
+    {
+      "test_id": 3,
+      "category": "Cross-Domain Relationships",
+      "query": "How do the electrical design requirements affect the mechanical integration plan?",
+      "expected_capabilities": [
+        "relationship_discovery",
+        "cross_document_synthesis"
+      ],
+      "nancy": {
+        "system": "Nancy",
+        "status": "success",
+        "query_time": 79.78095269203186,
+        "response": "Based on the provided context, it is difficult to determine the exact relationship between electrical design requirements and the mechanical integration plan without more specific information about the document structure or content.",
+        "sources": [],
+        "author_info": {
+          "has_author_attribution": false,
+          "identified_authors": [],
+          "author_count": 0
+        },
+        "relationship_info": {
+          "has_relationships": false,
+          "relationship_indicators": [],
+          "relationship_count": 0
+        },
+        "response_length": 232,
+        "source_count": 0,
+        "raw_result": {
+          "query": "How do the electrical design requirements affect the mechanical integration plan?",
+          "strategy_used": "langchain_four_brain",
+          "response": "Based on the provided context, it is difficult to determine the exact relationship between electrical design requirements and the mechanical integration plan without more specific information about the document structure or content.",
+          "tools_used": [
+            "vector_brain",
+            "graph_brain"
+          ],
+          "agent_steps": [
+            {
+              "type": "action",
+              "tool": "graph_brain",
+              "input": "authors_list",
+              "timestamp": "2025-08-08T03:14:11.782102"
+            },
+            {
+              "type": "action",
+              "tool": "vector_brain",
+              "input": "electrical design requirements\" AND \"mechanical integration plan\"\r",
+              "timestamp": "2025-08-08T03:14:37.550283"
+            }
+          ],
+          "query_time": 79.51517677307129,
+          "processing_timestamp": "2025-08-08T03:14:52.524420"
+        }
+      },
+      "baseline": {
+        "system": "Baseline",
+        "status": "success",
+        "query_time": 5.937381744384766,
+        "response": "The provided context does not give enough information to answer how electrical design requirements affect the mechanical integration plan. \n",
+        "sources": [],
+        "author_info": {
+          "has_author_attribution": false,
+          "identified_authors": [],
+          "author_count": 0
+        },
+        "relationship_info": {
+          "has_relationships": false,
+          "relationship_indicators": [],
+          "relationship_count": 0
+        },
+        "response_length": 140,
+        "source_count": 0,
+        "raw_result": {
+          "response": "The provided context does not give enough information to answer how electrical design requirements affect the mechanical integration plan. \n",
+          "sources": [],
+          "query_time": 6.332646131515503,
+          "method": "langchain_rag"
+        }
+      },
+      "timestamp": "2025-08-07T20:14:58.583668"
+    },
+    {
+      "test_id": 4,
+      "category": "Decision Chain Tracking",
+      "query": "What decisions were made in the project timeline that affect the thermal analysis?",
+      "expected_capabilities": [
+        "decision_tracking",
+        "temporal_analysis"
+      ],
+      "nancy": {
+        "system": "Nancy",
+        "status": "success",
+        "query_time": 111.1121551990509,
+        "response": "I encountered an error processing your query: LangChain orchestration failed: Got unsupported early_stopping_method `generate`",
+        "sources": [],
+        "author_info": {
+          "has_author_attribution": false,
+          "identified_authors": [],
+          "author_count": 0
+        },
+        "relationship_info": {
+          "has_relationships": false,
+          "relationship_indicators": [],
+          "relationship_count": 0
+        },
+        "response_length": 126,
+        "source_count": 0,
+        "raw_result": {
+          "query": "What decisions were made in the project timeline that affect the thermal analysis?",
+          "strategy_used": "langchain_four_brain",
+          "response": "I encountered an error processing your query: LangChain orchestration failed: Got unsupported early_stopping_method `generate`",
+          "error": "LangChain orchestration failed: Got unsupported early_stopping_method `generate`",
+          "tools_used": [],
+          "agent_steps": [
+            {
+              "type": "action",
+              "tool": "linguistic_brain",
+              "input": "What decisions were made in the project timeline that affect the thermal analysis?",
+              "timestamp": "2025-08-08T03:15:41.758212"
+            },
+            {
+              "type": "action",
+              "tool": "vector_brain",
+              "input": "project timeline\" AND \"thermal analysis",
+              "timestamp": "2025-08-08T03:16:49.798458"
+            }
+          ],
+          "query_time": 110.9157919883728,
+          "processing_timestamp": "2025-08-08T03:16:49.824987"
+        }
+      },
+      "baseline": {
+        "system": "Baseline",
+        "status": "success",
+        "query_time": 7.734034299850464,
+        "response": "Please provide the project timeline context so I can answer your question accurately.  I need the text describing the project timeline to understand which decisions are relevant to thermal analysis. \n",
+        "sources": [],
+        "author_info": {
+          "has_author_attribution": false,
+          "identified_authors": [],
+          "author_count": 0
+        },
+        "relationship_info": {
+          "has_relationships": false,
+          "relationship_indicators": [],
+          "relationship_count": 0
+        },
+        "response_length": 200,
+        "source_count": 0,
+        "raw_result": {
+          "response": "Please provide the project timeline context so I can answer your question accurately.  I need the text describing the project timeline to understand which decisions are relevant to thermal analysis. \n",
+          "sources": [],
+          "query_time": 8.275558471679688,
+          "method": "langchain_rag"
+        }
+      },
+      "timestamp": "2025-08-07T20:16:57.432855"
+    },
+    {
+      "test_id": 5,
+      "category": "Complex Multi-Document",
+      "query": "What are the key integration points between electrical and mechanical systems, and how do project timelines affect thermal considerations?",
+      "expected_capabilities": [
+        "multi_brain_orchestration",
+        "complex_synthesis",
+        "temporal_relationships"
+      ],
+      "nancy": {
+        "system": "Nancy",
+        "status": "success",
+        "query_time": 107.66782331466675,
+        "response": "I encountered an error processing your query: LangChain orchestration failed: Got unsupported early_stopping_method `generate`",
+        "sources": [],
+        "author_info": {
+          "has_author_attribution": false,
+          "identified_authors": [],
+          "author_count": 0
+        },
+        "relationship_info": {
+          "has_relationships": false,
+          "relationship_indicators": [],
+          "relationship_count": 0
+        },
+        "response_length": 126,
+        "source_count": 0,
+        "raw_result": {
+          "query": "What are the key integration points between electrical and mechanical systems, and how do project timelines affect thermal considerations?",
+          "strategy_used": "langchain_four_brain",
+          "response": "I encountered an error processing your query: LangChain orchestration failed: Got unsupported early_stopping_method `generate`",
+          "error": "LangChain orchestration failed: Got unsupported early_stopping_method `generate`",
+          "tools_used": [],
+          "agent_steps": [
+            {
+              "type": "action",
+              "tool": "linguistic_brain",
+              "input": "What are the key integration points between electrical and mechanical systems, and how do project timelines affect thermal considerations?",
+              "timestamp": "2025-08-08T03:17:39.801864"
+            },
+            {
+              "type": "action",
+              "tool": "graph_brain",
+              "input": "'authors_list'",
+              "timestamp": "2025-08-08T03:18:45.554249"
+            }
+          ],
+          "query_time": 107.42620372772217,
+          "processing_timestamp": "2025-08-08T03:18:45.554821"
+        }
+      },
+      "baseline": {
+        "system": "Baseline",
+        "status": "success",
+        "query_time": 6.720407485961914,
+        "response": "The provided text does not contain enough information to answer the question about integration points or how project timelines affect thermal considerations. \n",
+        "sources": [],
+        "author_info": {
+          "has_author_attribution": false,
+          "identified_authors": [],
+          "author_count": 0
+        },
+        "relationship_info": {
+          "has_relationships": false,
+          "relationship_indicators": [],
+          "relationship_count": 0
+        },
+        "response_length": 159,
+        "source_count": 0,
+        "raw_result": {
+          "response": "The provided text does not contain enough information to answer the question about integration points or how project timelines affect thermal considerations. \n",
+          "sources": [],
+          "query_time": 6.354101181030273,
+          "method": "langchain_rag"
+        }
+      },
+      "timestamp": "2025-08-07T20:18:51.823083"
+    },
+    {
+      "test_id": 6,
+      "category": "Temporal Analysis",
+      "query": "What activities are scheduled for Q4 2024 and how do they relate to thermal considerations?",
+      "expected_capabilities": [
+        "temporal_filtering",
+        "relationship_discovery"
+      ],
+      "nancy": {
+        "system": "Nancy",
+        "status": "success",
+        "query_time": 69.80402135848999,
+        "response": "I encountered an error processing your query: LangChain orchestration failed: Got unsupported early_stopping_method `generate`",
+        "sources": [],
+        "author_info": {
+          "has_author_attribution": false,
+          "identified_authors": [],
+          "author_count": 0
+        },
+        "relationship_info": {
+          "has_relationships": false,
+          "relationship_indicators": [],
+          "relationship_count": 0
+        },
+        "response_length": 126,
+        "source_count": 0,
+        "raw_result": {
+          "query": "What activities are scheduled for Q4 2024 and how do they relate to thermal considerations?",
+          "strategy_used": "langchain_four_brain",
+          "response": "I encountered an error processing your query: LangChain orchestration failed: Got unsupported early_stopping_method `generate`",
+          "error": "LangChain orchestration failed: Got unsupported early_stopping_method `generate`",
+          "tools_used": [],
+          "agent_steps": [
+            {
+              "type": "action",
+              "tool": "graph_brain",
+              "input": "authors_list",
+              "timestamp": "2025-08-08T03:19:34.294050"
+            },
+            {
+              "type": "action",
+              "tool": "analytical_brain",
+              "input": "'recent_docs'",
+              "timestamp": "2025-08-08T03:19:47.156881"
+            },
+            {
+              "type": "action",
+              "tool": "graph_brain",
+              "input": "authors_list",
+              "timestamp": "2025-08-08T03:20:01.397777"
+            }
+          ],
+          "query_time": 69.45422744750977,
+          "processing_timestamp": "2025-08-08T03:20:01.405991"
+        }
+      },
+      "baseline": {
+        "system": "Baseline",
+        "status": "success",
+        "query_time": 7.362274885177612,
+        "response": "Please provide the context! I need it in order to tell you what activities are scheduled for Q4 2024 and how those activities relate to thermal considerations. \ud83d\ude0a  \n",
+        "sources": [],
+        "author_info": {
+          "has_author_attribution": false,
+          "identified_authors": [],
+          "author_count": 0
+        },
+        "relationship_info": {
+          "has_relationships": false,
+          "relationship_indicators": [],
+          "relationship_count": 0
+        },
+        "response_length": 164,
+        "source_count": 0,
+        "raw_result": {
+          "response": "Please provide the context! I need it in order to tell you what activities are scheduled for Q4 2024 and how those activities relate to thermal considerations. \ud83d\ude0a  \n",
+          "sources": [],
+          "query_time": 7.8777875900268555,
+          "method": "langchain_rag"
+        }
+      },
+      "timestamp": "2025-08-07T20:20:08.990380"
+    },
+    {
+      "test_id": 7,
+      "category": "Technical Detail Synthesis",
+      "query": "What are the power dissipation requirements and how do they impact the enclosure design?",
+      "expected_capabilities": [
+        "technical_synthesis",
+        "cross_domain_analysis"
+      ],
+      "nancy": {
+        "system": "Nancy",
+        "status": "success",
+        "query_time": 63.48887610435486,
+        "response": "I encountered an error processing your query: LangChain orchestration failed: Got unsupported early_stopping_method `generate`",
+        "sources": [],
+        "author_info": {
+          "has_author_attribution": false,
+          "identified_authors": [],
+          "author_count": 0
+        },
+        "relationship_info": {
+          "has_relationships": false,
+          "relationship_indicators": [],
+          "relationship_count": 0
+        },
+        "response_length": 126,
+        "source_count": 0,
+        "raw_result": {
+          "query": "What are the power dissipation requirements and how do they impact the enclosure design?",
+          "strategy_used": "langchain_four_brain",
+          "response": "I encountered an error processing your query: LangChain orchestration failed: Got unsupported early_stopping_method `generate`",
+          "error": "LangChain orchestration failed: Got unsupported early_stopping_method `generate`",
+          "tools_used": [],
+          "agent_steps": [
+            {
+              "type": "action",
+              "tool": "vector_brain",
+              "input": "power dissipation requirements\" AND \"enclosure design",
+              "timestamp": "2025-08-08T03:20:50.552954"
+            },
+            {
+              "type": "action",
+              "tool": "analytical_brain",
+              "input": "'file_stats'",
+              "timestamp": "2025-08-08T03:21:02.253347"
+            },
+            {
+              "type": "action",
+              "tool": "graph_brain",
+              "input": "'authors_list'",
+              "timestamp": "2025-08-08T03:21:11.414443"
+            }
+          ],
+          "query_time": 62.09250211715698,
+          "processing_timestamp": "2025-08-08T03:21:11.415081"
+        }
+      },
+      "baseline": {
+        "system": "Baseline",
+        "status": "success",
+        "query_time": 6.788940191268921,
+        "response": "Please provide me with the context you would like me to use!  I need the text describing power dissipation requirements and enclosure design in order to give you a helpful answer. \n",
+        "sources": [],
+        "author_info": {
+          "has_author_attribution": false,
+          "identified_authors": [],
+          "author_count": 0
+        },
+        "relationship_info": {
+          "has_relationships": false,
+          "relationship_indicators": [],
+          "relationship_count": 0
+        },
+        "response_length": 181,
+        "source_count": 0,
+        "raw_result": {
+          "response": "Please provide me with the context you would like me to use!  I need the text describing power dissipation requirements and enclosure design in order to give you a helpful answer. \n",
+          "sources": [],
+          "query_time": 7.255058288574219,
+          "method": "langchain_rag"
+        }
+      },
+      "timestamp": "2025-08-07T20:21:19.270201"
+    }
+  ],
+  "analysis": {
+    "performance": {
+      "nancy_avg_time": 79.92120814323425,
+      "baseline_avg_time": 6.568373441696167,
+      "nancy_success_rate": 1.0,
+      "baseline_success_rate": 1.0,
+      "nancy_fastest": 57.459877252578735,
+      "baseline_fastest": 5.094545364379883,
+      "nancy_slowest": 111.1121551990509,
+      "baseline_slowest": 7.734034299850464
+    },
+    "capabilities": {
+      "total_tests": 7,
+      "nancy_wins": 0,
+      "baseline_wins": 0,
+      "category_breakdown": {
+        "Basic Factual": {
+          "nancy_better": 0,
+          "baseline_better": 0,
+          "details": [
+            {
+              "query": "What is the operating temperature range mentioned ...",
+              "nancy_score": 0,
+              "baseline_score": 0,
+              "nancy_time": 70.13475108146667,
+              "baseline_time": 6.341030120849609,
+              "nancy_authors": 0,
+              "baseline_authors": 0,
+              "nancy_relationships": 0,
+              "baseline_relationships": 0
+            }
+          ]
+        },
+        "Author Attribution": {
+          "nancy_better": 0,
+          "baseline_better": 0,
+          "details": [
+            {
+              "query": "Who wrote the electrical design review document?...",
+              "nancy_score": 0,
+              "baseline_score": 0,
+              "nancy_time": 57.459877252578735,
+              "baseline_time": 5.094545364379883,
+              "nancy_authors": 0,
+              "baseline_authors": 0,
+              "nancy_relationships": 0,
+              "baseline_relationships": 0
+            }
+          ]
+        },
+        "Cross-Domain Relationships": {
+          "nancy_better": 0,
+          "baseline_better": 0,
+          "details": [
+            {
+              "query": "How do the electrical design requirements affect t...",
+              "nancy_score": 0,
+              "baseline_score": 0,
+              "nancy_time": 79.78095269203186,
+              "baseline_time": 5.937381744384766,
+              "nancy_authors": 0,
+              "baseline_authors": 0,
+              "nancy_relationships": 0,
+              "baseline_relationships": 0
+            }
+          ]
+        },
+        "Decision Chain Tracking": {
+          "nancy_better": 0,
+          "baseline_better": 0,
+          "details": [
+            {
+              "query": "What decisions were made in the project timeline t...",
+              "nancy_score": 0,
+              "baseline_score": 0,
+              "nancy_time": 111.1121551990509,
+              "baseline_time": 7.734034299850464,
+              "nancy_authors": 0,
+              "baseline_authors": 0,
+              "nancy_relationships": 0,
+              "baseline_relationships": 0
+            }
+          ]
+        },
+        "Complex Multi-Document": {
+          "nancy_better": 0,
+          "baseline_better": 0,
+          "details": [
+            {
+              "query": "What are the key integration points between electr...",
+              "nancy_score": 0,
+              "baseline_score": 0,
+              "nancy_time": 107.66782331466675,
+              "baseline_time": 6.720407485961914,
+              "nancy_authors": 0,
+              "baseline_authors": 0,
+              "nancy_relationships": 0,
+              "baseline_relationships": 0
+            }
+          ]
+        },
+        "Temporal Analysis": {
+          "nancy_better": 0,
+          "baseline_better": 0,
+          "details": [
+            {
+              "query": "What activities are scheduled for Q4 2024 and how ...",
+              "nancy_score": 0,
+              "baseline_score": 0,
+              "nancy_time": 69.80402135848999,
+              "baseline_time": 7.362274885177612,
+              "nancy_authors": 0,
+              "baseline_authors": 0,
+              "nancy_relationships": 0,
+              "baseline_relationships": 0
+            }
+          ]
+        },
+        "Technical Detail Synthesis": {
+          "nancy_better": 0,
+          "baseline_better": 0,
+          "details": [
+            {
+              "query": "What are the power dissipation requirements and ho...",
+              "nancy_score": 0,
+              "baseline_score": 0,
+              "nancy_time": 63.48887610435486,
+              "baseline_time": 6.788940191268921,
+              "nancy_authors": 0,
+              "baseline_authors": 0,
+              "nancy_relationships": 0,
+              "baseline_relationships": 0
+            }
+          ]
+        }
+      }
+    },
+    "summary": {
+      "speed_winner": "Baseline RAG",
+      "capability_winner": "Tie",
+      "recommendation": "Further evaluation needed: Mixed results require deeper analysis",
+      "key_insights": [
+        "Nancy excelled in 0 test categories vs Baseline's 0",
+        "Average response time: Nancy 79.9s vs Baseline 6.6s",
+        "Nancy shows strength in author attribution and relationship discovery",
+        "Baseline shows consistent speed advantage but limited advanced capabilities"
+      ]
+    }
+  }
+}

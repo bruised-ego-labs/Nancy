@@ -315,7 +315,19 @@ Extract the project story elements from this document."""
         """
         Call the preferred LLM with clear error reporting - NO FALLBACKS for security
         """
-        if self.preferred_llm == "local_gemma" or self.preferred_llm == "ollama":
+        if self.preferred_llm == "gemini":
+            try:
+                return self._call_gemini(system_prompt, user_prompt)
+            except Exception as e:
+                raise RuntimeError(f"Gemini API failed: {e}. Nancy requires a functional LLM for query intelligence.")
+        
+        elif self.preferred_llm == "claude":
+            try:
+                return self._call_claude(system_prompt, user_prompt)
+            except Exception as e:
+                raise RuntimeError(f"Claude API failed: {e}. Nancy requires a functional LLM for query intelligence.")
+        
+        elif self.preferred_llm == "local_gemma" or self.preferred_llm == "ollama":
             try:
                 return self._call_local_ollama(system_prompt, user_prompt)
             except Exception as e:
@@ -328,7 +340,7 @@ Extract the project story elements from this document."""
                 raise RuntimeError(f"Local LLM (Transformers) failed: {e}. Nancy requires a functional local LLM for query intelligence.")
         
         else:
-            raise RuntimeError(f"Unsupported LLM preference: {self.preferred_llm}. Nancy only supports local LLMs for security.")
+            raise RuntimeError(f"Unsupported LLM preference: {self.preferred_llm}. Supported options: gemini, claude, local_gemma, ollama, transformers")
     
     def _call_claude(self, system_prompt: str, user_prompt: str) -> str:
         """
@@ -369,7 +381,7 @@ Extract the project story elements from this document."""
         """
         Call Gemini API
         """
-        url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key={self.gemini_api_key}"
+        url = f"https://generativelanguage.googleapis.com/v1beta/models/gemma-3n-e4b-it:generateContent?key={self.gemini_api_key}"
         
         data = {
             "contents": [{
