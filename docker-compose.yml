@@ -48,8 +48,12 @@ services:
       - "7687:7687"
     volumes:
       - neo4j_data:/data
+      - neo4j_logs:/logs
     environment:
       - NEO4J_AUTH=neo4j/password
+      - NEO4J_PLUGINS=["apoc"]
+      - NEO4J_dbms_security_procedures_unrestricted=apoc.*
+      - NEO4J_dbms_security_procedures_allowlist=apoc.*
 
   ollama:
     image: ollama/ollama:latest
@@ -79,4 +83,5 @@ services:
 volumes:
   chromadb_data:
   neo4j_data:
+  neo4j_logs:
   ollama_data:

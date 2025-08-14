@@ -1,0 +1,670 @@
+{
+  "test_start_time": "2025-08-13T17:32:59.243671",
+  "nancy_api_url": "http://localhost:8000",
+  "test_data_directory": "./test_data",
+  "results": {
+    "health_check": {
+      "status": "PASS",
+      "response_code": 200,
+      "response_time_ms": 15.81,
+      "health_data": {
+        "status": "ok"
+      },
+      "timestamp": "2025-08-13T17:32:59.253594"
+    },
+    "test_data_creation": {
+      "status": "FAILED",
+      "error": "No module named 'openpyxl'"
+    },
+    "csv_ingestion": {
+      "component_requirements.csv": {
+        "status": "PASS",
+        "response_code": 200,
+        "processing_time_ms": 1182.96,
+        "file_size_bytes": 1603,
+        "timestamp": "2025-08-13T17:33:00.453560",
+        "response_data": {
+          "filename": "component_requirements.csv",
+          "doc_id": "0c1d87dba7d478cebf3ebae5cf9e65f803d18e0c07b3f68ca3d49ccf21e3ba09",
+          "status": "spreadsheet ingestion complete",
+          "file_type": ".csv",
+          "sheets_found": 1,
+          "sheets_processed": 1,
+          "total_rows": 10,
+          "total_columns": 12,
+          "processed_sheet_names": [
+            "Sheet1"
+          ]
+        },
+        "doc_id": "0c1d87dba7d478cebf3ebae5cf9e65f803d18e0c07b3f68ca3d49ccf21e3ba09"
+      },
+      "thermal_test_results.csv": {
+        "status": "PASS",
+        "response_code": 200,
+        "processing_time_ms": 1066.87,
+        "file_size_bytes": 779,
+        "timestamp": "2025-08-13T17:33:01.520429",
+        "response_data": {
+          "filename": "thermal_test_results.csv",
+          "doc_id": "d4d71c288906a9e5b780f30c6e38494c643778bc5dc3792ae66c78b867c97bd8",
+          "status": "spreadsheet ingestion complete",
+          "file_type": ".csv",
+          "sheets_found": 1,
+          "sheets_processed": 1,
+          "total_rows": 10,
+          "total_columns": 8,
+          "processed_sheet_names": [
+            "Sheet1"
+          ]
+        },
+        "doc_id": "d4d71c288906a9e5b780f30c6e38494c643778bc5dc3792ae66c78b867c97bd8"
+      },
+      "test_results.csv": {
+        "status": "PASS",
+        "response_code": 200,
+        "processing_time_ms": 1115.51,
+        "file_size_bytes": 1213,
+        "timestamp": "2025-08-13T17:33:02.635940",
+        "response_data": {
+          "filename": "test_results.csv",
+          "doc_id": "e82e99ed84055065556bceb314497fb91f8b8449d9b62b9b31012b6f1e527140",
+          "status": "spreadsheet ingestion complete",
+          "file_type": ".csv",
+          "sheets_found": 1,
+          "sheets_processed": 1,
+          "total_rows": 10,
+          "total_columns": 11,
+          "processed_sheet_names": [
+            "Sheet1"
+          ]
+        },
+        "doc_id": "e82e99ed84055065556bceb314497fb91f8b8449d9b62b9b31012b6f1e527140"
+      },
+      "team_directory.csv": {
+        "status": "PASS",
+        "response_code": 200,
+        "processing_time_ms": 783.35,
+        "file_size_bytes": 785,
+        "timestamp": "2025-08-13T17:33:03.420414",
+        "response_data": {
+          "filename": "team_directory.csv",
+          "doc_id": "252ab328cc1334daf26810a50a68103a4ff6dc8fafb6a8e42bf9c6075d83a46e",
+          "status": "spreadsheet ingestion complete",
+          "file_type": ".csv",
+          "sheets_found": 1,
+          "sheets_processed": 1,
+          "total_rows": 6,
+          "total_columns": 8,
+          "processed_sheet_names": [
+            "Sheet1"
+          ]
+        },
+        "doc_id": "252ab328cc1334daf26810a50a68103a4ff6dc8fafb6a8e42bf9c6075d83a46e"
+      },
+      "engineering_projects_overview.csv": {
+        "status": "PASS",
+        "response_code": 200,
+        "processing_time_ms": 817.93,
+        "file_size_bytes": 429,
+        "timestamp": "2025-08-13T17:33:04.253980",
+        "response_data": {
+          "filename": "engineering_projects_overview.csv",
+          "doc_id": "3e71f46c2c67cfeea285c7b243a46d3e07f73689499f6ee18cd393f9451ee548",
+          "status": "spreadsheet ingestion complete",
+          "file_type": ".csv",
+          "sheets_found": 1,
+          "sheets_processed": 1,
+          "total_rows": 4,
+          "total_columns": 8,
+          "processed_sheet_names": [
+            "Sheet1"
+          ]
+        },
+        "doc_id": "3e71f46c2c67cfeea285c7b243a46d3e07f73689499f6ee18cd393f9451ee548"
+      },
+      "mechanical_analysis.csv": {
+        "status": "PASS",
+        "response_code": 200,
+        "processing_time_ms": 1061.85,
+        "file_size_bytes": 818,
+        "timestamp": "2025-08-13T17:33:05.315833",
+        "response_data": {
+          "filename": "mechanical_analysis.csv",
+          "doc_id": "de4f69257da98127ecd29c861443d50caf459ac7decafd56f8f4a955e93ae3ce",
+          "status": "spreadsheet ingestion complete",
+          "file_type": ".csv",
+          "sheets_found": 1,
+          "sheets_processed": 1,
+          "total_rows": 10,
+          "total_columns": 9,
+          "processed_sheet_names": [
+            "Sheet1"
+          ]
+        },
+        "doc_id": "de4f69257da98127ecd29c861443d50caf459ac7decafd56f8f4a955e93ae3ce"
+      }
+    },
+    "excel_ingestion": {
+      "status": "SKIPPED",
+      "reason": "Excel test file not found"
+    },
+    "four_brain_validation": {
+      "vector": {
+        "status": "PASS",
+        "response_code": 200,
+        "processing_time_ms": 3907.5,
+        "timestamp": "2025-08-13T17:33:09.225512",
+        "response_data": {
+          "query": "thermal testing requirements",
+          "strategy_used": "langchain_router",
+          "response": "Thermal testing requirements are defined by `requirement_description` which includes specifications like \"Maintain temperature within \u00b10.1\u00b0C accuracy\". The `temperature_max`, `temperature_avg`, and `thermal_requirement` are numeric columns in the `thermal_test_results.csv` spreadsheet which likely contain the measured and required temperature values.  The `test_name` column in the spreadsheet indicates the specific thermal test being performed (e.g., CPU Thermal Test, GPU Thermal Test). The `test_status` indicates if the test passed or failed.\n",
+          "routing_info": {
+            "selected_brain": "unknown",
+            "confidence": 0.5,
+            "routing_method": "llm_router"
+          },
+          "routing_steps": [],
+          "query_time": 2.870410442352295,
+          "processing_timestamp": "2025-08-14T00:33:09.102280"
+        },
+        "answer": "",
+        "content_match_score": 0.0
+      },
+      "analytical": {
+        "status": "PASS",
+        "response_code": 200,
+        "processing_time_ms": 2734.64,
+        "timestamp": "2025-08-13T17:33:11.960594",
+        "response_data": {
+          "query": "Show me components with thermal constraints above 70 degrees",
+          "strategy_used": "langchain_router",
+          "response": "The following components have thermal constraints above 70 degrees:\n\n*   **MCU-001:** Thermal Constraint = 85\n*   **CAP-003:** Thermal Constraint = 125\n\n\n\nThese constraints are listed in `18377e512dd4d7b6d60d3148b59e0dd5459996004dfc739e60f5fc21ed3ca070_Sheet1`.",
+          "routing_info": {
+            "selected_brain": "unknown",
+            "confidence": 0.5,
+            "routing_method": "llm_router"
+          },
+          "routing_steps": [],
+          "query_time": 2.810401678085327,
+          "processing_timestamp": "2025-08-14T00:33:11.943293"
+        },
+        "answer": "",
+        "content_match_score": 0.0
+      },
+      "graph": {
+        "status": "PASS",
+        "response_code": 200,
+        "processing_time_ms": 19563.53,
+        "timestamp": "2025-08-13T17:33:31.525216",
+        "response_data": {
+          "query": "What relationships exist between Alice Johnson and thermal testing?",
+          "strategy_used": "langchain_router",
+          "response": "Okay, here's a comprehensive analysis of the relationship between Alice Johnson and thermal testing, synthesized from the provided documents.\n\n**Summary:**\n\nAlice Johnson is directly involved in thermal testing, specifically related to the \"Memory Thermal Test.\" The data indicates she performed a thermal test on August 2nd, 2025, as recorded in Sheet1 of document d4d71c288906a9e5b780f30c6e38494c643778bc5dc3792ae66c78b867c97bd8.  While the relationship analysis didn't reveal broader connections, the document content clearly links her to this specific thermal testing activity.\n\n**Technical Details:**\n\n*   **Test Type:** Memory Thermal Test (specifically TH003)\n*   **Test Date:** August 2nd, 2025\n*   **Test Status:**  The provided data doesn't specify the status of this particular test (PASS or FAIL).\n*   **Related Components:**  The Memory Thermal Test (TH003) is connected to the broader \"Thermal Management System\" project. (Source: 3e71f46c2c67cfeea285c7b243a46d3e07f73689499f6ee18cd393f9451ee548)\n\n**People Involved & Expertise/Roles:**\n\n*   **Alice Johnson:**  Performs thermal testing, specifically the Memory Thermal Test. Her role isn't explicitly defined in the provided data, but she is identified as an \"engineer\" involved in the testing process.\n*   **Bob Smith:**  Another engineer involved in the thermal testing, specifically the Memory Thermal Test (TH003). He is listed as being involved on August 1st, 2025.\n*   **Sarah Chen:** Lead Engineer for the Thermal Management System.\n*   **James Wilson:**  Working on the Power Distribution Unit.\n*    **Dr. Amanda Torres:** Working on the Communication Array.\n\n**System & Component Relationships:**\n\n*   The Memory Thermal Test (TH003) is a component of the broader \"Thermal Management System\" project, which is led by Sarah Chen. \n*   The Thermal Management System is one of several projects including a Power Distribution Unit and a Communication Array.\n\n**Decision Chains & Responsibilities:**\n\n*   The data doesn't explicitly outline decision chains or responsibilities. However, the fact that Sarah Chen is the Lead Engineer for the Thermal Management System suggests she has overall responsibility for the design and testing of components within that system, including the Memory Thermal Test.\n*   Alice Johnson's responsibility, based on this data, is to execute thermal tests, likely under the guidance of the Lead Engineer or a senior engineer.\n\n**Cross-Domain Impacts & Dependencies:**\n\n*   Thermal testing is directly related to the \"Thermal Management System\" and potentially impacts the performance and reliability of other components like the \"Power Distribution Unit\" and \"Communication Array\" (as they all require effective thermal management).\n*   The success of the Memory Thermal Test (TH003) directly impacts the overall reliability and performance of the system it's a part of.\n\n\n\nI hope this comprehensive analysis is helpful! Let me know if you have any other questions.\n\n\n\n",
+          "routing_info": {
+            "selected_brain": "unknown",
+            "confidence": 0.5,
+            "routing_method": "llm_router"
+          },
+          "routing_steps": [],
+          "query_time": 19.168803691864014,
+          "processing_timestamp": "2025-08-14T00:33:31.144855"
+        },
+        "answer": "",
+        "content_match_score": 0.0
+      },
+      "linguistic": {
+        "status": "PASS",
+        "response_code": 200,
+        "processing_time_ms": 976.43,
+        "timestamp": "2025-08-13T17:33:32.502181",
+        "response_data": {
+          "query": "Which engineers are responsible for power-related components?",
+          "strategy_used": "langchain_router",
+          "response": "GRAPH_TECHNICAL_RESULTS: Technical cross-references: [{'source': None, 'target': None, 'context': 'Referenced in electrical_review_meeting.txt'}, {'source': None, 'target': None, 'context': 'Referenced in electrical_review_meeting.txt'}, {'source': None, 'target': None, 'context': 'Referenced in electrical_review_meeting.txt'}, {'source': None, 'target': None, 'context': 'Referenced in emc_test_results.txt'}, {'source': None, 'target': None, 'context': 'Referenced in emc_test_results.txt'}]",
+          "routing_info": {
+            "selected_brain": "unknown",
+            "confidence": 0.5,
+            "routing_method": "llm_router"
+          },
+          "routing_steps": [],
+          "query_time": 0.9968726634979248,
+          "processing_timestamp": "2025-08-14T00:33:32.160091"
+        },
+        "answer": "",
+        "content_match_score": 0.0
+      }
+    },
+    "natural_language_queries": {
+      "thermal_data_inquiry": {
+        "query": "What thermal test data is available?",
+        "status": "PASS",
+        "response_code": 200,
+        "processing_time_ms": 3280.81,
+        "timestamp": "2025-08-13T17:33:35.783997",
+        "response_data": {
+          "query": "What thermal test data is available?",
+          "strategy_used": "langchain_router",
+          "response": "Thermal test data is available in a spreadsheet named `thermal_test_results.csv`, Sheet: Sheet1. It contains 10 rows and 8 columns with numeric columns for `temperature_max`, `temperature_avg`, and `thermal_requirement`, and categorical columns for `component_id`, `test_name`, `test_status`, `test_date`, and `engineer`.  Examples of test names include CPU Thermal Test, GPU Thermal Test, and Memory Thermal Test. The data also includes `pass_fail` (Pass/Fail) and `notes` (e.g., \"Exceeds minimum requirement\", \"Within thermal limits\") columns. Specific test results are shown in the provided source data.\n",
+          "routing_info": {
+            "selected_brain": "unknown",
+            "confidence": 0.5,
+            "routing_method": "llm_router"
+          },
+          "routing_steps": [],
+          "query_time": 3.397573947906494,
+          "processing_timestamp": "2025-08-14T00:33:35.567599"
+        },
+        "answer": "",
+        "brain_used": "unknown",
+        "confidence": 0,
+        "keyword_match_score": 0.0,
+        "response_length": 0
+      },
+      "cost_analysis": {
+        "query": "Show me components with cost over $100",
+        "status": "PASS",
+        "response_code": 200,
+        "processing_time_ms": 3755.89,
+        "timestamp": "2025-08-13T17:33:40.540461",
+        "response_data": {
+          "query": "Show me components with cost over $100",
+          "strategy_used": "langchain_router",
+          "response": "The following components have a cost over $100:\n\n*   **MP003** (Titanium Ti-6Al-4V) - Cost: $189.25 (Source: de4f69257da98127ecd29c861443d50caf459ac7decafd56f8f4a955e93ae3ce_Sheet1)\n*   **CAP-003** - Cost: $0.45 (Source: 18377e512dd4d7b6d60d3148b59e0dd5459996004dfc739e60f5fc21ed3ca070_Sheet1)\n\n\n\n",
+          "routing_info": {
+            "selected_brain": "unknown",
+            "confidence": 0.5,
+            "routing_method": "llm_router"
+          },
+          "routing_steps": [],
+          "query_time": 3.892383575439453,
+          "processing_timestamp": "2025-08-14T00:33:40.506675"
+        },
+        "answer": "",
+        "brain_used": "unknown",
+        "confidence": 0,
+        "keyword_match_score": 0.0,
+        "response_length": 0
+      },
+      "engineer_ownership": {
+        "query": "Which engineers own failing tests?",
+        "status": "PASS",
+        "response_code": 200,
+        "processing_time_ms": 1094.57,
+        "timestamp": "2025-08-13T17:33:42.635487",
+        "response_data": {
+          "query": "Which engineers own failing tests?",
+          "strategy_used": "langchain_router",
+          "response": "GRAPH_GENERAL_RESULTS: Knowledge graph overview: {'node_counts': {'Document': 156, 'Person': 60, 'TechnicalConcept': 18, 'DecisionTarget': 32, 'Spreadsheet': 8, 'Column': 68, 'CategoryValue': 310, 'CalculatedField': 2, 'IdentifierColumn': 9, 'CalculatedColumn': 2, 'EngineeringDomain': 15}, 'relationship_counts': {'CONTAINS_VALUE': 320, 'REFERENCES': 134, 'MENTIONED_IN': 75, 'HAS_COLUMN': 68, 'DISCUSSES': 66, 'BELONGS_TO_DOMAIN': 28, 'AUTHORED': 27, 'RELATES_TO': 20, 'CALCULATED_FROM': 20, 'SUM_OF': 18, 'PARENT_CATEGORY_OF': 13, 'STRONGLY_CORRELATED': 11, 'IS_IDENTIFIER': 9, 'CONTAINS_SHEET': 8, 'REQUIRES': 6, 'STATUS_OF': 5, 'CONSTRAINS': 3, 'IS_CALCULATED': 2, 'IS_CALCULATED_FIELD': 2, 'DECISION_MADE': 1, 'AFFECTS': 1, 'INFLUENCES': 1}, 'most_connected_documents': [{'filename': None, 'connection_count': 449}, {'filename': 'engineering_projects_overview.csv', 'connection_count': 2}, {'filename': 'test_results.csv', 'connection_count': 2}, {'filename': 'team_directory.csv', 'connection_count': 2}, {'filename': 'thermal_test_results.csv', 'connection_count': 2}, {'filename': 'mechanical_analysis.csv', 'connection_count': 2}, {'filename': 'test_data.csv', 'connection_count': 2}, {'filename': 'component_requirements.csv', 'connection_count': 2}, {'filename': 'power_analysis_report.txt', 'connection_count': 1}, {'filename': 'march_design_review_transcript.txt', 'connection_count': 1}]}",
+          "routing_info": {
+            "selected_brain": "unknown",
+            "confidence": 0.5,
+            "routing_method": "llm_router"
+          },
+          "routing_steps": [],
+          "query_time": 1.12013840675354,
+          "processing_timestamp": "2025-08-14T00:33:42.683376"
+        },
+        "answer": "",
+        "brain_used": "unknown",
+        "confidence": 0,
+        "keyword_match_score": 0.0,
+        "response_length": 0
+      },
+      "requirement_dependencies": {
+        "query": "What requirements depend on thermal analysis?",
+        "status": "PASS",
+        "response_code": 200,
+        "processing_time_ms": 2589.08,
+        "timestamp": "2025-08-13T17:33:46.226471",
+        "response_data": {
+          "query": "What requirements depend on thermal analysis?",
+          "strategy_used": "langchain_router",
+          "response": "Based on the provided information, thermal analysis is required for meeting the \"Thermal_Constraint\" of components like MCU-001, REG-002, and CAP-003. Specifically, these components have defined thermal constraints (e.g., 85, 70, and 125 respectively) that thermal analysis needs to address. The `thermal_test_results.csv` spreadsheet also indicates thermal tests are performed on components like the CPU, GPU, Memory, Power Supply, and Motherboard.\n",
+          "routing_info": {
+            "selected_brain": "unknown",
+            "confidence": 0.5,
+            "routing_method": "llm_router"
+          },
+          "routing_steps": [],
+          "query_time": 2.680774450302124,
+          "processing_timestamp": "2025-08-14T00:33:46.412874"
+        },
+        "answer": "",
+        "brain_used": "unknown",
+        "confidence": 0,
+        "keyword_match_score": 0.0,
+        "response_length": 0
+      },
+      "power_efficiency": {
+        "query": "Find systems with power efficiency above 90%",
+        "status": "PASS",
+        "response_code": 200,
+        "processing_time_ms": 1794.61,
+        "timestamp": "2025-08-13T17:33:49.022193",
+        "response_data": {
+          "query": "Find systems with power efficiency above 90%",
+          "strategy_used": "langchain_router",
+          "response": "Based on the provided data, no systems with power efficiency above 90% are listed. The information focuses on project status, lead engineers, and risk levels.\n",
+          "routing_info": {
+            "selected_brain": "unknown",
+            "confidence": 0.5,
+            "routing_method": "llm_router"
+          },
+          "routing_steps": [],
+          "query_time": 1.8473308086395264,
+          "processing_timestamp": "2025-08-14T00:33:49.316425"
+        },
+        "answer": "",
+        "brain_used": "unknown",
+        "confidence": 0,
+        "keyword_match_score": 0.0,
+        "response_length": 0
+      },
+      "project_status": {
+        "query": "What is the status of engineering projects?",
+        "status": "PASS",
+        "response_code": 200,
+        "processing_time_ms": 3051.2,
+        "timestamp": "2025-08-13T17:33:53.074650",
+        "response_data": {
+          "query": "What is the status of engineering projects?",
+          "strategy_used": "langchain_router",
+          "response": "Here's the status of the engineering projects:\n\n*   **Thermal Management System:** In Progress, led by Sarah Chen, with a target completion date of 2025-09-30 and a medium risk level.\n*   **Power Distribution Unit:** Currently in Design Review, led by James Wilson, with a target completion date of 2025-10-15 and a low risk level.\n*   **Communication Array:** Status not specified.\n*   **Data Processing Hub:** Status not specified.\n\nThese projects are detailed in the `engineering_projects_overview.csv` spreadsheet.\n",
+          "routing_info": {
+            "selected_brain": "unknown",
+            "confidence": 0.5,
+            "routing_method": "llm_router"
+          },
+          "routing_steps": [],
+          "query_time": 3.147348642349243,
+          "processing_timestamp": "2025-08-14T00:33:53.523591"
+        },
+        "answer": "",
+        "brain_used": "unknown",
+        "confidence": 0,
+        "keyword_match_score": 0.0,
+        "response_length": 0
+      }
+    },
+    "engineering_domain": {
+      "thermal_engineering": {
+        "domain": "thermal_engineering",
+        "query": "What are the thermal constraints for the CPU component?",
+        "status": "PASS",
+        "response_code": 200,
+        "processing_time_ms": 4850.66,
+        "timestamp": "2025-08-13T17:33:58.926345",
+        "response_data": {
+          "query": "What are the thermal constraints for the CPU component?",
+          "strategy_used": "langchain_router",
+          "response": "Based on the provided information, the thermal constraints for the CPU component (TH001, TH002, TH003, TH004, TH005...) are not explicitly stated with a specific temperature value. However, the \"thermal_requirement\" column in the `thermal_test_results.csv` spreadsheet contains temperature data.  The `Sheet1` content from the source `d4d71c288906a9e5b780f30c6e38494c643778bc5dc3792ae66c78b867c97bd8_Sheet1` shows the column exists.  The `Sheet1` content from the source `18377e512dd4d7b6d60d3148b59e0dd5459996004dfc739e60f5fc21ed3ca070_Sheet1` lists \"Thermal_Constraint\" values for other components (MCU-001: 85, REG-002: 70, CAP-003: 125), but not the CPU.\n",
+          "routing_info": {
+            "selected_brain": "unknown",
+            "confidence": 0.5,
+            "routing_method": "llm_router"
+          },
+          "routing_steps": [],
+          "query_time": 3.906582832336426,
+          "processing_timestamp": "2025-08-14T00:33:58.488940"
+        },
+        "answer": "",
+        "domain_intelligence_score": 0.0,
+        "engineering_context_score": 0.0
+      },
+      "electrical_engineering": {
+        "domain": "electrical_engineering",
+        "query": "Show EMC compliance test results",
+        "status": "PASS",
+        "response_code": 200,
+        "processing_time_ms": 3320.88,
+        "timestamp": "2025-08-13T17:34:02.247451",
+        "response_data": {
+          "query": "Show EMC compliance test results",
+          "strategy_used": "langchain_router",
+          "response": "The EMC compliance test results show:\n\n*   **TEST-001 (COMP-001):** Pass - Exceeds minimum requirement.\n*   **TEST-002 (COMP-001):** Pass - Within thermal limits.\n*   **TEST-003 (COMP-003):** Pass - Good margin.\n\nThese results are documented in the sheet named \"e82e99ed84055065556bceb314497fb91f8b8449d9b62b9b31012b6f1e527140_Sheet1\".\n",
+          "routing_info": {
+            "selected_brain": "unknown",
+            "confidence": 0.5,
+            "routing_method": "llm_router"
+          },
+          "routing_steps": [],
+          "query_time": 3.4296793937683105,
+          "processing_timestamp": "2025-08-14T00:34:01.935022"
+        },
+        "answer": "",
+        "domain_intelligence_score": 0.0,
+        "engineering_context_score": 0.0
+      },
+      "mechanical_engineering": {
+        "domain": "mechanical_engineering",
+        "query": "Find mechanical stress analysis data",
+        "status": "PASS",
+        "response_code": 200,
+        "processing_time_ms": 2755.09,
+        "timestamp": "2025-08-13T17:34:05.003658",
+        "response_data": {
+          "query": "Find mechanical stress analysis data",
+          "strategy_used": "langchain_router",
+          "response": "Mechanical stress analysis data is available in the spreadsheet \"mechanical_analysis.csv\" on Sheet1 (source de4f69257da98127ecd29c861443d50caf459ac7decafd56f8f4a955e93ae3ce_Sheet1). It has 10 rows and 9 columns, including numeric columns like `stress_max` and `stress_avg`, and categorical columns such as `part_number` and `material_type`.\n",
+          "routing_info": {
+            "selected_brain": "unknown",
+            "confidence": 0.5,
+            "routing_method": "llm_router"
+          },
+          "routing_steps": [],
+          "query_time": 2.8533315658569336,
+          "processing_timestamp": "2025-08-14T00:34:04.795992"
+        },
+        "answer": "",
+        "domain_intelligence_score": 0.0,
+        "engineering_context_score": 0.0
+      },
+      "systems_engineering": {
+        "domain": "systems_engineering",
+        "query": "What are the system requirements and dependencies?",
+        "status": "PASS",
+        "response_code": 200,
+        "processing_time_ms": 15306.3,
+        "timestamp": "2025-08-13T17:34:20.311020",
+        "response_data": {
+          "query": "What are the system requirements and dependencies?",
+          "strategy_used": "langchain_router",
+          "response": "## System Requirements and Dependencies: A Comprehensive Overview\n\nBased on the provided documents and relationship analysis, here's a breakdown of the system requirements and dependencies, synthesizing information from both technical details and the relationships between components and requirements.\n\n**1. Component Requirements & Technical Specifications:**\n\nThe system consists of at least three core components:\n\n*   **MCU-001 (Microcontroller Unit):** Owned by Alice Thompson, costing $12.50, with a thermal constraint of 85 degrees Celsius.\n*   **REG-002 (Voltage Regulator):** Owned by Bob Chen, costing $2.30, with a thermal constraint of 70 degrees Celsius.\n*   **CAP-003 (Capacitor):** Owned by Carol Davis, costing $0.45, with a thermal constraint of 125 degrees Celsius.\n\nThe `component_requirements.csv` spreadsheet (Sheet1) provides further detail:\n\n*   **Thermal Constraints:**  A critical consideration. Thermal constraints are explicitly defined and are linked to the components.  The thermal analysis document is a key resource for understanding these constraints. Thermal tests will be performed and results recorded, with engineers responsible for analyzing these results (potentially James Wilson).\n*   **Power Requirements:**  Power consumption is a significant factor, as indicated by the `power_requirement_w` column.  The firmware's power management algorithms are a decision target, implying a need for optimization. \n*   **Performance:** Requirements include:\n    *   Process telemetry data at a minimum of 100Hz.\n    *   Store 30 days of telemetry data locally.\n    *   Maintain communication up to a 50km range.\n    *   Provide 72 hours of operation without recharge.\n    *   Measure temperature with \u00b10.1\u00b0C accuracy.\n*   **Other Requirements:** The system also requires maintaining a certain accuracy (specified as \u00b10.1\u00b0C) and supporting the storage of telemetry data for 30 days.\n\n**2. People & Roles:**\n\nSeveral individuals are involved, each with specific roles:\n\n*   **Alice Thompson:** Owner of MCU-001.  Likely responsible for the microcontroller's selection and integration.\n*   **Bob Chen:** Owner of REG-002.  Responsible for the voltage regulator's selection and integration.\n*   **Carol Davis:** Owner of CAP-003. Responsible for the capacitor's selection and integration.\n*   **Sarah Chen:** Owner of several requirements, implying responsibility for their fulfillment.\n*   **Mike Rodriguez:** Owner of several requirements, implying responsibility for their fulfillment.\n*   **Dr. Amanda Torres:**  Owner of several requirements, implying responsibility for their fulfillment.\n*   **James Wilson:**  Potentially responsible for analyzing thermal test results.\n*   **Lisa Park:** Owner of several requirements, implying responsibility for their fulfillment.\n\n**3. System & Component Relationships:**\n\n*   **Thermal Management:**  Thermal constraints are a primary dependency. Components must be selected and integrated to meet these constraints.  This involves thermal analysis and potentially cooling solutions (not explicitly mentioned but implied).\n*   **Power Management:** Power requirements impact the selection of components, especially the power supply (REG-002), and firmware development for efficient power usage.\n*   **Telemetry Data:** The system relies on the MCU (MCU-001) to process and store telemetry data. This data processing capability and data storage capacity are key performance requirements.\n*   **Engineering Domains:** The system operates within thermal and power domains. The requirements are linked to these domains, suggesting cross-domain dependencies and potential interactions.\n\n**4. Decision Chains & Responsibilities:**\n\n*   **Component Selection:**  Component ownership (Alice, Bob, Carol) implies responsibility for selecting components that meet performance and thermal constraints.\n*   **Firmware Development:** The firmware power management algorithms are a decision target, suggesting a decision-making process around power optimization. Mike Rodriguez may be a key player in this decision.\n*   **Thermal Testing & Analysis:** James Wilson is likely responsible for analyzing thermal test results and ensuring that components operate within their thermal limits. \n*  **Requirement Fulfillment:** Sarah Chen, Mike Rodriguez, Dr. Amanda Torres, and Lisa Park are responsible for fulfilling the various requirements, likely coordinating with the appropriate engineering teams.\n\n**5. Cross-Domain Impacts & Dependencies:**\n\n*   **Thermal and Power Domains:** The system's performance and reliability are directly impacted by the interplay between thermal and power management.  For example, high power consumption can lead to increased heat generation, necessitating careful thermal design. \n*   **Performance and Power:**  Meeting performance requirements (e.g., 100Hz telemetry) often comes at the cost of increased power consumption, requiring trade-offs in system design.\n*   **Data Storage & Communication:** The system's ability to store and communicate telemetry data depends on the MCU's processing power and the communication module's range and power efficiency.\n\n**In summary:** The system requires careful consideration of thermal and power constraints, along with performance and data storage requirements.  Effective collaboration between component owners, firmware developers, and thermal/power management engineers is essential for a successful design.  Further investigation into the specific thermal analysis document and power analysis report would provide a more detailed understanding of the system's requirements and dependencies.\n\n\n\n",
+          "routing_info": {
+            "selected_brain": "unknown",
+            "confidence": 0.5,
+            "routing_method": "llm_router"
+          },
+          "routing_steps": [],
+          "query_time": 15.894645690917969,
+          "processing_timestamp": "2025-08-14T00:34:20.699337"
+        },
+        "answer": "",
+        "domain_intelligence_score": 0.0,
+        "engineering_context_score": 0.0
+      },
+      "quality_engineering": {
+        "domain": "quality_engineering",
+        "query": "Which tests have failed and need attention?",
+        "status": "PASS",
+        "response_code": 200,
+        "processing_time_ms": 3223.86,
+        "timestamp": "2025-08-13T17:34:23.535417",
+        "response_data": {
+          "query": "Which tests have failed and need attention?",
+          "strategy_used": "langchain_router",
+          "response": "Based on the provided data, **TEST-004** has failed. The `test_status` field in the `d4d71c288906a9e5b780f30c6e38494c643778bc5dc3792ae66c78b867c97bd8_Sheet1` source indicates a `test_status` of \"FAIL\" for an unspecified test. The `VECTOR_SEARCH_RESULTS` source shows test results for TEST-001, TEST-002, and TEST-003, all of which passed.\n",
+          "routing_info": {
+            "selected_brain": "unknown",
+            "confidence": 0.5,
+            "routing_method": "llm_router"
+          },
+          "routing_steps": [],
+          "query_time": 2.2103707790374756,
+          "processing_timestamp": "2025-08-14T00:34:22.931742"
+        },
+        "answer": "",
+        "domain_intelligence_score": 0.0,
+        "engineering_context_score": 0.0
+      }
+    },
+    "performance_reliability": {
+      "response_time_consistency": {
+        "status": "PASS",
+        "avg_response_time_ms": 3602.21,
+        "min_response_time_ms": 3124.62,
+        "max_response_time_ms": 4764.11,
+        "std_deviation_ms": 677.35,
+        "sample_size": 5
+      },
+      "concurrent_handling": {
+        "status": "PASS",
+        "requests_tested": 3,
+        "successful_requests": 3,
+        "results": [
+          {
+            "query_id": 1,
+            "status": "PASS",
+            "response_time_ms": 2452.6
+          },
+          {
+            "query_id": 2,
+            "status": "PASS",
+            "response_time_ms": 4135.01
+          },
+          {
+            "query_id": 3,
+            "status": "PASS",
+            "response_time_ms": 3367.09
+          }
+        ]
+      }
+    },
+    "error_handling": {
+      "invalid_file_handling": {
+        "status": "PASS",
+        "response_code": 200,
+        "handled_gracefully": true
+      },
+      "empty_query_handling": {
+        "status": "PASS",
+        "response_code": 200,
+        "handled_gracefully": true
+      },
+      "long_query_handling": {
+        "status": "PASS",
+        "response_code": 200,
+        "query_length": 3300,
+        "handled_gracefully": true
+      }
+    },
+    "cross_brain_queries": {
+      "semantic_plus_structured": {
+        "scenario": "semantic_plus_structured",
+        "query": "Find thermal test failures and tell me which engineers are responsible",
+        "description": "Requires semantic search + structured data + relationship mapping",
+        "status": "PASS",
+        "response_code": 200,
+        "processing_time_ms": 883.45,
+        "timestamp": "2025-08-13T17:35:18.950033",
+        "response_data": {
+          "query": "Find thermal test failures and tell me which engineers are responsible",
+          "strategy_used": "langchain_router",
+          "response": "GRAPH_GENERAL_RESULTS: Knowledge graph overview: {'node_counts': {'Document': 156, 'Person': 60, 'TechnicalConcept': 18, 'DecisionTarget': 32, 'Spreadsheet': 8, 'Column': 68, 'CategoryValue': 310, 'CalculatedField': 2, 'IdentifierColumn': 9, 'CalculatedColumn': 2, 'EngineeringDomain': 15}, 'relationship_counts': {'CONTAINS_VALUE': 320, 'REFERENCES': 134, 'MENTIONED_IN': 75, 'HAS_COLUMN': 68, 'DISCUSSES': 66, 'BELONGS_TO_DOMAIN': 28, 'AUTHORED': 27, 'RELATES_TO': 20, 'CALCULATED_FROM': 20, 'SUM_OF': 18, 'PARENT_CATEGORY_OF': 13, 'STRONGLY_CORRELATED': 11, 'IS_IDENTIFIER': 9, 'CONTAINS_SHEET': 8, 'REQUIRES': 6, 'STATUS_OF': 5, 'CONSTRAINS': 3, 'IS_CALCULATED': 2, 'IS_CALCULATED_FIELD': 2, 'DECISION_MADE': 1, 'AFFECTS': 1, 'INFLUENCES': 1}, 'most_connected_documents': [{'filename': None, 'connection_count': 449}, {'filename': 'engineering_projects_overview.csv', 'connection_count': 2}, {'filename': 'test_results.csv', 'connection_count': 2}, {'filename': 'team_directory.csv', 'connection_count': 2}, {'filename': 'thermal_test_results.csv', 'connection_count': 2}, {'filename': 'mechanical_analysis.csv', 'connection_count': 2}, {'filename': 'test_data.csv', 'connection_count': 2}, {'filename': 'component_requirements.csv', 'connection_count': 2}, {'filename': 'power_analysis_report.txt', 'connection_count': 1}, {'filename': 'march_design_review_transcript.txt', 'connection_count': 1}]}",
+          "routing_info": {
+            "selected_brain": "unknown",
+            "confidence": 0.5,
+            "routing_method": "llm_router"
+          },
+          "routing_steps": [],
+          "query_time": 0.8833320140838623,
+          "processing_timestamp": "2025-08-14T00:35:19.394131"
+        },
+        "answer": "",
+        "brain_used": "unknown",
+        "complexity_score": 0.0,
+        "response_comprehensiveness": false
+      },
+      "relationship_plus_calculation": {
+        "scenario": "relationship_plus_calculation",
+        "query": "What is the average power consumption of components owned by Alice Johnson?",
+        "description": "Requires relationship discovery + numerical calculation",
+        "status": "PASS",
+        "response_code": 200,
+        "processing_time_ms": 942.79,
+        "timestamp": "2025-08-13T17:35:21.893930",
+        "response_data": {
+          "query": "What is the average power consumption of components owned by Alice Johnson?",
+          "strategy_used": "langchain_router",
+          "response": "GRAPH_TECHNICAL_RESULTS: Technical cross-references: [{'source': None, 'target': None, 'context': 'Referenced in electrical_review_meeting.txt'}, {'source': None, 'target': None, 'context': 'Referenced in electrical_review_meeting.txt'}, {'source': None, 'target': None, 'context': 'Referenced in electrical_review_meeting.txt'}, {'source': None, 'target': None, 'context': 'Referenced in emc_test_results.txt'}, {'source': None, 'target': None, 'context': 'Referenced in emc_test_results.txt'}]",
+          "routing_info": {
+            "selected_brain": "unknown",
+            "confidence": 0.5,
+            "routing_method": "llm_router"
+          },
+          "routing_steps": [],
+          "query_time": -0.167771577835083,
+          "processing_timestamp": "2025-08-14T00:35:21.317115"
+        },
+        "answer": "",
+        "brain_used": "unknown",
+        "complexity_score": 0.0,
+        "response_comprehensiveness": false
+      },
+      "comprehensive_analysis": {
+        "scenario": "comprehensive_analysis",
+        "query": "Show me all failed tests, their related components, and the engineers responsible, along with thermal constraints",
+        "description": "Requires comprehensive multi-brain analysis",
+        "status": "PASS",
+        "response_code": 200,
+        "processing_time_ms": 10767.78,
+        "timestamp": "2025-08-13T17:35:34.662942",
+        "response_data": {
+          "query": "Show me all failed tests, their related components, and the engineers responsible, along with thermal constraints",
+          "strategy_used": "langchain_router",
+          "response": "## Failed Tests, Related Components, Responsible Engineers, and Thermal Constraints\n\nHere's a comprehensive overview of failed tests, their related components, responsible engineers, and associated thermal constraints, synthesized from the provided documents and relationship analysis:\n\n**1. Identifying Failed Tests:**\n\nThe data indicates that **TEST-001** is the only failed test identified.  The `test_status` column in the `thermal_test_results.csv:Sheet1` spreadsheet shows \"Fail\" for this test.\n\n**2. Related Components:**\n\n*   The failed test **TEST-001** is associated with component **COMP-001**.\n\n**3. Responsible Engineer:**\n\n*   **Bob Smith** is listed as the engineer associated with the failed test (TEST-001).  He is documented in the `d4d71c288906a9e5b780f30c6e38494c643778bc5dc3792ae66c78b867c97bd8_Sheet1` document on 2025-08-01.\n\n**4. Thermal Constraints:**\n\n*   The relationship analysis identifies that this data falls under **thermal analysis** and **thermal constraints**.\n*   The relationship analysis also identifies that  **COMP-001** is associated with a thermal constraint category \"Within thermal limits\" and **\"thermal_test_results.csv:Sheet1:thermal_requirement\"** column. This means that COMP-001 is expected to operate within a specified thermal limit.\n*   While the documentation does not explicitly state *what* the thermal constraint *is*, it does indicate that the failure occurred because the test **\"Exceeds minimum requirement\"**, meaning the component's temperature exceeded the defined thermal limit.  This suggests the constraint is a maximum operating temperature.\n\n**5. Additional Context & Cross-Domain Impacts:**\n\n*   **Alice Johnson** is also involved in thermal testing, as indicated by her work on the CPU Thermal Test (TH001) on 2025-08-01. She may have expertise in thermal testing and analysis.\n*   The data includes other components such as **TH003** and **TH002**, suggesting a broader thermal testing program.\n*   **Component Requirements** data (from `component_requirements.csv:Sheet1`) contains thermal constraint information for various components, implying a defined set of thermal operating limits for the entire system.\n*   The results are related to **Engineering Domains** of **thermal** and **quality**, suggesting the impact on product reliability and performance.\n*   **Diana Lee** and **Charlie Brown** are listed as engineers who have worked with thermal tests.\n\n**Summary of Findings:**\n\n| Aspect          | Details                                     |\n| --------------- | ------------------------------------------- |\n| Failed Test     | TEST-001                                    |\n| Component       | COMP-001                                    |\n| Responsible Engineer | Bob Smith                                   |\n| Thermal Constraint | Exceeds minimum requirement (maximum temperature) |\n| Other Engineers Involved| Alice Johnson, Charlie Brown, Diana Lee |\n\n**Next Steps:**\n\nTo fully understand the root cause of the failure and prevent future occurrences, it would be beneficial to:\n\n*   Review the detailed test results for TEST-001, including temperature readings and the specific failure conditions.\n*   Examine the thermal requirements defined for COMP-001 in `component_requirements.csv:Sheet1`.\n*   Investigate potential design or manufacturing issues that may have contributed to the component exceeding its thermal limit.\n*   Analyze the role of Alice Johnson and other engineers involved in thermal testing to ensure best practices are being followed.\n\n\n\n",
+          "routing_info": {
+            "selected_brain": "unknown",
+            "confidence": 0.5,
+            "routing_method": "llm_router"
+          },
+          "routing_steps": [],
+          "query_time": 11.14323353767395,
+          "processing_timestamp": "2025-08-14T00:35:34.569959"
+        },
+        "answer": "",
+        "brain_used": "unknown",
+        "complexity_score": 0.0,
+        "response_comprehensiveness": false
+      },
+      "temporal_relationship_query": {
+        "scenario": "temporal_relationship_query",
+        "query": "Which projects have thermal testing milestones and what are their current statuses?",
+        "description": "Requires temporal relationship analysis across brains",
+        "status": "PASS",
+        "response_code": 200,
+        "processing_time_ms": 2786.11,
+        "timestamp": "2025-08-13T17:35:39.450460",
+        "response_data": {
+          "query": "Which projects have thermal testing milestones and what are their current statuses?",
+          "strategy_used": "langchain_router",
+          "response": "The following projects have thermal testing milestones:\n\n*   **Thermal Management System (ENG-001):** Status - In Progress, Target Completion - 2025-09-30.\n*   **Memory Thermal Test (TH003):** Status - Not explicitly stated, Target Completion - 2025-08-02.\n*   **Power Distribution Unit (ENG-002):** Status - Design Review, Target Completion - 2025-10-15.\n\n\n\n",
+          "routing_info": {
+            "selected_brain": "unknown",
+            "confidence": 0.5,
+            "routing_method": "llm_router"
+          },
+          "routing_steps": [],
+          "query_time": 2.8603262901306152,
+          "processing_timestamp": "2025-08-14T00:35:39.543110"
+        },
+        "answer": "",
+        "brain_used": "unknown",
+        "complexity_score": 0.0,
+        "response_comprehensiveness": false
+      }
+    }
+  },
+  "test_end_time": "2025-08-13T17:35:41.451122",
+  "overall_status": "EXCELLENT"
+}

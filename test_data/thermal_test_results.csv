@@ -1,0 +1,11 @@
+component_id,test_name,temperature_max,temperature_avg,thermal_requirement,test_status,test_date,engineer
+TH001,CPU Thermal Test,85.2,72.5,90.0,PASS,2025-08-01,Alice Johnson
+TH002,GPU Thermal Test,94.8,83.2,95.0,PASS,2025-08-01,Bob Smith
+TH003,Memory Thermal Test,78.5,65.3,85.0,PASS,2025-08-02,Alice Johnson
+TH004,Power Supply Test,102.3,89.7,100.0,FAIL,2025-08-02,Charlie Brown
+TH005,Motherboard Test,68.9,55.2,75.0,PASS,2025-08-03,Bob Smith
+TH006,SSD Thermal Test,72.1,61.8,80.0,PASS,2025-08-03,Alice Johnson
+TH007,Case Fan Test,45.2,38.9,50.0,PASS,2025-08-04,Diana Lee
+TH008,Heat Sink Test,88.7,76.4,90.0,PASS,2025-08-04,Bob Smith
+TH009,Thermal Pad Test,91.2,82.5,85.0,FAIL,2025-08-05,Charlie Brown
+TH010,Cooling System Test,79.3,68.1,85.0,PASS,2025-08-05,Diana Lee

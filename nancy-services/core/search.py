@@ -1,6 +1,8 @@
 import duckdb
 import os
+import pandas as pd
 from datetime import datetime
+from typing import Dict, Any, Optional
 
 def get_duckdb_connection():
     """
@@ -30,20 +32,56 @@ class AnalyticalBrain:
                 filename VARCHAR,
                 size INTEGER,
                 file_type VARCHAR,
-                ingested_at TIMESTAMP
+                ingested_at TIMESTAMP,
+                metadata JSON
+            )
+        """)
+        
+        # Create table for spreadsheet registry
+        self.con.execute("""
+            CREATE TABLE IF NOT EXISTS spreadsheet_registry (
+                doc_id VARCHAR,
+                filename VARCHAR,
+                sheet_name VARCHAR,
+                table_name VARCHAR,
+                row_count INTEGER,
+                column_count INTEGER,
+                created_at TIMESTAMP,
+                FOREIGN KEY (doc_id) REFERENCES documents(id)
             )
         """)
 
-    def insert_document_metadata(self, doc_id: str, filename: str, size: int, file_type: str):
+    def insert_document_metadata(self, doc_id: str, filename: str, size: int, file_type: str, metadata: Optional[Dict[str, Any]] = None):
         """
-        Inserts metadata for a new document.
+        Inserts metadata for a new document. Handles duplicates gracefully.
         """
+        import json
         ingested_at = datetime.utcnow()
-        self.con.execute(
-            "INSERT INTO documents (id, filename, size, file_type, ingested_at) VALUES (?, ?, ?, ?, ?)",
-            (doc_id, filename, size, file_type, ingested_at)
-        )
-        print(f"Inserted metadata for {filename} into DuckDB.")
+        metadata_json = None if metadata is None else json.dumps(metadata)
+        
+        try:
+            # First check if document already exists
+            existing = self.con.execute(
+                "SELECT id FROM documents WHERE id = ?", 
+                (doc_id,)
+            ).fetchone()
+            
+            if existing:
+                print(f"Document {filename} (ID: {doc_id[:8]}...) already exists in DuckDB. Skipping insertion.")
+                return
+            
+            # Insert new document
+            self.con.execute(
+                "INSERT INTO documents (id, filename, size, file_type, ingested_at, metadata) VALUES (?, ?, ?, ?, ?, ?)",
+                (doc_id, filename, size, file_type, ingested_at, metadata_json)
+            )
+            print(f"Inserted metadata for {filename} into DuckDB.")
+            
+        except Exception as e:
+            print(f"Error inserting document metadata for {filename}: {e}")
+            # Re-raise the exception if it's not a duplicate key constraint
+            if "Duplicate key" not in str(e):
+                raise
 
     def query(self, sql_query: str):
         """
@@ -191,3 +229,239 @@ class AnalyticalBrain:
         
         columns = [desc[0] for desc in self.con.description]
         return [dict(zip(columns, row)) for row in results]
+    
+    def update_document_metadata(self, doc_id: str, additional_metadata: Dict[str, Any]):
+        """
+        Update document metadata with additional information (e.g., spreadsheet details).
+        """
+        try:
+            # Get existing metadata
+            existing = self.con.execute(
+                "SELECT metadata FROM documents WHERE id = ?", 
+                (doc_id,)
+            ).fetchone()
+            
+            if not existing:
+                print(f"Warning: Document {doc_id} not found for metadata update. Skipping.")
+                return
+                
+            if existing[0]:
+                # Parse existing metadata and merge with new
+                import json
+                try:
+                    current_metadata = json.loads(existing[0])
+                except Exception as json_error:
+                    print(f"Warning: Could not parse existing metadata as JSON: {json_error}")
+                    print(f"Existing metadata content: {repr(existing[0][:100])}...")
+                    current_metadata = {}
+            else:
+                current_metadata = {}
+            
+            # Merge new metadata
+            current_metadata.update(additional_metadata)
+            
+            # Update the document with proper JSON encoding
+            import json
+            self.con.execute(
+                "UPDATE documents SET metadata = ? WHERE id = ?",
+                (json.dumps(current_metadata), doc_id)
+            )
+            
+            print(f"Updated metadata for document {doc_id}")
+            
+        except Exception as e:
+            print(f"Error updating document metadata: {e}")
+    
+    def store_spreadsheet_data(self, table_name: str, df: pd.DataFrame, metadata: Dict[str, Any]):
+        """
+        Store spreadsheet data directly in DuckDB for structured querying.
+        """
+        try:
+            # Clean table name for DuckDB compliance
+            clean_table_name = ''.join(c if c.isalnum() or c == '_' else '_' for c in table_name)
+            
+            # Register the DataFrame as a DuckDB table
+            # This allows SQL queries directly on the pandas DataFrame
+            self.con.register(clean_table_name, df)
+            
+            # Create a persistent table from the DataFrame
+            create_table_sql = f"CREATE TABLE IF NOT EXISTS {clean_table_name} AS SELECT * FROM {clean_table_name}"
+            self.con.execute(create_table_sql)
+            
+            # Register in spreadsheet registry
+            self.con.execute("""
+                INSERT INTO spreadsheet_registry 
+                (doc_id, filename, sheet_name, table_name, row_count, column_count, created_at)
+                VALUES (?, ?, ?, ?, ?, ?, ?)
+            """, (
+                metadata['doc_id'],
+                metadata['filename'], 
+                metadata['sheet_name'],
+                clean_table_name,
+                len(df),
+                len(df.columns),
+                datetime.utcnow()
+            ))
+            
+            print(f"Stored spreadsheet data in table {clean_table_name}")
+            
+        except Exception as e:
+            print(f"Error storing spreadsheet data: {e}")
+            raise e
+    
+    def query_spreadsheet_data(self, doc_id: str, sheet_name: Optional[str] = None, sql_filter: Optional[str] = None, limit: int = 100) -> Dict[str, Any]:
+        """
+        Query spreadsheet data with optional filtering.
+        """
+        try:
+            # Find the table(s) for this document
+            registry_query = "SELECT * FROM spreadsheet_registry WHERE doc_id = ?"
+            params = [doc_id]
+            
+            if sheet_name:
+                registry_query += " AND sheet_name = ?"
+                params.append(sheet_name)
+            
+            tables = self.con.execute(registry_query, params).fetchall()
+            
+            if not tables:
+                return {"error": f"No spreadsheet data found for document {doc_id}"}
+            
+            results = {}
+            
+            for table_info in tables:
+                table_name = table_info[3]  # table_name column
+                sheet = table_info[2]       # sheet_name column
+                
+                # Build query
+                query = f"SELECT * FROM {table_name}"
+                
+                if sql_filter:
+                    query += f" WHERE {sql_filter}"
+                
+                query += f" LIMIT {limit}"
+                
+                # Execute query
+                data = self.con.execute(query).fetchall()
+                columns = [desc[0] for desc in self.con.description]
+                
+                results[sheet] = {
+                    "columns": columns,
+                    "data": [dict(zip(columns, row)) for row in data],
+                    "row_count": table_info[4],  # total row count
+                    "column_count": table_info[5]  # total column count
+                }
+            
+            return results
+            
+        except Exception as e:
+            print(f"Error querying spreadsheet data: {e}")
+            return {"error": str(e)}
+    
+    def get_spreadsheet_summary(self, doc_id: str) -> Dict[str, Any]:
+        """
+        Get summary information about spreadsheets for a document.
+        """
+        try:
+            summary = self.con.execute("""
+                SELECT 
+                    sheet_name,
+                    table_name,
+                    row_count,
+                    column_count,
+                    created_at
+                FROM spreadsheet_registry 
+                WHERE doc_id = ?
+                ORDER BY created_at
+            """, (doc_id,)).fetchall()
+            
+            if not summary:
+                return {"error": f"No spreadsheet data found for document {doc_id}"}
+            
+            sheets = []
+            total_rows = 0
+            total_cols = 0
+            
+            for sheet_info in summary:
+                sheet_data = {
+                    "sheet_name": sheet_info[0],
+                    "table_name": sheet_info[1], 
+                    "row_count": sheet_info[2],
+                    "column_count": sheet_info[3],
+                    "created_at": sheet_info[4]
+                }
+                sheets.append(sheet_data)
+                total_rows += sheet_info[2]
+                total_cols = max(total_cols, sheet_info[3])
+            
+            return {
+                "doc_id": doc_id,
+                "total_sheets": len(sheets),
+                "total_rows": total_rows,
+                "max_columns": total_cols,
+                "sheets": sheets
+            }
+            
+        except Exception as e:
+            print(f"Error getting spreadsheet summary: {e}")
+            return {"error": str(e)}
+    
+    def search_spreadsheet_content(self, search_term: str, doc_id: Optional[str] = None) -> Dict[str, Any]:
+        """
+        Search across all spreadsheet data for content matching the search term.
+        """
+        try:
+            # Get all spreadsheet tables
+            registry_query = "SELECT doc_id, filename, sheet_name, table_name FROM spreadsheet_registry"
+            params = []
+            
+            if doc_id:
+                registry_query += " WHERE doc_id = ?"
+                params.append(doc_id)
+            
+            tables = self.con.execute(registry_query, params).fetchall()
+            
+            results = []
+            
+            for table_info in tables:
+                table_doc_id, filename, sheet_name, table_name = table_info
+                
+                try:
+                    # Get table columns to search text columns
+                    columns_info = self.con.execute(f"PRAGMA table_info({table_name})").fetchall()
+                    text_columns = [col[1] for col in columns_info if 'VARCHAR' in col[2] or 'TEXT' in col[2]]
+                    
+                    if text_columns:
+                        # Build search query for text columns
+                        search_conditions = [f"{col} LIKE ?" for col in text_columns]
+                        search_query = f"""
+                            SELECT * FROM {table_name} 
+                            WHERE {' OR '.join(search_conditions)}
+                            LIMIT 50
+                        """
+                        
+                        search_params = [f"%{search_term}%" for _ in text_columns]
+                        matches = self.con.execute(search_query, search_params).fetchall()
+                        
+                        if matches:
+                            columns = [desc[0] for desc in self.con.description]
+                            results.append({
+                                "doc_id": table_doc_id,
+                                "filename": filename,
+                                "sheet_name": sheet_name,
+                                "matches": [dict(zip(columns, row)) for row in matches]
+                            })
+                
+                except Exception as e:
+                    print(f"Error searching table {table_name}: {e}")
+                    continue
+            
+            return {
+                "search_term": search_term,
+                "total_matches": len(results),
+                "results": results
+            }
+            
+        except Exception as e:
+            print(f"Error searching spreadsheet content: {e}")
+            return {"error": str(e)}

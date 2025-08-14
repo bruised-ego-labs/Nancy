@@ -25,7 +25,9 @@
       "Bash(docker restart:*)",
       "Bash(chcp 65001)",
       "WebFetch(domain:ai.google.dev)",
-      "Bash(mv:*)"
+      "Bash(mv:*)",
+      "Bash(del test_data.csv)",
+      "Bash(.test_benchmark_docker.ps1)"
     ],
     "deny": []
   }

@@ -1,0 +1,11 @@
+test_id,component_id,test_date,test_type,test_engineer,test_condition,measured_value,expected_value,unit,pass_fail,notes
+TEST-001,COMP-001,2025-08-10,Performance,Sarah Chen,Normal Operation,105.2,100,Hz,Pass,Exceeds minimum requirement
+TEST-002,COMP-001,2025-08-10,Thermal,Sarah Chen,85°C Ambient,82.1,85,°C,Pass,Within thermal limits
+TEST-003,COMP-003,2025-08-11,Range,Dr. Amanda Torres,Clear Weather,52.3,50,km,Pass,Good margin
+TEST-004,COMP-003,2025-08-11,Range,Dr. Amanda Torres,Heavy Rain,48.7,50,km,Fail,Performance degraded in rain
+TEST-005,COMP-005,2025-08-09,Accuracy,Sarah Chen,Lab Conditions,0.08,0.1,°C,Pass,Excellent accuracy
+TEST-006,COMP-006,2025-08-12,Precision,Dr. Amanda Torres,Open Field,0.7,1.0,m,Pass,Better than spec
+TEST-007,COMP-008,2025-08-08,Environmental,Mike Rodriguez,IP67 Test,Pass,Pass,N/A,Pass,Full submersion successful
+TEST-008,COMP-004,2025-08-07,Duration,James Wilson,Continuous Operation,68.5,72,hours,Fail,Battery life below requirement
+TEST-009,COMP-009,2025-08-06,Reliability,James Wilson,30 Day Test,99.95,99.9,%,Pass,Excellent reliability
+TEST-010,COMP-007,2025-08-05,Visibility,Lisa Park,Direct Sunlight,Readable,Readable,N/A,Pass,Clear visibility confirmed
