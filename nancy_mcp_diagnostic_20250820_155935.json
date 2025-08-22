@@ -1,0 +1,394 @@
+{
+  "diagnostic_timestamp": "2025-08-20T15:59:18.922444",
+  "nancy_api_base": "http://localhost:8000",
+  "system_health": {
+    "connectivity": {
+      "status": "success",
+      "status_code": 200,
+      "response": {
+        "status": "healthy",
+        "api": "ok",
+        "nancy_core": {
+          "status": "healthy",
+          "migration_mode": "mcp",
+          "timestamp": "2025-08-20T22:59:18.958732",
+          "systems": {
+            "mcp": {
+              "status": "healthy",
+              "server_count": 0,
+              "host_initialized": true
+            }
+          }
+        }
+      }
+    },
+    "nancy_status": {
+      "status": "success",
+      "status_code": 200,
+      "response": {
+        "status": {
+          "status": "healthy",
+          "migration_mode": "mcp",
+          "timestamp": "2025-08-20T22:59:18.981366",
+          "systems": {
+            "mcp": {
+              "status": "healthy",
+              "server_count": 0,
+              "host_initialized": true
+            }
+          }
+        },
+        "metrics": {
+          "migration_mode": "mcp",
+          "legacy_metrics": {},
+          "mcp_metrics": {
+            "packets_processed": 0,
+            "packets_failed": 1,
+            "success_rate": 0.0,
+            "active_servers": 0,
+            "total_servers": 0,
+            "queue_size": 0,
+            "uptime_seconds": 422.404356
+          }
+        },
+        "migration_mode": "mcp"
+      }
+    },
+    "configuration": {
+      "status": "success",
+      "status_code": 200,
+      "response": {
+        "nancy_core": {
+          "version": "2.0.0",
+          "instance_name": "nancy-dev",
+          "description": "Development Nancy Core instance"
+        },
+        "orchestration": {
+          "mode": "four_brain",
+          "routing_strategy": "langchain_router"
+        },
+        "brains": {
+          "vector": {
+            "backend": "chromadb"
+          },
+          "analytical": {
+            "backend": "duckdb"
+          },
+          "graph": {
+            "backend": "neo4j"
+          },
+          "linguistic": {
+            "primary_llm": "gemma_3n_e4b_it"
+          }
+        },
+        "mcp_servers": {
+          "enabled_count": 0,
+          "server_names": []
+        }
+      }
+    }
+  },
+  "individual_tests": {
+    "direct_api": {
+      "legacy_ingestion": {
+        "status": "success",
+        "status_code": 200,
+        "response": {
+          "status": "success",
+          "message": "File ingested via MCP architecture",
+          "doc_id": "16e08ab3b5c0b288ca620960706450e964fe591acf4509e452e379909163f8f0",
+          "packet_id": "16e08ab3b5c0b288ca620960706450e964fe591acf4509e452e379909163f8f0"
+        }
+      },
+      "knowledge_packet_ingestion": {
+        "status": "failed",
+        "status_code": 400,
+        "response": "{\"detail\":\"Invalid Knowledge Packet: Knowledge Packet validation failed: 'packet_version' is a required property\"}"
+      },
+      "query_endpoint": {
+        "status": "success",
+        "status_code": 200,
+        "response": {
+          "query": "diagnostic test content",
+          "strategy_used": "intelligent_semantic",
+          "intent_analysis": {
+            "type": "semantic",
+            "confidence": 0.8,
+            "reasoning": "General content search",
+            "semantic_terms": [
+              "diagnostic test",
+              "content"
+            ],
+            "entities": [],
+            "time_constraints": null,
+            "metadata_filters": null,
+            "relationship_targets": null
+          },
+          "raw_results": [],
+          "synthesized_response": "Hi there!\n\nYou're asking about diagnostic test content. Unfortunately, my current search didn't return any specific documents or authors directly addressing \"diagnostic test content.\" \n\nHowever, diagnostic tests are crucial for engineering teams to identify issues and ensure system health. Content for these tests would typically involve predefined scenarios, inputs, and expected outputs designed to pinpoint specific problems. \n\nTo find relevant materials, I'd suggest looking for documentation related to specific system diagnostics, troubleshooting guides, or testing frameworks used within your team. You might also find helpful information in internal knowledge bases or past project reports. If you can provide more specifics about the type of system or diagnostic test you're interested in, I might be able to offer more targeted suggestions.\n\n\n\n",
+          "brains_used": [
+            "vector",
+            "linguistic"
+          ],
+          "processing_timestamp": "2025-08-20T22:59:23.938073"
+        }
+      },
+      "graph_query": {
+        "status": "success",
+        "status_code": 200,
+        "response": {
+          "status": "success",
+          "author": "MCP Diagnostic Suite",
+          "documents": [],
+          "message": "No documents found for author 'MCP Diagnostic Suite'"
+        }
+      }
+    },
+    "mcp_simulation": {
+      "ingest_information": {
+        "status": "failed",
+        "nancy_mode": "mcp",
+        "status_code": 400,
+        "response": "{\"detail\":\"Invalid Knowledge Packet: Knowledge Packet validation failed: 'packet_version' is a required property\"}"
+      },
+      "query_memory": {
+        "status": "success",
+        "status_code": 200,
+        "response": {
+          "query": "diagnostic test",
+          "strategy_used": "intelligent_semantic",
+          "intent_analysis": {
+            "type": "semantic",
+            "confidence": 0.8,
+            "reasoning": "General content search",
+            "semantic_terms": [
+              "diagnostic",
+              "test"
+            ],
+            "entities": [],
+            "time_constraints": null,
+            "metadata_filters": null,
+            "relationship_targets": null
+          },
+          "raw_results": [],
+          "synthesized_response": "Hi there! You asked about diagnostic tests. \n\nUnfortunately, my current search didn't turn up any specific documents or authors detailing diagnostic tests. My knowledge base is limited right now. \n\nHowever, generally speaking, diagnostic tests in engineering are used to identify problems or assess the condition of a system or component. These can range from simple visual inspections to complex non-destructive testing methods like ultrasonic testing or thermography. The specific test used depends heavily on the type of equipment and the suspected issue. \n\nTo get more specific information, you might want to check your company's internal documentation or consult with a subject matter expert in the relevant engineering discipline.\n\n\n\n",
+          "brains_used": [
+            "vector",
+            "linguistic"
+          ],
+          "processing_timestamp": "2025-08-20T22:59:29.856567"
+        }
+      },
+      "find_author_contributions": {
+        "status": "success",
+        "status_code": 200,
+        "response": {
+          "status": "success",
+          "author": "MCP Diagnostic",
+          "documents": [],
+          "message": "No documents found for author 'MCP Diagnostic'"
+        }
+      },
+      "get_project_overview": {
+        "nancy_status": {
+          "status": "success",
+          "status_code": 200,
+          "response": {
+            "status": {
+              "status": "healthy",
+              "migration_mode": "mcp",
+              "timestamp": "2025-08-20T22:59:29.953891",
+              "systems": {
+                "mcp": {
+                  "status": "healthy",
+                  "server_count": 0,
+                  "host_initialized": true
+                }
+              }
+            },
+            "metrics": {
+              "migration_mode": "mcp",
+              "legacy_metrics": {},
+              "mcp_metrics": {
+                "packets_processed": 0,
+                "packets_failed": 1,
+                "success_rate": 0.0,
+                "active_servers": 0,
+                "total_servers": 0,
+                "queue_size": 0,
+                "uptime_seconds": 433.376887
+              }
+            },
+            "migration_mode": "mcp"
+          }
+        },
+        "ingest_status": {
+          "status": "success",
+          "status_code": 200,
+          "response": {
+            "system_status": "operational",
+            "migration_mode": "mcp",
+            "metrics": {
+              "migration_mode": "mcp",
+              "legacy_metrics": {},
+              "mcp_metrics": {
+                "packets_processed": 0,
+                "packets_failed": 1,
+                "success_rate": 0.0,
+                "active_servers": 0,
+                "total_servers": 0,
+                "queue_size": 0,
+                "uptime_seconds": 433.395527
+              }
+            },
+            "mcp_metrics": {
+              "packets_processed": 0,
+              "packets_failed": 1,
+              "success_rate": 0.0,
+              "active_servers": 0,
+              "total_servers": 0,
+              "queue_size": 0,
+              "uptime_seconds": 433.395535
+            }
+          }
+        }
+      }
+    },
+    "event_loop": {
+      "/health": {
+        "status": "success",
+        "status_code": 200,
+        "response": {
+          "status": "healthy",
+          "api": "ok",
+          "nancy_core": {
+            "status": "healthy",
+            "migration_mode": "mcp",
+            "timestamp": "2025-08-20T22:59:35.817349",
+            "systems": {
+              "mcp": {
+                "status": "healthy",
+                "server_count": 0,
+                "host_initialized": true
+              }
+            }
+          }
+        },
+        "event_loop_error": false
+      },
+      "/api/nancy/status": {
+        "status": "success",
+        "status_code": 200,
+        "response": {
+          "status": {
+            "status": "healthy",
+            "migration_mode": "mcp",
+            "timestamp": "2025-08-20T22:59:35.831328",
+            "systems": {
+              "mcp": {
+                "status": "healthy",
+                "server_count": 0,
+                "host_initialized": true
+              }
+            }
+          },
+          "metrics": {
+            "migration_mode": "mcp",
+            "legacy_metrics": {},
+            "mcp_metrics": {
+              "packets_processed": 0,
+              "packets_failed": 1,
+              "success_rate": 0.0,
+              "active_servers": 0,
+              "total_servers": 0,
+              "queue_size": 0,
+              "uptime_seconds": 439.254296
+            }
+          },
+          "migration_mode": "mcp"
+        },
+        "event_loop_error": false
+      },
+      "/api/nancy/configuration": {
+        "status": "success",
+        "status_code": 200,
+        "response": {
+          "nancy_core": {
+            "version": "2.0.0",
+            "instance_name": "nancy-dev",
+            "description": "Development Nancy Core instance"
+          },
+          "orchestration": {
+            "mode": "four_brain",
+            "routing_strategy": "langchain_router"
+          },
+          "brains": {
+            "vector": {
+              "backend": "chromadb"
+            },
+            "analytical": {
+              "backend": "duckdb"
+            },
+            "graph": {
+              "backend": "neo4j"
+            },
+            "linguistic": {
+              "primary_llm": "gemma_3n_e4b_it"
+            }
+          },
+          "mcp_servers": {
+            "enabled_count": 0,
+            "server_names": []
+          }
+        },
+        "event_loop_error": false
+      }
+    }
+  },
+  "integration_tests": {
+    "ingest_to_query_flow": {
+      "ingest_status": "success",
+      "ingest_response": {
+        "status": "success",
+        "message": "File ingested via MCP architecture",
+        "doc_id": "9a7e5b82faf82d92165271e86a0c4f49c18bf4dd839550fc7dfe34b21b59c49e",
+        "packet_id": "9a7e5b82faf82d92165271e86a0c4f49c18bf4dd839550fc7dfe34b21b59c49e"
+      },
+      "query_status": "success",
+      "query_response": {
+        "query": "integration test content timestamp",
+        "strategy_used": "intelligent_semantic",
+        "intent_analysis": {
+          "type": "semantic",
+          "confidence": 0.8,
+          "reasoning": "Searching for test content",
+          "semantic_terms": [
+            "integration test",
+            "timestamp"
+          ],
+          "entities": [],
+          "time_constraints": null,
+          "metadata_filters": null,
+          "relationship_targets": null
+        },
+        "raw_results": [],
+        "synthesized_response": "Hi there! Regarding content timestamps in integration tests, the key is to ensure your tests accurately reflect the time the content was integrated. \n\nWhile I don't have specific documents to point you to *right now* on this exact topic, a good practice is to include the timestamp of the content being tested as part of the test data or assertions. This allows you to verify that the integration happened at the expected time. \n\nThink about how you're verifying the integration \u2013 is it by checking a database record, a file modification date, or some other indicator? Make sure your tests specifically validate that timestamp. \n\nYou might also find helpful information in your team's existing testing guidelines or documentation on data validation and integration testing best practices. Let me know if you have any other questions!\n\n\n\n",
+        "brains_used": [
+          "vector",
+          "linguistic"
+        ],
+        "processing_timestamp": "2025-08-20T22:59:35.808933"
+      },
+      "content_found": false,
+      "overall_flow": "failed"
+    }
+  },
+  "identified_issues": [
+    "MCP tool simulation failed: ingest_information",
+    "MCP tool simulation failed: get_project_overview",
+    "Ingestion-to-query flow broken - ingested content not found in queries"
+  ],
+  "recommendations": [
+    "Investigate search indexing and query processing pipeline"
+  ]
+}

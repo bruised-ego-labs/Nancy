@@ -1,0 +1,1118 @@
+{
+  "metadata": {
+    "timestamp": "2025-08-16T00:19:35.376196",
+    "total_benchmark_time": 157.2833731174469,
+    "nancy_url": "http://localhost:8000",
+    "baseline_url": "http://localhost:8002",
+    "test_count": 15,
+    "test_data_directory": "benchmark_test_data"
+  },
+  "system_health": {
+    "nancy": {
+      "status": "error",
+      "error": "HTTPConnectionPool(host='localhost', port=8000): Max retries exceeded with url: /health (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001D2E198BB00>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))"
+    },
+    "baseline": {
+      "status": "healthy",
+      "response_code": 200,
+      "details": {
+        "status": "ok",
+        "system": "baseline-rag",
+        "rag_initialized": true
+      }
+    }
+  },
+  "ingestion_results": {
+    "nancy": {
+      "status": "completed",
+      "system": "Nancy",
+      "total_files": 9,
+      "successful_uploads": 0,
+      "failed_uploads": 9,
+      "total_bytes": 0,
+      "ingestion_time": 36.9804847240448,
+      "average_upload_time": 0,
+      "upload_speed_mbps": 0.0,
+      "ingested_files": [],
+      "errors": [
+        {
+          "filename": "electrical_review_meeting.txt",
+          "error": "HTTPConnectionPool(host='localhost', port=8000): Max retries exceeded with url: /api/ingest (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001D2E19C0110>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))"
+        },
+        {
+          "filename": "emc_test_results.txt",
+          "error": "HTTPConnectionPool(host='localhost', port=8000): Max retries exceeded with url: /api/ingest (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001D2E19C0980>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))"
+        },
+        {
+          "filename": "ergonomic_analysis.txt",
+          "error": "HTTPConnectionPool(host='localhost', port=8000): Max retries exceeded with url: /api/ingest (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001D2E19C1070>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))"
+        },
+        {
+          "filename": "firmware_requirements.txt",
+          "error": "HTTPConnectionPool(host='localhost', port=8000): Max retries exceeded with url: /api/ingest (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001D2DF4F3A10>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))"
+        },
+        {
+          "filename": "march_design_review_transcript.txt",
+          "error": "HTTPConnectionPool(host='localhost', port=8000): Max retries exceeded with url: /api/ingest (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001D2E198B290>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))"
+        },
+        {
+          "filename": "power_analysis_report.txt",
+          "error": "HTTPConnectionPool(host='localhost', port=8000): Max retries exceeded with url: /api/ingest (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001D2E19C0EF0>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))"
+        },
+        {
+          "filename": "system_requirements_v2.txt",
+          "error": "HTTPConnectionPool(host='localhost', port=8000): Max retries exceeded with url: /api/ingest (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001D2E19C0500>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))"
+        },
+        {
+          "filename": "thermal_constraints_doc.txt",
+          "error": "HTTPConnectionPool(host='localhost', port=8000): Max retries exceeded with url: /api/ingest (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001D2E19C1CA0>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))"
+        },
+        {
+          "filename": "voice_of_customer.txt",
+          "error": "HTTPConnectionPool(host='localhost', port=8000): Max retries exceeded with url: /api/ingest (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001D2E19C2540>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))"
+        }
+      ]
+    },
+    "baseline": {
+      "status": "completed",
+      "system": "Baseline",
+      "total_files": 9,
+      "successful_uploads": 9,
+      "failed_uploads": 0,
+      "total_bytes": 37358,
+      "ingestion_time": 19.065147876739502,
+      "average_upload_time": 2.118014838960436,
+      "upload_speed_mbps": 0.001868716956335386,
+      "ingested_files": [
+        {
+          "filename": "electrical_review_meeting.txt",
+          "size_bytes": 3645,
+          "upload_time": 4.448275566101074,
+          "status": "success"
+        },
+        {
+          "filename": "emc_test_results.txt",
+          "size_bytes": 3094,
+          "upload_time": 1.8895411491394043,
+          "status": "success"
+        },
+        {
+          "filename": "ergonomic_analysis.txt",
+          "size_bytes": 5271,
+          "upload_time": 1.7120153903961182,
+          "status": "success"
+        },
+        {
+          "filename": "firmware_requirements.txt",
+          "size_bytes": 6879,
+          "upload_time": 1.7983918190002441,
+          "status": "success"
+        },
+        {
+          "filename": "march_design_review_transcript.txt",
+          "size_bytes": 5820,
+          "upload_time": 1.7702362537384033,
+          "status": "success"
+        },
+        {
+          "filename": "power_analysis_report.txt",
+          "size_bytes": 4045,
+          "upload_time": 2.0931708812713623,
+          "status": "success"
+        },
+        {
+          "filename": "system_requirements_v2.txt",
+          "size_bytes": 1912,
+          "upload_time": 1.8587689399719238,
+          "status": "success"
+        },
+        {
+          "filename": "thermal_constraints_doc.txt",
+          "size_bytes": 2275,
+          "upload_time": 1.7539722919464111,
+          "status": "success"
+        },
+        {
+          "filename": "voice_of_customer.txt",
+          "size_bytes": 4417,
+          "upload_time": 1.7377612590789795,
+          "status": "success"
+        }
+      ],
+      "errors": []
+    }
+  },
+  "query_results": [
+    {
+      "test_id": 1,
+      "category": "Systems Engineering - Requirements",
+      "query": "What are the system-level requirements and how do they constrain the mechanical design?",
+      "expected_capabilities": [
+        "basic_retrieval",
+        "cross_document_synthesis"
+      ],
+      "nancy": {
+        "status": "error",
+        "query_time": 4.098748207092285,
+        "error": "HTTPConnectionPool(host='localhost', port=8000): Max retries exceeded with url: /api/query (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001D2E198BEC0>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))",
+        "metrics": {
+          "llm_calls": 0,
+          "tokens": {
+            "input": 0,
+            "output": 0,
+            "total": 0
+          },
+          "embedding_operations": 0,
+          "query_time": 0,
+          "network_time": 0
+        }
+      },
+      "baseline": {
+        "status": "success",
+        "query_time": 5.464073657989502,
+        "response": "Based on the provided context, here's a breakdown of the system-level requirements and how they constrain the mechanical design:\n\n**System-Level Requirements:**\n\n*   **Thermal:** Sarah Chen's thermal requirements (specifically a thermal constraint of 85.0 for the Primary CPU and 50.0 for the Display Unit) are a major driver.\n*   **Electrical Spacing:** Mike Rodriguez's electrical spacing needs are a constraint.\n*   **Protection:** The Enclosure (COMP-008) must be IP67 rated for water and dust protection (High priority).\n*   **Performance:** The Primary CPU must process telemetry data at a minimum of 100Hz (High priority).\n*   **Visibility:** The Display Unit must be readable in direct sunlight (Medium priority).\n\n**How these constrain the mechanical design:**\n\n*   **Enclosure Redesign:** The enclosure is being redesigned with a 15% larger volume to accommodate the aluminum heat sink and split power rail. The height has also increased by 3mm for heat sink clearance.\n*   **Internal Partitioning:** The internal partitioning is being modified to accommodate the split power rail layout.\n*   **Airflow Optimization:** Airflow channels are being optimized based on thermal analysis.\n*   **Material Change:** The material has been changed to ABS for better heat dissipation.\n*   **Protection:** The IP67 requirement for the enclosure dictates design choices related to sealing and ingress protection.\n\n",
+        "sources": [
+          "mechanical_integration_plan.txt",
+          "component_requirements.csv"
+        ],
+        "response_length": 1411,
+        "source_count": 2,
+        "metrics": {
+          "llm_calls": 1,
+          "tokens": {
+            "input": 0,
+            "output": 0,
+            "total": 0
+          },
+          "embedding_operations": 1,
+          "query_time": 5.464073657989502,
+          "network_time": 5.464073657989502,
+          "method": "langchain_rag"
+        },
+        "raw_result": {
+          "response": "Based on the provided context, here's a breakdown of the system-level requirements and how they constrain the mechanical design:\n\n**System-Level Requirements:**\n\n*   **Thermal:** Sarah Chen's thermal requirements (specifically a thermal constraint of 85.0 for the Primary CPU and 50.0 for the Display Unit) are a major driver.\n*   **Electrical Spacing:** Mike Rodriguez's electrical spacing needs are a constraint.\n*   **Protection:** The Enclosure (COMP-008) must be IP67 rated for water and dust protection (High priority).\n*   **Performance:** The Primary CPU must process telemetry data at a minimum of 100Hz (High priority).\n*   **Visibility:** The Display Unit must be readable in direct sunlight (Medium priority).\n\n**How these constrain the mechanical design:**\n\n*   **Enclosure Redesign:** The enclosure is being redesigned with a 15% larger volume to accommodate the aluminum heat sink and split power rail. The height has also increased by 3mm for heat sink clearance.\n*   **Internal Partitioning:** The internal partitioning is being modified to accommodate the split power rail layout.\n*   **Airflow Optimization:** Airflow channels are being optimized based on thermal analysis.\n*   **Material Change:** The material has been changed to ABS for better heat dissipation.\n*   **Protection:** The IP67 requirement for the enclosure dictates design choices related to sealing and ingress protection.\n\n",
+          "sources": [
+            "mechanical_integration_plan.txt",
+            "component_requirements.csv"
+          ],
+          "query_time": 4.335988759994507,
+          "method": "langchain_rag"
+        }
+      },
+      "timestamp": "2025-08-16T00:18:18.152771"
+    },
+    {
+      "test_id": 2,
+      "category": "Systems Engineering - Integration",
+      "query": "Which integration points between electrical and mechanical systems need special attention?",
+      "expected_capabilities": [
+        "relationship_discovery",
+        "technical_synthesis"
+      ],
+      "nancy": {
+        "status": "error",
+        "query_time": 4.087644815444946,
+        "error": "HTTPConnectionPool(host='localhost', port=8000): Max retries exceeded with url: /api/query (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001D2E19C2690>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))",
+        "metrics": {
+          "llm_calls": 0,
+          "tokens": {
+            "input": 0,
+            "output": 0,
+            "total": 0
+          },
+          "embedding_operations": 0,
+          "query_time": 0,
+          "network_time": 0
+        }
+      },
+      "baseline": {
+        "status": "success",
+        "query_time": 2.0403075218200684,
+        "response": "The context states that the redesign of the enclosure with 15% larger volume is needed to accommodate the aluminum heat sink and split power rail requirements (mechanical_integration_plan.txt). This redesign was influenced by Sarah Chen's thermal requirements and Mike Rodriguez's electrical spacing needs (mechanical_integration_plan.txt). Therefore, the integration points between the electrical and mechanical systems related to the aluminum heat sink and split power rail need special attention. Also, the project timeline highlights dependencies between all three subsystems, indicating cross-functional collaboration is essential for success (project_timeline_q4_2024.txt).\n",
+        "sources": [
+          "mechanical_integration_plan.txt",
+          "project_timeline_q4_2024.txt"
+        ],
+        "response_length": 680,
+        "source_count": 2,
+        "metrics": {
+          "llm_calls": 1,
+          "tokens": {
+            "input": 0,
+            "output": 0,
+            "total": 0
+          },
+          "embedding_operations": 1,
+          "query_time": 2.0403075218200684,
+          "network_time": 2.0403075218200684,
+          "method": "langchain_rag"
+        },
+        "raw_result": {
+          "response": "The context states that the redesign of the enclosure with 15% larger volume is needed to accommodate the aluminum heat sink and split power rail requirements (mechanical_integration_plan.txt). This redesign was influenced by Sarah Chen's thermal requirements and Mike Rodriguez's electrical spacing needs (mechanical_integration_plan.txt). Therefore, the integration points between the electrical and mechanical systems related to the aluminum heat sink and split power rail need special attention. Also, the project timeline highlights dependencies between all three subsystems, indicating cross-functional collaboration is essential for success (project_timeline_q4_2024.txt).\n",
+          "sources": [
+            "mechanical_integration_plan.txt",
+            "project_timeline_q4_2024.txt"
+          ],
+          "query_time": 2.123660087585449,
+          "method": "langchain_rag"
+        }
+      },
+      "timestamp": "2025-08-16T00:18:24.281313"
+    },
+    {
+      "test_id": 3,
+      "category": "Systems Engineering - Verification",
+      "query": "What verification procedures are defined for thermal performance validation?",
+      "expected_capabilities": [
+        "basic_retrieval",
+        "temporal_analysis"
+      ],
+      "nancy": {
+        "status": "error",
+        "query_time": 4.075304269790649,
+        "error": "HTTPConnectionPool(host='localhost', port=8000): Max retries exceeded with url: /api/query (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001D2E19C2360>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))",
+        "metrics": {
+          "llm_calls": 0,
+          "tokens": {
+            "input": 0,
+            "output": 0,
+            "total": 0
+          },
+          "embedding_operations": 0,
+          "query_time": 0,
+          "network_time": 0
+        }
+      },
+      "baseline": {
+        "status": "success",
+        "query_time": 0.7507531642913818,
+        "response": "The context states that for component COMP-005 (Sensor Array), the verification method for thermal performance is Calibration. \n",
+        "sources": [
+          "test_results.csv",
+          "thermal_analysis_report.txt",
+          "mechanical_integration_plan.txt",
+          "project_timeline_q4_2024.txt",
+          "component_requirements.csv"
+        ],
+        "response_length": 128,
+        "source_count": 5,
+        "metrics": {
+          "llm_calls": 1,
+          "tokens": {
+            "input": 0,
+            "output": 0,
+            "total": 0
+          },
+          "embedding_operations": 1,
+          "query_time": 0.7507531642913818,
+          "network_time": 0.7507531642913818,
+          "method": "langchain_rag"
+        },
+        "raw_result": {
+          "response": "The context states that for component COMP-005 (Sensor Array), the verification method for thermal performance is Calibration. \n",
+          "sources": [
+            "test_results.csv",
+            "thermal_analysis_report.txt",
+            "mechanical_integration_plan.txt",
+            "project_timeline_q4_2024.txt",
+            "component_requirements.csv"
+          ],
+          "query_time": 0.7536294460296631,
+          "method": "langchain_rag"
+        }
+      },
+      "timestamp": "2025-08-16T00:18:29.109093"
+    },
+    {
+      "test_id": 4,
+      "category": "Mechanical Engineering - Materials",
+      "query": "What materials are specified for high-temperature components and who selected them?",
+      "expected_capabilities": [
+        "basic_retrieval",
+        "author_tracking"
+      ],
+      "nancy": {
+        "status": "error",
+        "query_time": 4.091083288192749,
+        "error": "HTTPConnectionPool(host='localhost', port=8000): Max retries exceeded with url: /api/query (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001D2E19C2AB0>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))",
+        "metrics": {
+          "llm_calls": 0,
+          "tokens": {
+            "input": 0,
+            "output": 0,
+            "total": 0
+          },
+          "embedding_operations": 0,
+          "query_time": 0,
+          "network_time": 0
+        }
+      },
+      "baseline": {
+        "status": "success",
+        "query_time": 1.7444396018981934,
+        "response": "The context does not specify materials for high-temperature components. However, the mechanical_integration_plan.txt mentions that the material changed to ABS for better heat dissipation. Sarah Chen is the decision maker for the thermal analysis report, which influenced the decision to adopt the aluminum heat sink design. Lisa Park (mechanical) collaborates on this design. The component with a thermal constraint of 40.0 is the Sensor Array (COMP-005) and Sarah Chen is the owner of this component.\n",
+        "sources": [
+          "mechanical_integration_plan.txt",
+          "thermal_analysis_report.txt",
+          "component_requirements.csv"
+        ],
+        "response_length": 502,
+        "source_count": 3,
+        "metrics": {
+          "llm_calls": 1,
+          "tokens": {
+            "input": 0,
+            "output": 0,
+            "total": 0
+          },
+          "embedding_operations": 1,
+          "query_time": 1.7444396018981934,
+          "network_time": 1.7444396018981934,
+          "method": "langchain_rag"
+        },
+        "raw_result": {
+          "response": "The context does not specify materials for high-temperature components. However, the mechanical_integration_plan.txt mentions that the material changed to ABS for better heat dissipation. Sarah Chen is the decision maker for the thermal analysis report, which influenced the decision to adopt the aluminum heat sink design. Lisa Park (mechanical) collaborates on this design. The component with a thermal constraint of 40.0 is the Sensor Array (COMP-005) and Sarah Chen is the owner of this component.\n",
+          "sources": [
+            "mechanical_integration_plan.txt",
+            "thermal_analysis_report.txt",
+            "component_requirements.csv"
+          ],
+          "query_time": 1.788456916809082,
+          "method": "langchain_rag"
+        }
+      },
+      "timestamp": "2025-08-16T00:18:34.954928"
+    },
+    {
+      "test_id": 5,
+      "category": "Mechanical Engineering - Stress Analysis",
+      "query": "What are the critical stress points identified in the structural analysis documents?",
+      "expected_capabilities": [
+        "technical_synthesis",
+        "basic_retrieval"
+      ],
+      "nancy": {
+        "status": "error",
+        "query_time": 4.053269386291504,
+        "error": "HTTPConnectionPool(host='localhost', port=8000): Max retries exceeded with url: /api/query (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001D2E19C1BE0>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))",
+        "metrics": {
+          "llm_calls": 0,
+          "tokens": {
+            "input": 0,
+            "output": 0,
+            "total": 0
+          },
+          "embedding_operations": 0,
+          "query_time": 0,
+          "network_time": 0
+        }
+      },
+      "baseline": {
+        "status": "success",
+        "query_time": 0.735257625579834,
+        "response": "The provided context does not contain information about structural analysis documents or critical stress points identified within them. Therefore, I cannot answer the question.",
+        "sources": [
+          "thermal_analysis_report.txt",
+          "component_requirements.csv",
+          "project_timeline_q4_2024.txt",
+          "electrical_design_review.txt"
+        ],
+        "response_length": 176,
+        "source_count": 4,
+        "metrics": {
+          "llm_calls": 1,
+          "tokens": {
+            "input": 0,
+            "output": 0,
+            "total": 0
+          },
+          "embedding_operations": 1,
+          "query_time": 0.735257625579834,
+          "network_time": 0.735257625579834,
+          "method": "langchain_rag"
+        },
+        "raw_result": {
+          "response": "The provided context does not contain information about structural analysis documents or critical stress points identified within them. Therefore, I cannot answer the question.",
+          "sources": [
+            "thermal_analysis_report.txt",
+            "component_requirements.csv",
+            "project_timeline_q4_2024.txt",
+            "electrical_design_review.txt"
+          ],
+          "query_time": 0.751981258392334,
+          "method": "langchain_rag"
+        }
+      },
+      "timestamp": "2025-08-16T00:18:39.745908"
+    },
+    {
+      "test_id": 6,
+      "category": "Mechanical Engineering - CAD Integration",
+      "query": "How do the CAD model revisions relate to thermal analysis updates?",
+      "expected_capabilities": [
+        "relationship_discovery",
+        "temporal_analysis"
+      ],
+      "nancy": {
+        "status": "error",
+        "query_time": 4.130420446395874,
+        "error": "HTTPConnectionPool(host='localhost', port=8000): Max retries exceeded with url: /api/query (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001D2E198B9B0>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))",
+        "metrics": {
+          "llm_calls": 0,
+          "tokens": {
+            "input": 0,
+            "output": 0,
+            "total": 0
+          },
+          "embedding_operations": 0,
+          "query_time": 0,
+          "network_time": 0
+        }
+      },
+      "baseline": {
+        "status": "success",
+        "query_time": 1.6329028606414795,
+        "response": "The mechanical changes, such as increasing the enclosure height by 3mm for heat sink clearance, modifying internal partitioning for split power rail layout, and optimizing airflow channels, were influenced by the thermal analysis which showed CPU temperatures exceeding 85\u00b0C. The thermal analysis indicated the need for an aluminum heat sink design, which requires 2mm additional clearance for airflow, impacting the mechanical enclosure design. The mechanical changes enable both thermal and electrical optimizations. Mechanical changes add 2 weeks to the project schedule.",
+        "sources": [
+          "thermal_analysis_report.txt",
+          "mechanical_integration_plan.txt",
+          "project_timeline_q4_2024.txt"
+        ],
+        "response_length": 574,
+        "source_count": 3,
+        "metrics": {
+          "llm_calls": 1,
+          "tokens": {
+            "input": 0,
+            "output": 0,
+            "total": 0
+          },
+          "embedding_operations": 1,
+          "query_time": 1.6329028606414795,
+          "network_time": 1.6329028606414795,
+          "method": "langchain_rag"
+        },
+        "raw_result": {
+          "response": "The mechanical changes, such as increasing the enclosure height by 3mm for heat sink clearance, modifying internal partitioning for split power rail layout, and optimizing airflow channels, were influenced by the thermal analysis which showed CPU temperatures exceeding 85\u00b0C. The thermal analysis indicated the need for an aluminum heat sink design, which requires 2mm additional clearance for airflow, impacting the mechanical enclosure design. The mechanical changes enable both thermal and electrical optimizations. Mechanical changes add 2 weeks to the project schedule.",
+          "sources": [
+            "thermal_analysis_report.txt",
+            "mechanical_integration_plan.txt",
+            "project_timeline_q4_2024.txt"
+          ],
+          "query_time": 1.676140546798706,
+          "method": "langchain_rag"
+        }
+      },
+      "timestamp": "2025-08-16T00:18:45.511417"
+    },
+    {
+      "test_id": 7,
+      "category": "Electrical Engineering - Power Systems",
+      "query": "What are the power dissipation requirements and how do they impact the enclosure design?",
+      "expected_capabilities": [
+        "technical_synthesis",
+        "cross_domain_analysis"
+      ],
+      "nancy": {
+        "status": "error",
+        "query_time": 4.061909198760986,
+        "error": "HTTPConnectionPool(host='localhost', port=8000): Max retries exceeded with url: /api/query (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001D2E19C0A40>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))",
+        "metrics": {
+          "llm_calls": 0,
+          "tokens": {
+            "input": 0,
+            "output": 0,
+            "total": 0
+          },
+          "embedding_operations": 0,
+          "query_time": 0,
+          "network_time": 0
+        }
+      },
+      "baseline": {
+        "status": "success",
+        "query_time": 1.987821102142334,
+        "response": "The thermal analysis report indicates that the CPU temperatures exceeded 85\u00b0C during stress testing, influenced by Mike Rodriguez's electrical power analysis showing 15W TDP. The decision to adopt an aluminum heat sink design was made to address this, as aluminum provides 40% better heat dissipation per cost compared to the current copper solution which is insufficient for sustained loads. This requirement for a more effective heat sink directly influenced the mechanical enclosure design, necessitating a redesign with a 15% larger volume to accommodate the aluminum heat sink and split power rail requirements. The heat sink placement also constrains the electrical component layout.\n",
+        "sources": [
+          "thermal_analysis_report.txt",
+          "mechanical_integration_plan.txt"
+        ],
+        "response_length": 690,
+        "source_count": 2,
+        "metrics": {
+          "llm_calls": 1,
+          "tokens": {
+            "input": 0,
+            "output": 0,
+            "total": 0
+          },
+          "embedding_operations": 1,
+          "query_time": 1.987821102142334,
+          "network_time": 1.987821102142334,
+          "method": "langchain_rag"
+        },
+        "raw_result": {
+          "response": "The thermal analysis report indicates that the CPU temperatures exceeded 85\u00b0C during stress testing, influenced by Mike Rodriguez's electrical power analysis showing 15W TDP. The decision to adopt an aluminum heat sink design was made to address this, as aluminum provides 40% better heat dissipation per cost compared to the current copper solution which is insufficient for sustained loads. This requirement for a more effective heat sink directly influenced the mechanical enclosure design, necessitating a redesign with a 15% larger volume to accommodate the aluminum heat sink and split power rail requirements. The heat sink placement also constrains the electrical component layout.\n",
+          "sources": [
+            "thermal_analysis_report.txt",
+            "mechanical_integration_plan.txt"
+          ],
+          "query_time": 2.055388927459717,
+          "method": "langchain_rag"
+        }
+      },
+      "timestamp": "2025-08-16T00:18:51.562088"
+    },
+    {
+      "test_id": 8,
+      "category": "Electrical Engineering - EMC Compliance",
+      "query": "What EMC compliance measures are specified and who is responsible for implementation?",
+      "expected_capabilities": [
+        "basic_retrieval",
+        "author_tracking"
+      ],
+      "nancy": {
+        "status": "error",
+        "query_time": 4.079933166503906,
+        "error": "HTTPConnectionPool(host='localhost', port=8000): Max retries exceeded with url: /api/query (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001D2E19C0E30>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))",
+        "metrics": {
+          "llm_calls": 0,
+          "tokens": {
+            "input": 0,
+            "output": 0,
+            "total": 0
+          },
+          "embedding_operations": 0,
+          "query_time": 0,
+          "network_time": 0
+        }
+      },
+      "baseline": {
+        "status": "success",
+        "query_time": 0.778512716293335,
+        "response": "The provided documents do not contain information about EMC compliance measures or who is responsible for their implementation. Therefore, I cannot answer your question. \n",
+        "sources": [
+          "mechanical_integration_plan.txt",
+          "component_requirements.csv",
+          "project_timeline_q4_2024.txt",
+          "electrical_design_review.txt"
+        ],
+        "response_length": 171,
+        "source_count": 4,
+        "metrics": {
+          "llm_calls": 1,
+          "tokens": {
+            "input": 0,
+            "output": 0,
+            "total": 0
+          },
+          "embedding_operations": 1,
+          "query_time": 0.778512716293335,
+          "network_time": 0.778512716293335,
+          "method": "langchain_rag"
+        },
+        "raw_result": {
+          "response": "The provided documents do not contain information about EMC compliance measures or who is responsible for their implementation. Therefore, I cannot answer your question. \n",
+          "sources": [
+            "mechanical_integration_plan.txt",
+            "component_requirements.csv",
+            "project_timeline_q4_2024.txt",
+            "electrical_design_review.txt"
+          ],
+          "query_time": 0.7805211544036865,
+          "method": "langchain_rag"
+        }
+      },
+      "timestamp": "2025-08-16T00:18:56.421624"
+    },
+    {
+      "test_id": 9,
+      "category": "Electrical Engineering - Circuit Design",
+      "query": "How do circuit board layout constraints affect thermal management decisions?",
+      "expected_capabilities": [
+        "cross_domain_analysis",
+        "relationship_discovery"
+      ],
+      "nancy": {
+        "status": "error",
+        "query_time": 4.081273317337036,
+        "error": "HTTPConnectionPool(host='localhost', port=8000): Max retries exceeded with url: /api/query (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001D2E19C1520>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))",
+        "metrics": {
+          "llm_calls": 0,
+          "tokens": {
+            "input": 0,
+            "output": 0,
+            "total": 0
+          },
+          "embedding_operations": 0,
+          "query_time": 0,
+          "network_time": 0
+        }
+      },
+      "baseline": {
+        "status": "success",
+        "query_time": 1.4956004619598389,
+        "response": "The context states: \"Heat sink placement CONSTRAINS electrical component layout\" and \"Thermal constraints require component spacing optimization\". Also, \"DECISION: Implement split power rail design\" was made because of \"Thermal constraints require component spacing optimization\" and \"CONTEXT: Thermal constraints require component spacing optimization\". Therefore, circuit board layout constraints, specifically those related to heat sink placement, directly influence thermal management decisions. \n",
+        "sources": [
+          "mechanical_integration_plan.txt",
+          "thermal_analysis_report.txt",
+          "electrical_design_review.txt"
+        ],
+        "response_length": 501,
+        "source_count": 3,
+        "metrics": {
+          "llm_calls": 1,
+          "tokens": {
+            "input": 0,
+            "output": 0,
+            "total": 0
+          },
+          "embedding_operations": 1,
+          "query_time": 1.4956004619598389,
+          "network_time": 1.4956004619598389,
+          "method": "langchain_rag"
+        },
+        "raw_result": {
+          "response": "The context states: \"Heat sink placement CONSTRAINS electrical component layout\" and \"Thermal constraints require component spacing optimization\". Also, \"DECISION: Implement split power rail design\" was made because of \"Thermal constraints require component spacing optimization\" and \"CONTEXT: Thermal constraints require component spacing optimization\". Therefore, circuit board layout constraints, specifically those related to heat sink placement, directly influence thermal management decisions. \n",
+          "sources": [
+            "mechanical_integration_plan.txt",
+            "thermal_analysis_report.txt",
+            "electrical_design_review.txt"
+          ],
+          "query_time": 1.53434157371521,
+          "method": "langchain_rag"
+        }
+      },
+      "timestamp": "2025-08-16T00:19:02.000693"
+    },
+    {
+      "test_id": 10,
+      "category": "Firmware Engineering - Memory Requirements",
+      "query": "What are the memory allocation requirements for the thermal control algorithms?",
+      "expected_capabilities": [
+        "basic_retrieval",
+        "technical_synthesis"
+      ],
+      "nancy": {
+        "status": "error",
+        "query_time": 4.056795835494995,
+        "error": "HTTPConnectionPool(host='localhost', port=8000): Max retries exceeded with url: /api/query (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001D2E19C0260>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))",
+        "metrics": {
+          "llm_calls": 0,
+          "tokens": {
+            "input": 0,
+            "output": 0,
+            "total": 0
+          },
+          "embedding_operations": 0,
+          "query_time": 0,
+          "network_time": 0
+        }
+      },
+      "baseline": {
+        "status": "success",
+        "query_time": 0.7252788543701172,
+        "response": "The provided context does not contain information about memory allocation requirements for thermal control algorithms. Therefore, I cannot answer the question.",
+        "sources": [
+          "mechanical_integration_plan.txt",
+          "thermal_analysis_report.txt",
+          "electrical_design_review.txt"
+        ],
+        "response_length": 159,
+        "source_count": 3,
+        "metrics": {
+          "llm_calls": 1,
+          "tokens": {
+            "input": 0,
+            "output": 0,
+            "total": 0
+          },
+          "embedding_operations": 1,
+          "query_time": 0.7252788543701172,
+          "network_time": 0.7252788543701172,
+          "method": "langchain_rag"
+        },
+        "raw_result": {
+          "response": "The provided context does not contain information about memory allocation requirements for thermal control algorithms. Therefore, I cannot answer the question.",
+          "sources": [
+            "mechanical_integration_plan.txt",
+            "thermal_analysis_report.txt",
+            "electrical_design_review.txt"
+          ],
+          "query_time": 0.7524611949920654,
+          "method": "langchain_rag"
+        }
+      },
+      "timestamp": "2025-08-16T00:19:06.783896"
+    },
+    {
+      "test_id": 11,
+      "category": "Firmware Engineering - Control Protocols",
+      "query": "Which communication protocols are used between thermal sensors and the main controller?",
+      "expected_capabilities": [
+        "technical_synthesis",
+        "basic_retrieval"
+      ],
+      "nancy": {
+        "status": "error",
+        "query_time": 4.084624767303467,
+        "error": "HTTPConnectionPool(host='localhost', port=8000): Max retries exceeded with url: /api/query (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001D2E198BAD0>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))",
+        "metrics": {
+          "llm_calls": 0,
+          "tokens": {
+            "input": 0,
+            "output": 0,
+            "total": 0
+          },
+          "embedding_operations": 0,
+          "query_time": 0,
+          "network_time": 0
+        }
+      },
+      "baseline": {
+        "status": "success",
+        "query_time": 0.7194070816040039,
+        "response": "The provided context does not contain information about communication protocols used between thermal sensors and the main controller. Therefore, I cannot answer the question.",
+        "sources": [
+          "component_requirements.csv",
+          "project_timeline_q4_2024.txt",
+          "electrical_design_review.txt"
+        ],
+        "response_length": 174,
+        "source_count": 3,
+        "metrics": {
+          "llm_calls": 1,
+          "tokens": {
+            "input": 0,
+            "output": 0,
+            "total": 0
+          },
+          "embedding_operations": 1,
+          "query_time": 0.7194070816040039,
+          "network_time": 0.7194070816040039,
+          "method": "langchain_rag"
+        },
+        "raw_result": {
+          "response": "The provided context does not contain information about communication protocols used between thermal sensors and the main controller. Therefore, I cannot answer the question.",
+          "sources": [
+            "component_requirements.csv",
+            "project_timeline_q4_2024.txt",
+            "electrical_design_review.txt"
+          ],
+          "query_time": 0.7469019889831543,
+          "method": "langchain_rag"
+        }
+      },
+      "timestamp": "2025-08-16T00:19:11.591570"
+    },
+    {
+      "test_id": 12,
+      "category": "Industrial Design - User Interface",
+      "query": "What user feedback influenced the thermal management interface design decisions?",
+      "expected_capabilities": [
+        "decision_tracking",
+        "author_attribution"
+      ],
+      "nancy": {
+        "status": "error",
+        "query_time": 4.105506420135498,
+        "error": "HTTPConnectionPool(host='localhost', port=8000): Max retries exceeded with url: /api/query (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001D2E19C2240>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))",
+        "metrics": {
+          "llm_calls": 0,
+          "tokens": {
+            "input": 0,
+            "output": 0,
+            "total": 0
+          },
+          "embedding_operations": 0,
+          "query_time": 0,
+          "network_time": 0
+        }
+      },
+      "baseline": {
+        "status": "success",
+        "query_time": 0.982358455657959,
+        "response": "The provided context doesn't contain information about user feedback influencing the thermal management interface design decisions. It details decisions made based on thermal analysis, electrical power analysis, and integration challenges. Therefore, I cannot answer this question based on the given information.",
+        "sources": [
+          "mechanical_integration_plan.txt",
+          "thermal_analysis_report.txt",
+          "project_timeline_q4_2024.txt",
+          "electrical_design_review.txt"
+        ],
+        "response_length": 312,
+        "source_count": 4,
+        "metrics": {
+          "llm_calls": 1,
+          "tokens": {
+            "input": 0,
+            "output": 0,
+            "total": 0
+          },
+          "embedding_operations": 1,
+          "query_time": 0.982358455657959,
+          "network_time": 0.982358455657959,
+          "method": "langchain_rag"
+        },
+        "raw_result": {
+          "response": "The provided context doesn't contain information about user feedback influencing the thermal management interface design decisions. It details decisions made based on thermal analysis, electrical power analysis, and integration challenges. Therefore, I cannot answer this question based on the given information.",
+          "sources": [
+            "mechanical_integration_plan.txt",
+            "thermal_analysis_report.txt",
+            "project_timeline_q4_2024.txt",
+            "electrical_design_review.txt"
+          ],
+          "query_time": 0.9952857494354248,
+          "method": "langchain_rag"
+        }
+      },
+      "timestamp": "2025-08-16T00:19:16.681336"
+    },
+    {
+      "test_id": 13,
+      "category": "Industrial Design - Ergonomics",
+      "query": "How do ergonomic considerations affect the placement of thermal management controls?",
+      "expected_capabilities": [
+        "cross_domain_analysis",
+        "basic_retrieval"
+      ],
+      "nancy": {
+        "status": "error",
+        "query_time": 4.077155590057373,
+        "error": "HTTPConnectionPool(host='localhost', port=8000): Max retries exceeded with url: /api/query (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001D2E19C29F0>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))",
+        "metrics": {
+          "llm_calls": 0,
+          "tokens": {
+            "input": 0,
+            "output": 0,
+            "total": 0
+          },
+          "embedding_operations": 0,
+          "query_time": 0,
+          "network_time": 0
+        }
+      },
+      "baseline": {
+        "status": "success",
+        "query_time": 0.7467641830444336,
+        "response": "The provided context does not contain any information about ergonomic considerations or their impact on the placement of thermal management controls. Therefore, I cannot answer the question.",
+        "sources": [
+          "mechanical_integration_plan.txt",
+          "thermal_analysis_report.txt",
+          "project_timeline_q4_2024.txt",
+          "electrical_design_review.txt"
+        ],
+        "response_length": 190,
+        "source_count": 4,
+        "metrics": {
+          "llm_calls": 1,
+          "tokens": {
+            "input": 0,
+            "output": 0,
+            "total": 0
+          },
+          "embedding_operations": 1,
+          "query_time": 0.7467641830444336,
+          "network_time": 0.7467641830444336,
+          "method": "langchain_rag"
+        },
+        "raw_result": {
+          "response": "The provided context does not contain any information about ergonomic considerations or their impact on the placement of thermal management controls. Therefore, I cannot answer the question.",
+          "sources": [
+            "mechanical_integration_plan.txt",
+            "thermal_analysis_report.txt",
+            "project_timeline_q4_2024.txt",
+            "electrical_design_review.txt"
+          ],
+          "query_time": 0.7745199203491211,
+          "method": "langchain_rag"
+        }
+      },
+      "timestamp": "2025-08-16T00:19:21.506912"
+    },
+    {
+      "test_id": 14,
+      "category": "Project Management - Timeline",
+      "query": "What activities are scheduled for Q4 2024 and how do they relate to thermal considerations?",
+      "expected_capabilities": [
+        "temporal_filtering",
+        "relationship_discovery"
+      ],
+      "nancy": {
+        "status": "error",
+        "query_time": 4.088406801223755,
+        "error": "HTTPConnectionPool(host='localhost', port=8000): Max retries exceeded with url: /api/query (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001D2E19C23C0>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))",
+        "metrics": {
+          "llm_calls": 0,
+          "tokens": {
+            "input": 0,
+            "output": 0,
+            "total": 0
+          },
+          "embedding_operations": 0,
+          "query_time": 0,
+          "network_time": 0
+        }
+      },
+      "baseline": {
+        "status": "success",
+        "query_time": 4.038400411605835,
+        "response": "Based on the provided context, the following activities are scheduled for Q4 2024:\n\n*   **Integration Phase:** This phase runs from October 1 to December 31, 2024, and is managed by Scott Johnson. The critical path analysis highlights the following dependencies: Thermal analysis completion \u2192 Electrical design \u2192 Mechanical integration. Cross-functional collaboration is essential for success.\n*   **Mechanical Integration:** A decision was made to redesign the enclosure with a 15% larger volume to accommodate the aluminum heat sink and split power rail requirements. This decision was influenced by Sarah Chen's thermal requirements and Mike Rodriguez's electrical spacing needs.\n*   **Electrical Design:** The electrical design included implementing a split power rail design to address thermal constraints requiring component spacing optimization. This resulted in component placement redesign and power efficiency improvements.\n*   **Thermal Analysis:**  Thermal analysis was completed, leading to the decision to adopt an aluminum heat sink design. This decision was influenced by Mike Rodriguez's electrical power analysis showing a 15W TDP and was a result of CPU temperatures exceeding 85\u00b0C during stress testing.\n\nThermal considerations are directly related to the Mechanical Integration and Electrical Design activities. The thermal analysis influenced the choice of heat sink design and the implementation of a split power rail design. The mechanical enclosure design was also influenced by thermal constraints.\n",
+        "sources": [
+          "thermal_analysis_report.txt",
+          "mechanical_integration_plan.txt",
+          "project_timeline_q4_2024.txt",
+          "electrical_design_review.txt"
+        ],
+        "response_length": 1525,
+        "source_count": 4,
+        "metrics": {
+          "llm_calls": 1,
+          "tokens": {
+            "input": 0,
+            "output": 0,
+            "total": 0
+          },
+          "embedding_operations": 1,
+          "query_time": 4.038400411605835,
+          "network_time": 4.038400411605835,
+          "method": "langchain_rag"
+        },
+        "raw_result": {
+          "response": "Based on the provided context, the following activities are scheduled for Q4 2024:\n\n*   **Integration Phase:** This phase runs from October 1 to December 31, 2024, and is managed by Scott Johnson. The critical path analysis highlights the following dependencies: Thermal analysis completion \u2192 Electrical design \u2192 Mechanical integration. Cross-functional collaboration is essential for success.\n*   **Mechanical Integration:** A decision was made to redesign the enclosure with a 15% larger volume to accommodate the aluminum heat sink and split power rail requirements. This decision was influenced by Sarah Chen's thermal requirements and Mike Rodriguez's electrical spacing needs.\n*   **Electrical Design:** The electrical design included implementing a split power rail design to address thermal constraints requiring component spacing optimization. This resulted in component placement redesign and power efficiency improvements.\n*   **Thermal Analysis:**  Thermal analysis was completed, leading to the decision to adopt an aluminum heat sink design. This decision was influenced by Mike Rodriguez's electrical power analysis showing a 15W TDP and was a result of CPU temperatures exceeding 85\u00b0C during stress testing.\n\nThermal considerations are directly related to the Mechanical Integration and Electrical Design activities. The thermal analysis influenced the choice of heat sink design and the implementation of a split power rail design. The mechanical enclosure design was also influenced by thermal constraints.\n",
+          "sources": [
+            "thermal_analysis_report.txt",
+            "mechanical_integration_plan.txt",
+            "project_timeline_q4_2024.txt",
+            "electrical_design_review.txt"
+          ],
+          "query_time": 4.1960015296936035,
+          "method": "langchain_rag"
+        }
+      },
+      "timestamp": "2025-08-16T00:19:29.634292"
+    },
+    {
+      "test_id": 15,
+      "category": "Project Management - Decision Tracking",
+      "query": "What decisions were made in the project timeline that affect the thermal analysis, and who made them?",
+      "expected_capabilities": [
+        "decision_tracking",
+        "temporal_analysis",
+        "author_attribution"
+      ],
+      "nancy": {
+        "status": "error",
+        "query_time": 4.071521997451782,
+        "error": "HTTPConnectionPool(host='localhost', port=8000): Max retries exceeded with url: /api/query (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001D2E19C0050>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))",
+        "metrics": {
+          "llm_calls": 0,
+          "tokens": {
+            "input": 0,
+            "output": 0,
+            "total": 0
+          },
+          "embedding_operations": 0,
+          "query_time": 0,
+          "network_time": 0
+        }
+      },
+      "baseline": {
+        "status": "success",
+        "query_time": 1.6680114269256592,
+        "response": "Based on the provided context, the following decisions made in the project timeline affected thermal analysis:\n\n*   **Adopt aluminum heat sink design:** Decision made by Sarah Chen. The context states CPU temperatures exceeded 85\u00b0C during stress testing, influencing this decision.\n*   **Implement split power rail design:** Decision made by Mike Rodriguez. This decision was influenced by Sarah Chen's thermal analysis showing hotspot risks and was made to address thermal constraints requiring component spacing optimization.\n\n",
+        "sources": [
+          "mechanical_integration_plan.txt",
+          "thermal_analysis_report.txt",
+          "project_timeline_q4_2024.txt",
+          "electrical_design_review.txt"
+        ],
+        "response_length": 529,
+        "source_count": 4,
+        "metrics": {
+          "llm_calls": 1,
+          "tokens": {
+            "input": 0,
+            "output": 0,
+            "total": 0
+          },
+          "embedding_operations": 1,
+          "query_time": 1.6680114269256592,
+          "network_time": 1.6680114269256592,
+          "method": "langchain_rag"
+        },
+        "raw_result": {
+          "response": "Based on the provided context, the following decisions made in the project timeline affected thermal analysis:\n\n*   **Adopt aluminum heat sink design:** Decision made by Sarah Chen. The context states CPU temperatures exceeded 85\u00b0C during stress testing, influencing this decision.\n*   **Implement split power rail design:** Decision made by Mike Rodriguez. This decision was influenced by Sarah Chen's thermal analysis showing hotspot risks and was made to address thermal constraints requiring component spacing optimization.\n\n",
+          "sources": [
+            "mechanical_integration_plan.txt",
+            "thermal_analysis_report.txt",
+            "project_timeline_q4_2024.txt",
+            "electrical_design_review.txt"
+          ],
+          "query_time": 1.7126929759979248,
+          "method": "langchain_rag"
+        }
+      },
+      "timestamp": "2025-08-16T00:19:35.374894"
+    }
+  ],
+  "usage_metrics": {
+    "nancy": {
+      "llm_calls": 0,
+      "total_tokens": 0,
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "embedding_operations": 0,
+      "processing_time": 0,
+      "errors": 15
+    },
+    "baseline": {
+      "llm_calls": 15,
+      "total_tokens": 0,
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "embedding_operations": 15,
+      "processing_time": 25.509889125823975,
+      "errors": 0
+    }
+  },
+  "analysis": {
+    "performance": {
+      "nancy_avg_time": 0,
+      "baseline_avg_time": 1.7006592750549316,
+      "nancy_success_rate": 0.0,
+      "baseline_success_rate": 1.0,
+      "speed_advantage": "Nancy"
+    },
+    "resource_usage": {
+      "nancy": {
+        "total_llm_calls": 0,
+        "total_embedding_ops": 0,
+        "avg_llm_calls_per_query": 0.0,
+        "total_processing_time": 0,
+        "error_rate": 1.0
+      },
+      "baseline": {
+        "total_llm_calls": 15,
+        "total_embedding_ops": 15,
+        "avg_llm_calls_per_query": 1.0,
+        "total_processing_time": 25.509889125823975,
+        "error_rate": 0.0
+      }
+    },
+    "efficiency_metrics": {
+      "llm_efficiency": {
+        "nancy_calls_per_success": 0,
+        "baseline_calls_per_success": 1.0
+      },
+      "embedding_efficiency": {
+        "nancy_embeds_per_query": 0.0,
+        "baseline_embeds_per_query": 1.0
+      }
+    },
+    "recommendations": [
+      "Baseline uses more LLM calls than Nancy's efficient routing",
+      "Nancy provides superior capabilities with competitive speed",
+      "Nancy shows higher error rates - investigate stability"
+    ]
+  }
+}

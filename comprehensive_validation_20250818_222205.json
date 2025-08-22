@@ -1,0 +1,606 @@
+{
+  "validation_type": "comprehensive_four_brain_validation",
+  "timestamp": "2025-08-18T22:16:09.063520",
+  "methodology": "scientific_comparison_across_all_dimensions",
+  "test_categories": {
+    "vector_brain": {
+      "tests": [
+        {
+          "test_name": "semantic_similarity_search",
+          "category": "semantic_search",
+          "query": "What are the thermal management approaches mentioned in the documents?",
+          "nancy_performance": {
+            "score": 0.41000000000000003,
+            "concepts_found": [
+              "thermal",
+              "thermal management"
+            ],
+            "semantic_richness": 0.1,
+            "query_time": 9.108246326446533,
+            "reasoning": "Found 2/5 expected concepts"
+          },
+          "baseline_performance": {
+            "score": 0.61,
+            "concepts_found": [
+              "thermal",
+              "heat",
+              "thermal management"
+            ],
+            "semantic_richness": 0.1,
+            "query_time": 1.863217830657959,
+            "reasoning": "Found 3/5 expected concepts"
+          },
+          "nancy_response": "The documents mention the following thermal management approaches:\n\n*   **Component placement optimization for thermal management:** (561b2d16f8317fbe7626d88d2d807227b8033cf6f4009009c3e30608d83e688f)\n*   **Coordination with the mechanical team on enclosure thermal paths.** (df4f1782c817ea086aa00b7a07fff9b7706eee4275099d8b5736681931caf866)\n*   **Consideration of aesthetic impact of thermal features by the industrial design team.** (df4f1782c817ea086aa00b7a07fff9b7706eee4275099d8b5736681931caf866)\n*   **Validation of firmware power management with new IC specifications for better efficiency.** (561b2d16f8317fbe7626d88d2d807227b8033cf6f4009009c3e30608d83e688f)\n\n\n\n",
+          "baseline_response": "The thermal management approaches mentioned in the documents are:\n\n*   **Increased enclosure height:** Increased by 3mm for heat sink clearance.\n*   **Airflow channels optimization:** Optimized based on thermal analysis.\n*   **Material change to ABS:** Used for better heat dissipation.\n*   **Aluminum heat sink:** Adopted as the heat sink design due to better heat dissipation per cost compared to copper.\n*   **Additional clearance for airflow:** Requires 2mm of additional clearance for airflow.\n*   **Integration with electrical layout:** Critical for effectiveness.\n"
+        },
+        {
+          "test_name": "cross_document_content_discovery",
+          "category": "content_discovery",
+          "query": "Find all references to power consumption and electrical requirements",
+          "nancy_performance": {
+            "score": 0.8,
+            "concepts_found": [
+              "power",
+              "electrical",
+              "consumption",
+              "requirements"
+            ],
+            "semantic_richness": 0,
+            "query_time": 4.3844828605651855,
+            "reasoning": "Found 4/5 expected concepts"
+          },
+          "baseline_performance": {
+            "score": 0.8200000000000001,
+            "concepts_found": [
+              "power",
+              "electrical",
+              "consumption",
+              "requirements"
+            ],
+            "semantic_richness": 0.2,
+            "query_time": 2.4753870964050293,
+            "reasoning": "Found 4/5 expected concepts"
+          },
+          "nancy_response": "Here's a summary of power consumption and electrical requirements based on the provided information:\n\n*   **Total Power:** Active mode consumes 2.4W (within a 2.5W requirement). Sleep mode consumes 8.5\u03bcW (well below a 10\u03bcW requirement). Peak transmission can reach 2.7W.\n*   **Component Power Consumption:**\n    *   Processor (ARM Cortex-M4): 850mW (full processing)\n    *   WiFi Radio (2.4GHz): 620mW (transmission)\n    *   Bluetooth Radio: 180mW (active connection)\n    *   Sensor Interface: 320mW (data acquisition)\n    *   Power Management IC: 180mW (self-consumption)\n    *   LED Indicators: 45mW (all active)\n    *   Miscellaneous: 205mW\n*   **Power Budget:** The target power budget is 2.5W, and there's a target cost reduction of $8 per unit.\n*   **Optimization:** Firmware can reduce processor clock during low-activity periods, potentially saving 200mW.",
+          "baseline_response": "Here's a breakdown of the power consumption and electrical requirements found in the provided context:\n\n*   **COMP-004 (Battery Pack):** Power requirement (w) is 0.0\n*   **COMP-003 (Radio Transceiver):** Power requirement (w) is 8.7\n*   **COMP-005 (Sensor Array):** Power requirement (w) is 1.8\n*   **COMP-002 (Memory Module):** Power requirement (w) is 3.2\n*   **COMP-001 (Primary CPU):** Power requirement (w) is 12.5\n\nThe context also includes thermal constraints (c) and mass (kg) for each component, but these are not directly related to power consumption."
+        },
+        {
+          "test_name": "technical_concept_retrieval",
+          "category": "concept_retrieval",
+          "query": "What components are mentioned across all engineering documents?",
+          "nancy_performance": {
+            "score": 0.27,
+            "concepts_found": [
+              "components"
+            ],
+            "semantic_richness": 0.2,
+            "query_time": 1.8156287670135498,
+            "reasoning": "Found 1/4 expected concepts"
+          },
+          "baseline_performance": {
+            "score": 0.26,
+            "concepts_found": [
+              "components"
+            ],
+            "semantic_richness": 0.1,
+            "query_time": 1.2819955348968506,
+            "reasoning": "Found 1/4 expected concepts"
+          },
+          "nancy_response": "Based on the provided documents, the components mentioned are:\n\n*   **Primary CPU** (from `component_requirements.csv`)\n*   **LED indicators** (mentioned in a requirement related to visibility in industrial lighting)\n\n\n\n",
+          "baseline_response": "The provided documents mention the following components: Enclosure (COMP-008), Memory Module (COMP-002), and Radio Transceiver (COMP-003). They are mentioned in the `project_timeline_q4_2024.txt` and `component_requirements.csv` files."
+        }
+      ],
+      "overall_score": 0,
+      "nancy_avg_score": 0.49333333333333335,
+      "baseline_avg_score": 0.5633333333333334,
+      "nancy_test_count": 3,
+      "baseline_test_count": 3
+    },
+    "analytical_brain": {
+      "tests": [
+        {
+          "test_name": "structured_data_filtering",
+          "category": "data_filtering",
+          "query": "What components have thermal constraints above 70 degrees?",
+          "nancy_performance": {
+            "score": 0.75,
+            "elements_found": [
+              "thermal constraint",
+              "70",
+              "components"
+            ],
+            "structured_handling": 0,
+            "query_time": 1.9950282573699951,
+            "reasoning": "Found 3/4 expected elements"
+          },
+          "baseline_performance": {
+            "score": 1.0,
+            "elements_found": [
+              "thermal constraint",
+              "70",
+              "degrees",
+              "components"
+            ],
+            "structured_handling": 0,
+            "query_time": 1.013077974319458,
+            "reasoning": "Found 4/4 expected elements"
+          },
+          "nancy_response": "According to the thermal analysis, **RF components** have a thermal constraint of **<70\u00b0C** to maintain performance. The **Processor** also has a junction temperature limit of **<105\u00b0C**. The **Power management IC** has a case temperature limit of **<85\u00b0C**.\n\n\n\n",
+          "baseline_response": "The provided context doesn't specify any components with thermal constraints above 70 degrees. The context only mentions a sensor array with a thermal constraint of 40.0 degrees. Therefore, I cannot answer the question based on the information given."
+        },
+        {
+          "test_name": "metadata_based_search",
+          "category": "metadata_search",
+          "query": "Show me all test results with priority marked as High",
+          "nancy_performance": {
+            "score": 0.010000000000000002,
+            "elements_found": [],
+            "structured_handling": 0.1,
+            "query_time": 0.9095897674560547,
+            "reasoning": "Found 0/3 expected elements"
+          },
+          "baseline_performance": {
+            "score": 1.0,
+            "elements_found": [
+              "test results",
+              "priority",
+              "High"
+            ],
+            "structured_handling": 0.1,
+            "query_time": 0.7557368278503418,
+            "reasoning": "Found 3/3 expected elements"
+          },
+          "nancy_response": "GRAPH_GENERAL_RESULTS: Knowledge graph overview: {'node_counts': {'Document': 156, 'Person': 61, 'TechnicalConcept': 18, 'DecisionTarget': 32, 'Spreadsheet': 8, 'Column': 68, 'CategoryValue': 310, 'CalculatedField': 2, 'IdentifierColumn': 9, 'CalculatedColumn': 2, 'EngineeringDomain': 15}, 'relationship_counts': {'CONTAINS_VALUE': 320, 'REFERENCES': 134, 'MENTIONED_IN': 75, 'HAS_COLUMN': 68, 'DISCUSSES': 66, 'AUTHORED': 36, 'BELONGS_TO_DOMAIN': 28, 'RELATES_TO': 20, 'CALCULATED_FROM': 20, 'SUM_OF': 18, 'PARENT_CATEGORY_OF': 13, 'STRONGLY_CORRELATED': 11, 'IS_IDENTIFIER': 9, 'CONTAINS_SHEET': 8, 'REQUIRES': 6, 'STATUS_OF': 5, 'CONSTRAINS': 3, 'IS_CALCULATED': 2, 'IS_CALCULATED_FIELD': 2, 'DECISION_MADE': 1, 'AFFECTS': 1, 'INFLUENCES': 1}, 'most_connected_documents': [{'filename': None, 'connection_count': 449}, {'filename': 'emc_test_results.txt', 'connection_count': 2}, {'filename': 'system_requirements_v2.txt', 'connection_count': 2}, {'filename': 'firmware_requirements.txt', 'connection_count': 2}, {'filename': 'march_design_review_transcript.txt', 'connection_count': 2}, {'filename': 'power_analysis_report.txt', 'connection_count': 2}, {'filename': 'ergonomic_analysis.txt', 'connection_count': 2}, {'filename': 'thermal_constraints_doc.txt', 'connection_count': 2}, {'filename': 'voice_of_customer.txt', 'connection_count': 2}, {'filename': 'electrical_review_meeting.txt', 'connection_count': 2}]}",
+          "baseline_response": "The provided context does not contain information about test results with a \"priority\" marked as \"High\". Therefore, I cannot answer the question."
+        },
+        {
+          "test_name": "quantitative_analysis",
+          "category": "quantitative_analysis",
+          "query": "What are the power requirements for all memory components?",
+          "nancy_performance": {
+            "score": 1.0,
+            "elements_found": [
+              "power",
+              "requirements",
+              "memory",
+              "components"
+            ],
+            "structured_handling": 0,
+            "query_time": 2.573295831680298,
+            "reasoning": "Found 4/4 expected elements"
+          },
+          "baseline_performance": {
+            "score": 0.75,
+            "elements_found": [
+              "power",
+              "memory",
+              "components"
+            ],
+            "structured_handling": 0,
+            "query_time": 1.1453468799591064,
+            "reasoning": "Found 3/4 expected elements"
+          },
+          "nancy_response": "The power requirements for the memory components are:\n\n*   **SRAM (128KB):** The details are not fully provided in the retrieved information, but the overall maximum power consumption is 2.5W.\n*   **Flash Memory (512KB):**  The power consumption for flash memory isn't specified individually. However, the total maximum power consumption for the system is 2.5W, and the processor (which interacts with the memory) consumes 850mW during full processing.\n",
+          "baseline_response": "The context only provides information for one memory component: COMP-002, Memory Module. Its power requirement (w) is 3.2.  Therefore, based on the provided information, the power requirement for the memory component is 3.2. I cannot answer the question for all memory components as only one is described."
+        }
+      ],
+      "overall_score": 0,
+      "nancy_avg_score": 0.5866666666666667,
+      "baseline_avg_score": 0.9166666666666666,
+      "nancy_test_count": 3,
+      "baseline_test_count": 3
+    },
+    "graph_brain": {
+      "tests": [
+        {
+          "test_name": "relationship_discovery",
+          "category": "relationship_mapping",
+          "query": "Who worked on thermal analysis and what other systems did they influence?",
+          "nancy_performance": {
+            "score": 1.0,
+            "elements_found": [
+              "Sarah Chen",
+              "thermal analysis",
+              "influenced",
+              "systems"
+            ],
+            "relationship_richness": 0.30000000000000004,
+            "query_time": 12.834702491760254,
+            "reasoning": "Found 4/4 expected elements"
+          },
+          "baseline_performance": {
+            "score": 0.76,
+            "elements_found": [
+              "Sarah Chen",
+              "thermal analysis",
+              "influenced"
+            ],
+            "relationship_richness": 0.1,
+            "query_time": 0.7935581207275391,
+            "reasoning": "Found 3/4 expected elements"
+          },
+          "nancy_response": "## Thermal Analysis and Influenced Systems: A Comprehensive Overview\n\nBased on the provided documents and relationship analysis, here's a comprehensive overview of who worked on thermal analysis and the systems they influenced.\n\n**1. Individuals Involved in Thermal Analysis:**\n\n*   **Sarah Chen:** Identified as the Project Lead Engineer for the Thermal Management System (as per the `Project` column in the `Sheet1` of `3e71f46c2c67cfeea285c7b243a46d3e07f73689499f6ee18cd393f9451ee548_Sheet1`).  This suggests she was directly responsible for the thermal management aspects of the project.\n*   **Lisa Park:**  From the document content, Lisa Park from the Industrial Design team consulted on the aesthetic impact of thermal features. While not directly involved in the analysis, her input influenced the design choices related to thermal management.\n*   **Dr. Amanda Torres:** While her primary role appears to be RF Engineering (based on the department listing), she is involved in the project and potentially contributes to thermal considerations within the Communication Array.\n*   **Mike R:** Involved in a decision target regarding firmware power management algorithms, indicating a link between thermal analysis and power management.\n\n**2. Systems Influenced by Thermal Analysis:**\n\nThe thermal analysis performed by Sarah Chen directly influenced the following systems:\n\n*   **Thermal Management System:** This is the primary system she's leading, implying a central role in its design and optimization.\n*   **Power Distribution Unit:** The `Sheet1` of `3e71f46c2c67cfeea285c7b243a46d3e07f73689499f6ee18cd393f9451ee548_Sheet1` shows the Power Distribution Unit being a component of the project.  Thermal considerations are crucial for power distribution units to prevent overheating and ensure reliable operation.\n*   **Communication Array:** Dr. Amanda Torres's involvement and the existence of a `thermal_test_results.csv` file containing thermal data for the Communication Array suggests that thermal analysis impacted its design and testing. Specifically, the thermal requirements of the Communication Array are being evaluated and tested.\n*   **Enclosure (Mechanical):** The document mentions coordination required with the mechanical team on enclosure thermal paths. This indicates that Sarah Chen's thermal analysis informed the mechanical design of the enclosure to facilitate heat dissipation.\n\n**3. Decision Chains and Responsibilities:**\n\n*   **Project Lead (Sarah Chen):** Responsible for the overall thermal management system and its integration with other systems.  She likely makes decisions related to thermal design, component selection, and testing.\n*   **Mechanical Team:** Responsible for designing the enclosure based on thermal requirements.  They collaborate with Sarah Chen to ensure proper thermal paths.\n*   **Industrial Design Team (Lisa Park):**  Responsible for the aesthetic aspects of the thermal features, potentially balancing form and function with thermal performance.\n*   **Firmware Development (Mike R):** Responsible for power management algorithms which are impacted by thermal considerations.\n\n**4. Cross-Domain Impacts and Dependencies:**\n\n*   **Systems Engineering, Mechanical Engineering, RF Engineering, Power Systems:** Thermal analysis has a cross-domain impact, requiring collaboration between these engineering disciplines. The mechanical team's design (Mechanical Engineering) depends on the thermal requirements determined by the thermal analysis. The RF team (RF Engineering) must consider thermal effects on the Communication Array, and the Power Systems team must address power consumption and heat generation.\n*   **Thermal Analysis & Mechanical Design:**  A direct dependency exists between thermal analysis and mechanical design. The analysis defines thermal constraints that the mechanical design must meet.\n*   **Thermal Analysis & Firmware:** Thermal management influences the firmware's power management algorithms.\n*   **Thermal Analysis & Industrial Design:**  A potential conflict or collaboration point exists between thermal performance and aesthetic design, requiring balancing of requirements.\n\n**In summary:** Sarah Chen, as the Project Lead Engineer, spearheaded the thermal analysis efforts, directly influencing the design and integration of the Thermal Management System, Power Distribution Unit, and Communication Array, with indirect impacts on the enclosure design and firmware. The project necessitates close collaboration between Systems Engineering, Mechanical, RF, and Power Systems to address the cross-domain dependencies related to thermal performance.\n\n\n\n",
+          "baseline_response": "According to the context, Sarah Chen is the PRIMARY thermal design expert. The thermal analysis influenced the mechanical enclosure design and electrical placement constraints. \n"
+        },
+        {
+          "test_name": "cross_domain_connections",
+          "category": "cross_domain_analysis",
+          "query": "How do electrical decisions impact mechanical design choices?",
+          "nancy_performance": {
+            "score": 1.0,
+            "elements_found": [
+              "electrical",
+              "mechanical",
+              "design",
+              "impact",
+              "choices"
+            ],
+            "relationship_richness": 0.2,
+            "query_time": 13.595465898513794,
+            "reasoning": "Found 5/5 expected elements"
+          },
+          "baseline_performance": {
+            "score": 1.0,
+            "elements_found": [
+              "electrical",
+              "mechanical",
+              "design",
+              "impact",
+              "choices"
+            ],
+            "relationship_richness": 0.2,
+            "query_time": 2.2519943714141846,
+            "reasoning": "Found 5/5 expected elements"
+          },
+          "nancy_response": "Okay, here's a comprehensive answer addressing how electrical decisions impact mechanical design choices, synthesized from the provided documents and relationship analysis.\n\n**How Electrical Decisions Impact Mechanical Design Choices**\n\nBased on the available information, the relationship between electrical design and mechanical design is a crucial one, driven by factors of form factor, usability, and operational constraints. Here's a breakdown:\n\n**1. Key Impacts from Electrical Decisions on Mechanical Design:**\n\n*   **Form Factor & Size:** Electrical components (power supplies, circuit boards, connectors) dictate the overall size and shape of the device.  The \"Smaller is better, but not at the expense of durability\" feedback from the Field Engineer directly highlights the trade-off. Electrical engineers must consider component size and power requirements early in the design process. This then influences the mechanical design to accommodate those dimensions.\n*   **Durability:**  Electrical systems, particularly power electronics and components subjected to vibration or thermal stress, require robust mechanical enclosures and mounting solutions. The \"not at the expense of durability\" comment underscores the mechanical design's role in protecting the electrical components.\n*   **Attachment & Integration:** Electrical interfaces (connectors, mounting points) directly impact how the device integrates with existing equipment. The Facilities Manager's requirement for easy attachment without permanent modifications significantly shapes the mechanical design.  Mechanical engineers must design interfaces that are compatible with existing infrastructure.\n*   **Weight:** The weight of electrical components and associated shielding affects the overall device weight. The Field Engineer's statement about technicians carrying multiple devices directly links electrical weight to mechanical design considerations for ergonomics and portability.  Mechanical engineers need to optimize structural materials and design to minimize weight without compromising durability.\n*   **Environmental Considerations**: Electrical components' environmental requirements (temperature, humidity, vibration tolerance) necessitate mechanical design choices for enclosures, thermal management (heat sinks, ventilation), and vibration dampening.\n\n**2. People and Roles Involved:**\n\n*   **Electrical Engineers:**  Responsible for designing the electrical systems, including power supplies, circuits, and interfaces. Their decisions on component selection, power consumption, and system architecture directly influence the mechanical design.\n*   **Mechanical Engineers:**  Responsible for the physical design of the device, including enclosure design, mounting mechanisms, and structural integrity. They must collaborate closely with electrical engineers to accommodate electrical components and requirements.\n*   **Field Engineer:** Provides practical feedback on device usability and durability in real-world conditions. Their input on size, weight, and attachment methods is critical for informing mechanical design choices.\n*   **Facilities Manager:**  Focuses on integration with existing infrastructure, specifically concerning ease of attachment and compatibility.\n*   **Environmental Consultant**: Likely involved in ensuring the device meets environmental regulations which might indirectly impact mechanical choices relating to enclosure materials, seals, or cooling systems.\n\n**3. System and Component Relationships:**\n\n*   **Electrical Components <--> Mechanical Enclosure:** Electrical components require physical enclosure to protect them from environmental factors and physical damage. The enclosure's size, shape, and material must be determined by the components' dimensions, thermal characteristics, and environmental requirements.\n*   **Electrical Connectors <--> Mechanical Mounting Points:** Electrical connectors need secure mounting points on the mechanical structure.  The connector design dictates the requirements for these mounting points (size, location, strength).\n*   **Power Supply <--> Thermal Management System:**  Power supplies generate heat.  The mechanical design must incorporate a thermal management system (heat sinks, fans, ventilation) to dissipate this heat and prevent component failure.\n*   **Device <--> Existing Equipment:**  The mechanical design needs to allow for easy connection to existing equipment, usually via standardized mounting interfaces or connector systems.\n\n**4. Decision Chains and Responsibilities:**\n\n1.  **Electrical Design:** Electrical engineers define the electrical system requirements, including power consumption, voltage levels, and component selection.\n2.  **Mechanical Design:** Mechanical engineers assess the electrical requirements and design the enclosure, mounting mechanisms, and thermal management system to accommodate them.\n3.  **Feedback & Iteration:** Field engineers, facilities managers and environmental consultants provide feedback on the practicality and usability of the design.\n4.  **Design Refinement:** Based on feedback, electrical and mechanical engineers iterate on the design to optimize performance, durability, and integration.\n\n**5. Cross-Domain Impacts and Dependencies:**\n\n*   **Manufacturing:** Mechanical design choices significantly impact manufacturing processes. Complex enclosures or intricate mounting mechanisms can increase manufacturing costs and lead times.\n*   **Testing & Validation:** Electrical and mechanical systems must be tested together to ensure proper functionality and reliability.\n*   **Maintenance:** Easy access to electrical components for maintenance and repair is a critical mechanical design consideration.\n\n\n\n**Limitations and Further Considerations**\n\nThe analysis is limited by the available documents. A deeper understanding would require:\n\n*   More detailed specifications of the project.\n*   Complete meeting transcripts to understand the discussion's nuance.\n*   Design documents outlining the specific trade-offs considered.\n\n\n\n**In summary, successful product development requires close collaboration between electrical and mechanical engineers, with a continuous feedback loop incorporating user and operational considerations. The electrical design drives many critical mechanical design constraints and opportunities.**\n\n\n\n",
+          "baseline_response": "Based on the provided context, electrical decisions directly impact mechanical design choices in the following ways:\n\n*   The need for component spacing optimization due to thermal constraints (electrical design review.txt) led to a redesign of the enclosure with a 15% larger volume (mechanical_integration_plan.txt).\n*   The thermal analysis report (thermal_analysis_report.txt) states that heat sink placement *constrains* electrical component layout.\n*   The mechanical integration plan (mechanical_integration_plan.txt) was influenced by Sarah Chen's thermal requirements (from team expertise mapping, she is a primary thermal design expert).\n*   The electrical design review (electrical_design_review.txt) resulted in component placement redesign.\n\n"
+        },
+        {
+          "test_name": "authorship_and_expertise",
+          "category": "expertise_mapping",
+          "query": "What expertise areas are represented by each team member?",
+          "nancy_performance": {
+            "score": 0.5,
+            "elements_found": [
+              "expertise",
+              "areas"
+            ],
+            "relationship_richness": 0,
+            "query_time": 0.8043279647827148,
+            "reasoning": "Found 2/4 expected elements"
+          },
+          "baseline_performance": {
+            "score": 1.0,
+            "elements_found": [
+              "expertise",
+              "team member",
+              "areas",
+              "represented"
+            ],
+            "relationship_richness": 0,
+            "query_time": 2.608510971069336,
+            "reasoning": "Found 4/4 expected elements"
+          },
+          "nancy_response": "GRAPH_EXPERTISE_RESULTS: All expertise areas: []",
+          "baseline_response": "Here's a breakdown of the expertise areas represented by each team member, based on the provided context:\n\n*   **Sarah Chen:** PRIMARY thermal design expert, SECONDARY mechanical integration.\n*   **Mike Rodriguez:** PRIMARY electrical design expert, SECONDARY power management.\n*   **Lisa Park:** PRIMARY mechanical design expert, SECONDARY materials selection.\n*   **Scott Johnson:** PROJECT coordination expert, SECONDARY systems integration.\n*   **Sarah Chen (from team_directory.csv):** Thermal Analysis\n*   **Mike Rodriguez (from team_directory.csv):** CAD Design\n*   **Lisa Park (from team_directory.csv):** Human Factors\n*   **Alex Kumar (from team_directory.csv):** Embedded Systems\n\n\n\n"
+        }
+      ],
+      "overall_score": 0,
+      "nancy_avg_score": 0.8333333333333334,
+      "baseline_avg_score": 0.9199999999999999,
+      "nancy_test_count": 3,
+      "baseline_test_count": 3
+    },
+    "linguistic_brain": {
+      "tests": [
+        {
+          "test_name": "complex_query_decomposition",
+          "category": "query_decomposition",
+          "query": "What thermal constraints affect power management and who made those decisions?",
+          "nancy_performance": {
+            "score": 0.0,
+            "elements_found": [],
+            "synthesis_quality": 0,
+            "query_time": 0.3325033187866211,
+            "reasoning": "Found 0/4 expected elements"
+          },
+          "baseline_performance": {
+            "score": 0.25,
+            "elements_found": [
+              "thermal constraints"
+            ],
+            "synthesis_quality": 0,
+            "query_time": 1.4640991687774658,
+            "reasoning": "Found 1/4 expected elements"
+          },
+          "nancy_response": "Error in multi-step processing: Gemini API failed: 429 Client Error: Too Many Requests for url: https://generativelanguage.googleapis.com/v1beta/models/gemma-3n-e4b-it:generateContent?key=AIzaSyAM1nfs4g2-xd2Rk31lbZCBEY9MqXh1fm4. Nancy requires a functional LLM for query intelligence.",
+          "baseline_response": "Thermal constraints require component spacing optimization due to hotspot risks, as identified in Sarah Chen's thermal analysis. This influenced the decision to implement a split power rail design, made by Mike Rodriguez. The decision to adopt an aluminum heat sink design was also made by Sarah Chen because the current copper solution was insufficient for sustained loads. The thermal analysis report states that heat sink placement CONSTRAINS electrical component layout."
+        },
+        {
+          "test_name": "multi_step_reasoning",
+          "category": "multi_step_reasoning",
+          "query": "If we change the enclosure material, what other systems need to be reconsidered?",
+          "nancy_performance": {
+            "score": 0.0,
+            "elements_found": [],
+            "synthesis_quality": 0,
+            "query_time": 1.0305800437927246,
+            "reasoning": "Found 0/4 expected elements"
+          },
+          "baseline_performance": {
+            "score": 0.25,
+            "elements_found": [
+              "enclosure material"
+            ],
+            "synthesis_quality": 0,
+            "query_time": 1.3545992374420166,
+            "reasoning": "Found 1/4 expected elements"
+          },
+          "nancy_response": "GRAPH_TECHNICAL_RESULTS: Technical cross-references: [{'source': None, 'target': None, 'context': 'Referenced in electrical_review_meeting.txt'}, {'source': None, 'target': None, 'context': 'Referenced in electrical_review_meeting.txt'}, {'source': None, 'target': None, 'context': 'Referenced in electrical_review_meeting.txt'}, {'source': None, 'target': None, 'context': 'Referenced in emc_test_results.txt'}, {'source': None, 'target': None, 'context': 'Referenced in emc_test_results.txt'}]",
+          "baseline_response": "Based on the provided context, changing the enclosure material to ABS (as mentioned in mechanical_integration_plan.txt) requires reconsideration of the electrical layout (because integration with electrical layout is critical for effectiveness, according to thermal_analysis_report.txt). Also, the heat sink placement is constrained by the electrical component layout (according to thermal_analysis_report.txt)."
+        },
+        {
+          "test_name": "synthesis_across_domains",
+          "category": "cross_domain_synthesis",
+          "query": "Summarize the key engineering tradeoffs discussed across all disciplines",
+          "nancy_performance": {
+            "score": 0.75,
+            "elements_found": [
+              "engineering tradeoffs",
+              "disciplines",
+              "key"
+            ],
+            "synthesis_quality": 0,
+            "query_time": 2.9812190532684326,
+            "reasoning": "Found 3/4 expected elements"
+          },
+          "baseline_performance": {
+            "score": 0.5,
+            "elements_found": [
+              "engineering tradeoffs",
+              "key"
+            ],
+            "synthesis_quality": 0,
+            "query_time": 2.767141103744507,
+            "reasoning": "Found 2/4 expected elements"
+          },
+          "nancy_response": "Across disciplines, key engineering tradeoffs revolve around factors like **cost vs. performance**, **functionality vs. usability**, and **reliability vs. maintainability**. \n\n*   **Manufacturing considerations** (Manufacturing Engineer quote) highlight a tradeoff between time spent on documentation and efficient operation.\n*   **Usability** (Maintenance Manager quote) presents a trade-off between intuitive design and potential complexity.\n*   **Performance requirements** (LED indicator visibility) involve balancing functionality with environmental constraints.\n*   **Systems Engineering, Mechanical, RF, and Power Systems** (Department categorization) demonstrate tradeoffs in areas like thermal analysis, CAD design, RF communications, and battery systems.\n\n\n\n",
+          "baseline_response": "The key engineering tradeoffs discussed are:\n\n*   **Thermal design vs. Component Spacing:** Thermal constraints required component spacing optimization, leading to a split power rail design. This was influenced by Sarah Chen's thermal analysis showing hotspot risks.\n*   **Mechanical Integration vs. Thermal Performance:**  The enclosure height was increased to provide heat sink clearance, and internal partitioning was modified for the split power rail layout. Airflow channels were also optimized based on thermal analysis, indicating a trade-off between mechanical design and thermal performance.\n*   **Materials Selection vs. Heat Dissipation:** The material was changed to ABS for better heat dissipation, showing a trade-off in material properties to improve thermal performance.\n*   **Individual Subsystem Optimization vs. System Integration:** Individual subsystem optimization was deemed insufficient due to integration challenges. This led to an adoption of an integrated design approach and systematic cross-team collaboration.\n\n\n\n"
+        }
+      ],
+      "overall_score": 0,
+      "nancy_avg_score": 0.25,
+      "baseline_avg_score": 0.3333333333333333,
+      "nancy_test_count": 3,
+      "baseline_test_count": 3
+    },
+    "enhanced_graph_brain": {
+      "tests": [
+        {
+          "test_name": "relationship_discovery",
+          "category": "expertise_discovery",
+          "query": "Who are the thermal experts in the project?",
+          "nancy_performance": {
+            "score": 0.0,
+            "elements_found": [],
+            "temporal_understanding": 0,
+            "query_time": 0.15244340896606445,
+            "reasoning": "Found 0/3 expected elements"
+          },
+          "baseline_performance": {
+            "score": 0.0,
+            "elements_found": [],
+            "temporal_understanding": 0,
+            "query_time": 0.16823887825012207,
+            "reasoning": "Found 0/3 expected elements"
+          },
+          "nancy_response": "I encountered an error processing your query: LangChain router orchestration failed: Parsing text\nError: Gemini API failed: 429 Client Error: Too Many Requests for url: https://generativelanguage.googleapis.com/v1beta/models/gemma-3n-e4b-it:generateContent?key=AIzaSyAM1nfs4g2-xd2Rk31lbZCBEY9MqXh1fm4. Nancy requires a functional LLM for query intelligence.\n raised following error:\nGot invalid JSON object. Error: Expecting value: line 1 column 1 (char 0)",
+          "baseline_response": "Error calling Gemma 3: 429 Client Error: Too Many Requests for url: https://generativelanguage.googleapis.com/v1beta/models/gemma-3n-e4b-it:generateContent?key=AIzaSyAM1nfs4g2-xd2Rk31lbZCBEY9MqXh1fm4"
+        },
+        {
+          "test_name": "author_attribution",
+          "category": "authorship_analysis",
+          "query": "Who wrote documents about power management?",
+          "nancy_performance": {
+            "score": 0.0,
+            "elements_found": [],
+            "temporal_understanding": 0,
+            "query_time": 0.14386677742004395,
+            "reasoning": "Found 0/3 expected elements"
+          },
+          "baseline_performance": {
+            "score": 0.0,
+            "elements_found": [],
+            "temporal_understanding": 0,
+            "query_time": 0.14243197441101074,
+            "reasoning": "Found 0/3 expected elements"
+          },
+          "nancy_response": "I encountered an error processing your query: LangChain router orchestration failed: Parsing text\nError: Gemini API failed: 429 Client Error: Too Many Requests for url: https://generativelanguage.googleapis.com/v1beta/models/gemma-3n-e4b-it:generateContent?key=AIzaSyAM1nfs4g2-xd2Rk31lbZCBEY9MqXh1fm4. Nancy requires a functional LLM for query intelligence.\n raised following error:\nGot invalid JSON object. Error: Expecting value: line 1 column 1 (char 0)",
+          "baseline_response": "Error calling Gemma 3: 429 Client Error: Too Many Requests for url: https://generativelanguage.googleapis.com/v1beta/models/gemma-3n-e4b-it:generateContent?key=AIzaSyAM1nfs4g2-xd2Rk31lbZCBEY9MqXh1fm4"
+        },
+        {
+          "test_name": "cross_domain_relationships",
+          "category": "system_relationships",
+          "query": "How do electrical and thermal systems relate?",
+          "nancy_performance": {
+            "score": 0.75,
+            "elements_found": [
+              "electrical",
+              "thermal",
+              "systems"
+            ],
+            "temporal_understanding": 0,
+            "query_time": 9.02109169960022,
+            "reasoning": "Found 3/4 expected elements"
+          },
+          "baseline_performance": {
+            "score": 1.0,
+            "elements_found": [
+              "electrical",
+              "thermal",
+              "systems",
+              "relate"
+            ],
+            "temporal_understanding": 0,
+            "query_time": 2.3387105464935303,
+            "reasoning": "Found 4/4 expected elements"
+          },
+          "nancy_response": "## Relationship Between Electrical and Thermal Systems\n\nBased on the provided information, electrical and thermal systems are closely intertwined, requiring significant coordination and consideration throughout the design and development process. Here's a breakdown of their relationship, drawing from both document content and relationship insights:\n\n**1. Interdependence and Coordination:**\n\n*   **Enclosure Thermal Paths:**  A direct relationship exists between electrical and mechanical systems concerning thermal management.  The document explicitly mentions \"Coordination required with mechanical team on enclosure thermal paths.\" This indicates that the mechanical design (enclosure) directly impacts the thermal performance of the electrical components.  Effective thermal management often necessitates close collaboration between electrical and mechanical engineers.\n*   **Power Supply Architecture and Thermal Concerns:** The power supply architecture is a key area where electrical and thermal systems intersect. Changes to the power supply are specifically noted to \"resolve both efficiency and thermal concerns.\" This signifies that electrical design choices directly influence thermal performance and vice-versa.  Optimizing for one often requires optimizing for the other.\n\n**2. Key Considerations & Challenges:**\n\n*   **Thermal Analysis:**  \"Thermal Analysis\" is listed as an area of expertise, highlighting its importance in this relationship.  Electrical systems generate heat, and managing this heat is crucial for reliability and performance. This requires thermal analysis to predict and mitigate potential overheating issues.\n*   **Enclosure Design & Aesthetics:**  The Industrial Design team (Lisa Park) was consulted on the \"aesthetic impact of thermal features.\" This illustrates the need to integrate thermal solutions into the overall product design, considering both functionality and user experience.  Thermal solutions aren't just about performance; they must be aesthetically acceptable.\n*   **EMC Compliance:**  The power supply architecture changes also need to maintain \"EMC (Electromagnetic Compatibility) compliance.\"  Thermal management solutions must not negatively impact electromagnetic emissions.\n\n**3. Roles and Responsibilities:**\n\n*   **Mechanical Engineering:**  Responsible for enclosure design and thermal path planning.  They play a vital role in facilitating heat dissipation.\n*   **Electrical Engineering:**  Responsible for designing components that generate heat and for implementing thermal management solutions (e.g., heat sinks, fans, thermal interface materials).\n*   **Systems Engineering:**  Oversees the overall integration of electrical and thermal systems, ensuring they meet performance requirements.\n*   **Thermal Analysis Engineers:**  Perform simulations and analysis to predict thermal behavior and identify potential issues.\n*   **Industrial Design (Lisa Park):**  Ensures thermal solutions are aesthetically integrated into the product.\n\n**4. Cross-Domain Impacts & Dependencies:**\n\n*   **Systems Engineering:**  Acts as a central point for managing the interactions between electrical and thermal systems, ensuring overall system performance and reliability.\n*   **RF Engineering:** Considerations may be needed to prevent thermal issues from interfering with RF signal integrity.\n*   **Power Systems:**  The power supply's thermal performance directly affects the overall system's power efficiency and stability.\n\n\n\n\n**In Summary:**\n\nThe relationship between electrical and thermal systems is highly interdependent. Successful product development requires a coordinated approach, with engineers from both disciplines working together to address thermal challenges, optimize performance, and meet design constraints.  This collaboration spans design, analysis, and even aesthetic considerations.  Failing to adequately address the thermal implications of electrical systems can lead to performance degradation, reliability issues, and even safety hazards.\n\n\n\n",
+          "baseline_response": "Based on the provided context, the electrical and thermal systems are closely related. \n\nThe context states:\n*   **TECHNICAL CONSTRAINT:** Heat sink placement CONSTRAINS electrical component layout.\n*   **Integration with electrical layout critical for effectiveness** (from thermal\\_analysis\\_report.txt).\n*   The mechanical integration plan includes modifications for a split power rail layout, indicating a direct influence of electrical design on mechanical integration.\n*   There are bi-weekly thermal-electrical coordination meetings between Sarah (thermal expert) and Mike (electrical expert).\n*   The decision to implement a split power rail design was influenced by Sarah Chen's thermal analysis.\n\nTherefore, the electrical and thermal systems are interdependent, with thermal constraints influencing electrical layout and requiring close coordination between the electrical and thermal design teams.\n"
+        }
+      ],
+      "overall_score": 0,
+      "nancy_avg_score": 0.25,
+      "baseline_avg_score": 0.3333333333333333,
+      "nancy_test_count": 3,
+      "baseline_test_count": 3
+    },
+    "integration": {
+      "tests": [
+        {
+          "test_name": "four_brain_orchestration",
+          "category": "multi_brain_orchestration",
+          "query": "Find thermal constraints from Sarah Chen's analysis, show related electrical decisions, and timeline of resulting changes",
+          "nancy_performance": {
+            "score": 1.0,
+            "elements_found": [
+              "thermal constraints",
+              "Sarah Chen",
+              "electrical decisions",
+              "timeline",
+              "changes"
+            ],
+            "integration_quality": 0.4,
+            "query_time": 15.434669494628906,
+            "reasoning": "Found 5/5 expected elements"
+          },
+          "baseline_performance": {
+            "score": 0.61,
+            "elements_found": [
+              "Sarah Chen",
+              "timeline",
+              "changes"
+            ],
+            "integration_quality": 0.1,
+            "query_time": 1.8141989707946777,
+            "reasoning": "Found 3/5 expected elements"
+          },
+          "nancy_response": "## Thermal Constraints, Related Electrical Decisions, and Timeline Analysis for Advanced IoT Device Development\n\nHere's a comprehensive analysis based on the provided documents and relationship information, focusing on thermal constraints identified by Sarah Chen, related electrical decisions, and the resulting timeline.\n\n**1. Thermal Constraints (from Sarah Chen's Analysis - March 10, 2024):**\n\n*   **Source:** `df4f1782c817ea086aa00b7a07fff9b7706eee4275099d8b5736681931caf866` - Thermal Analysis and Constraints Document, authored by Sarah Chen on March 10, 2024.\n*   **Content:** The document establishes thermal design constraints for the IoT device enclosure.  The specifics of these constraints are *not* provided in the document snippet, only that they *exist* and are based on component power dissipation and environmental requirements.  Further details within this document are necessary to fully understand the constraints.\n\n**2. People Involved & Expertise/Roles:**\n\n*   **Sarah Chen:**  Lead thermal designer for the project. She authored the thermal analysis and constraints document.  Her role indicates expertise in thermal management and design.\n*   **James Wilson:** Lead Engineer responsible for the Power Distribution Unit. This suggests experience in electrical power systems and thermal management considerations for power components.\n*   **Dr. Amanda Torres:**  Likely a specialist in communication systems.  Her involvement with the Communication Array implies an understanding of the power dissipation characteristics of these components and their thermal implications.\n*   **Alice Johnson:** Involved in Memory Thermal Testing. This suggests expertise in testing thermal performance of memory components, likely in collaboration with thermal engineers.\n*   **Bob Smith:**  Timeline indicates he is involved with TH003 Memory Thermal Test. His role and expertise are not specified but likely supports the testing and evaluation activities.\n\n\n\n**3. System and Component Relationships:**\n\n*   **Thermal Management System:**  Sarah Chen is the lead for this system (as indicated in `3e71f46c2c67cfeea285c7b243a46d3e07f73689499f6ee18cd393f9451ee548_Sheet1`). This system likely encompasses all components and strategies for managing heat within the IoT device.\n*   **Power Distribution Unit:** James Wilson is the lead for this unit, which is crucial for managing power delivery and contributing to overall thermal load.\n*   **Communication Array:**  Dr. Amanda Torres manages this, and its thermal performance is a significant concern due to potentially high power dissipation (indicated by a \"High\" risk level).\n*   **Memory (TH003):**  Alice Johnson conducts thermal testing on the memory components.  The involvement of both a thermal engineer and a tester highlights the importance of verifying memory thermal performance under various conditions. The Memory is directly tied to the thermal management system.\n\n**4. Decision Chains and Responsibilities:**\n\n*   **Thermal Constraints Definition:** Sarah Chen is responsible for defining the initial thermal constraints based on component analysis.\n*   **Electrical Design Decisions Driven by Thermal Constraints:**  James Wilson's decisions regarding the Power Distribution Unit will be significantly influenced by the thermal constraints set by Sarah Chen. For example, the choice of power components, heat sinks, and cooling mechanisms within the PDU will be determined by the acceptable temperature ranges.  Dr. Torres will similarly need to consider the thermal characteristics of the communication array when designing its electrical circuitry and packaging.\n*  **Testing and Validation:** Alice Johnson's role in memory thermal testing validates the effectiveness of the thermal management strategies implemented. Bob Smith\u2019s involvement in the thermal test suggests a role in supporting the testing efforts and potentially analyzing the results.\n*   **Risk Mitigation:** The \"Risk Level\" associated with the Communication Array (High) indicates a need for particularly robust thermal design and monitoring to prevent overheating.\n\n\n\n**5. Cross-Domain Impacts and Dependencies:**\n\n*   **Electrical & Thermal Integration:**  The project's success hinges on the close integration of electrical and thermal design. Electrical design choices (component selection, power density) directly impact the thermal load, and thermal design choices (cooling solutions) influence electrical performance and reliability.\n*   **Timeline Dependencies:**  The Memory Thermal Test (starting August 1, 2025) is dependent on the completion of the memory hardware design and fabrication. This test will also influence the overall project timeline, as it may require design iterations or component changes if performance is not within acceptable limits.\n*   **Potential for Design Iterations:** If the thermal testing reveals that the thermal management strategies are insufficient, design iterations will be necessary across multiple domains (electrical, mechanical, thermal). This could impact the project timeline and budget.\n\n\n\n\n**Further Investigation Needed:**\n\n*   **Detailed Thermal Constraints:** The specific thermal constraints defined by Sarah Chen are missing. These are crucial for understanding the scope of the thermal design effort.\n*   **Component Power Dissipation Data:**  Data on the power dissipation of each component (PDU, Communication Array, Memory) is required to validate the thermal constraints and ensure the design is feasible.\n*   **Relationship Analysis Error:**  The error message \"Error exploring relationships: 'NoneType' object has no attribute 'lower'\" indicates a problem with the relationship analysis process itself.  This needs to be investigated to ensure accurate identification of relationships between components and tasks.\n\n\n\nThis analysis provides a preliminary understanding of the thermal aspects of the Advanced IoT Device Development project. A more detailed investigation, particularly focusing on the missing information, is required to make informed design decisions and ensure project success.\n\n\n\n",
+          "baseline_response": "Sarah Chen's thermal analysis showed hotspot risks, which influenced the decision to implement a split power rail design by Mike Rodriguez. \n\nThe resulting changes include:\n*   Component placement redesign\n*   Power efficiency improvements\n*   Adoption of an aluminum heat sink design\n\nThe timeline impact of these changes is a +2 week delay for routing optimization.\n\nAdditionally, the mechanical integration plan indicates that the split power rail layout required modifications to the internal partitioning and increased enclosure height for heat sink clearance. These mechanical changes added 2 weeks to the project schedule.\n"
+        },
+        {
+          "test_name": "knowledge_synthesis",
+          "category": "knowledge_integration",
+          "query": "What patterns exist across our engineering decision-making process and who are the key decision makers?",
+          "nancy_performance": {
+            "score": 1.0,
+            "elements_found": [
+              "patterns",
+              "decision-making",
+              "process",
+              "key decision makers"
+            ],
+            "integration_quality": 0.30000000000000004,
+            "query_time": 14.328236103057861,
+            "reasoning": "Found 4/4 expected elements"
+          },
+          "baseline_performance": {
+            "score": 1.0,
+            "elements_found": [
+              "patterns",
+              "decision-making",
+              "process",
+              "key decision makers"
+            ],
+            "integration_quality": 0.1,
+            "query_time": 3.7582767009735107,
+            "reasoning": "Found 4/4 expected elements"
+          },
+          "nancy_response": "## Analysis of Engineering Decision-Making Patterns and Key Decision Makers\n\nBased on the provided documents, here's a synthesized analysis of patterns in our engineering decision-making process and the key individuals involved.\n\n**I. Engineering Discipline Involvement & Expertise:**\n\nOur engineering decisions leverage expertise across a range of disciplines. The identified departments and their associated expertise are:\n\n*   **Systems Engineering:** (Role: Likely oversees the overall system architecture and integration) - *Specific expertise not detailed.*\n*   **Mechanical Engineering:** (Expertise: CAD Design) -  Focuses on the physical design, manufacturability, and mechanical performance.\n*   **RF Engineering:** (Expertise: RF Communications) - Deals with radio frequency aspects, wireless communication, and signal processing.\n*   **Power Systems:** (Expertise: Battery Systems) - Specializes in power management, battery technology, and power distribution within the device.\n*   **UI/UX Design:** (Expertise: Human Factors) -  Focuses on the user interface, user experience, and ensuring the product is intuitive and easy to use.\n*   **Thermal Analysis:** (Expertise: Thermal Analysis) - Ensures the product can withstand operating conditions and maintain functionality in terms of heat.\n\n**II. Decision-Making Process Patterns:**\n\nThe documents point towards a user-centered design approach with a strong emphasis on real-world applicability and user experience. Key patterns emerging are:\n\n1.  **Customer-Driven Design:** Decisions are guided by a need to align with \"real customer needs and usage patterns\". This implies a process involving user research and analysis to inform design choices. The research referenced in source 94fe688a2e3fb9e243574bfd8c83f6ff7d8b69d6eb15f883a10b451f666e89b6 is a critical input.\n2.  **Ergonomic Considerations:**  Ergonomic analysis is a formal part of the design process, particularly for IoT devices intended for use in diverse industrial environments. The \"Ergonomic Analysis Report\" for the \"Advanced IoT Device Development\" project, authored by Lisa Park, dated March 8, 2024, highlights this commitment. This suggests a systematic approach to ensure user comfort and safety.\n3. **Cross-Functional Collaboration:**  The involvement of diverse engineering departments indicates that decisions are made through collaboration.  Successfully integrating components and features requires input and coordination from multiple disciplines.\n4. **Iterative Refinement:** The existence of an ergonomic analysis report implies that the design process is not linear, but rather involves analysis and iterative refinement to optimize the product.\n\n\n\n**III. Key Decision Makers:**\n\nWhile the relationship analysis didn't reveal specific individuals, we can infer key decision-makers based on the provided information:\n\n*   **Lisa Park:** As the author of the \"Ergonomic Analysis Report,\" Lisa Park is clearly a key contributor to design decisions impacting user experience. Her role is likely related to Human Factors Engineering or a similar discipline. It's reasonable to assume she has influence over design features.\n*   **Department Heads/Engineering Managers:**  The involvement of multiple engineering departments suggests that managers of these departments (Systems Engineering, Mechanical Engineering, RF Engineering, Power Systems, UI/UX Design) play a role in decision-making, particularly concerning technical feasibility, resource allocation, and integration challenges. They might be responsible for approving designs within their specific domain. \n*   **Systems Engineering Lead:** Given the overall system-level focus, the Systems Engineering lead is likely a key decision maker regarding the integration of different components and ensuring the overall system meets the customer needs and performance requirements.\n*   **Potentially, a Product Manager:** Although not explicitly mentioned, a Product Manager likely drives the overall product vision and prioritizes features based on market research and business goals. They would likely influence the direction of engineering decisions.\n\n\n\n**IV. Cross-Domain Impacts and Dependencies:**\n\n*   **Ergonomics & Mechanical Design:** The ergonomic analysis directly impacts mechanical design choices, such as device size, shape, button placement, and material selection.\n*   **Power Systems & RF Engineering:** Battery technology (Power Systems) and RF communication capabilities (RF Engineering) are interconnected. Decisions about battery size and power consumption will influence the design of RF components and antenna placement.\n*    **UI/UX & Mechanical/RF:** The UI/UX design is heavily reliant on the physical form factor (Mechanical) and the wireless capabilities (RF). A user-friendly interface needs to be designed within the constraints of the device's size and wireless communication limitations.\n\n\n\n**Further Investigation Recommendations:**\n\nTo gain a more complete understanding, it would be beneficial to:\n\n*   **Map the decision-making process:** Create a detailed flowchart outlining the steps involved in engineering decision-making, identifying who is involved at each stage.\n*   **Identify key stakeholders:**  Determine all individuals and teams who are impacted by engineering decisions.\n*   **Analyze communication channels:** Understand how information flows between departments and individuals.\n*  **Review past project documentation:** Examine historical project reports and meeting minutes to identify recurring patterns in decision-making.\n\n\n\nThis analysis provides a preliminary understanding of our engineering decision-making process. Further investigation will be required to refine these insights and identify specific individuals and processes responsible for key decisions.\n\n\n\n",
+          "baseline_response": "Based on the provided context, here's what we can gather about the engineering decision-making process and key decision makers:\n\n**Patterns in Decision-Making:**\n\n*   **Problem-Driven:** Decisions are often driven by identified problems, such as integration challenges, thermal constraints, and hotspot risks.\n*   **Cross-Functional Influence:** Decisions are frequently influenced by expertise from other teams. For example, the split power rail design was influenced by Sarah Chen's thermal analysis.\n*   **Iterative:** Decisions often lead to further action, such as component placement redesign following the split power rail implementation.\n*   **Collaboration:** Cross-team collaboration is emphasized and essential for success. This is demonstrated by the weekly cross-team design reviews, bi-weekly thermal-electrical coordination, and monthly mechanical integration check.\n*   **Systematic Approach:** There is a systematic approach to design, with a critical path analysis that highlights dependencies between subsystems.\n\n**Key Decision Makers:**\n\n*   **Scott Johnson:** Project coordination expert and Project Manager. He made the decision to adopt an integrated design approach.\n*   **Mike Rodriguez:** Primary electrical design expert. He made the decision to implement a split power rail design.\n*   **Sarah Chen:** Primary thermal design expert. Her thermal analysis influenced the decision to implement a split power rail design.\n\n\n\n"
+        },
+        {
+          "test_name": "comprehensive_analysis",
+          "category": "comprehensive_integration",
+          "query": "Analyze the complete thermal management approach including constraints, decisions, people, and timeline",
+          "nancy_performance": {
+            "score": 0.0,
+            "elements_found": [],
+            "integration_quality": 0,
+            "query_time": 0.9256813526153564,
+            "reasoning": "Found 0/5 expected elements"
+          },
+          "baseline_performance": {
+            "score": 1.0,
+            "elements_found": [
+              "thermal management",
+              "constraints",
+              "decisions",
+              "people",
+              "timeline"
+            ],
+            "integration_quality": 0.1,
+            "query_time": 4.154470205307007,
+            "reasoning": "Found 5/5 expected elements"
+          },
+          "nancy_response": "GRAPH_DECISION_RESULTS: No specific decision provenance found for this query",
+          "baseline_response": "Here's an analysis of the thermal management approach, based on the provided documents:\n\n**Constraints:**\n\n*   Component spacing optimization is required due to thermal constraints.\n*   CPU temperatures exceeded 85\u00b0C during stress testing.\n\n**Decisions:**\n\n*   Implement a split power rail design (Mike Rodriguez).\n*   Adopt an integrated design approach (Scott Johnson).\n*   Adopt an aluminum heat sink design (Sarah Chen).\n\n**People Involved:**\n\n*   Sarah Chen: Played a key role in thermal analysis and heat sink design.\n*   Mike Rodriguez: Involved in electrical power analysis and collaborated on heat sink design.\n*   Lisa Park: Responsible for mechanical integration and enclosure design.\n*   Scott Johnson: Made the decision to adopt an integrated design approach.\n\n**Timeline:**\n\n*   The implementation phase for the split power rail design is in Q4 2024.\n*   Weekly design reviews are scheduled.\n*   Bi-weekly thermal-electrical coordination meetings are scheduled (Sarah + Mike).\n*   Monthly mechanical integration checks are scheduled (Lisa + all).\n*   Mechanical changes are estimated to add 2 weeks to the project schedule.\n\n**Collaboration & Impact:**\n\n*   Collaboration between Lisa Park (mechanical), Sarah Chen (thermal), and Mike Rodriguez (electrical) is crucial.\n*   Mechanical changes enable both thermal and electrical optimizations.\n*   The project outcome is successful integration achieved through systematic cross-team collaboration.\n\n\n\n"
+        }
+      ],
+      "overall_score": 0,
+      "nancy_avg_score": 0.6666666666666666,
+      "baseline_avg_score": 0.87,
+      "nancy_test_count": 3,
+      "baseline_test_count": 3
+    }
+  },
+  "nancy_status": "healthy",
+  "baseline_status": "healthy",
+  "final_assessment": {
+    "nancy_overall_score": 0.5133333333333333,
+    "baseline_overall_score": 0.6561111111111112,
+    "category_breakdown": {
+      "vector_brain": {
+        "nancy_score": 0.49333333333333335,
+        "baseline_score": 0.5633333333333334,
+        "advantage": "baseline",
+        "score_difference": 0.07
+      },
+      "analytical_brain": {
+        "nancy_score": 0.5866666666666667,
+        "baseline_score": 0.9166666666666666,
+        "advantage": "baseline",
+        "score_difference": 0.32999999999999996
+      },
+      "graph_brain": {
+        "nancy_score": 0.8333333333333334,
+        "baseline_score": 0.9199999999999999,
+        "advantage": "baseline",
+        "score_difference": 0.08666666666666656
+      },
+      "linguistic_brain": {
+        "nancy_score": 0.25,
+        "baseline_score": 0.3333333333333333,
+        "advantage": "baseline",
+        "score_difference": 0.08333333333333331
+      },
+      "enhanced_graph_brain": {
+        "nancy_score": 0.25,
+        "baseline_score": 0.3333333333333333,
+        "advantage": "baseline",
+        "score_difference": 0.08333333333333331
+      },
+      "integration": {
+        "nancy_score": 0.6666666666666666,
+        "baseline_score": 0.87,
+        "advantage": "baseline",
+        "score_difference": 0.20333333333333337
+      }
+    },
+    "go_no_go_decision": "NO_GO",
+    "confidence_level": "HIGH",
+    "rationale": "Baseline outperforms Nancy (0.66 vs 0.51) - significant investment not justified",
+    "categories_tested": 6,
+    "total_tests_completed": 18
+  }
+}

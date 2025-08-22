@@ -816,6 +816,284 @@ class GraphBrain:
         """
         with self.driver.session() as session:
             return session.read_transaction(self._find_expertise_and_roles, person_name, topic)
+
+
+    # ============================================================================
+    # CODEBASE-SPECIFIC NODES AND RELATIONSHIPS
+    # Supporting comprehensive code analysis and repository understanding
+    # ============================================================================
+    
+    def add_code_file_node(self, file_path: str, language: str, author: str = None, 
+                          lines_of_code: int = None, git_info: dict = None):
+        """
+        Add a code file node with programming language and metadata.
+        """
+        with self.driver.session() as session:
+            session.write_transaction(self._create_code_file_node, file_path, language, 
+                                    author, lines_of_code, git_info)
+            print(f"Added CodeFile node for {file_path} ({language}) to Neo4j.")
+    
+    @staticmethod
+    def _create_code_file_node(tx, file_path, language, author, lines_of_code, git_info):
+        # Create code file node
+        query = "MERGE (cf:CodeFile {file_path: $file_path}) SET cf.language = $language"
+        if lines_of_code:
+            query += ", cf.lines_of_code = $lines_of_code"
+        
+        params = {"file_path": file_path, "language": language}
+        if lines_of_code:
+            params["lines_of_code"] = lines_of_code
+            
+        tx.run(query, **params)
+        
+        # Link to author if provided
+        if author:
+            tx.run("""
+                MERGE (p:Person {name: $author})
+                MERGE (cf:CodeFile {file_path: $file_path})
+                MERGE (p)-[:AUTHORED]->(cf)
+            """, author=author, file_path=file_path)
+        
+        # Add Git information if available
+        if git_info and not git_info.get("error"):
+            contributors = git_info.get("contributors", [])
+            for contributor in contributors:
+                tx.run("""
+                    MERGE (p:Person {name: $contributor})
+                    MERGE (cf:CodeFile {file_path: $file_path})
+                    MERGE (p)-[:CONTRIBUTED_TO]->(cf)
+                """, contributor=contributor, file_path=file_path)
+    
+    def add_function_node(self, function_name: str, file_path: str, language: str,
+                         line_start: int = None, line_end: int = None, 
+                         docstring: str = None, args: list = None):
+        """
+        Add a function/method node and link it to its containing file.
+        """
+        with self.driver.session() as session:
+            session.write_transaction(self._create_function_node, function_name, file_path,
+                                    language, line_start, line_end, docstring, args)
+            print(f"Added Function node for {function_name} in {file_path} to Neo4j.")
+    
+    @staticmethod
+    def _create_function_node(tx, function_name, file_path, language, line_start, line_end, docstring, args):
+        # Create function node
+        query = "MERGE (f:Function {name: $function_name, file_path: $file_path})"
+        query += " SET f.language = $language"
+        
+        params = {
+            "function_name": function_name,
+            "file_path": file_path, 
+            "language": language
+        }
+        
+        if line_start:
+            query += ", f.line_start = $line_start"
+            params["line_start"] = line_start
+        if line_end:
+            query += ", f.line_end = $line_end"
+            params["line_end"] = line_end
+        if docstring:
+            query += ", f.docstring = $docstring"
+            params["docstring"] = docstring
+        if args:
+            query += ", f.arguments = $args"
+            params["args"] = args
+            
+        tx.run(query, **params)
+        
+        # Link function to code file
+        tx.run("""
+            MERGE (cf:CodeFile {file_path: $file_path})
+            MERGE (f:Function {name: $function_name, file_path: $file_path})
+            MERGE (cf)-[:CONTAINS_FUNCTION]->(f)
+        """, function_name=function_name, file_path=file_path)
+    
+    def add_class_node(self, class_name: str, file_path: str, language: str,
+                      line_start: int = None, line_end: int = None,
+                      docstring: str = None, base_classes: list = None):
+        """
+        Add a class node and link it to its containing file.
+        """
+        with self.driver.session() as session:
+            session.write_transaction(self._create_class_node, class_name, file_path,
+                                    language, line_start, line_end, docstring, base_classes)
+            print(f"Added Class node for {class_name} in {file_path} to Neo4j.")
+    
+    @staticmethod
+    def _create_class_node(tx, class_name, file_path, language, line_start, line_end, docstring, base_classes):
+        # Create class node
+        query = "MERGE (c:Class {name: $class_name, file_path: $file_path})"
+        query += " SET c.language = $language"
+        
+        params = {
+            "class_name": class_name,
+            "file_path": file_path,
+            "language": language
+        }
+        
+        if line_start:
+            query += ", c.line_start = $line_start"
+            params["line_start"] = line_start
+        if line_end:
+            query += ", c.line_end = $line_end"
+            params["line_end"] = line_end
+        if docstring:
+            query += ", c.docstring = $docstring"
+            params["docstring"] = docstring
+            
+        tx.run(query, **params)
+        
+        # Link class to code file
+        tx.run("""
+            MERGE (cf:CodeFile {file_path: $file_path})
+            MERGE (c:Class {name: $class_name, file_path: $file_path})
+            MERGE (cf)-[:CONTAINS_CLASS]->(c)
+        """, class_name=class_name, file_path=file_path)
+        
+        # Create inheritance relationships
+        if base_classes:
+            for base_class in base_classes:
+                tx.run("""
+                    MERGE (c:Class {name: $class_name, file_path: $file_path})
+                    MERGE (base:Class {name: $base_class})
+                    MERGE (c)-[:INHERITS_FROM]->(base)
+                """, class_name=class_name, file_path=file_path, base_class=base_class)
+    
+    def add_import_relationship(self, importing_file: str, imported_module: str, 
+                               import_type: str = "import", alias: str = None):
+        """
+        Add import/dependency relationships between code files and modules.
+        """
+        with self.driver.session() as session:
+            session.write_transaction(self._create_import_relationship, importing_file, 
+                                    imported_module, import_type, alias)
+            print(f"Added import relationship: {importing_file} imports {imported_module}")
+    
+    @staticmethod
+    def _create_import_relationship(tx, importing_file, imported_module, import_type, alias):
+        # Create module node
+        tx.run("MERGE (m:Module {name: $module_name})", module_name=imported_module)
+        
+        # Create import relationship
+        query = """
+            MERGE (cf:CodeFile {file_path: $importing_file})
+            MERGE (m:Module {name: $imported_module})
+            MERGE (cf)-[r:IMPORTS]->(m)
+            SET r.import_type = $import_type
+        """
+        
+        params = {
+            "importing_file": importing_file,
+            "imported_module": imported_module,
+            "import_type": import_type
+        }
+        
+        if alias:
+            query += ", r.alias = $alias"
+            params["alias"] = alias
+            
+        tx.run(query, **params)
+    
+    def find_code_experts(self, technology_or_language: str) -> list[dict]:
+        """
+        Find code experts based on their contributions to specific languages or technologies.
+        """
+        with self.driver.session() as session:
+            return session.read_transaction(self._find_code_experts, technology_or_language)
+    
+    @staticmethod
+    def _find_code_experts(tx, technology):
+        query = """
+            MATCH (p:Person)-[:AUTHORED|CONTRIBUTED_TO]->(cf:CodeFile)
+            WHERE cf.language CONTAINS $technology OR cf.file_path CONTAINS $technology
+            
+            WITH p, count(DISTINCT cf) as files_contributed,
+                 sum(cf.lines_of_code) as total_lines_authored
+            
+            OPTIONAL MATCH (p)-[:AUTHORED]->(f:Function)
+            WHERE f.language CONTAINS $technology
+            WITH p, files_contributed, total_lines_authored, count(f) as functions_authored
+            
+            OPTIONAL MATCH (p)-[:AUTHORED]->(c:Class)
+            WHERE c.language CONTAINS $technology
+            WITH p, files_contributed, total_lines_authored, functions_authored, count(c) as classes_authored
+            
+            RETURN p.name as expert,
+                   p.email as email,
+                   files_contributed,
+                   total_lines_authored,
+                   functions_authored,
+                   classes_authored,
+                   (files_contributed * 2 + functions_authored + classes_authored) as expertise_score
+            
+            ORDER BY expertise_score DESC
+            LIMIT 10
+        """
+        result = tx.run(query, technology=technology)
+        return [record.data() for record in result]
+    
+    def get_codebase_statistics(self, repository_path: str = None) -> dict:
+        """
+        Get comprehensive statistics about the codebase.
+        """
+        with self.driver.session() as session:
+            return session.read_transaction(self._get_codebase_statistics, repository_path)
+    
+    @staticmethod
+    def _get_codebase_statistics(tx, repository_path):
+        stats = {}
+        
+        # Language distribution
+        lang_query = """
+            MATCH (cf:CodeFile)
+            WHERE $repo_path IS NULL OR cf.file_path STARTS WITH $repo_path
+            RETURN cf.language as language,
+                   count(cf) as file_count,
+                   sum(cf.lines_of_code) as total_lines
+            ORDER BY file_count DESC
+        """
+        lang_stats = tx.run(lang_query, repo_path=repository_path).data()
+        stats['language_distribution'] = lang_stats
+        
+        # Function and class counts
+        entity_query = """
+            MATCH (cf:CodeFile)
+            WHERE $repo_path IS NULL OR cf.file_path STARTS WITH $repo_path
+            OPTIONAL MATCH (cf)-[:CONTAINS_FUNCTION]->(f:Function)
+            OPTIONAL MATCH (cf)-[:CONTAINS_CLASS]->(c:Class)
+            RETURN count(DISTINCT cf) as total_files,
+                   count(DISTINCT f) as total_functions,
+                   count(DISTINCT c) as total_classes
+        """
+        entity_stats = tx.run(entity_query, repo_path=repository_path).single()
+        stats['entity_counts'] = dict(entity_stats)
+        
+        # Most connected functions (called by many others)
+        popular_functions = tx.run("""
+            MATCH (f:Function)<-[:CALLS]-(caller:Function)
+            WHERE $repo_path IS NULL OR f.file_path STARTS WITH $repo_path
+            RETURN f.name as function_name,
+                   f.file_path as file_path,
+                   count(caller) as call_count
+            ORDER BY call_count DESC
+            LIMIT 10
+        """, repo_path=repository_path).data()
+        stats['most_called_functions'] = popular_functions
+        
+        # Contributors by code contribution
+        contributor_stats = tx.run("""
+            MATCH (p:Person)-[:AUTHORED|CONTRIBUTED_TO]->(cf:CodeFile)
+            WHERE $repo_path IS NULL OR cf.file_path STARTS WITH $repo_path
+            RETURN p.name as contributor,
+                   count(DISTINCT cf) as files_contributed,
+                   sum(cf.lines_of_code) as total_lines_contributed
+            ORDER BY total_lines_contributed DESC
+            LIMIT 10
+        """, repo_path=repository_path).data()
+        stats['top_contributors'] = contributor_stats
+        
+        return stats
     
     @staticmethod  
     def _find_expertise_and_roles(tx, person_name, topic):
@@ -859,4 +1137,181 @@ class GraphBrain:
             """
             result = tx.run(query)
         
+        return [record.data() for record in result]
+    
+    # ============================================================================
+    # ENHANCED TEMPORAL BRAIN INFRASTRUCTURE
+    # Phase 1: Core temporal awareness and sequence tracking
+    # ============================================================================
+    
+    def add_temporal_event(self, event_name: str, event_type: str, timestamp: str = None,
+                          participants: list = None, era: str = None, context: str = None):
+        """
+        Add a temporal event node (meetings, decisions, testing phases, releases, etc.)
+        with precise timestamp tracking and sequential relationships.
+        """
+        with self.driver.session() as session:
+            session.write_transaction(self._create_temporal_event, event_name, event_type, 
+                                    timestamp, participants, era, context)
+            print(f"Added Temporal Event '{event_name}' ({event_type}) to GraphBrain.")
+    
+    @staticmethod
+    def _create_temporal_event(tx, event_name, event_type, timestamp, participants, era, context):
+        # Create temporal event with full timestamp support
+        query = "MERGE (te:TemporalEvent {name: $event_name, type: $event_type})"
+        
+        params = {"event_name": event_name, "event_type": event_type}
+        
+        if timestamp:
+            query += " SET te.timestamp = datetime($timestamp), te.event_date = date($timestamp)"
+            params["timestamp"] = timestamp
+        else:
+            query += " SET te.timestamp = datetime(), te.event_date = date()"
+        
+        if context:
+            query += " SET te.context = $context"
+            params["context"] = context
+            
+        if era:
+            query += " SET te.era = $era"
+            params["era"] = era
+            
+        tx.run(query, **params)
+        
+        # Link to era if specified
+        if era:
+            tx.run("""
+                MERGE (te:TemporalEvent {name: $event_name})
+                MERGE (e:Era {name: $era})
+                MERGE (te)-[:OCCURRED_IN]->(e)
+            """, event_name=event_name, era=era)
+        
+        # Link participants
+        if participants:
+            for participant in participants:
+                tx.run("""
+                    MERGE (p:Person {name: $participant})
+                    MERGE (te:TemporalEvent {name: $event_name})
+                    MERGE (p)-[:PARTICIPATED_IN]->(te)
+                """, participant=participant, event_name=event_name)
+        
+        # Create sequential relationships with other events
+        if timestamp:
+            tx.run("""
+                MATCH (current:TemporalEvent {name: $event_name})
+                MATCH (previous:TemporalEvent)
+                WHERE previous.name <> $event_name AND previous.timestamp IS NOT NULL
+                      AND current.timestamp > previous.timestamp
+                WITH current, previous
+                ORDER BY previous.timestamp DESC
+                LIMIT 1
+                MERGE (previous)-[:HAPPENED_BEFORE]->(current)
+            """, event_name=event_name)
+    
+    def get_temporal_sequence(self, start_date: str = None, end_date: str = None,
+                             event_types: list = None, limit: int = 50) -> list[dict]:
+        """
+        Get chronological sequence of events, decisions, and documents.
+        """
+        with self.driver.session() as session:
+            return session.read_transaction(self._get_temporal_sequence, start_date, end_date, event_types, limit)
+    
+    @staticmethod
+    def _get_temporal_sequence(tx, start_date, end_date, event_types, limit):
+        # Build comprehensive temporal query
+        union_parts = []
+        
+        # Temporal events
+        if not event_types or 'events' in event_types:
+            union_parts.append("""
+                MATCH (te:TemporalEvent)
+                WHERE ($start_date IS NULL OR te.timestamp >= datetime($start_date))
+                  AND ($end_date IS NULL OR te.timestamp <= datetime($end_date))
+                OPTIONAL MATCH (p:Person)-[:PARTICIPATED_IN]->(te)
+                RETURN te.timestamp as timestamp,
+                       'event' as item_type,
+                       te.name as name,
+                       te.type as subtype,
+                       te.context as description,
+                       te.era as era,
+                       collect(DISTINCT p.name) as participants
+            """)
+        
+        # Decisions
+        if not event_types or 'decisions' in event_types:
+            union_parts.append("""
+                MATCH (d:Decision)
+                WHERE d.timestamp IS NOT NULL
+                  AND ($start_date IS NULL OR d.timestamp >= datetime($start_date))
+                  AND ($end_date IS NULL OR d.timestamp <= datetime($end_date))
+                OPTIONAL MATCH (p:Person)-[:MADE]->(d)
+                RETURN d.timestamp as timestamp,
+                       'decision' as item_type,
+                       d.name as name,
+                       'decision' as subtype,
+                       d.context as description,
+                       d.era as era,
+                       collect(DISTINCT p.name) as participants
+            """)
+        
+        # Documents
+        if not event_types or 'documents' in event_types:
+            union_parts.append("""
+                MATCH (doc:Document)
+                WHERE doc.timestamp IS NOT NULL
+                  AND ($start_date IS NULL OR doc.timestamp >= datetime($start_date))
+                  AND ($end_date IS NULL OR doc.timestamp <= datetime($end_date))
+                OPTIONAL MATCH (p:Person)-[:AUTHORED]->(doc)
+                RETURN doc.timestamp as timestamp,
+                       'document' as item_type,
+                       doc.filename as name,
+                       doc.document_type as subtype,
+                       doc.version as description,
+                       doc.era as era,
+                       collect(DISTINCT p.name) as participants
+            """)
+        
+        if not union_parts:
+            union_parts.append(union_parts[0])  # Default to events if no types specified
+        
+        query = " UNION ".join(union_parts) + """
+            ORDER BY timestamp ASC
+            LIMIT $limit
+        """
+        
+        result = tx.run(query, start_date=start_date, end_date=end_date, limit=limit)
+        return [record.data() for record in result]
+    
+    def find_causal_chain(self, target_decision_or_event: str, max_depth: int = 5) -> list[dict]:
+        """
+        Find the causal chain leading to a specific decision or event.
+        """
+        with self.driver.session() as session:
+            return session.read_transaction(self._find_causal_chain, target_decision_or_event, max_depth)
+    
+    @staticmethod  
+    def _find_causal_chain(tx, target, max_depth):
+        query = f"""
+            MATCH (target)
+            WHERE target.name = $target AND (target:Decision OR target:TemporalEvent)
+            
+            MATCH path = (cause)-[:INFLUENCED|HAPPENED_BEFORE|DECISION_SEQUENCE*1..{max_depth}]->(target)
+            WHERE cause:Decision OR cause:TemporalEvent OR cause:Document
+            
+            WITH path, relationships(path) as rels, nodes(path) as path_nodes
+            
+            RETURN [node in path_nodes | {{
+                name: node.name,
+                type: labels(node)[0],
+                timestamp: node.timestamp,
+                context: coalesce(node.context, node.description)
+            }}] as causal_sequence,
+            [rel in rels | type(rel)] as relationship_types,
+            length(path) as chain_length
+            
+            ORDER BY chain_length DESC, path_nodes[0].timestamp ASC
+            LIMIT 10
+        """
+        
+        result = tx.run(query, target=target, max_depth=max_depth)
         return [record.data() for record in result]

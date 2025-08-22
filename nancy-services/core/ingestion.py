@@ -7,7 +7,15 @@ import spacy
 import re
 import pandas as pd
 import json
+import fnmatch
+from pathlib import Path
+from datetime import datetime
 from typing import Dict, List, Any, Optional
+import ast
+import tree_sitter
+from tree_sitter import Language, Parser
+import git
+from git.exc import GitCommandError, InvalidGitRepositoryError
 
 class IngestionService:
     """
@@ -22,6 +30,25 @@ class IngestionService:
 
     def _get_file_type(self, filename: str):
         return os.path.splitext(filename)[1].lower()
+    
+    def _extract_version_from_filename(self, filename: str) -> Optional[str]:
+        """Extract version information from filename for temporal tracking."""
+        import re
+        
+        version_patterns = [
+            r'v(\d+\.?\d*\.?\d*)',  # v1.0, v2.1.3
+            r'version[-_]?(\d+\.?\d*\.?\d*)',  # version1.0
+            r'rev[-_]?(\d+)',       # rev1, rev_2
+            r'draft[-_]?(\d+)',     # draft1, draft_2
+        ]
+        
+        filename_lower = filename.lower()
+        for pattern in version_patterns:
+            match = re.search(pattern, filename_lower)
+            if match:
+                return match.group(1)
+        
+        return None
 
     def _generate_doc_id(self, filename: str, content: bytes) -> str:
         """Creates a unique ID for the document based on its name and content."""
@@ -135,35 +162,10 @@ class IngestionService:
                         context=f"{verb} relationship from {current_filename}"
                     )
         
-        # Try to use LLM for enhanced project story extraction if available
-        try:
-            from .llm_client import LLMClient
-            llm_client = LLMClient(preferred_llm="gemini")
-            
-            # Extract enhanced relationships using new prompts
-            text_chunk = text[:3000] if len(text) > 3000 else text
-            relationships = llm_client.extract_document_relationships(text_chunk, current_filename)
-            
-            # Extract comprehensive project story elements
-            story_elements = llm_client.extract_project_story_elements(text, current_filename)
-            
-            # Process enhanced relationships
-            for rel in relationships:
-                self.graph_brain.add_relationship(
-                    source_node_label=rel.get("source_type", "Document"),
-                    source_node_name=rel["source"],
-                    relationship_type=rel["relationship"],
-                    target_node_label=rel.get("target_type", "Concept"),
-                    target_node_name=rel["target"],
-                    context=rel.get("context", f"LLM-extracted from {current_filename}")
-                )
-            
-            # Process project story elements
-            self._process_story_elements(story_elements, current_filename)
-                
-        except Exception as e:
-            print(f"LLM project story extraction failed: {e}")
-            # Continue without LLM enhancement
+        # Skip LLM extraction during ingestion to avoid rate limits
+        # LLM enhancement will be done on-demand during queries for better performance
+        # This reduces ingestion time from 5-10 minutes to under 1 minute
+        print(f"  Skipping LLM enhancement for {current_filename} (avoiding rate limits)")
 
     def _process_story_elements(self, story_elements: dict, document_name: str):
         """
@@ -1007,7 +1009,8 @@ class IngestionService:
             # Return basic summary as fallback
             return f"Engineering Spreadsheet: {filename}, Sheet: {sheet_name} with {len(df)} rows and {len(df.columns)} columns of data"
 
-    def ingest_file(self, filename: str, content: bytes, author: str = "Unknown"):
+    def ingest_file(self, filename: str, content: bytes, author: str = "Unknown", 
+                    creation_timestamp: str = None, era: str = None):
         """
         Processes an uploaded file and stores it in the three brains.
         """
@@ -1022,14 +1025,29 @@ class IngestionService:
             file_type=file_type
         )
 
-        # 2. Relational Brain: Create a document node and link the author
-        self.graph_brain.add_document_node(filename=filename, file_type=file_type)
-        self.graph_brain.add_author_relationship(filename=filename, author_name=author)
+        # 2. Graph Brain: Create temporal document with enhanced metadata
+        current_timestamp = creation_timestamp or datetime.utcnow().isoformat()
+        
+        # Use enhanced temporal document creation if available
+        if hasattr(self.graph_brain, 'add_document_with_temporal_context'):
+            self.graph_brain.add_document_with_temporal_context(
+                filename=filename,
+                author=author,
+                timestamp=current_timestamp,
+                era=era,
+                document_type=file_type.lstrip('.'),  # Remove leading dot
+                version=self._extract_version_from_filename(filename)
+            )
+        else:
+            # Fallback to original method
+            self.graph_brain.add_document_node(filename=filename, file_type=file_type)
+            self.graph_brain.add_author_relationship(filename=filename, author_name=author)
 
         # 3. Vector Brain & Entity Extraction
         # Define a list of text-based file extensions to process
         text_based_extensions = ['.txt', '.md', '.log', '.py', '.js', '.html', '.css', '.json']
         spreadsheet_extensions = ['.xlsx', '.xls', '.csv']
+        code_extensions = ['.py', '.js', '.ts', '.java', '.c', '.cpp', '.h', '.hpp']
         
         if file_type in spreadsheet_extensions:
             try:
@@ -1042,6 +1060,15 @@ class IngestionService:
                     file_type = '.txt'  # Treat as text for fallback processing
                 else:
                     return {"error": f"Failed to process spreadsheet {filename}: {str(e)}"}
+        
+        # Process code files with enhanced analysis
+        if file_type in code_extensions:
+            try:
+                return self._process_code_file(filename, content, doc_id, file_type, author)
+            except Exception as e:
+                print(f"Code processing failed for {filename}: {str(e)}")
+                # Fall back to regular text processing
+                print(f"Falling back to text processing for code file: {filename}")
         
         if file_type in text_based_extensions or file_type == '.txt':
             try:
@@ -1061,3 +1088,1469 @@ class IngestionService:
             "doc_id": doc_id,
             "status": "ingestion complete",
         }
+    
+    def _process_code_file(self, filename: str, content: bytes, doc_id: str, file_type: str, author: str) -> Dict[str, Any]:
+        """
+        Comprehensive code file processing through Nancy's Four-Brain Architecture.
+        Handles source code with AST parsing, Git integration, and relationship extraction.
+        """
+        try:
+            print(f"Processing code file {filename} through Four-Brain Architecture")
+            
+            # Decode content
+            try:
+                text_content = content.decode('utf-8')
+            except UnicodeDecodeError:
+                try:
+                    text_content = content.decode('latin-1')
+                except Exception as decode_error:
+                    return {"error": f"Could not decode code file {filename}: {decode_error}"}
+            
+            # 1. Analytical Brain: Store basic metadata
+            self.analytical_brain.insert_document_metadata(
+                doc_id=doc_id,
+                filename=filename,
+                size=len(content),
+                file_type=file_type
+            )
+            
+            # 2. Vector Brain: Embed text content for semantic search
+            self.vector_brain.embed_and_store_text(doc_id=doc_id, text=text_content, nlp=self.nlp)
+            
+            # 3. Enhanced Code Analysis with AST and Git
+            full_path = filename  # Assuming filename contains full path for code analysis
+            code_analysis = self.codebase_service.analyze_code_file(full_path)
+            
+            if "error" in code_analysis:
+                print(f"AST analysis failed for {filename}: {code_analysis['error']}")
+                # Continue with basic processing
+                code_analysis = None
+            else:
+                print(f"Successfully analyzed code structure for {filename}")
+                
+                # 4. Graph Brain: Create comprehensive code relationships
+                self._create_code_relationships(filename, code_analysis, author)
+                
+                # 5. Store code metrics in Analytical Brain
+                self._store_code_metrics(doc_id, filename, code_analysis)
+            
+            # 6. Regular document processing for overall relationships
+            self.graph_brain.add_document_node(filename=filename, file_type=file_type)
+            self.graph_brain.add_author_relationship(filename=filename, author_name=author)
+            
+            # 7. Extract general entities from comments and docstrings
+            self._extract_entities(text_content, filename)
+            
+            result = {
+                "filename": filename,
+                "doc_id": doc_id,
+                "status": "code ingestion complete",
+                "file_type": file_type,
+                "ast_analysis_success": code_analysis is not None,
+                "language": code_analysis.get("ast_analysis", {}).get("language", "unknown") if code_analysis else "unknown",
+                "functions_found": len(code_analysis.get("ast_analysis", {}).get("functions", [])) if code_analysis else 0,
+                "classes_found": len(code_analysis.get("ast_analysis", {}).get("classes", [])) if code_analysis else 0
+            }
+            
+            print(f"Code processing complete for {filename}: {result['language']} file with {result['functions_found']} functions and {result['classes_found']} classes")
+            return result
+            
+        except Exception as e:
+            print(f"Error in code file processing for {filename}: {e}")
+            import traceback
+            traceback.print_exc()
+            return {"error": f"Code processing failed for {filename}: {str(e)}"}
+    
+    def _create_code_relationships(self, filename: str, code_analysis: Dict[str, Any], author: str):
+        """
+        Create comprehensive code relationships in the Graph Brain.
+        """
+        try:
+            if not code_analysis or "error" in code_analysis:
+                return
+            
+            ast_data = code_analysis.get("ast_analysis", {})
+            git_data = code_analysis.get("git_analysis", {})
+            
+            if "error" in ast_data:
+                return
+            
+            language = ast_data.get("language", "unknown")
+            lines_of_code = ast_data.get("lines_of_code", 0)
+            
+            # Create code file node with enhanced metadata
+            self.graph_brain.add_code_file_node(
+                file_path=filename,
+                language=language,
+                author=author,
+                lines_of_code=lines_of_code,
+                git_info=git_data
+            )
+            
+            # Process functions
+            for func in ast_data.get("functions", []):
+                self.graph_brain.add_function_node(
+                    function_name=func["name"],
+                    file_path=filename,
+                    language=language,
+                    line_start=func.get("line_start"),
+                    line_end=func.get("line_end"),
+                    docstring=func.get("docstring"),
+                    args=func.get("args", [])
+                )
+            
+            # Process classes
+            for cls in ast_data.get("classes", []):
+                self.graph_brain.add_class_node(
+                    class_name=cls["name"],
+                    file_path=filename,
+                    language=language,
+                    line_start=cls.get("line_start"),
+                    line_end=cls.get("line_end"),
+                    docstring=cls.get("docstring"),
+                    base_classes=cls.get("bases", [])
+                )
+                
+                # Add methods to class
+                for method in cls.get("methods", []):
+                    self.graph_brain.add_method_to_class(
+                        method_name=method["name"],
+                        class_name=cls["name"],
+                        file_path=filename,
+                        line_start=method.get("line_start"),
+                        docstring=method.get("docstring"),
+                        args=method.get("args", [])
+                    )
+            
+            # Process imports
+            for imp in ast_data.get("imports", []):
+                import_name = imp.get("module") or imp.get("name")
+                if import_name:
+                    self.graph_brain.add_import_relationship(
+                        importing_file=filename,
+                        imported_module=import_name,
+                        import_type=imp.get("type", "import"),
+                        alias=imp.get("alias")
+                    )
+            
+            print(f"Created code relationships for {filename}: {len(ast_data.get('functions', []))} functions, {len(ast_data.get('classes', []))} classes")
+            
+        except Exception as e:
+            print(f"Error creating code relationships for {filename}: {e}")
+    
+    def _store_code_metrics(self, doc_id: str, filename: str, code_analysis: Dict[str, Any]):
+        """
+        Store code metrics and complexity data in the Analytical Brain.
+        """
+        try:
+            if not code_analysis or "error" in code_analysis:
+                return
+            
+            ast_data = code_analysis.get("ast_analysis", {})
+            git_data = code_analysis.get("git_analysis", {})
+            
+            # Prepare code metrics
+            metrics = {
+                "language": ast_data.get("language", "unknown"),
+                "lines_of_code": ast_data.get("lines_of_code", 0),
+                "function_count": ast_data.get("total_functions", 0),
+                "class_count": ast_data.get("total_classes", 0),
+                "import_count": ast_data.get("total_imports", 0)
+            }
+            
+            # Add Git metrics if available
+            if "error" not in git_data:
+                metrics.update({
+                    "contributors_count": git_data.get("total_contributors", 0),
+                    "commit_count": git_data.get("commit_count", 0),
+                    "primary_author": git_data.get("primary_author", "Unknown")
+                })
+            
+            # Update document metadata with code metrics
+            try:
+                self.analytical_brain.update_document_metadata(
+                    doc_id=doc_id,
+                    additional_metadata=metrics
+                )
+                print(f"Stored code metrics for {filename}")
+            except Exception as metadata_error:
+                print(f"Warning: Could not store code metrics for {filename}: {metadata_error}")
+                
+        except Exception as e:
+            print(f"Error storing code metrics for {filename}: {e}")
+
+
+class DirectoryIngestionService:
+    """
+    Handles directory-based file ingestion with hash-based change detection.
+    Integrates with Nancy's four-brain architecture for proactive project intelligence monitoring.
+    """
+    
+    def __init__(self):
+        self.analytical_brain = AnalyticalBrain()
+        self.ingestion_service = IngestionService()
+        self.codebase_service = CodebaseIngestionService()
+        print("DirectoryIngestionService initialized with four-brain architecture and codebase analysis")
+    
+    def _calculate_file_hash(self, file_path: str) -> str:
+        """
+        Calculate SHA256 hash of file content for change detection.
+        """
+        try:
+            with open(file_path, 'rb') as f:
+                return hashlib.sha256(f.read()).hexdigest()
+        except Exception as e:
+            print(f"Error calculating hash for {file_path}: {e}")
+            return ""
+    
+    def _matches_patterns(self, file_path: str, patterns: str) -> bool:
+        """
+        Check if file path matches any of the provided patterns.
+        """
+        if not patterns:
+            return True
+        
+        pattern_list = [p.strip() for p in patterns.split(',')]
+        file_name = os.path.basename(file_path)
+        relative_path = file_path
+        
+        for pattern in pattern_list:
+            # Check both filename and relative path
+            if fnmatch.fnmatch(file_name, pattern) or fnmatch.fnmatch(relative_path, pattern):
+                return True
+        
+        return False
+    
+    def _should_ignore_file(self, file_path: str, ignore_patterns: str) -> bool:
+        """
+        Check if file should be ignored based on ignore patterns.
+        """
+        if not ignore_patterns:
+            return False
+        
+        return self._matches_patterns(file_path, ignore_patterns)
+    
+    def _is_supported_file_type(self, file_path: str) -> bool:
+        """
+        Check if file type is supported for ingestion.
+        """
+        supported_extensions = {
+            '.txt', '.md', '.log', '.py', '.js', '.html', '.css', '.json',
+            '.csv', '.xlsx', '.xls', '.ts', '.java', '.c', '.cpp', '.h', '.hpp'
+        }
+        
+        file_extension = Path(file_path).suffix.lower()
+        return file_extension in supported_extensions
+    
+    def scan_directory(self, directory_path: str, recursive: bool = True, 
+                      file_patterns: str = None, ignore_patterns: str = None,
+                      author: str = "Directory Scan") -> Dict[str, Any]:
+        """
+        Scan directory for files and detect changes using hash-based comparison.
+        Phase 1 implementation with periodic re-ingestion approach.
+        """
+        try:
+            if not os.path.exists(directory_path):
+                return {"error": f"Directory does not exist: {directory_path}"}
+            
+            if not os.path.isdir(directory_path):
+                return {"error": f"Path is not a directory: {directory_path}"}
+            
+            # Default patterns if not provided
+            if file_patterns is None:
+                file_patterns = "*.txt,*.md,*.py,*.js,*.ts,*.java,*.c,*.cpp,*.h,*.hpp,*.html,*.css,*.json,*.csv,*.xlsx,*.xls"
+            if ignore_patterns is None:
+                ignore_patterns = ".git/*,.env*,node_modules/*,__pycache__/*,*.pyc"
+            
+            directory_path = os.path.abspath(directory_path)
+            print(f"Scanning directory: {directory_path} (recursive={recursive})")
+            
+            discovered_files = []
+            existing_file_paths = set()
+            new_files = 0
+            changed_files = 0
+            unchanged_files = 0
+            ignored_files = 0
+            unsupported_files = 0
+            
+            # Walk through directory
+            if recursive:
+                for root, dirs, files in os.walk(directory_path):
+                    # Skip ignored directories
+                    dirs[:] = [d for d in dirs if not self._should_ignore_file(os.path.join(root, d), ignore_patterns)]
+                    
+                    for file in files:
+                        file_path = os.path.join(root, file)
+                        self._process_discovered_file(
+                            file_path, directory_path, file_patterns, ignore_patterns,
+                            discovered_files, existing_file_paths, 
+                            new_files, changed_files, unchanged_files, ignored_files, unsupported_files
+                        )
+            else:
+                # Non-recursive scan
+                for item in os.listdir(directory_path):
+                    file_path = os.path.join(directory_path, item)
+                    if os.path.isfile(file_path):
+                        new_files, changed_files, unchanged_files, ignored_files, unsupported_files = self._process_discovered_file(
+                            file_path, directory_path, file_patterns, ignore_patterns,
+                            discovered_files, existing_file_paths,
+                            new_files, changed_files, unchanged_files, ignored_files, unsupported_files
+                        )
+            
+            # Mark deleted files
+            deleted_count = self.analytical_brain.mark_deleted_files(existing_file_paths, directory_path)
+            
+            scan_results = {
+                "directory_path": directory_path,
+                "recursive": recursive,
+                "total_files_discovered": len(discovered_files),
+                "new_files": new_files,
+                "changed_files": changed_files,
+                "unchanged_files": unchanged_files,
+                "ignored_files": ignored_files,
+                "unsupported_files": unsupported_files,
+                "deleted_files": deleted_count,
+                "files_to_process": new_files + changed_files,
+                "scan_timestamp": datetime.utcnow().isoformat(),
+                "file_patterns": file_patterns,
+                "ignore_patterns": ignore_patterns
+            }
+            
+            print(f"Directory scan complete: {len(discovered_files)} files discovered, "
+                  f"{new_files + changed_files} need processing")
+            
+            return scan_results
+            
+        except Exception as e:
+            print(f"Error scanning directory {directory_path}: {e}")
+            import traceback
+            traceback.print_exc()
+            return {"error": str(e)}
+    
+    def _process_discovered_file(self, file_path: str, directory_root: str, 
+                               file_patterns: str, ignore_patterns: str,
+                               discovered_files: list, existing_file_paths: set,
+                               new_files: int, changed_files: int, unchanged_files: int,
+                               ignored_files: int, unsupported_files: int) -> tuple:
+        """
+        Process a single discovered file for hash-based change detection.
+        """
+        try:
+            relative_path = os.path.relpath(file_path, directory_root)
+            existing_file_paths.add(file_path)
+            
+            # Check if file should be ignored
+            if self._should_ignore_file(relative_path, ignore_patterns):
+                ignored_files += 1
+                return new_files, changed_files, unchanged_files, ignored_files, unsupported_files
+            
+            # Check if file matches include patterns
+            if not self._matches_patterns(relative_path, file_patterns):
+                ignored_files += 1
+                return new_files, changed_files, unchanged_files, ignored_files, unsupported_files
+            
+            # Check if file type is supported
+            if not self._is_supported_file_type(file_path):
+                unsupported_files += 1
+                return new_files, changed_files, unchanged_files, ignored_files, unsupported_files
+            
+            # Get file stats
+            file_stat = os.stat(file_path)
+            file_size = file_stat.st_size
+            last_modified = datetime.fromtimestamp(file_stat.st_mtime)
+            
+            # Calculate hash for change detection
+            content_hash = self._calculate_file_hash(file_path)
+            if not content_hash:
+                # Hash calculation failed, skip file
+                return new_files, changed_files, unchanged_files, ignored_files, unsupported_files
+            
+            # Check if file needs processing using analytical brain
+            needs_processing = self.analytical_brain.upsert_file_state(
+                file_path, content_hash, last_modified, file_size, directory_root, relative_path
+            )
+            
+            file_info = {
+                "file_path": file_path,
+                "relative_path": relative_path,
+                "file_size": file_size,
+                "last_modified": last_modified.isoformat(),
+                "content_hash": content_hash,
+                "needs_processing": needs_processing
+            }
+            
+            discovered_files.append(file_info)
+            
+            if needs_processing:
+                # Determine if new or changed
+                existing = self.analytical_brain.con.execute(
+                    "SELECT COUNT(*) FROM file_state WHERE file_path = ? AND created_at < updated_at",
+                    (file_path,)
+                ).fetchone()[0]
+                
+                if existing > 0:
+                    changed_files += 1
+                else:
+                    new_files += 1
+            else:
+                unchanged_files += 1
+            
+            return new_files, changed_files, unchanged_files, ignored_files, unsupported_files
+            
+        except Exception as e:
+            print(f"Error processing file {file_path}: {e}")
+            return new_files, changed_files, unchanged_files, ignored_files, unsupported_files
+    
+    def process_pending_files(self, limit: int = 50, author: str = "Directory Processing") -> Dict[str, Any]:
+        """
+        Process files that are pending ingestion through the four-brain architecture.
+        """
+        try:
+            pending_files = self.analytical_brain.get_files_to_process(limit)
+            
+            if not pending_files:
+                return {
+                    "status": "no_files_to_process",
+                    "processed_files": 0,
+                    "successful": 0,
+                    "failed": 0,
+                    "results": []
+                }
+            
+            print(f"Processing {len(pending_files)} pending files through four-brain architecture")
+            
+            results = []
+            successful = 0
+            failed = 0
+            
+            for file_info in pending_files:
+                file_path = file_info['file_path']
+                relative_path = file_info['relative_path']
+                
+                try:
+                    # Read file content
+                    if not os.path.exists(file_path):
+                        # File was deleted between scan and processing
+                        self.analytical_brain.update_file_processing_status(
+                            file_path, 'deleted', error_message="File no longer exists"
+                        )
+                        results.append({
+                            "file_path": file_path,
+                            "status": "deleted",
+                            "message": "File no longer exists"
+                        })
+                        failed += 1
+                        continue
+                    
+                    with open(file_path, 'rb') as f:
+                        content = f.read()
+                    
+                    # Use filename from relative path for better naming
+                    display_filename = relative_path
+                    
+                    # Process through existing ingestion service (four-brain architecture)
+                    ingestion_result = self.ingestion_service.ingest_file(
+                        filename=display_filename,
+                        content=content,
+                        author=author
+                    )
+                    
+                    if "error" in ingestion_result:
+                        # Ingestion failed
+                        self.analytical_brain.update_file_processing_status(
+                            file_path, 'error', error_message=ingestion_result["error"]
+                        )
+                        results.append({
+                            "file_path": file_path,
+                            "status": "error",
+                            "error": ingestion_result["error"]
+                        })
+                        failed += 1
+                    else:
+                        # Ingestion successful
+                        self.analytical_brain.update_file_processing_status(
+                            file_path, 'completed', doc_id=ingestion_result.get("doc_id")
+                        )
+                        results.append({
+                            "file_path": file_path,
+                            "status": "completed",
+                            "doc_id": ingestion_result.get("doc_id"),
+                            "ingestion_result": ingestion_result
+                        })
+                        successful += 1
+                    
+                except Exception as e:
+                    error_msg = str(e)
+                    print(f"Error processing file {file_path}: {error_msg}")
+                    
+                    self.analytical_brain.update_file_processing_status(
+                        file_path, 'error', error_message=error_msg
+                    )
+                    results.append({
+                        "file_path": file_path,
+                        "status": "error",
+                        "error": error_msg
+                    })
+                    failed += 1
+            
+            processing_summary = {
+                "status": "processing_complete",
+                "processed_files": len(pending_files),
+                "successful": successful,
+                "failed": failed,
+                "success_rate": successful / len(pending_files) if pending_files else 0,
+                "processing_timestamp": datetime.utcnow().isoformat(),
+                "results": results
+            }
+            
+            print(f"Directory processing complete: {successful}/{len(pending_files)} successful")
+            return processing_summary
+            
+        except Exception as e:
+            print(f"Error in process_pending_files: {e}")
+            import traceback
+            traceback.print_exc()
+            return {"error": str(e)}
+    
+    def scan_and_process_directory(self, directory_path: str, recursive: bool = True,
+                                 file_patterns: str = None, ignore_patterns: str = None,
+                                 author: str = "Directory Ingestion", 
+                                 process_limit: int = 50) -> Dict[str, Any]:
+        """
+        Combined operation: scan directory for changes and process pending files.
+        This is the primary method for directory-based ingestion.
+        """
+        try:
+            # Step 1: Scan directory for changes
+            print(f"Step 1: Scanning directory {directory_path}")
+            scan_results = self.scan_directory(
+                directory_path, recursive, file_patterns, ignore_patterns, author
+            )
+            
+            if "error" in scan_results:
+                return scan_results
+            
+            # Step 2: Process pending files if any were found
+            if scan_results.get("files_to_process", 0) > 0:
+                print(f"Step 2: Processing {scan_results['files_to_process']} files")
+                processing_results = self.process_pending_files(process_limit, author)
+                
+                # Combine results
+                combined_results = {
+                    "operation": "scan_and_process",
+                    "directory_path": directory_path,
+                    "scan_results": scan_results,
+                    "processing_results": processing_results,
+                    "overall_status": "completed",
+                    "total_files_discovered": scan_results["total_files_discovered"],
+                    "files_processed": processing_results.get("processed_files", 0),
+                    "files_successful": processing_results.get("successful", 0),
+                    "files_failed": processing_results.get("failed", 0),
+                    "timestamp": datetime.utcnow().isoformat()
+                }
+                
+                return combined_results
+            else:
+                return {
+                    "operation": "scan_and_process",
+                    "directory_path": directory_path,
+                    "scan_results": scan_results,
+                    "processing_results": {
+                        "status": "no_files_to_process",
+                        "message": "No new or changed files found"
+                    },
+                    "overall_status": "completed",
+                    "total_files_discovered": scan_results["total_files_discovered"],
+                    "files_processed": 0,
+                    "files_successful": 0,
+                    "files_failed": 0,
+                    "timestamp": datetime.utcnow().isoformat()
+                }
+                
+        except Exception as e:
+            print(f"Error in scan_and_process_directory: {e}")
+            import traceback
+            traceback.print_exc()
+            return {"error": str(e)}
+
+
+class GitAnalysisService:
+    """
+    Service for analyzing Git repositories to extract authorship, history, and collaboration data.
+    Integrates with Nancy's Four-Brain Architecture for comprehensive code understanding.
+    """
+    
+    def __init__(self):
+        self.repo = None
+        self.repo_path = None
+        print("GitAnalysisService initialized")
+    
+    def initialize_repository(self, repo_path: str) -> bool:
+        """
+        Initialize Git repository for analysis.
+        """
+        try:
+            self.repo_path = os.path.abspath(repo_path)
+            
+            # Find the git repository root
+            current_path = self.repo_path
+            while current_path != os.path.dirname(current_path):  # not root directory
+                if os.path.exists(os.path.join(current_path, '.git')):
+                    self.repo = git.Repo(current_path)
+                    self.repo_path = current_path
+                    print(f"Git repository found: {self.repo_path}")
+                    return True
+                current_path = os.path.dirname(current_path)
+            
+            # Try initializing directly if no .git found in parents
+            if os.path.exists(os.path.join(self.repo_path, '.git')):
+                self.repo = git.Repo(self.repo_path)
+                print(f"Git repository initialized: {self.repo_path}")
+                return True
+            
+            print(f"No Git repository found at {repo_path} or its parents")
+            return False
+            
+        except (GitCommandError, InvalidGitRepositoryError) as e:
+            print(f"Git repository initialization failed: {e}")
+            return False
+        except Exception as e:
+            print(f"Unexpected error initializing Git repository: {e}")
+            return False
+    
+    def get_file_authorship(self, file_path: str) -> Dict[str, Any]:
+        """
+        Get authorship information for a file including contributors and commit history.
+        """
+        if not self.repo:
+            return {"error": "No repository initialized"}
+        
+        try:
+            relative_path = os.path.relpath(file_path, self.repo_path)
+            
+            # Get blame information for the file
+            blame_data = []
+            contributors = set()
+            
+            try:
+                blame = self.repo.blame('HEAD', relative_path)
+                
+                for commit, lines in blame:
+                    author_name = commit.author.name
+                    author_email = commit.author.email
+                    commit_date = commit.authored_datetime
+                    
+                    contributors.add(author_name)
+                    blame_data.append({
+                        "author_name": author_name,
+                        "author_email": author_email,
+                        "commit_hash": commit.hexsha,
+                        "commit_date": commit_date.isoformat(),
+                        "lines": len(lines)
+                    })
+            except Exception as blame_error:
+                print(f"Blame analysis failed for {relative_path}: {blame_error}")
+            
+            # Get commit history for the file
+            commit_history = []
+            try:
+                commits = list(self.repo.iter_commits(paths=relative_path, max_count=20))
+                
+                for commit in commits:
+                    commit_history.append({
+                        "commit_hash": commit.hexsha,
+                        "author_name": commit.author.name,
+                        "author_email": commit.author.email,
+                        "commit_date": commit.authored_datetime.isoformat(),
+                        "message": commit.message.strip(),
+                        "files_changed": commit.stats.total['files'],
+                        "insertions": commit.stats.total['insertions'],
+                        "deletions": commit.stats.total['deletions']
+                    })
+            except Exception as history_error:
+                print(f"Commit history failed for {relative_path}: {history_error}")
+            
+            # Get file statistics
+            try:
+                file_stat = os.stat(file_path)
+                last_modified = datetime.fromtimestamp(file_stat.st_mtime)
+            except:
+                last_modified = None
+            
+            return {
+                "file_path": relative_path,
+                "contributors": list(contributors),
+                "primary_author": contributors and list(contributors)[0] or "Unknown",
+                "total_contributors": len(contributors),
+                "commit_count": len(commit_history),
+                "last_modified": last_modified.isoformat() if last_modified else None,
+                "blame_data": blame_data,
+                "commit_history": commit_history,
+                "repository_path": self.repo_path
+            }
+            
+        except Exception as e:
+            print(f"Error analyzing authorship for {file_path}: {e}")
+            return {"error": str(e)}
+    
+    def get_repository_metadata(self) -> Dict[str, Any]:
+        """
+        Get comprehensive repository metadata.
+        """
+        if not self.repo:
+            return {"error": "No repository initialized"}
+        
+        try:
+            # Get repository basic info
+            repo_info = {
+                "repository_path": self.repo_path,
+                "current_branch": self.repo.active_branch.name if self.repo.active_branch else "detached",
+                "total_commits": sum(1 for _ in self.repo.iter_commits()),
+                "remotes": [remote.url for remote in self.repo.remotes],
+                "branches": [branch.name for branch in self.repo.branches],
+                "tags": [tag.name for tag in self.repo.tags]
+            }
+            
+            # Get contributor statistics
+            contributors = {}
+            for commit in self.repo.iter_commits():
+                author_name = commit.author.name
+                if author_name not in contributors:
+                    contributors[author_name] = {
+                        "name": author_name,
+                        "email": commit.author.email,
+                        "commits": 0,
+                        "insertions": 0,
+                        "deletions": 0,
+                        "first_commit": commit.authored_datetime,
+                        "last_commit": commit.authored_datetime
+                    }
+                
+                contributors[author_name]["commits"] += 1
+                contributors[author_name]["insertions"] += commit.stats.total['insertions']
+                contributors[author_name]["deletions"] += commit.stats.total['deletions']
+                
+                if commit.authored_datetime < contributors[author_name]["first_commit"]:
+                    contributors[author_name]["first_commit"] = commit.authored_datetime
+                if commit.authored_datetime > contributors[author_name]["last_commit"]:
+                    contributors[author_name]["last_commit"] = commit.authored_datetime
+            
+            # Convert datetime objects to ISO format
+            for contributor in contributors.values():
+                contributor["first_commit"] = contributor["first_commit"].isoformat()
+                contributor["last_commit"] = contributor["last_commit"].isoformat()
+            
+            repo_info["contributors"] = list(contributors.values())
+            repo_info["total_contributors"] = len(contributors)
+            
+            return repo_info
+            
+        except Exception as e:
+            print(f"Error getting repository metadata: {e}")
+            return {"error": str(e)}
+    
+    def analyze_code_ownership(self, file_extensions: List[str] = None) -> Dict[str, Any]:
+        """
+        Analyze code ownership patterns across the repository.
+        """
+        if not self.repo:
+            return {"error": "No repository initialized"}
+        
+        if file_extensions is None:
+            file_extensions = ['.py', '.js', '.ts', '.java', '.c', '.cpp', '.h']
+        
+        try:
+            ownership_data = {}
+            file_count_by_author = {}
+            lines_by_author = {}
+            
+            # Walk through repository files
+            for root, dirs, files in os.walk(self.repo_path):
+                # Skip .git directory
+                if '.git' in dirs:
+                    dirs.remove('.git')
+                
+                for file in files:
+                    file_path = os.path.join(root, file)
+                    file_ext = Path(file_path).suffix.lower()
+                    
+                    if file_ext in file_extensions:
+                        authorship = self.get_file_authorship(file_path)
+                        
+                        if "error" not in authorship:
+                            primary_author = authorship.get("primary_author", "Unknown")
+                            
+                            if primary_author not in file_count_by_author:
+                                file_count_by_author[primary_author] = 0
+                                lines_by_author[primary_author] = 0
+                            
+                            file_count_by_author[primary_author] += 1
+                            
+                            # Count lines contributed by author
+                            for blame_entry in authorship.get("blame_data", []):
+                                if blame_entry["author_name"] == primary_author:
+                                    lines_by_author[primary_author] += blame_entry["lines"]
+            
+            return {
+                "ownership_by_files": file_count_by_author,
+                "ownership_by_lines": lines_by_author,
+                "analyzed_extensions": file_extensions,
+                "repository_path": self.repo_path
+            }
+            
+        except Exception as e:
+            print(f"Error analyzing code ownership: {e}")
+            return {"error": str(e)}
+
+
+class CodebaseIngestionService:
+    """
+    Comprehensive service for analyzing and ingesting source code repositories.
+    Provides AST parsing, Git integration, and Four-Brain Architecture integration
+    for deep codebase understanding and analysis.
+    """
+    
+    def __init__(self):
+        self.git_service = GitAnalysisService()
+        self.parsers = {}
+        self.languages = {}
+        self._initialize_tree_sitter()
+        print("CodebaseIngestionService initialized with AST parsing capabilities")
+    
+    def _initialize_tree_sitter(self):
+        """
+        Initialize tree-sitter parsers for supported languages.
+        """
+        try:
+            # Dictionary mapping file extensions to tree-sitter language names
+            self.language_map = {
+                '.py': 'python',
+                '.js': 'javascript', 
+                '.ts': 'javascript',  # TypeScript uses JavaScript parser
+                '.c': 'c',
+                '.cpp': 'cpp',
+                '.cc': 'cpp',
+                '.cxx': 'cpp',
+                '.h': 'c',
+                '.hpp': 'cpp',
+                '.java': 'java'
+            }
+            
+            # Try to load available language parsers
+            for ext, lang_name in self.language_map.items():
+                try:
+                    # Import the specific tree-sitter language module
+                    if lang_name == 'python':
+                        import tree_sitter_python as ts_python
+                        language = Language(ts_python.language(), lang_name)
+                    elif lang_name == 'javascript':
+                        import tree_sitter_javascript as ts_javascript
+                        language = Language(ts_javascript.language(), lang_name)
+                    elif lang_name == 'c':
+                        import tree_sitter_c as ts_c
+                        language = Language(ts_c.language(), lang_name)
+                    elif lang_name == 'cpp':
+                        import tree_sitter_cpp as ts_cpp
+                        language = Language(ts_cpp.language(), lang_name)
+                    elif lang_name == 'java':
+                        import tree_sitter_java as ts_java
+                        language = Language(ts_java.language(), lang_name)
+                    else:
+                        continue
+                    
+                    parser = Parser()
+                    parser.set_language(language)
+                    
+                    self.languages[lang_name] = language
+                    self.parsers[ext] = parser
+                    
+                except ImportError as import_error:
+                    print(f"Tree-sitter {lang_name} parser not available: {import_error}")
+                except Exception as parser_error:
+                    print(f"Failed to initialize {lang_name} parser: {parser_error}")
+            
+            print(f"Initialized tree-sitter parsers for: {list(self.parsers.keys())}")
+            
+        except Exception as e:
+            print(f"Error initializing tree-sitter: {e}")
+    
+    def _get_parser_for_file(self, file_path: str) -> Optional[Parser]:
+        """
+        Get the appropriate tree-sitter parser for a file.
+        """
+        file_ext = Path(file_path).suffix.lower()
+        return self.parsers.get(file_ext)
+    
+    def analyze_python_ast(self, content: str, file_path: str) -> Dict[str, Any]:
+        """
+        Analyze Python code using both built-in AST module and tree-sitter.
+        """
+        try:
+            # Parse with Python's built-in AST module
+            tree = ast.parse(content)
+            
+            functions = []
+            classes = []
+            imports = []
+            variables = []
+            
+            for node in ast.walk(tree):
+                if isinstance(node, ast.FunctionDef):
+                    # Extract function information
+                    func_info = {
+                        "name": node.name,
+                        "line_start": node.lineno,
+                        "line_end": node.end_lineno if hasattr(node, 'end_lineno') else node.lineno,
+                        "args": [arg.arg for arg in node.args.args],
+                        "returns": ast.unparse(node.returns) if node.returns else None,
+                        "docstring": ast.get_docstring(node),
+                        "decorators": [ast.unparse(dec) for dec in node.decorator_list],
+                        "is_async": isinstance(node, ast.AsyncFunctionDef)
+                    }
+                    functions.append(func_info)
+                
+                elif isinstance(node, ast.ClassDef):
+                    # Extract class information
+                    class_info = {
+                        "name": node.name,
+                        "line_start": node.lineno,
+                        "line_end": node.end_lineno if hasattr(node, 'end_lineno') else node.lineno,
+                        "bases": [ast.unparse(base) for base in node.bases],
+                        "decorators": [ast.unparse(dec) for dec in node.decorator_list],
+                        "docstring": ast.get_docstring(node),
+                        "methods": []
+                    }
+                    
+                    # Extract methods within the class
+                    for item in node.body:
+                        if isinstance(item, ast.FunctionDef):
+                            method_info = {
+                                "name": item.name,
+                                "line_start": item.lineno,
+                                "args": [arg.arg for arg in item.args.args],
+                                "docstring": ast.get_docstring(item),
+                                "is_property": any(ast.unparse(dec) == 'property' for dec in item.decorator_list)
+                            }
+                            class_info["methods"].append(method_info)
+                    
+                    classes.append(class_info)
+                
+                elif isinstance(node, (ast.Import, ast.ImportFrom)):
+                    # Extract import information
+                    if isinstance(node, ast.Import):
+                        for alias in node.names:
+                            imports.append({
+                                "type": "import",
+                                "module": alias.name,
+                                "alias": alias.asname,
+                                "line": node.lineno
+                            })
+                    else:  # ImportFrom
+                        for alias in node.names:
+                            imports.append({
+                                "type": "from_import",
+                                "module": node.module,
+                                "name": alias.name,
+                                "alias": alias.asname,
+                                "line": node.lineno
+                            })
+                
+                elif isinstance(node, ast.Assign):
+                    # Extract variable assignments (module level only)
+                    if isinstance(node.targets[0], ast.Name):
+                        var_name = node.targets[0].id
+                        try:
+                            value_str = ast.unparse(node.value)[:100]  # Limit length
+                        except:
+                            value_str = "<complex_expression>"
+                        
+                        variables.append({
+                            "name": var_name,
+                            "line": node.lineno,
+                            "value_preview": value_str
+                        })
+            
+            return {
+                "file_path": file_path,
+                "language": "python",
+                "functions": functions,
+                "classes": classes,
+                "imports": imports,
+                "variables": variables,
+                "total_functions": len(functions),
+                "total_classes": len(classes),
+                "total_imports": len(imports),
+                "lines_of_code": len(content.splitlines())
+            }
+            
+        except SyntaxError as e:
+            print(f"Python syntax error in {file_path}: {e}")
+            return {"error": f"Python syntax error: {e}"}
+        except Exception as e:
+            print(f"Error analyzing Python AST for {file_path}: {e}")
+            return {"error": str(e)}
+    
+    def analyze_tree_sitter_ast(self, content: str, file_path: str) -> Dict[str, Any]:
+        """
+        Analyze code using tree-sitter for general language support.
+        """
+        parser = self._get_parser_for_file(file_path)
+        if not parser:
+            return {"error": "No parser available for this file type"}
+        
+        try:
+            tree = parser.parse(bytes(content, 'utf8'))
+            root_node = tree.root_node
+            
+            file_ext = Path(file_path).suffix.lower()
+            language = self.language_map.get(file_ext, "unknown")
+            
+            # Extract different elements based on language
+            if language == "javascript":
+                return self._analyze_javascript_tree(root_node, content, file_path)
+            elif language in ["c", "cpp"]:
+                return self._analyze_c_cpp_tree(root_node, content, file_path)
+            elif language == "java":
+                return self._analyze_java_tree(root_node, content, file_path)
+            else:
+                # Generic analysis
+                return self._analyze_generic_tree(root_node, content, file_path, language)
+            
+        except Exception as e:
+            print(f"Error with tree-sitter analysis for {file_path}: {e}")
+            return {"error": str(e)}
+    
+    def _analyze_javascript_tree(self, root_node, content: str, file_path: str) -> Dict[str, Any]:
+        """
+        Analyze JavaScript/TypeScript AST.
+        """
+        functions = []
+        classes = []
+        imports = []
+        exports = []
+        variables = []
+        
+        def traverse_node(node):
+            if node.type == "function_declaration":
+                name_node = node.child_by_field_name("name")
+                func_name = content[name_node.start_byte:name_node.end_byte] if name_node else "anonymous"
+                
+                functions.append({
+                    "name": func_name,
+                    "line_start": node.start_point[0] + 1,
+                    "line_end": node.end_point[0] + 1,
+                    "type": "function"
+                })
+            
+            elif node.type == "class_declaration":
+                name_node = node.child_by_field_name("name")
+                class_name = content[name_node.start_byte:name_node.end_byte] if name_node else "Anonymous"
+                
+                classes.append({
+                    "name": class_name,
+                    "line_start": node.start_point[0] + 1,
+                    "line_end": node.end_point[0] + 1
+                })
+            
+            elif node.type in ["import_statement", "import_declaration"]:
+                import_text = content[node.start_byte:node.end_byte]
+                imports.append({
+                    "statement": import_text,
+                    "line": node.start_point[0] + 1
+                })
+            
+            # Recursively traverse child nodes
+            for child in node.children:
+                traverse_node(child)
+        
+        traverse_node(root_node)
+        
+        return {
+            "file_path": file_path,
+            "language": "javascript",
+            "functions": functions,
+            "classes": classes,
+            "imports": imports,
+            "exports": exports,
+            "variables": variables,
+            "total_functions": len(functions),
+            "total_classes": len(classes),
+            "lines_of_code": len(content.splitlines())
+        }
+    
+    def _analyze_c_cpp_tree(self, root_node, content: str, file_path: str) -> Dict[str, Any]:
+        """
+        Analyze C/C++ AST.
+        """
+        functions = []
+        structures = []
+        includes = []
+        macros = []
+        
+        def traverse_node(node):
+            if node.type == "function_definition":
+                # Find function name
+                declarator = node.child_by_field_name("declarator")
+                if declarator:
+                    func_name = self._extract_function_name(declarator, content)
+                    functions.append({
+                        "name": func_name,
+                        "line_start": node.start_point[0] + 1,
+                        "line_end": node.end_point[0] + 1,
+                        "type": "function"
+                    })
+            
+            elif node.type in ["struct_specifier", "class_specifier"]:
+                name_node = node.child_by_field_name("name")
+                struct_name = content[name_node.start_byte:name_node.end_byte] if name_node else "Anonymous"
+                
+                structures.append({
+                    "name": struct_name,
+                    "type": node.type,
+                    "line_start": node.start_point[0] + 1,
+                    "line_end": node.end_point[0] + 1
+                })
+            
+            elif node.type == "preproc_include":
+                include_text = content[node.start_byte:node.end_byte]
+                includes.append({
+                    "statement": include_text,
+                    "line": node.start_point[0] + 1
+                })
+            
+            # Recursively traverse child nodes
+            for child in node.children:
+                traverse_node(child)
+        
+        traverse_node(root_node)
+        
+        return {
+            "file_path": file_path,
+            "language": "c/cpp",
+            "functions": functions,
+            "structures": structures,
+            "includes": includes,
+            "macros": macros,
+            "total_functions": len(functions),
+            "total_structures": len(structures),
+            "lines_of_code": len(content.splitlines())
+        }
+    
+    def _analyze_java_tree(self, root_node, content: str, file_path: str) -> Dict[str, Any]:
+        """
+        Analyze Java AST.
+        """
+        classes = []
+        methods = []
+        imports = []
+        interfaces = []
+        
+        def traverse_node(node):
+            if node.type == "class_declaration":
+                name_node = node.child_by_field_name("name")
+                class_name = content[name_node.start_byte:name_node.end_byte] if name_node else "Anonymous"
+                
+                classes.append({
+                    "name": class_name,
+                    "line_start": node.start_point[0] + 1,
+                    "line_end": node.end_point[0] + 1,
+                    "type": "class"
+                })
+            
+            elif node.type == "method_declaration":
+                name_node = node.child_by_field_name("name")
+                method_name = content[name_node.start_byte:name_node.end_byte] if name_node else "anonymous"
+                
+                methods.append({
+                    "name": method_name,
+                    "line_start": node.start_point[0] + 1,
+                    "line_end": node.end_point[0] + 1,
+                    "type": "method"
+                })
+            
+            elif node.type == "import_declaration":
+                import_text = content[node.start_byte:node.end_byte]
+                imports.append({
+                    "statement": import_text,
+                    "line": node.start_point[0] + 1
+                })
+            
+            elif node.type == "interface_declaration":
+                name_node = node.child_by_field_name("name")
+                interface_name = content[name_node.start_byte:name_node.end_byte] if name_node else "Anonymous"
+                
+                interfaces.append({
+                    "name": interface_name,
+                    "line_start": node.start_point[0] + 1,
+                    "line_end": node.end_point[0] + 1
+                })
+            
+            # Recursively traverse child nodes
+            for child in node.children:
+                traverse_node(child)
+        
+        traverse_node(root_node)
+        
+        return {
+            "file_path": file_path,
+            "language": "java",
+            "classes": classes,
+            "methods": methods,
+            "imports": imports,
+            "interfaces": interfaces,
+            "total_classes": len(classes),
+            "total_methods": len(methods),
+            "total_interfaces": len(interfaces),
+            "lines_of_code": len(content.splitlines())
+        }
+    
+    def _analyze_generic_tree(self, root_node, content: str, file_path: str, language: str) -> Dict[str, Any]:
+        """
+        Generic tree analysis for unsupported languages.
+        """
+        node_types = {}
+        
+        def traverse_node(node):
+            node_type = node.type
+            if node_type not in node_types:
+                node_types[node_type] = 0
+            node_types[node_type] += 1
+            
+            for child in node.children:
+                traverse_node(child)
+        
+        traverse_node(root_node)
+        
+        return {
+            "file_path": file_path,
+            "language": language,
+            "node_types": node_types,
+            "total_nodes": sum(node_types.values()),
+            "lines_of_code": len(content.splitlines()),
+            "analysis_type": "generic"
+        }
+    
+    def _extract_function_name(self, declarator_node, content: str) -> str:
+        """
+        Extract function name from C/C++ function declarator.
+        """
+        try:
+            if declarator_node.type == "function_declarator":
+                declarator = declarator_node.child_by_field_name("declarator")
+                if declarator and declarator.type == "identifier":
+                    return content[declarator.start_byte:declarator.end_byte]
+            elif declarator_node.type == "identifier":
+                return content[declarator_node.start_byte:declarator_node.end_byte]
+            
+            # Fallback: try to find any identifier in the declarator
+            for child in declarator_node.children:
+                if child.type == "identifier":
+                    return content[child.start_byte:child.end_byte]
+            
+            return "unknown_function"
+        except:
+            return "unknown_function"
+    
+    def generate_call_graph(self, ast_analysis: Dict[str, Any]) -> Dict[str, List[str]]:
+        """
+        Generate a call graph from AST analysis (simplified version).
+        """
+        # This is a simplified implementation
+        # In practice, you'd need more sophisticated analysis
+        call_graph = {}
+        
+        if ast_analysis.get("language") == "python":
+            # For Python, we'd analyze function calls within each function
+            for func in ast_analysis.get("functions", []):
+                call_graph[func["name"]] = []  # Placeholder - would need deeper analysis
+        
+        return call_graph
+    
+    def analyze_code_file(self, file_path: str) -> Dict[str, Any]:
+        """
+        Comprehensive analysis of a single code file.
+        """
+        try:
+            if not os.path.exists(file_path):
+                return {"error": f"File does not exist: {file_path}"}
+            
+            # Read file content
+            try:
+                with open(file_path, 'r', encoding='utf-8') as f:
+                    content = f.read()
+            except UnicodeDecodeError:
+                try:
+                    with open(file_path, 'r', encoding='latin-1') as f:
+                        content = f.read()
+                except Exception as encoding_error:
+                    return {"error": f"Could not read file {file_path}: {encoding_error}"}
+            
+            file_ext = Path(file_path).suffix.lower()
+            
+            # Perform AST analysis
+            ast_analysis = {}
+            
+            if file_ext == '.py':
+                # Use Python's built-in AST for Python files
+                ast_analysis = self.analyze_python_ast(content, file_path)
+            else:
+                # Use tree-sitter for other languages
+                ast_analysis = self.analyze_tree_sitter_ast(content, file_path)
+            
+            # Get Git authorship information
+            git_info = self.git_service.get_file_authorship(file_path)
+            
+            # Combine results
+            result = {
+                "file_path": file_path,
+                "file_extension": file_ext,
+                "file_size": len(content),
+                "ast_analysis": ast_analysis,
+                "git_analysis": git_info,
+                "analysis_timestamp": datetime.utcnow().isoformat()
+            }
+            
+            # Generate call graph if possible
+            if "error" not in ast_analysis:
+                result["call_graph"] = self.generate_call_graph(ast_analysis)
+            
+            return result
+            
+        except Exception as e:
+            print(f"Error analyzing code file {file_path}: {e}")
+            return {"error": str(e)}
+    
+    def analyze_codebase_directory(self, directory_path: str, 
+                                  file_extensions: List[str] = None) -> Dict[str, Any]:
+        """
+        Analyze an entire codebase directory.
+        """
+        if file_extensions is None:
+            file_extensions = ['.py', '.js', '.ts', '.java', '.c', '.cpp', '.h', '.hpp']
+        
+        try:
+            if not os.path.exists(directory_path):
+                return {"error": f"Directory does not exist: {directory_path}"}
+            
+            # Initialize Git analysis
+            git_initialized = self.git_service.initialize_repository(directory_path)
+            
+            directory_path = os.path.abspath(directory_path)
+            print(f"Analyzing codebase directory: {directory_path}")
+            
+            analyzed_files = []
+            total_files = 0
+            successful_analyses = 0
+            failed_analyses = 0
+            
+            # Language statistics
+            language_stats = {}
+            
+            # Walk through directory
+            for root, dirs, files in os.walk(directory_path):
+                # Skip .git directories
+                if '.git' in dirs:
+                    dirs.remove('.git')
+                
+                for file in files:
+                    file_path = os.path.join(root, file)
+                    file_ext = Path(file_path).suffix.lower()
+                    
+                    if file_ext in file_extensions:
+                        total_files += 1
+                        print(f"Analyzing: {file_path}")
+                        
+                        analysis_result = self.analyze_code_file(file_path)
+                        
+                        if "error" in analysis_result:
+                            failed_analyses += 1
+                            print(f"Failed to analyze {file_path}: {analysis_result['error']}")
+                        else:
+                            successful_analyses += 1
+                            analyzed_files.append(analysis_result)
+                            
+                            # Update language statistics
+                            language = analysis_result.get("ast_analysis", {}).get("language", "unknown")
+                            if language not in language_stats:
+                                language_stats[language] = {
+                                    "files": 0,
+                                    "total_lines": 0,
+                                    "total_functions": 0,
+                                    "total_classes": 0
+                                }
+                            
+                            lang_stat = language_stats[language]
+                            lang_stat["files"] += 1
+                            
+                            ast_data = analysis_result.get("ast_analysis", {})
+                            lang_stat["total_lines"] += ast_data.get("lines_of_code", 0)
+                            lang_stat["total_functions"] += ast_data.get("total_functions", 0)
+                            lang_stat["total_classes"] += ast_data.get("total_classes", 0)
+            
+            # Get repository metadata if Git was initialized
+            repo_metadata = {}
+            if git_initialized:
+                repo_metadata = self.git_service.get_repository_metadata()
+            
+            codebase_analysis = {
+                "directory_path": directory_path,
+                "total_files_found": total_files,
+                "successful_analyses": successful_analyses,
+                "failed_analyses": failed_analyses,
+                "success_rate": successful_analyses / total_files if total_files > 0 else 0,
+                "language_statistics": language_stats,
+                "analyzed_files": analyzed_files,
+                "repository_metadata": repo_metadata,
+                "git_initialized": git_initialized,
+                "analysis_timestamp": datetime.utcnow().isoformat(),
+                "analyzed_extensions": file_extensions
+            }
+            
+            print(f"Codebase analysis complete: {successful_analyses}/{total_files} files analyzed")
+            return codebase_analysis
+            
+        except Exception as e:
+            print(f"Error analyzing codebase directory: {e}")
+            import traceback
+            traceback.print_exc()
+            return {"error": str(e)}
+    
+    def add_directory_config(self, directory_path: str, recursive: bool = True,
+                           file_patterns: str = None, ignore_patterns: str = None) -> Dict[str, Any]:
+        """
+        Add a directory to the configuration for regular scanning.
+        """
+        try:
+            if not os.path.exists(directory_path):
+                return {"error": f"Directory does not exist: {directory_path}"}
+            
+            if not os.path.isdir(directory_path):
+                return {"error": f"Path is not a directory: {directory_path}"}
+            
+            directory_path = os.path.abspath(directory_path)
+            config_id = self.analytical_brain.add_directory_config(
+                directory_path, recursive, file_patterns, ignore_patterns
+            )
+            
+            return {
+                "status": "directory_added",
+                "config_id": config_id,
+                "directory_path": directory_path,
+                "recursive": recursive,
+                "file_patterns": file_patterns,
+                "ignore_patterns": ignore_patterns
+            }
+            
+        except Exception as e:
+            print(f"Error adding directory config: {e}")
+            return {"error": str(e)}
+    
+    def get_directory_status(self) -> Dict[str, Any]:
+        """
+        Get comprehensive status of directory-based ingestion system.
+        """
+        try:
+            return self.analytical_brain.get_directory_status()
+        except Exception as e:
+            print(f"Error getting directory status: {e}")
+            return {"error": str(e)}

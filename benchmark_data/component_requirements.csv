@@ -1,0 +1,11 @@
+component_id,component_name,subsystem,requirement_type,requirement_description,priority,owner,status,thermal_constraint_c,power_requirement_w,mass_kg,verification_method
+COMP-001,Primary CPU,Processing Unit,Performance,"Process telemetry data at 100Hz minimum",High,Sarah Chen,Validated,85,12.5,0.15,Bench Test
+COMP-002,Memory Module,Processing Unit,Capacity,"Store 30 days of telemetry data locally",Medium,Mike Rodriguez,In Review,70,3.2,0.08,Analysis
+COMP-003,Radio Transceiver,Communication,Range,"Maintain communication up to 50km range",High,Dr. Amanda Torres,Validated,60,8.7,0.22,Field Test
+COMP-004,Battery Pack,Power System,Duration,"Provide 72 hours of operation without recharge",Critical,James Wilson,In Progress,45,0.0,2.4,Lab Test
+COMP-005,Sensor Array,Data Collection,Accuracy,"Measure temperature within ±0.1°C accuracy",High,Sarah Chen,Validated,40,1.8,0.12,Calibration
+COMP-006,GPS Module,Navigation,Precision,"Provide position accuracy within 1 meter",Medium,Dr. Amanda Torres,In Review,65,2.1,0.05,Field Test
+COMP-007,Display Unit,User Interface,Visibility,"Readable in direct sunlight conditions",Medium,Lisa Park,Draft,50,4.5,0.18,User Test
+COMP-008,Enclosure,Mechanical,Protection,"IP67 rated for water and dust protection",High,Mike Rodriguez,Validated,N/A,0.0,0.35,Environmental Test
+COMP-009,Data Logger,Storage,Reliability,"99.9% uptime for continuous data logging",Critical,James Wilson,In Progress,55,2.8,0.11,Endurance Test
+COMP-010,Antenna,Communication,Efficiency,"Maintain 90% transmission efficiency",Medium,Dr. Amanda Torres,Validated,N/A,0.0,0.03,RF Test

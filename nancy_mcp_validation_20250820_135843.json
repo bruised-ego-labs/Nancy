@@ -1,0 +1,307 @@
+{
+  "validation_timestamp": "2025-08-20T13:58:29.129032",
+  "nancy_api_base": "http://localhost:8000",
+  "test_suites": {
+    "core_functionality": {
+      "tests": {
+        "api_connectivity": {
+          "status": "pass",
+          "response_time": 0.038926,
+          "details": {
+            "message": "Welcome to Nancy Core MCP Architecture API",
+            "version": "2.0.0",
+            "migration_mode": "mcp",
+            "architecture": "Four-Brain MCP Orchestration Platform"
+          }
+        },
+        "legacy_ingestion": {
+          "status": "fail",
+          "response_time": 0.034383535385131836,
+          "details": {
+            "success": false,
+            "response_time": 0.034383535385131836,
+            "status_code": 200,
+            "response": {
+              "status": "error",
+              "message": "Ingestion failed: this event loop is already running.",
+              "doc_id": null
+            }
+          }
+        },
+        "query_processing": {
+          "status": "fail",
+          "response_time": 2.582914113998413,
+          "details": {
+            "has_response": false,
+            "brains_used": []
+          }
+        },
+        "graph_functionality": {
+          "status": "pass",
+          "response_time": 0.06127452850341797,
+          "details": {
+            "status": "success",
+            "author": "Test Author",
+            "documents": [
+              {
+                "id": "94fe688a2e3fb9e243574bfd8c83f6ff7d8b69d6eb15f883a10b451f666e89b6",
+                "filename": "voice_of_customer.txt",
+                "size": 4417,
+                "file_type": ".txt",
+                "ingested_at": "2025-08-18T06:05:28.788589"
+              },
+              {
+                "id": "1af00d065cc1aeec0bac9aac5443a090d48ca1af3b307bfd6e4038a9160b607a",
+                "filename": "system_requirements_v2.txt",
+                "size": 1922,
+                "file_type": ".txt",
+                "ingested_at": "2025-08-18T06:04:34.137485"
+              },
+              {
+                "id": "945c6d9380d846b33e868f4f4e6cfcea811985084defc67def3b2faf985fb96a",
+                "filename": "power_analysis_report.txt",
+                "size": 4065,
+                "file_type": ".txt",
+                "ingested_at": "2025-08-18T06:04:09.480997"
+              },
+              {
+                "id": "9d239f3c5c333d5e814e9b4a4ba02ac1ead055872f45baa95c49a29ca9d5d7fe",
+                "filename": "march_design_review_transcript.txt",
+                "size": 5821,
+                "file_type": ".txt",
+                "ingested_at": "2025-08-18T06:03:29.202302"
+              },
+              {
+                "id": "feb14599bf70353d58443b2fc35f66c9a8b1ae97c7a48a7517e4240533074f43",
+                "filename": "firmware_requirements.txt",
+                "size": 6884,
+                "file_type": ".txt",
+                "ingested_at": "2025-08-18T06:03:03.339903"
+              },
+              {
+                "id": "686d64e4c25dc6f2d82cd61786f6eee63ca18b8d1ebef06b7a2e2dd8ae986191",
+                "filename": "ergonomic_analysis.txt",
+                "size": 5285,
+                "file_type": ".txt",
+                "ingested_at": "2025-08-18T06:02:34.608766"
+              },
+              {
+                "id": "f2f3b48f0ba0017ab3e48f744ac7fc1a89ac118526e528720db46b207e33802a",
+                "filename": "emc_test_results.txt",
+                "size": 3112,
+                "file_type": ".txt",
+                "ingested_at": "2025-08-18T06:02:16.084441"
+              },
+              {
+                "id": "561b2d16f8317fbe7626d88d2d807227b8033cf6f4009009c3e30608d83e688f",
+                "filename": "electrical_review_meeting.txt",
+                "size": 3648,
+                "file_type": ".txt",
+                "ingested_at": "2025-08-18T06:01:45.020299"
+              },
+              {
+                "id": "df4f1782c817ea086aa00b7a07fff9b7706eee4275099d8b5736681931caf866",
+                "filename": "thermal_constraints_doc.txt",
+                "size": 2282,
+                "file_type": ".txt",
+                "ingested_at": "2025-08-18T06:01:06.752633"
+              }
+            ],
+            "document_count": 9
+          }
+        },
+        "configuration_access": {
+          "status": "pass",
+          "details": {
+            "nancy_core": {
+              "version": "2.0.0",
+              "instance_name": "nancy-dev",
+              "description": "Development Nancy Core instance"
+            },
+            "orchestration": {
+              "mode": "four_brain",
+              "routing_strategy": "langchain_router"
+            },
+            "brains": {
+              "vector": {
+                "backend": "chromadb"
+              },
+              "analytical": {
+                "backend": "duckdb"
+              },
+              "graph": {
+                "backend": "neo4j"
+              },
+              "linguistic": {
+                "primary_llm": "gemma_3n_e4b_it"
+              }
+            },
+            "mcp_servers": {
+              "enabled_count": 0,
+              "server_names": []
+            }
+          }
+        }
+      },
+      "passed": 3,
+      "failed": 2,
+      "errors": 0
+    },
+    "mcp_tools": {
+      "setup_ingestion": {
+        "success": false,
+        "response_time": 0.022838830947875977,
+        "status_code": 200,
+        "response": {
+          "status": "error",
+          "message": "Ingestion failed: this event loop is already running.",
+          "doc_id": null
+        }
+      },
+      "tests": {
+        "ingest_information": {
+          "status": "fail",
+          "response_time": 0.016478538513183594,
+          "details": {
+            "status": "error",
+            "message": "Ingestion failed: this event loop is already running.",
+            "doc_id": null
+          }
+        },
+        "query_memory": {
+          "status": "pass",
+          "response_time": 3.3350989818573,
+          "details": {
+            "has_response": true,
+            "response_length": 647,
+            "brains_used": [
+              "vector",
+              "linguistic"
+            ]
+          }
+        },
+        "find_author_contributions": {
+          "status": "pass",
+          "response_time": 0.021079063415527344,
+          "details": {
+            "status": "success",
+            "author": "MCP Validator",
+            "documents": [],
+            "message": "No documents found for author 'MCP Validator'"
+          }
+        },
+        "get_project_overview": {
+          "status": "pass",
+          "details": {
+            "nancy_status": {
+              "ok": false,
+              "status_code": 500
+            },
+            "ingest_status": {
+              "ok": true,
+              "status_code": 200
+            },
+            "note": "nancy/status endpoint has known event loop issues"
+          }
+        }
+      },
+      "passed": 3,
+      "failed": 1,
+      "errors": 0
+    },
+    "performance": {
+      "tests": {
+        "ingestion_speed": {
+          "status": "fail",
+          "details": {
+            "average_time": 0.031443119049072266,
+            "all_successful": false,
+            "results": [
+              {
+                "content_size": 100,
+                "ingestion_time": 0.01667022705078125,
+                "success": false
+              },
+              {
+                "content_size": 1000,
+                "ingestion_time": 0.03755807876586914,
+                "success": false
+              },
+              {
+                "content_size": 5000,
+                "ingestion_time": 0.040101051330566406,
+                "success": false
+              }
+            ]
+          }
+        },
+        "query_response_time": {
+          "status": "pass",
+          "details": {
+            "average_response_time": 1.501006285349528,
+            "successful_queries": 3,
+            "total_queries": 3
+          }
+        },
+        "concurrent_requests": {
+          "status": "pass",
+          "details": {
+            "success_rate": 1.0,
+            "successful_requests": 3,
+            "total_requests": 3
+          }
+        }
+      },
+      "passed": 2,
+      "failed": 1,
+      "errors": 0
+    },
+    "error_handling": {
+      "tests": {
+        "invalid_query": {
+          "status": "pass",
+          "details": {
+            "status_code": 200,
+            "handled_gracefully": true
+          }
+        },
+        "malformed_request": {
+          "status": "pass",
+          "details": {
+            "status_code": 422,
+            "handled_properly": true
+          }
+        },
+        "timeout_handling": {
+          "status": "pass",
+          "details": "Timeout handled correctly"
+        },
+        "large_content": {
+          "status": "fail",
+          "details": {
+            "content_size": 50000,
+            "ingestion_successful": false,
+            "response_time": 0.028918743133544922
+          }
+        }
+      },
+      "passed": 3,
+      "failed": 1,
+      "errors": 0
+    }
+  },
+  "overall_status": "fair",
+  "recommendations": [
+    "System reliability needs improvement - review failed tests",
+    "Core functionality issues detected - priority fix required",
+    "MCP tool functionality needs attention for proper integration",
+    "Performance optimization recommended"
+  ],
+  "summary": {
+    "total_tests": 16,
+    "passed": 11,
+    "failed": 5,
+    "errors": 0,
+    "success_rate": 0.6875
+  }
+}

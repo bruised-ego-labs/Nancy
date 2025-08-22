@@ -1,0 +1,87 @@
+{
+  "timestamp": "2025-08-18T23:02:13.293781",
+  "test_type": "independent_performance_comparison",
+  "results": {
+    "nancy": [
+      {
+        "query": "What are the thermal constraints mentioned?",
+        "success": true,
+        "time": 2.880300998687744,
+        "response_length": 348,
+        "response_preview": "The thermal constraints mentioned are:\n\n*   **60\u00b0C:** To prevent thermal runaway.\n*   **Total system"
+      },
+      {
+        "query": "List all components in the database",
+        "success": true,
+        "time": 2.777312755584717,
+        "response_length": 373,
+        "response_preview": "Based on the provided data, the components in the database are identified by the `component_id` colu"
+      },
+      {
+        "query": "Who authored the system requirements?",
+        "success": true,
+        "time": 0.785456657409668,
+        "response_length": 495,
+        "response_preview": "GRAPH_TECHNICAL_RESULTS: Technical cross-references: [{'source': None, 'target': None, 'context': 'R"
+      },
+      {
+        "query": "How many documents are stored?",
+        "success": true,
+        "time": 0.808835506439209,
+        "response_length": 93,
+        "response_preview": "Database statistics:\n\u2022 Total files: 9\n\u2022 Average size: 4159.555555555556 bytes\n\u2022 File types: 1"
+      },
+      {
+        "query": "What electrical components exist?",
+        "success": true,
+        "time": 1.8343350887298584,
+        "response_length": 273,
+        "response_preview": "The provided information doesn't list specific electrical components. It focuses on electromagnetic "
+      }
+    ],
+    "baseline": [
+      {
+        "query": "What are the thermal constraints mentioned?",
+        "success": true,
+        "time": 1.2764582633972168,
+        "response_length": 312,
+        "response_preview": "The thermal constraints mentioned are:\n- Component spacing optimization due to thermal constraints.\n"
+      },
+      {
+        "query": "List all components in the database",
+        "success": true,
+        "time": 0.8287677764892578,
+        "response_length": 145,
+        "response_preview": "Here's a list of all components in the database, based on the provided context:\n\n*   Primary CPU\n*  "
+      },
+      {
+        "query": "Who authored the system requirements?",
+        "success": true,
+        "time": 0.8240566253662109,
+        "response_length": 170,
+        "response_preview": "The context only lists the owners of individual component requirements. It does not specify who auth"
+      },
+      {
+        "query": "How many documents are stored?",
+        "success": true,
+        "time": 0.8235781192779541,
+        "response_length": 127,
+        "response_preview": "The provided context doesn't contain information about the number of documents stored. Therefore, I "
+      },
+      {
+        "query": "What electrical components exist?",
+        "success": true,
+        "time": 1.2065556049346924,
+        "response_length": 243,
+        "response_preview": "Based on the provided context, the following electrical components exist:\n\n*   Battery Pack (COMP-00"
+      }
+    ]
+  },
+  "summary": {
+    "nancy_success_rate": 100.0,
+    "baseline_success_rate": 100.0,
+    "nancy_avg_time": 1.8172482013702393,
+    "baseline_avg_time": 0.9918832778930664,
+    "speed_ratio": 1.8321190021777487
+  }
+}

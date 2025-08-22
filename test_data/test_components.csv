@@ -1,0 +1,4 @@
+Component_ID,Component_Name,Temperature_C,Max_Pressure_PSI,Test_Status,Cost_USD,Engineering_Domain
+COMP_001,Thermal Sensor,85.2,150.0,PASS,45.2,Thermal
+COMP_002,Pressure Valve,42.1,500.0,PASS,120.5,Mechanical
+COMP_003,Power Supply,75.8,0.0,FAIL,89.75,Electrical

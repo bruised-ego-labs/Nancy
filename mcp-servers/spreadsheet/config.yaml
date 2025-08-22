@@ -1,0 +1,54 @@
+# Nancy Spreadsheet MCP Server Configuration
+
+server:
+  name: "nancy-spreadsheet-server"
+  version: "1.0.0"
+  description: "Comprehensive spreadsheet processing for Nancy's Four-Brain architecture"
+  
+capabilities:
+  supported_extensions:
+    - ".xlsx"
+    - ".xls"
+    - ".csv"
+  
+  features:
+    - "multi_sheet_excel_processing"
+    - "csv_processing_with_encoding_detection"
+    - "engineering_domain_intelligence"
+    - "column_relationship_analysis"
+    - "semantic_summary_generation"
+    - "knowledge_packet_generation"
+    - "four_brain_data_distribution"
+  
+  processing:
+    max_file_size_mb: 100
+    max_sheets_per_file: 50
+    max_rows_per_sheet: 1000000
+    max_columns_per_sheet: 1000
+    
+  quality_thresholds:
+    extraction_confidence_min: 0.8
+    content_completeness_min: 0.9
+    
+logging:
+  level: "INFO"
+  file: "server.log"
+  max_size_mb: 10
+  backup_count: 5
+  
+performance:
+  request_timeout_seconds: 300
+  memory_limit_mb: 1024
+  concurrent_requests: 10
+  
+nancy_integration:
+  packet_version: "1.0"
+  default_priority_brain: "analytical"
+  semantic_weight: 0.7
+  relationship_importance: 0.8
+  content_classification: "technical"
+  
+error_handling:
+  retry_attempts: 3
+  fallback_to_text_processing: true
+  detailed_error_reporting: true

@@ -1,0 +1,300 @@
+{
+  "diagnostic_timestamp": "2025-08-20T13:53:05.114593",
+  "nancy_api_base": "http://localhost:8000",
+  "system_health": {
+    "connectivity": {
+      "status": "success",
+      "status_code": 200,
+      "response": {
+        "status": "unhealthy",
+        "api": "ok",
+        "nancy_core": {
+          "status": "error",
+          "error": "this event loop is already running."
+        }
+      }
+    },
+    "nancy_status": {
+      "status": "failed",
+      "status_code": 500,
+      "response": "{\"detail\":\"Status check failed: this event loop is already running.\"}"
+    },
+    "configuration": {
+      "status": "success",
+      "status_code": 200,
+      "response": {
+        "nancy_core": {
+          "version": "2.0.0",
+          "instance_name": "nancy-dev",
+          "description": "Development Nancy Core instance"
+        },
+        "orchestration": {
+          "mode": "four_brain",
+          "routing_strategy": "langchain_router"
+        },
+        "brains": {
+          "vector": {
+            "backend": "chromadb"
+          },
+          "analytical": {
+            "backend": "duckdb"
+          },
+          "graph": {
+            "backend": "neo4j"
+          },
+          "linguistic": {
+            "primary_llm": "gemma_3n_e4b_it"
+          }
+        },
+        "mcp_servers": {
+          "enabled_count": 0,
+          "server_names": []
+        }
+      }
+    }
+  },
+  "individual_tests": {
+    "direct_api": {
+      "legacy_ingestion": {
+        "status": "success",
+        "status_code": 200,
+        "response": {
+          "status": "error",
+          "message": "Ingestion failed: this event loop is already running.",
+          "doc_id": null
+        }
+      },
+      "knowledge_packet_ingestion": {
+        "status": "failed",
+        "status_code": 400,
+        "response": "{\"detail\":\"Invalid Knowledge Packet: Knowledge Packet validation failed: 'packet_version' is a required property\"}"
+      },
+      "query_endpoint": {
+        "status": "success",
+        "status_code": 200,
+        "response": {
+          "query": "diagnostic test content",
+          "strategy_used": "intelligent_semantic",
+          "intent_analysis": {
+            "type": "semantic",
+            "confidence": 0.8,
+            "reasoning": "General content search",
+            "semantic_terms": [
+              "diagnostic test",
+              "content"
+            ],
+            "entities": [],
+            "time_constraints": null,
+            "metadata_filters": null,
+            "relationship_targets": null
+          },
+          "raw_results": [],
+          "synthesized_response": "Hi there! So you're looking for information about diagnostic test content. \n\nUnfortunately, my current search didn't return any specific documents or authors directly addressing \"diagnostic test content.\" This could mean the information is spread across various resources or isn't publicly available in a readily searchable format.\n\nHowever, generally speaking, diagnostic test content focuses on identifying specific issues or weaknesses within a system or component. It often includes a set of questions, tasks, or measurements designed to pinpoint the root cause of a problem. \n\nTo find more specific content, you might want to search our internal documentation using keywords related to the system you're working with, along with terms like \"troubleshooting,\" \"failure analysis,\" or \"performance evaluation.\" You could also check relevant engineering guidelines or best practice documents.\n\n\n\n",
+          "brains_used": [
+            "vector",
+            "linguistic"
+          ],
+          "processing_timestamp": "2025-08-20T20:53:09.076460"
+        }
+      },
+      "graph_query": {
+        "status": "success",
+        "status_code": 200,
+        "response": {
+          "status": "success",
+          "author": "MCP Diagnostic Suite",
+          "documents": [],
+          "message": "No documents found for author 'MCP Diagnostic Suite'"
+        }
+      }
+    },
+    "mcp_simulation": {
+      "ingest_information": {
+        "status": "success",
+        "nancy_mode": "unknown",
+        "status_code": 200,
+        "response": {
+          "status": "error",
+          "message": "Ingestion failed: this event loop is already running.",
+          "doc_id": null
+        }
+      },
+      "query_memory": {
+        "status": "success",
+        "status_code": 200,
+        "response": {
+          "query": "diagnostic test",
+          "strategy_used": "intelligent_semantic",
+          "intent_analysis": {
+            "type": "semantic",
+            "confidence": 0.8,
+            "reasoning": "General content search",
+            "semantic_terms": [
+              "diagnostic",
+              "test"
+            ],
+            "entities": [],
+            "time_constraints": null,
+            "metadata_filters": null,
+            "relationship_targets": null
+          },
+          "raw_results": [],
+          "synthesized_response": "Hi there! So you're asking about diagnostic tests. \n\nUnfortunately, my current search didn't return any specific documents or authors directly addressing \"diagnostic tests.\" This might mean the term is too general, or the information isn't readily available in the sources I have access to. \n\nHowever, diagnostic tests are a crucial part of engineering \u2013 they help identify problems in systems and components. They can range from simple visual inspections to complex simulations and data analysis. \n\nTo help me narrow down what you're looking for, could you tell me what *kind* of system or component you're interested in? For example, are you thinking about diagnostic tests for electrical circuits, mechanical systems, or software? Knowing the context will allow me to provide a more targeted and helpful response.\n\n\n\n",
+          "brains_used": [
+            "vector",
+            "linguistic"
+          ],
+          "processing_timestamp": "2025-08-20T20:53:17.128355"
+        }
+      },
+      "find_author_contributions": {
+        "status": "success",
+        "status_code": 200,
+        "response": {
+          "status": "success",
+          "author": "MCP Diagnostic",
+          "documents": [],
+          "message": "No documents found for author 'MCP Diagnostic'"
+        }
+      },
+      "get_project_overview": {
+        "nancy_status": {
+          "status": "failed",
+          "status_code": 500,
+          "response": "{\"detail\":\"Status check failed: this event loop is already running.\"}"
+        },
+        "ingest_status": {
+          "status": "success",
+          "status_code": 200,
+          "response": {
+            "system_status": "operational",
+            "migration_mode": "mcp",
+            "metrics": {
+              "migration_mode": "mcp",
+              "legacy_metrics": {},
+              "mcp_metrics": {
+                "packets_processed": 0,
+                "packets_failed": 0,
+                "success_rate": 0,
+                "active_servers": 0,
+                "total_servers": 0,
+                "queue_size": 0,
+                "uptime_seconds": 1725.873933
+              }
+            },
+            "mcp_metrics": {
+              "packets_processed": 0,
+              "packets_failed": 0,
+              "success_rate": 0,
+              "active_servers": 0,
+              "total_servers": 0,
+              "queue_size": 0,
+              "uptime_seconds": 1725.873946
+            }
+          }
+        }
+      }
+    },
+    "event_loop": {
+      "/health": {
+        "status": "success",
+        "status_code": 200,
+        "response": {
+          "status": "unhealthy",
+          "api": "ok",
+          "nancy_core": {
+            "status": "error",
+            "error": "this event loop is already running."
+          }
+        },
+        "event_loop_error": false
+      },
+      "/api/nancy/status": {
+        "status": "failed",
+        "status_code": 500,
+        "response": "{\"detail\":\"Status check failed: this event loop is already running.\"}",
+        "event_loop_error": true
+      },
+      "/api/nancy/configuration": {
+        "status": "success",
+        "status_code": 200,
+        "response": {
+          "nancy_core": {
+            "version": "2.0.0",
+            "instance_name": "nancy-dev",
+            "description": "Development Nancy Core instance"
+          },
+          "orchestration": {
+            "mode": "four_brain",
+            "routing_strategy": "langchain_router"
+          },
+          "brains": {
+            "vector": {
+              "backend": "chromadb"
+            },
+            "analytical": {
+              "backend": "duckdb"
+            },
+            "graph": {
+              "backend": "neo4j"
+            },
+            "linguistic": {
+              "primary_llm": "gemma_3n_e4b_it"
+            }
+          },
+          "mcp_servers": {
+            "enabled_count": 0,
+            "server_names": []
+          }
+        },
+        "event_loop_error": false
+      }
+    }
+  },
+  "integration_tests": {
+    "ingest_to_query_flow": {
+      "ingest_status": "success",
+      "ingest_response": {
+        "status": "error",
+        "message": "Ingestion failed: this event loop is already running.",
+        "doc_id": null
+      },
+      "query_status": "success",
+      "query_response": {
+        "query": "integration test content timestamp",
+        "strategy_used": "intelligent_semantic",
+        "intent_analysis": {
+          "type": "semantic",
+          "confidence": 0.8,
+          "reasoning": "Searching for content with timestamps.",
+          "semantic_terms": [
+            "integration test",
+            "timestamp"
+          ],
+          "entities": [],
+          "time_constraints": null,
+          "metadata_filters": null,
+          "relationship_targets": null
+        },
+        "raw_results": [],
+        "synthesized_response": "Hi there!\n\nRegarding content timestamps in integration tests, it's a crucial aspect for verifying data consistency and proper sequencing. Unfortunately, I don't have access to specific documents or authors to point you to directly with the information available. \n\nHowever, generally, you'd want to ensure your integration tests verify that the timestamps on data exchanged between systems are correct. This might involve checking that a record created in one system has the correct timestamp when it appears in another. \n\nA good practice is to include timestamp assertions in your test scripts. This can help catch issues where data is not being synchronized or timestamps are being altered unexpectedly. You can also look into relevant documentation for the specific systems you're integrating, as they likely have guidelines on timestamp handling.\n\n\n\n",
+        "brains_used": [
+          "vector",
+          "linguistic"
+        ],
+        "processing_timestamp": "2025-08-20T20:53:22.956246"
+      },
+      "content_found": false,
+      "overall_flow": "failed"
+    }
+  },
+  "identified_issues": [
+    "Event loop already running error in Nancy core",
+    "MCP tool simulation failed: get_project_overview",
+    "Ingestion-to-query flow broken - ingested content not found in queries"
+  ],
+  "recommendations": [
+    "Fix asyncio event loop usage in legacy_adapter.py lines 155-158 and 269-270",
+    "Investigate search indexing and query processing pipeline"
+  ]
+}

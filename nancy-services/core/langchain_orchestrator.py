@@ -276,6 +276,68 @@ def create_simple_destination_chains(vector_brain, analytical_brain, graph_brain
                         else:
                             response = "GRAPH_AUTHOR_RESULTS: No authors found in the graph database"
                             
+                elif any(word in query for word in ['when', 'timeline', 'sequence', 'before', 'after', 'during', 'phase', 'era', 'time']):
+                    # Enhanced temporal query handling for Phase 3
+                    print("Processing temporal query...")
+                    
+                    if 'timeline' in query or 'sequence' in query:
+                        # Get temporal sequence
+                        if hasattr(graph_brain, 'get_temporal_sequence'):
+                            temporal_sequence = graph_brain.get_temporal_sequence(limit=20)
+                            if temporal_sequence:
+                                response = f"GRAPH_TEMPORAL_RESULTS: Project timeline ({len(temporal_sequence)} events):\n"
+                                for i, item in enumerate(temporal_sequence[:10], 1):
+                                    timestamp = item.get('timestamp', 'Unknown time')
+                                    name = item.get('name', 'Unknown event')
+                                    item_type = item.get('item_type', 'event')
+                                    era = item.get('era', '')
+                                    era_info = f" (Era: {era})" if era else ""
+                                    response += f"  {i}. {timestamp}: {item_type.upper()} - {name}{era_info}\n"
+                                return {"text": response}
+                    
+                    elif 'before' in query or 'after' in query:
+                        # Look for causal chains
+                        query_words = query.split()
+                        target_events = [word for word in query_words if len(word) > 4 and word.lower() not in ['before', 'after', 'what', 'happened']]
+                        
+                        if target_events and hasattr(graph_brain, 'find_causal_chain'):
+                            for target in target_events:
+                                causal_chains = graph_brain.find_causal_chain(target)
+                                if causal_chains:
+                                    response = f"GRAPH_TEMPORAL_RESULTS: Causal chain for '{target}':\n"
+                                    for chain in causal_chains[:3]:
+                                        sequence = chain.get('causal_sequence', [])
+                                        for step in sequence:
+                                            response += f"  → {step.get('type', 'Event')}: {step.get('name', 'Unknown')} ({step.get('timestamp', 'No timestamp')})\n"
+                                    return {"text": response}
+                    
+                    elif 'era' in query or 'phase' in query:
+                        # Get era transitions or project timeline
+                        if hasattr(graph_brain, 'find_era_transitions'):
+                            era_transitions = graph_brain.find_era_transitions()
+                            if era_transitions:
+                                response = f"GRAPH_TEMPORAL_RESULTS: Project era transitions:\n"
+                                for transition in era_transitions:
+                                    from_era = transition.get('from_era', 'Unknown')
+                                    to_era = transition.get('to_era', 'Unknown')
+                                    date = transition.get('transition_date', 'Unknown date')
+                                    response += f"  {from_era} → {to_era} ({date})\n"
+                                return {"text": response}
+                        
+                        # Fallback: get project timeline by era
+                        if hasattr(graph_brain, 'find_project_timeline'):
+                            timeline = graph_brain.find_project_timeline()
+                            if timeline:
+                                response = f"GRAPH_TEMPORAL_RESULTS: Project phases and eras:\n"
+                                for era_data in timeline[:5]:
+                                    era_name = era_data.get('era', 'Unknown Era')
+                                    description = era_data.get('era_description', '')
+                                    response += f"  Era: {era_name}\n    {description}\n"
+                                return {"text": response}
+                    
+                    # Fallback temporal response
+                    response = "GRAPH_TEMPORAL_RESULTS: Temporal analysis capabilities available. Try queries like 'show me the timeline', 'what happened before X', or 'what decisions were made in Y era'."
+                    
                 elif 'who wrote' in query or ('author' in query and ('named' in query or 'called' in query)):
                     # Try to extract author name from query
                     import re
@@ -331,11 +393,11 @@ def create_simple_destination_chains(vector_brain, analytical_brain, graph_brain
 def create_query_router(llm):
     """Create the main query router that decides which brain to use"""
     
-    # Create destination info for the router with concrete examples
+    # Create destination info for the router with enhanced temporal awareness
     destinations = [
         "vector_brain: Use this for questions about the *content or substance* of documents. Examples: 'What are the thermal constraints?', 'Summarize the key integration points', 'What are the system requirements?', 'Explain the electrical design decisions'",
         "analytical_brain: Use this *only* for questions about file metadata and statistics. Examples: 'How many files are in the project?', 'What is the largest file?', 'Show me recent files', 'List all document types'", 
-        "graph_brain: Use this for questions about *relationships, expertise, decisions, and collaboration*. Examples: 'Who are the thermal experts?', 'What technical systems interface with electrical components?', 'What decisions influenced the design?', 'Who collaborated on this project?', 'Show me all authors'"
+        "graph_brain: Use this for questions about *relationships, expertise, decisions, collaboration, and TEMPORAL/TIME-BASED queries*. Examples: 'Who are the thermal experts?', 'What technical systems interface with electrical components?', 'What decisions influenced the design?', 'Who collaborated on this project?', 'Show me all authors', 'What happened before the design review?', 'When was this decision made?', 'What events led to this change?', 'Show me the timeline of project phases', 'What decisions were made in Q2?', 'How did the requirements evolve over time?'"
     ]
     
     destinations_str = "\n".join(destinations)
@@ -429,13 +491,32 @@ class LangChainOrchestrator:
                 )
                 raw_response = result["text"]
                 
-                # Step 3: Check if response needs synthesis
+                # Step 3: Check if response needs synthesis (enhanced for temporal awareness)
                 print("Step 3: Checking if synthesis is needed...")
-                if raw_response.startswith("VECTOR_SEARCH_RESULTS:") or raw_response.startswith("Database results"):
-                    print("Step 4: Performing final synthesis...")
-                    # Extract raw data and synthesize final answer
+                needs_synthesis = (raw_response.startswith("VECTOR_SEARCH_RESULTS:") or 
+                                 raw_response.startswith("Database results") or
+                                 raw_response.startswith("GRAPH_TEMPORAL_RESULTS:"))
+                
+                if needs_synthesis:
+                    print("Step 4: Performing temporal-aware synthesis...")
+                    # Extract raw data and synthesize final answer with temporal context
                     llm_client = LLMClient(preferred_llm="gemini")
-                    system_prompt = "You are Nancy, an AI assistant for engineering teams. Based on the provided information, answer the user's question directly and concisely. Provide specific information from the sources."
+                    
+                    # Enhanced system prompt for temporal awareness
+                    if raw_response.startswith("GRAPH_TEMPORAL_RESULTS:"):
+                        system_prompt = """You are Nancy, an AI assistant for engineering teams with enhanced temporal awareness. 
+                        
+When synthesizing temporal information:
+- Present events in chronological order when relevant
+- Highlight causal relationships between events
+- Identify patterns in project evolution
+- Connect decisions to their temporal context
+- Explain how timing affected outcomes
+
+Provide clear, well-structured responses that help users understand both the facts and the temporal context."""
+                    else:
+                        system_prompt = "You are Nancy, an AI assistant for engineering teams. Based on the provided information, answer the user's question directly and concisely. Provide specific information from the sources."
+                    
                     user_prompt = f"Original question: {query_text}\n\nRetrieved information:\n{raw_response}\n\nPlease provide a direct, synthesized answer to the question:"
                     
                     response = llm_client._call_llm(system_prompt, user_prompt)

@@ -1,0 +1,64 @@
+{
+  "timestamp": "2025-08-18T22:50:55.756055",
+  "test_results": [
+    {
+      "query": "What are the thermal constraints mentioned in the project?",
+      "result": "tie",
+      "reason": "Close scores - Nancy: 3.3 vs Baseline: 3.2",
+      "nancy_score": 3.294,
+      "baseline_score": 3.2136,
+      "nancy_response": "The thermal constraints for the Advanced IoT Device Development project are:\n\n*   **Prevent thermal runaway at 60\u00b0C.**\n*   **Total system heat generation must not exceed 2.5W.**\n*   **Primary heat source (Power management IC) has a maximum dissipation of 1.8W.**\n*   **Secondary heat source (Processo",
+      "baseline_response": "The thermal constraints mentioned in the project are:\n\n*   Thermal constraints require component spacing optimization.\n*   CPU temperatures exceeded 85\u00b0C during stress testing.\n*   Current copper solution is insufficient for sustained loads.\n*   Requires 2mm additional clearance for airflow.\n*   Com",
+      "nancy_time": 2.756425619125366,
+      "baseline_time": 1.4100067615509033
+    },
+    {
+      "query": "Who are the authors in this project and what did they write?",
+      "result": "tie",
+      "reason": "Close scores - Nancy: 5.3 vs Baseline: 5.3",
+      "nancy_score": 5.3,
+      "baseline_score": 5.3,
+      "nancy_response": "Okay, here's a comprehensive answer regarding the authors of the IoT device project and their contributions, synthesized from the provided documents and relationship analysis:\n\n**Authors and Their Contributions:**\n\n*   **Sarah Chen (Systems):** Sarah Chen is the author of the *System Requirements Do",
+      "baseline_response": "Based on the provided context, the authors involved in this project are:\n\n*   **Sarah Chen:** PRIMARY thermal design expert, SECONDARY mechanical integration.\n*   **Mike Rodriguez:** PRIMARY electrical design expert, SECONDARY power management.\n*   **Lisa Park:** PRIMARY mechanical design expert, SE",
+      "nancy_time": 8.316021919250488,
+      "baseline_time": 2.0021657943725586
+    },
+    {
+      "query": "How many files are in the database?",
+      "result": "nancy_wins",
+      "reason": "Nancy: 3.1 vs Baseline: 2.1",
+      "nancy_score": 3.0558,
+      "baseline_score": 2.0936,
+      "nancy_response": "Database statistics:\n\u2022 Total files: 9\n\u2022 Average size: 4159.555555555556 bytes\n\u2022 File types: 1",
+      "baseline_response": "The context mentions three spreadsheets: team_directory.csv, component_requirements.csv, and test_results.csv. Therefore, there are 3 files in the database.",
+      "nancy_time": 0.85784912109375,
+      "baseline_time": 0.7736492156982422
+    },
+    {
+      "query": "What electrical and mechanical systems are mentioned?",
+      "result": "nancy_wins",
+      "reason": "Nancy: 4.3 vs Baseline: 3.1",
+      "nancy_score": 4.3,
+      "baseline_score": 3.1086,
+      "nancy_response": "Okay, here's a comprehensive answer to the question \"What electrical and mechanical systems are mentioned?\" based on the provided documents and relationship analysis.\n\n**Electrical Systems:**\n\n*   **LED Indicators:**  The documents mention \"LED indicators\" which are clearly an electrical component. ",
+      "baseline_response": "The electrical system mentioned is electrical design and power management. The mechanical systems mentioned are mechanical design, mechanical integration, and materials selection. \n",
+      "nancy_time": 10.310874938964844,
+      "baseline_time": 0.8611512184143066
+    },
+    {
+      "query": "Explain the relationship between thermal design and power management",
+      "result": "nancy_wins",
+      "reason": "Nancy: 5.3 vs Baseline: 3.3",
+      "nancy_score": 5.3,
+      "baseline_score": 3.3,
+      "nancy_response": "## Thermal Design and Power Management: A Relationship Overview\n\nAs an AI assistant for engineering teams, I've analyzed the provided documents and decision records to explain the relationship between thermal design and power management in this project.  The relationship is **highly interdependent a",
+      "baseline_response": "The thermal analysis report indicates that CPU temperatures exceeded 85\u00b0C during stress testing, influenced by Mike Rodriguez's electrical power analysis showing a 15W TDP. This led to the decision to adopt an aluminum heat sink design to improve cooling. The thermal constraints also require compone",
+      "nancy_time": 10.344908714294434,
+      "baseline_time": 2.062016010284424
+    }
+  ],
+  "nancy_wins": 3,
+  "baseline_wins": 0,
+  "ties": 2,
+  "api_errors": 0
+}

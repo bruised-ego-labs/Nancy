@@ -16,6 +16,13 @@ services:
       - CHROMA_HOST=chromadb
       - NEO4J_URI=bolt://neo4j:7687
       - OLLAMA_HOST=http://ollama:11434
+      - NANCY_MIGRATION_MODE=mcp
+    volumes:
+      - ./data:/app/data                    # Persistent Nancy data
+      - ./project_docs:/app/project_docs    # Directory for project documents
+      - ./benchmark_data:/app/benchmark_data # Benchmark test data
+      - ./nancy-config.yaml:/app/nancy-config.yaml # Nancy configuration
+      - ./mcp-servers:/app/mcp-servers      # MCP servers directory
 
   baseline-rag:
     build:

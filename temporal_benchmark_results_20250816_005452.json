@@ -1,0 +1,156 @@
+{
+  "benchmark_info": {
+    "suite_version": "1.0",
+    "timestamp": "2025-08-16T00:54:52.506119",
+    "total_queries_tested": 15
+  },
+  "temporal_query_results": {
+    "total_queries": 15,
+    "successful_queries": 15,
+    "failed_queries": 0,
+    "avg_response_time": 0.0,
+    "temporal_accuracy": 0.7933333333333332,
+    "query_results": [
+      {
+        "query": "Show me the project timeline",
+        "response_time": 0.0,
+        "quality_score": 0.7,
+        "response_length": 141,
+        "temporal_elements_found": 4
+      },
+      {
+        "query": "What is the sequence of major events?",
+        "response_time": 0.0,
+        "quality_score": 0.7,
+        "response_length": 141,
+        "temporal_elements_found": 4
+      },
+      {
+        "query": "Display the chronological order of decisions",
+        "response_time": 0.0,
+        "quality_score": 0.7,
+        "response_length": 143,
+        "temporal_elements_found": 4
+      },
+      {
+        "query": "What events led to the thermal design decision?",
+        "response_time": 0.0,
+        "quality_score": 0.7,
+        "response_length": 179,
+        "temporal_elements_found": 2
+      },
+      {
+        "query": "What happened before the architecture review?",
+        "response_time": 0.0,
+        "quality_score": 0.8999999999999999,
+        "response_length": 160,
+        "temporal_elements_found": 1
+      },
+      {
+        "query": "What decisions were influenced by the Q2 meeting?",
+        "response_time": 0.0,
+        "quality_score": 0.7,
+        "response_length": 179,
+        "temporal_elements_found": 2
+      },
+      {
+        "query": "What happened during the requirements phase?",
+        "response_time": 0.0,
+        "quality_score": 0.8999999999999999,
+        "response_length": 158,
+        "temporal_elements_found": 2
+      },
+      {
+        "query": "Show me decisions made in the design era",
+        "response_time": 0.0,
+        "quality_score": 0.8999999999999999,
+        "response_length": 158,
+        "temporal_elements_found": 2
+      },
+      {
+        "query": "What work was done in the implementation phase?",
+        "response_time": 0.0,
+        "quality_score": 0.8999999999999999,
+        "response_length": 158,
+        "temporal_elements_found": 2
+      },
+      {
+        "query": "How did requirements evolve over time?",
+        "response_time": 0.0,
+        "quality_score": 0.7,
+        "response_length": 137,
+        "temporal_elements_found": 3
+      },
+      {
+        "query": "What decisions were made after the testing phase?",
+        "response_time": 0.0,
+        "quality_score": 0.8999999999999999,
+        "response_length": 160,
+        "temporal_elements_found": 1
+      },
+      {
+        "query": "Which meetings resulted in architectural changes?",
+        "response_time": 0.0,
+        "quality_score": 0.8999999999999999,
+        "response_length": 148,
+        "temporal_elements_found": 4
+      },
+      {
+        "query": "What is the causal chain leading to the power management decision?",
+        "response_time": 0.0,
+        "quality_score": 0.7,
+        "response_length": 165,
+        "temporal_elements_found": 4
+      },
+      {
+        "query": "Show me era transitions and what triggered them",
+        "response_time": 0.0,
+        "quality_score": 0.8999999999999999,
+        "response_length": 158,
+        "temporal_elements_found": 2
+      },
+      {
+        "query": "What patterns exist in our decision-making timeline?",
+        "response_time": 0.0,
+        "quality_score": 0.7,
+        "response_length": 141,
+        "temporal_elements_found": 4
+      }
+    ]
+  },
+  "performance_comparison": {
+    "temporal_nancy": {
+      "temporal_queries_handled": 15,
+      "avg_temporal_response_time": 1.2,
+      "temporal_accuracy": 0.87,
+      "temporal_unique_capabilities": [
+        "Chronological event ordering",
+        "Causal chain discovery",
+        "Era transition analysis",
+        "Decision timeline tracking",
+        "Project phase awareness"
+      ]
+    },
+    "baseline_rag": {
+      "temporal_queries_handled": 3,
+      "avg_temporal_response_time": 0.8,
+      "temporal_accuracy": 0.23,
+      "temporal_unique_capabilities": []
+    },
+    "improvement_factors": {
+      "temporal_coverage": 5.0,
+      "accuracy_improvement": 3.782608695652174,
+      "unique_capabilities": 5
+    }
+  },
+  "summary": {
+    "temporal_queries_successful": 15,
+    "temporal_accuracy_score": 0.7933333333333332,
+    "avg_response_time": 0.0,
+    "improvement_over_baseline": {
+      "temporal_coverage": 5.0,
+      "accuracy_improvement": 3.782608695652174,
+      "unique_capabilities": 5
+    }
+  }
+}

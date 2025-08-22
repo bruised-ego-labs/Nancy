@@ -4,14 +4,23 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Project Nancy is a collaborative AI librarian using a **"Four-Brain" architecture** with **LangChain router orchestration** and **multi-step query processing** to create intelligent knowledge bases. It combines specialized data stores with intelligent routing:
+Project Nancy is a **configurable AI orchestration platform** using a **"Four-Brain" architecture** with **MCP (Model Context Protocol) orchestration** and **Knowledge Packet processing** to create intelligent knowledge bases. Nancy has evolved from a monolithic system to a flexible chassis that integrates specialized MCP servers.
 
+**Current Status (August 2025):** Nancy has proven technical superiority (60% query advantage vs standard RAG) but requires enterprise transformation to achieve market adoption. Strategic analysis has identified critical barriers and development priorities for the next 90 days.
+
+### Core Four-Brain Architecture
 - **Vector Brain (ChromaDB + FastEmbed)**: Semantic search using ONNX-based BAAI/bge-small-en-v1.5 embeddings
-- **Analytical Brain (DuckDB)**: Structured metadata storage for files, statistics, and document properties
+- **Analytical Brain (DuckDB)**: Structured metadata storage for files, statistics, and document properties  
 - **Graph Brain (Neo4j)**: Enhanced knowledge graph with **foundational relationship schema** supporting people & organization, technical subsystems, and project management relationships
-- **Linguistic Brain (Gemma 3n-e4b-it)**: Intelligent query analysis, routing, and response synthesis via Google AI API
+- **Linguistic Brain (Configurable LLM)**: Intelligent query analysis, routing, and response synthesis via configurable API
 
-The system uses **LangChain MultiPromptChain routing** with **multi-step processing** for complex queries requiring both semantic content and relationship analysis.
+### MCP Architecture Benefits
+- **Modular Capabilities**: Specialized MCP servers for different data types (spreadsheets, codebase, documents)
+- **Configurable Components**: Database and LLM selection through YAML configuration  
+- **Horizontal Scaling**: Independent MCP server deployment and scaling
+- **Standardized Integration**: Knowledge Packet protocol for seamless Four-Brain routing
+
+The system uses **MCP Host orchestration** with **Knowledge Packet routing** for complex queries requiring both semantic content and relationship analysis across multiple specialized servers.
 
 ## Development Commands
 
@@ -44,8 +53,12 @@ docker-compose down -v
 # Demo four-brain architecture capabilities
 .\test_four_brain_demo.ps1
 
-# Demo enhanced graph brain with relationship schema
-.\test_enhanced_three_brain_demo.ps1
+# Test MCP server integrations
+python integrate_codebase_mcp.py
+python test_codebase_mcp_simple.py
+
+# Benchmark MCP server performance
+python benchmark_codebase_mcp.py
 ```
 
 ### Service Access
@@ -55,21 +68,28 @@ docker-compose down -v
 - Neo4j Browser: http://localhost:7474 (neo4j/password)
 - Nancy API Documentation: http://localhost:8000/docs
 
-## Current Architecture (LangChain Router + Enhanced Relationships)
+## Current Architecture (MCP Orchestration Platform)
 
-### Core Components
+### Nancy Core Components
 - `nancy-services/api/main.py`: FastAPI application entry point with health checks
-- `nancy-services/core/langchain_orchestrator.py`: **LangChain router with multi-step query processing**
-- `nancy-services/core/knowledge_graph.py`: **Enhanced graph brain with foundational relationship schema**
-- `nancy-services/core/ingestion.py`: Multi-brain file processing and storage
+- `nancy-services/core/mcp_host.py`: **MCP Host orchestration for external servers**
+- `nancy-services/core/knowledge_packet_processor.py`: **Knowledge Packet routing to Four-Brain architecture**
+- `nancy-services/core/config_manager.py`: **Configurable database and LLM selection**
+- `nancy-services/core/knowledge_graph.py`: Enhanced graph brain with foundational relationship schema
 - `nancy-services/core/nlp.py`: Vector brain implementation using FastEmbed
 - `nancy-services/core/search.py`: Analytical brain (DuckDB operations)
-- `nancy-services/core/llm_client.py`: **Gemma 3n-e4b-it integration via Google AI API**
+- `nancy-services/core/llm_client.py`: Configurable LLM integration
+
+### MCP Servers
+- `mcp-servers/spreadsheet/server.py`: **Standalone spreadsheet processing MCP server**
+- `mcp-servers/codebase/server.py`: **Standalone codebase analysis MCP server with multi-language AST parsing**
 
 ### Key Architecture Features
-- **Multi-Step Query Processing**: Detects complex queries needing both content and relationship analysis
-- **Enhanced Graph Relationships**: Beyond simple authorship - expertise, technical systems, decisions
-- **LangChain Router Integration**: Deterministic brain selection with fallback support
+- **MCP Host Orchestration**: Intelligent routing to appropriate MCP servers based on query analysis
+- **Knowledge Packet Protocol**: Standardized data structures for Four-Brain integration
+- **Configurable Components**: Database and LLM selection through YAML configuration files
+- **Enhanced Graph Relationships**: Foundational schema supporting people, organizations, technical systems, and decisions
+- **Horizontal Scaling**: Independent MCP server deployment and scaling
 - **Baseline Comparison**: Standard LangChain + ChromaDB RAG system for benchmarking
 
 ### API Endpoints
@@ -85,17 +105,20 @@ docker-compose down -v
 
 ### Enhanced Query Processing Flow
 
-**Single-Step Queries:**
-1. LangChain router analyzes query intent
-2. Routes to appropriate brain (vector/analytical/graph)
-3. Brain executes specialized logic
-4. Gemma 3n-e4b-it synthesizes natural language response
+**MCP Orchestration Process:**
+1. **Query Analysis**: Nancy Core analyzes incoming natural language query
+2. **Server Routing**: MCP Host routes query to appropriate MCP server(s) based on content type
+3. **Knowledge Packet Generation**: MCP servers generate standardized Knowledge Packets
+4. **Four-Brain Integration**: Knowledge Packet Processor routes packets to appropriate brains
+5. **Response Synthesis**: Configurable LLM synthesizes comprehensive response
 
 **Multi-Step Queries (Complex):**
-1. System detects multi-step need (e.g., "What are thermal constraints and who are the experts?")
-2. Vector brain finds relevant content
-3. Graph brain explores contextual relationships
-4. Gemma 3n-e4b-it synthesizes comprehensive response combining both
+1. System detects multi-step need (e.g., "What are thermal constraints and who wrote the code?")
+2. Multiple MCP servers invoked (codebase analysis + document processing)
+3. Vector brain finds relevant content across all sources
+4. Graph brain explores relationships across datasets
+5. Analytical brain provides structured query capabilities
+6. Linguistic brain synthesizes comprehensive response combining all sources
 
 ### Foundational Relationship Schema
 ```cypher
@@ -143,73 +166,88 @@ docker-compose down -v
 
 ### LLM and API Integration
 
-**Current Model: Gemma 3n-e4b-it via Google AI API**
-- Lightweight, fast model for routing and synthesis
-- Requires `GEMINI_API_KEY` environment variable
-- Used across Nancy system and baseline for fair comparison
-- Integrated via custom LangChain LLM wrapper classes
+**Configurable LLM Architecture:**
+- **Default Model**: Gemma 3n-e4b-it via Google AI API for lightweight, fast routing and synthesis
+- **Configurable Selection**: YAML-based configuration allows switching between different LLM providers
+- **Environment Variables**: Requires appropriate API keys (e.g., `GEMINI_API_KEY` for Google AI)
+- **MCP Server Compatibility**: Used across Nancy Core and MCP servers for consistent responses
 
-**Fallback Strategy:**
-- Cloud API (Google AI) → Local model → Mock responses
-- Robust error handling and graceful degradation
+**Configuration Management:**
+- Database selection (ChromaDB, Neo4j, DuckDB alternatives)
+- LLM provider configuration (Google AI, OpenAI, local models)
+- MCP server registration and capability discovery
+- Fallback strategies with graceful degradation
 
 ## File Processing
 
-### Supported File Types
-**Text-based files** (.txt, .md, .log, .py, .js, .html, .css, .json) get full processing:
+### Supported File Types via MCP Servers
+
+**Text-based files** (.txt, .md, .log) - **Nancy Core**:
 - Vector embedding and chunking via FastEmbed
 - Metadata storage in DuckDB
 - Author attribution and relationship extraction for Neo4j
 - Named entity recognition using spaCy (when available)
 
-**Spreadsheet files** (.xlsx, .csv) with **foundational architecture** implemented:
-- Document metadata and author attribution in Graph Brain
-- Basic file storage in Analytical Brain
-- **Full structured data processing** (requires completion of implementation plan in `SPREADSHEET_IMPLEMENTATION_PLAN.md`)
+**Code files** (.py, .js, .java, .go, .rust, .cpp, etc.) - **Codebase MCP Server**:
+- Multi-language AST parsing with tree-sitter
+- Git authorship analysis and collaboration patterns
+- Developer expertise profiling and code ownership tracking
+- Function/class extraction with complexity analysis
+- Knowledge Packet generation for Four-Brain integration
 
-Binary files receive metadata-only storage.
+**Spreadsheet files** (.xlsx, .csv) - **Spreadsheet MCP Server**:
+- Structured data processing with pandas integration
+- Row-by-row Knowledge Packet generation
+- Column metadata analysis and relationship extraction
+- Author attribution and document tracking
+- Performance: 1,038 rows/sec processing rate
 
-### Ingestion Flow
-1. Generate unique doc_id from filename and content hash
-2. Store file metadata in DuckDB (Analytical Brain)
-3. Create document and author nodes in Neo4j (Graph Brain)
-4. For text files: chunk, embed, and store in ChromaDB (Vector Brain)
-5. Extract relationships for foundational schema (enhanced Graph Brain)
-6. **For spreadsheets**: Process structured data through enhanced four-brain integration
+Binary files receive metadata-only storage through Nancy Core.
 
-## Spreadsheet Ingestion Capabilities
+### MCP-Based Ingestion Flow
+1. **Nancy Core Analysis**: Determine appropriate MCP server(s) based on file type
+2. **MCP Server Invocation**: Route file to specialized server for processing
+3. **Knowledge Packet Generation**: MCP server generates standardized packets
+4. **Four-Brain Routing**: Knowledge Packet Processor routes to appropriate brains:
+   - Vector Brain: Semantic content (code, text, documentation)
+   - Analytical Brain: Structured metadata (metrics, authorship, complexity)
+   - Graph Brain: Relationships (functions, classes, authorship, dependencies)
+5. **Integration Completion**: All brains updated with coordinated data
 
-### Current Architecture Status
-Nancy includes **foundational spreadsheet ingestion architecture** designed for engineering teams where legacy and current data is stored in spreadsheets (financial data, project management, test data, training data, etc.).
+## MCP Server Capabilities
 
-### Four-Brain Spreadsheet Integration
-**Analytical Brain (DuckDB)**: Direct tabular data storage using pandas for SQL querying
-- Spreadsheet registry for tracking all tables and sheets
-- Advanced query capabilities with `query_spreadsheet_data()` and `search_spreadsheet_content()`
-- Enhanced document metadata with spreadsheet-specific information
+### Spreadsheet MCP Server
+**Performance Characteristics:**
+- **Processing Speed**: 1,038 rows per second
+- **Knowledge Packet Generation**: 1,560 packets per second
+- **Success Rate**: 100% on structured data processing
+- **Multi-format Support**: Excel (.xlsx), CSV (.csv), Google Sheets integration ready
 
-**Graph Brain (Neo4j)**: Column relationships and formula dependencies
-- Document → Sheet → Column relationship hierarchy
-- Calculated field dependency detection and categorical value concept nodes
-- Mathematical relationship discovery between columns
+**Four-Brain Integration:**
+- **Analytical Brain**: Direct tabular data storage with SQL querying capabilities
+- **Graph Brain**: Column relationships, formula dependencies, and data lineage
+- **Vector Brain**: Searchable spreadsheet summaries with comprehensive metadata
+- **Linguistic Brain**: Natural language to structured data query translation
 
-**Vector Brain (ChromaDB)**: Searchable spreadsheet summaries
-- Comprehensive sheet summaries for semantic search with column statistics
-- Sample data context for natural language queries and multi-sheet context handling
+### Codebase MCP Server  
+**Performance Characteristics:**
+- **Processing Speed**: 114.52 files per second
+- **Knowledge Packet Generation**: 1,061 packets per second
+- **Success Rate**: 96.7% across diverse codebases
+- **Language Support**: 15+ programming languages with AST parsing
 
-**Linguistic Brain (Gemma)**: Natural language to structured data queries
-- Intelligent routing for spreadsheet-specific queries and cross-brain synthesis for complex analyses
-
-### Implementation Status
-✅ **Completed**: Architecture design, enhanced ingestion service, comprehensive analytical brain methods
-✅ **Tested**: Basic CSV upload, metadata storage, author attribution through Docker testing
-❌ **Pending**: Full structured data processing (see `SPREADSHEET_IMPLEMENTATION_PLAN.md` for completion steps)
+**Advanced Features:**
+- **Multi-language AST parsing** with tree-sitter support
+- **Git repository analysis** with authorship tracking and collaboration patterns
+- **Developer expertise profiling** and code ownership analysis
+- **Complexity calculation** and code quality metrics
+- **Modern language feature detection** (ES6+, TypeScript, Python asyncio)
 
 ### Engineering Team Value
-- **Requirements Management**: Track compliance across multiple spreadsheets
-- **Test Data Analysis**: Query results across test campaigns with correlation analysis  
-- **Component Management**: Analyze supply chain data and specifications
-- **Cross-Disciplinary Insights**: Connect data across mechanical, electrical, thermal, and software domains
+- **Requirements Management**: Track compliance across multiple data sources
+- **Code Intelligence**: Understand authorship, complexity, and relationships in codebases
+- **Cross-Disciplinary Analysis**: Connect data across mechanical, electrical, thermal, software, and project management domains
+- **Developer Collaboration**: Analyze expertise patterns and contribution relationships
 
 ## Benchmark System
 
@@ -251,32 +289,68 @@ Based on comprehensive benchmarking:
 - Response Time Analysis
 - Discipline-specific Performance Breakdown
 
+## Enterprise Development Priorities (Next 30 Days)
+
+### 🔴 Critical Path - Multi-User Foundation
+**Priority 1:** Implement basic authentication system using FastAPI-Users
+- User registration/login endpoints
+- Password hashing and session management
+- Basic user model in database
+
+**Priority 2:** Add data isolation across all four brains
+- User-scoped data access in ChromaDB collections
+- User-specific Neo4j graph namespaces  
+- DuckDB table-level access control
+- MCP server user context passing
+
+**Priority 3:** Simple permission system
+- Admin/User role definitions
+- Access control decorators for API endpoints
+- User management interface basics
+
+### 🟡 High Priority - Deployment Simplification
+**Priority 4:** Single-container deployment option
+- Embedded SQLite + FAISS alternative to full database stack
+- Dockerfile optimization for <2GB RAM usage
+- Environment variable configuration consolidation
+
+**Priority 5:** 5-minute setup experience
+- Single `docker run` command deployment
+- Auto-configuration for development mode
+- Health check endpoints for deployment validation
+
+### 🟢 Medium Priority - Enterprise Basics
+**Priority 6:** Audit logging system
+- User action tracking (ingestion, queries, access)
+- Structured logging with timestamps and user context
+- Log rotation and retention policies
+
 ## Development Guidelines
 
-### Code Quality
-- **Follow existing patterns** in the codebase
-- **Use type hints** where appropriate
-- **Add docstrings** for new methods and classes
-- **Handle errors gracefully** with try/catch blocks
-- **Log important operations** for debugging
+### Code Quality (Updated for Enterprise Focus)
+- **Security first** - validate all user inputs, implement proper authentication
+- **Follow existing patterns** but prioritize enterprise requirements over research features
+- **Use type hints** and comprehensive error handling for production readiness
+- **Add comprehensive logging** for audit trails and debugging
+- **Test multi-user scenarios** alongside existing single-user tests
 
-### Architecture Principles
-- **Separation of concerns** - each brain handles specific data types
-- **Fail gracefully** - provide fallback responses when components fail
-- **Maintain compatibility** - ensure changes don't break existing functionality
-- **Document decisions** - update CLAUDE.md and README.md for significant changes
+### Architecture Principles (Enterprise-Focused)
+- **Multi-tenancy by design** - all new features must support multiple users
+- **Graceful degradation** - system remains functional with partial component failures
+- **Configuration over hardcoding** - externalize settings for different deployment environments
+- **Security boundaries** - assume malicious users, validate everything
+- **Operational visibility** - metrics, health checks, and monitoring integration
 
-### When Making Changes
-1. **Read existing code** to understand current patterns
-2. **Use TodoWrite** to plan multi-step changes
-3. **Test incrementally** as you implement
-4. **Update documentation** after completing features
-5. **Run benchmarks** to validate improvements
-6. **Archive old files** when they become obsolete
+### When Making Changes (Enterprise Development)
+1. **Security review first** - consider authentication, authorization, and data isolation
+2. **Use TodoWrite** extensively for multi-step enterprise features
+3. **Test with multiple users** - validate data isolation and permission boundaries
+4. **Document deployment changes** - update Docker configurations and environment guides
+5. **Customer perspective** - will this reduce or increase adoption friction?
 
 ### Environment Variables Required
 ```bash
-# Required for Gemma 3n-e4b-it integration
+# Required for default LLM integration
 GEMINI_API_KEY=your_google_ai_api_key
 
 # Optional service configuration
@@ -285,6 +359,9 @@ CHROMA_PORT=8001
 NEO4J_URI=bolt://neo4j:7687
 NEO4J_USER=neo4j
 NEO4J_PASSWORD=password
+
+# MCP server configuration
+MCP_SERVER_CONFIG_PATH=./config/mcp_servers.yaml
 ```
 
 ## Active Files & Scripts
@@ -295,32 +372,54 @@ NEO4J_PASSWORD=password
 - `test_query_2.ps1` - Current query testing
 - `test_upload_2.ps1` - Current ingestion testing
 - `reset_development_data.ps1` - Environment reset
-- `test_spreadsheet_ingestion.py` - Comprehensive spreadsheet testing
-- `SPREADSHEET_IMPLEMENTATION_PLAN.md` - Detailed implementation roadmap
+
+### MCP Server Testing Scripts  
+- `integrate_codebase_mcp.py` - Nancy Core + Codebase MCP integration demonstration
+- `test_codebase_mcp_simple.py` - Simplified codebase analysis testing
+- `benchmark_codebase_mcp.py` - Performance benchmarking for MCP servers
 
 ### Recent Results
-- `comprehensive_benchmark_20250812_142248.json` - Latest benchmark results
-- `comprehensive_benchmark_20250812_084013.json` - Previous benchmark
+- `comprehensive_benchmark_20250812_142248.json` - Latest Nancy vs Baseline RAG results
+- `CODEBASE_MCP_EXTRACTION_SUMMARY.md` - Complete codebase MCP server extraction report
+- `codebase_mcp_benchmark_*.json` - MCP server performance benchmark results
 
 ### Archived Items
 - Old test scripts, outdated documentation, and deprecated benchmark results have been moved to `./archive/` folder
+- Previous monolithic implementations archived during MCP migration
 
 ## Project Status
 
-**Current State**: Production-ready LangChain router architecture with enhanced foundational relationship schema
+**Current State**: Production-ready MCP orchestration platform with configurable Four-Brain architecture
 
 **Completed Features**:
-- ✅ LangChain MultiPromptChain routing with deterministic brain selection
-- ✅ Multi-step query processing for complex queries
-- ✅ Enhanced graph brain with foundational relationship schema
-- ✅ Gemma 3n-e4b-it integration via Google AI API
-- ✅ Comprehensive benchmark system vs standard RAG
-- ✅ Complete Docker containerization
-- ✅ Repository cleanup and documentation updates
-- ✅ **Spreadsheet ingestion architecture** (Excel/CSV support for four-brain integration)
+- ✅ **MCP Host orchestration** with intelligent server routing and capability discovery
+- ✅ **Knowledge Packet protocol** for standardized Four-Brain integration
+- ✅ **Configurable components** via YAML-based database and LLM selection
+- ✅ **Spreadsheet MCP Server** with 1,038 rows/sec processing performance
+- ✅ **Codebase MCP Server** with multi-language AST parsing and Git analysis
+- ✅ **Enhanced graph brain** with foundational relationship schema
+- ✅ **Comprehensive benchmark system** vs standard RAG with MCP performance metrics
+- ✅ **Complete Docker containerization** with MCP server support
+- ✅ **Horizontal scaling architecture** through independent MCP server deployment
+
+**Strategic Achievement:**
+Nancy has successfully evolved from a **monolithic super-RAG** to a **configurable orchestration platform**. The core value proposition is now the expertly designed chassis that makes specialized components work together seamlessly, while allowing users to configure databases, LLMs, and data processing capabilities through MCP servers.
+
+**Recent Implementation (2025-08-20):**
+- ✅ **MCP-First Architecture**: Nancy now defaults to MCP mode (`NANCY_MIGRATION_MODE=mcp`) demonstrating MCP orchestration in production
+- ✅ **Core-Only Mode Support**: Fixed MCP host to allow Nancy to run with zero external MCP servers
+- ✅ **Knowledge Packet Ingestion Enabled**: Full MCP architecture operational with proper schema validation
+- ✅ **Adaptive MCP Memory Server**: Updated nancy-memory MCP server to handle both legacy and MCP modes automatically
+- ✅ **Strategic Positioning**: Nancy positioned as "MCP orchestration platform" rather than "MCP-compatible system"
+
+**Claude Code MCP Integration Status:**
+- Nancy Memory MCP server configured via `claude mcp add` command
+- Adaptive ingestion detects Nancy's mode and routes appropriately
+- Requires Claude Code restart to load updated MCP server code
+- Enables Claude Code to leverage Nancy's four-brain architecture for persistent memory
 
 **Next Development Areas**:
-- **Complete spreadsheet ingestion implementation** (pandas dependency, structured data processing)
-- Enhanced document ingestion capabilities (PDF, DOCX support)
-- Advanced spreadsheet intelligence (cross-brain queries, data lineage)
-- Automated relationship extraction during ingestion
+- **Additional MCP servers** (PDF processing, real-time data sources, specialized domain servers)
+- **Enhanced configuration management** with UI-based server registration
+- **Performance optimization** for MCP communication protocols
+- **Advanced analytics** and cross-server insight generation

@@ -50,6 +50,39 @@ class AnalyticalBrain:
                 FOREIGN KEY (doc_id) REFERENCES documents(id)
             )
         """)
+        
+        # Create table for file state tracking (directory ingestion)
+        self.con.execute("""
+            CREATE TABLE IF NOT EXISTS file_state (
+                file_path VARCHAR PRIMARY KEY,
+                content_hash VARCHAR NOT NULL,
+                last_modified TIMESTAMP,
+                file_size INTEGER,
+                last_processed TIMESTAMP,
+                processing_status VARCHAR DEFAULT 'pending',
+                doc_id VARCHAR,
+                error_message VARCHAR,
+                directory_root VARCHAR,
+                relative_path VARCHAR,
+                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+            )
+        """)
+        
+        # Create table for directory configuration
+        self.con.execute("""
+            CREATE TABLE IF NOT EXISTS directory_config (
+                id VARCHAR PRIMARY KEY,
+                directory_path VARCHAR NOT NULL,
+                recursive BOOLEAN DEFAULT TRUE,
+                file_patterns VARCHAR DEFAULT '*.txt,*.md,*.py,*.js,*.html,*.css,*.json,*.csv,*.xlsx,*.xls',
+                ignore_patterns VARCHAR DEFAULT '.git/*,.env*,node_modules/*,__pycache__/*',
+                enabled BOOLEAN DEFAULT TRUE,
+                last_scan TIMESTAMP,
+                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+            )
+        """)
 
     def insert_document_metadata(self, doc_id: str, filename: str, size: int, file_type: str, metadata: Optional[Dict[str, Any]] = None):
         """
@@ -464,4 +497,271 @@ class AnalyticalBrain:
             
         except Exception as e:
             print(f"Error searching spreadsheet content: {e}")
+            return {"error": str(e)}
+    
+    # Directory-based ingestion methods
+    
+    def upsert_file_state(self, file_path: str, content_hash: str, last_modified: datetime, 
+                         file_size: int, directory_root: str, relative_path: str) -> bool:
+        """
+        Insert or update file state for hash-based change detection.
+        Returns True if the file is new or changed, False if unchanged.
+        """
+        try:
+            # Check if file exists and has changed
+            existing = self.con.execute(
+                "SELECT content_hash, processing_status FROM file_state WHERE file_path = ?",
+                (file_path,)
+            ).fetchone()
+            
+            if existing:
+                existing_hash, status = existing
+                if existing_hash == content_hash and status == 'completed':
+                    # File hasn't changed and was successfully processed
+                    return False
+                else:
+                    # File has changed or previous processing failed
+                    self.con.execute("""
+                        UPDATE file_state SET 
+                            content_hash = ?, 
+                            last_modified = ?, 
+                            file_size = ?,
+                            processing_status = 'pending',
+                            error_message = NULL,
+                            updated_at = CURRENT_TIMESTAMP
+                        WHERE file_path = ?
+                    """, (content_hash, last_modified, file_size, file_path))
+                    print(f"File state updated for changed file: {file_path}")
+                    return True
+            else:
+                # New file
+                self.con.execute("""
+                    INSERT INTO file_state 
+                    (file_path, content_hash, last_modified, file_size, directory_root, relative_path)
+                    VALUES (?, ?, ?, ?, ?, ?)
+                """, (file_path, content_hash, last_modified, file_size, directory_root, relative_path))
+                print(f"File state created for new file: {file_path}")
+                return True
+                
+        except Exception as e:
+            print(f"Error upserting file state for {file_path}: {e}")
+            return True  # Assume processing needed on error
+    
+    def update_file_processing_status(self, file_path: str, status: str, doc_id: str = None, 
+                                    error_message: str = None):
+        """
+        Update the processing status of a file after ingestion attempt.
+        """
+        try:
+            self.con.execute("""
+                UPDATE file_state SET 
+                    processing_status = ?,
+                    doc_id = COALESCE(?, doc_id),
+                    error_message = ?,
+                    last_processed = CURRENT_TIMESTAMP,
+                    updated_at = CURRENT_TIMESTAMP
+                WHERE file_path = ?
+            """, (status, doc_id, error_message, file_path))
+            print(f"Updated processing status for {file_path}: {status}")
+            
+        except Exception as e:
+            print(f"Error updating processing status for {file_path}: {e}")
+    
+    def get_files_to_process(self, limit: int = 100) -> list[dict]:
+        """
+        Get files that need processing (new or changed files).
+        """
+        try:
+            results = self.con.execute("""
+                SELECT file_path, content_hash, last_modified, file_size, directory_root, relative_path
+                FROM file_state 
+                WHERE processing_status = 'pending'
+                ORDER BY last_modified DESC
+                LIMIT ?
+            """, (limit,)).fetchall()
+            
+            columns = ['file_path', 'content_hash', 'last_modified', 'file_size', 'directory_root', 'relative_path']
+            return [dict(zip(columns, row)) for row in results]
+            
+        except Exception as e:
+            print(f"Error getting files to process: {e}")
+            return []
+    
+    def get_file_state_statistics(self) -> dict:
+        """
+        Get statistics about directory ingestion file states.
+        """
+        try:
+            stats = {}
+            
+            # Overall counts by status
+            status_counts = self.con.execute("""
+                SELECT processing_status, COUNT(*) as count
+                FROM file_state
+                GROUP BY processing_status
+            """).fetchall()
+            
+            stats['status_distribution'] = [{"status": status, "count": count} for status, count in status_counts]
+            
+            # Total files tracked
+            total_files = self.con.execute("SELECT COUNT(*) FROM file_state").fetchone()[0]
+            stats['total_files_tracked'] = total_files
+            
+            # Files by directory
+            directory_counts = self.con.execute("""
+                SELECT directory_root, COUNT(*) as count
+                FROM file_state
+                GROUP BY directory_root
+                ORDER BY count DESC
+                LIMIT 10
+            """).fetchall()
+            
+            stats['files_by_directory'] = [{"directory": dir_path, "count": count} 
+                                         for dir_path, count in directory_counts]
+            
+            # Recent processing activity
+            recent_activity = self.con.execute("""
+                SELECT DATE(last_processed) as date, COUNT(*) as count
+                FROM file_state
+                WHERE last_processed IS NOT NULL 
+                AND last_processed >= DATE('now', '-7 days')
+                GROUP BY DATE(last_processed)
+                ORDER BY date DESC
+            """).fetchall()
+            
+            stats['recent_processing'] = [{"date": date, "count": count} 
+                                        for date, count in recent_activity]
+            
+            # Error summary
+            error_count = self.con.execute("""
+                SELECT COUNT(*) FROM file_state WHERE processing_status = 'error'
+            """).fetchone()[0]
+            
+            stats['processing_errors'] = error_count
+            
+            return stats
+            
+        except Exception as e:
+            print(f"Error getting file state statistics: {e}")
+            return {"error": str(e)}
+    
+    def mark_deleted_files(self, existing_file_paths: set, directory_root: str):
+        """
+        Mark files as deleted if they no longer exist in the filesystem.
+        """
+        try:
+            # Get all files tracked for this directory
+            tracked_files = self.con.execute("""
+                SELECT file_path FROM file_state WHERE directory_root = ?
+            """, (directory_root,)).fetchall()
+            
+            deleted_count = 0
+            for (file_path,) in tracked_files:
+                if file_path not in existing_file_paths:
+                    # File no longer exists, mark as deleted
+                    self.con.execute("""
+                        UPDATE file_state SET 
+                            processing_status = 'deleted',
+                            updated_at = CURRENT_TIMESTAMP
+                        WHERE file_path = ?
+                    """, (file_path,))
+                    deleted_count += 1
+            
+            if deleted_count > 0:
+                print(f"Marked {deleted_count} files as deleted in directory {directory_root}")
+            
+            return deleted_count
+            
+        except Exception as e:
+            print(f"Error marking deleted files: {e}")
+            return 0
+    
+    def add_directory_config(self, directory_path: str, recursive: bool = True, 
+                           file_patterns: str = None, ignore_patterns: str = None) -> str:
+        """
+        Add a directory to watch for ingestion.
+        """
+        try:
+            import uuid
+            config_id = str(uuid.uuid4())
+            
+            # Use default patterns if not provided
+            if file_patterns is None:
+                file_patterns = "*.txt,*.md,*.py,*.js,*.html,*.css,*.json,*.csv,*.xlsx,*.xls"
+            if ignore_patterns is None:
+                ignore_patterns = ".git/*,.env*,node_modules/*,__pycache__/*"
+            
+            self.con.execute("""
+                INSERT INTO directory_config 
+                (id, directory_path, recursive, file_patterns, ignore_patterns)
+                VALUES (?, ?, ?, ?, ?)
+            """, (config_id, directory_path, recursive, file_patterns, ignore_patterns))
+            
+            print(f"Added directory config for: {directory_path}")
+            return config_id
+            
+        except Exception as e:
+            print(f"Error adding directory config: {e}")
+            raise
+    
+    def get_directory_configs(self, enabled_only: bool = True) -> list[dict]:
+        """
+        Get configured directories for ingestion.
+        """
+        try:
+            query = "SELECT * FROM directory_config"
+            params = []
+            
+            if enabled_only:
+                query += " WHERE enabled = TRUE"
+            
+            query += " ORDER BY created_at"
+            
+            results = self.con.execute(query, params).fetchall()
+            columns = [desc[0] for desc in self.con.description]
+            return [dict(zip(columns, row)) for row in results]
+            
+        except Exception as e:
+            print(f"Error getting directory configs: {e}")
+            return []
+    
+    def update_directory_last_scan(self, config_id: str):
+        """
+        Update the last scan timestamp for a directory configuration.
+        """
+        try:
+            self.con.execute("""
+                UPDATE directory_config SET 
+                    last_scan = CURRENT_TIMESTAMP,
+                    updated_at = CURRENT_TIMESTAMP
+                WHERE id = ?
+            """, (config_id,))
+            
+        except Exception as e:
+            print(f"Error updating directory last scan: {e}")
+    
+    def get_directory_status(self) -> dict:
+        """
+        Get comprehensive status of directory-based ingestion.
+        """
+        try:
+            # Get directory configurations
+            configs = self.get_directory_configs()
+            
+            # Get file state statistics
+            file_stats = self.get_file_state_statistics()
+            
+            # Get processing queue status
+            pending_files = len(self.get_files_to_process(limit=1000))
+            
+            return {
+                "configured_directories": len(configs),
+                "directories": configs,
+                "pending_files": pending_files,
+                "file_statistics": file_stats,
+                "last_updated": datetime.utcnow().isoformat()
+            }
+            
+        except Exception as e:
+            print(f"Error getting directory status: {e}")
             return {"error": str(e)}

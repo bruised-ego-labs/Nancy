@@ -1,0 +1,141 @@
+{
+  "test_timestamp": "2025-08-20T13:57:12.486925",
+  "test_results": {
+    "basic_connectivity": {
+      "status": "success",
+      "response": {
+        "message": "Welcome to Nancy Core MCP Architecture API",
+        "version": "2.0.0",
+        "migration_mode": "mcp",
+        "architecture": "Four-Brain MCP Orchestration Platform"
+      }
+    },
+    "legacy_ingestion": {
+      "status": "success",
+      "status_code": 200,
+      "response": {
+        "status": "error",
+        "message": "Ingestion failed: this event loop is already running.",
+        "doc_id": null
+      },
+      "doc_id": null
+    },
+    "query_functionality": {
+      "status": "success",
+      "status_code": 200,
+      "response": {
+        "query": "simple test content",
+        "strategy_used": "intelligent_semantic",
+        "intent_analysis": {
+          "type": "semantic",
+          "confidence": 0.8,
+          "reasoning": "General content search",
+          "semantic_terms": [
+            "simple",
+            "test",
+            "content"
+          ],
+          "entities": [],
+          "time_constraints": null,
+          "metadata_filters": null,
+          "relationship_targets": null
+        },
+        "raw_results": [],
+        "synthesized_response": "Hi there!\n\nYou asked for some simple test content. Since I don't have access to specific documents to pull from right now, I'll just give you a few examples you can use.\n\nHere are a couple of short snippets for testing:\n\n*   \"This is a basic test sentence to check functionality.\"\n*   \"Testing 1, 2, 3. This is a short phrase.\"\n*   \"Simple content for a quick validation.\"\n\nFor more extensive testing, you might want to consider creating a document with a variety of text types \u2013 headings, paragraphs, lists, and code blocks \u2013 to ensure your system handles different formats correctly. \n\nLet me know if you'd like me to help you brainstorm more specific test cases once you have a better idea of what you're testing!\n\n\n\n",
+        "brains_used": [
+          "vector",
+          "linguistic"
+        ],
+        "processing_timestamp": "2025-08-20T20:57:09.959326"
+      },
+      "found_ingested_content": true
+    },
+    "graph_query": {
+      "status": "success",
+      "status_code": 200,
+      "response": {
+        "status": "success",
+        "author": "Simple Test",
+        "documents": [],
+        "message": "No documents found for author 'Simple Test'"
+      }
+    },
+    "configuration": {
+      "status": "success",
+      "status_code": 200,
+      "response": {
+        "nancy_core": {
+          "version": "2.0.0",
+          "instance_name": "nancy-dev",
+          "description": "Development Nancy Core instance"
+        },
+        "orchestration": {
+          "mode": "four_brain",
+          "routing_strategy": "langchain_router"
+        },
+        "brains": {
+          "vector": {
+            "backend": "chromadb"
+          },
+          "analytical": {
+            "backend": "duckdb"
+          },
+          "graph": {
+            "backend": "neo4j"
+          },
+          "linguistic": {
+            "primary_llm": "gemma_3n_e4b_it"
+          }
+        },
+        "mcp_servers": {
+          "enabled_count": 0,
+          "server_names": []
+        }
+      }
+    },
+    "ingestion_status": {
+      "status": "success",
+      "status_code": 200,
+      "response": {
+        "system_status": "operational",
+        "migration_mode": "mcp",
+        "metrics": {
+          "migration_mode": "mcp",
+          "legacy_metrics": {},
+          "mcp_metrics": {
+            "packets_processed": 0,
+            "packets_failed": 0,
+            "success_rate": 0,
+            "active_servers": 0,
+            "total_servers": 0,
+            "queue_size": 0,
+            "uptime_seconds": 92.629635
+          }
+        },
+        "mcp_metrics": {
+          "packets_processed": 0,
+          "packets_failed": 0,
+          "success_rate": 0,
+          "active_servers": 0,
+          "total_servers": 0,
+          "queue_size": 0,
+          "uptime_seconds": 92.629641
+        }
+      }
+    }
+  },
+  "summary": {
+    "total_tests": 6,
+    "working_tests": 6,
+    "failed_tests": 0,
+    "working_endpoints": [
+      "basic_connectivity",
+      "legacy_ingestion",
+      "query_functionality",
+      "graph_query",
+      "configuration",
+      "ingestion_status"
+    ],
+    "failed_endpoints": []
+  }
+}

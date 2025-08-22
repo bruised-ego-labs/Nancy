@@ -1,0 +1,79 @@
+{
+  "test_summary": {
+    "total_queries": 5,
+    "successful_queries": 2,
+    "success_rate": 0.4,
+    "fairness_achieved": false
+  },
+  "detailed_results": [
+    {
+      "query": "Which components have thermal constraints over 70 degrees?",
+      "description": "Thermal constraint filtering",
+      "success_rate": 0.0,
+      "response_time": 0.8390083312988281,
+      "sources": [
+        "mechanical_integration_plan.txt",
+        "thermal_analysis_report.txt",
+        "component_requirements.csv",
+        "electrical_design_review.txt"
+      ],
+      "found_content": []
+    },
+    {
+      "query": "What components does Sarah Chen own?",
+      "description": "Owner-based component lookup",
+      "success_rate": 0.2,
+      "response_time": 1.3457937240600586,
+      "sources": [
+        "team_directory.csv",
+        "mechanical_integration_plan.txt",
+        "project_timeline_q4_2024.txt",
+        "electrical_design_review.txt"
+      ],
+      "found_content": [
+        "Sarah Chen"
+      ]
+    },
+    {
+      "query": "Which test results failed?",
+      "description": "Test result status filtering",
+      "success_rate": 0.3333333333333333,
+      "response_time": 1.005782127380371,
+      "sources": [
+        "test_results.csv"
+      ],
+      "found_content": [
+        "Fail"
+      ]
+    },
+    {
+      "query": "What is the power requirement for the Radio Transceiver?",
+      "description": "Specific component property lookup",
+      "success_rate": 0.6666666666666666,
+      "response_time": 0.6843996047973633,
+      "sources": [
+        "component_requirements.csv"
+      ],
+      "found_content": [
+        "Radio Transceiver",
+        "8.7"
+      ]
+    },
+    {
+      "query": "Which components are validated and have high priority?",
+      "description": "Multi-criteria filtering",
+      "success_rate": 1.0,
+      "response_time": 2.700364112854004,
+      "sources": [
+        "component_requirements.csv"
+      ],
+      "found_content": [
+        "Validated",
+        "High",
+        "Primary CPU",
+        "Radio Transceiver",
+        "Sensor Array"
+      ]
+    }
+  ]
+}

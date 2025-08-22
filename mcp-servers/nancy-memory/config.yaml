@@ -1,0 +1,47 @@
+# Nancy Memory MCP Server Configuration
+name: "nancy-memory"
+version: "1.0.0"
+description: "Provides infinite memory capabilities for LLMs through Nancy's Four-Brain architecture"
+
+# Nancy API connection
+nancy_api:
+  base_url: "http://localhost:8000"
+  timeout: 60
+  health_check_interval: 30
+
+# MCP Server settings
+mcp:
+  server_name: "Nancy Memory Server"
+  description: "Persistent project intelligence for AI assistants"
+  version: "1.0.0"
+
+# Tools configuration
+tools:
+  ingest_information:
+    description: "Store information in Nancy's persistent memory"
+    max_content_size: 1048576  # 1MB max per ingestion
+    
+  query_memory:
+    description: "Query Nancy's memory for relevant information"
+    default_n_results: 5
+    max_n_results: 20
+    
+  find_author_contributions:
+    description: "Find contributions by specific authors"
+    enable_expertise_tracking: true
+    
+  get_project_overview:
+    description: "Get comprehensive project status and metrics"
+    include_metrics: true
+
+# Resources configuration  
+resources:
+  project_memory:
+    uri: "nancy://project/memory"
+    description: "Complete project memory index and configuration"
+    cache_duration: 300  # 5 minutes
+
+# Logging
+logging:
+  level: "INFO"
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"

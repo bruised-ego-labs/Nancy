@@ -1,0 +1,101 @@
+# Nancy Codebase MCP Server Configuration
+
+server:
+  name: nancy_codebase_mcp
+  version: "1.0.0"
+  description: "Comprehensive codebase analysis for Nancy's Four-Brain architecture"
+
+# Language support configuration
+languages:
+  supported_extensions:
+    - .py      # Python
+    - .js      # JavaScript
+    - .ts      # TypeScript
+    - .tsx     # TypeScript React
+    - .jsx     # JavaScript React
+    - .java    # Java
+    - .c       # C
+    - .cpp     # C++
+    - .cc      # C++
+    - .cxx     # C++
+    - .h       # C Header
+    - .hpp     # C++ Header
+    - .go      # Go
+    - .rs      # Rust
+    - .php     # PHP
+    - .rb      # Ruby
+
+  # Tree-sitter language mappings
+  parser_mapping:
+    .py: python
+    .js: javascript
+    .ts: javascript
+    .tsx: javascript
+    .jsx: javascript
+    .java: java
+    .c: c
+    .cpp: cpp
+    .cc: cpp
+    .cxx: cpp
+    .h: c
+    .hpp: cpp
+    .go: go
+    .rs: rust
+    .php: php
+    .rb: ruby
+
+# Git analysis configuration
+git:
+  enabled: true
+  max_commits_analyzed: 1000
+  default_activity_days: 90
+  collaboration_analysis: true
+  ownership_tracking: true
+
+# Knowledge Packet generation settings
+knowledge_packets:
+  generate_vector_packets: true
+  generate_analytical_packets: true
+  generate_graph_packets: true
+  
+  # Vector packet settings
+  vector:
+    include_file_content: true
+    include_function_docs: true
+    include_class_docs: true
+    max_content_size: 50000  # characters
+  
+  # Analytical packet settings
+  analytical:
+    include_complexity_metrics: true
+    include_git_metadata: true
+    include_file_statistics: true
+  
+  # Graph packet settings
+  graph:
+    include_authorship_relationships: true
+    include_code_relationships: true
+    include_method_relationships: true
+
+# Performance settings
+performance:
+  max_files_per_repository: 10000
+  max_file_size_mb: 5
+  timeout_seconds: 300
+  concurrent_analysis: true
+
+# Logging configuration
+logging:
+  level: INFO
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  
+# MCP protocol settings
+mcp:
+  jsonrpc_version: "2.0"
+  supported_methods:
+    - analyze_file
+    - analyze_repository
+    - get_file_authorship
+    - get_developer_expertise
+    - get_supported_languages
+    - health_check

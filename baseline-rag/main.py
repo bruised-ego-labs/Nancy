@@ -19,6 +19,7 @@ from typing import List, Dict, Any, Optional
 from fastapi import FastAPI, UploadFile, File, HTTPException
 from pydantic import BaseModel
 import uvicorn
+import pandas as pd
 
 # LangChain imports - using simpler approach
 from langchain.schema import Document
@@ -32,6 +33,82 @@ import chromadb
 from fastembed import TextEmbedding
 
 app = FastAPI(title="Baseline RAG System", version="1.0.0")
+
+def textify_spreadsheet(file_path: Path) -> List[str]:
+    """
+    Convert spreadsheet rows into coherent sentences for text-based RAG processing.
+    
+    This implements "textification" - converting tabular data into natural language
+    sentences that can be embedded and searched using standard RAG techniques.
+    
+    Args:
+        file_path: Path to CSV or Excel file
+        
+    Returns:
+        List of natural language sentences representing spreadsheet content
+    """
+    sentences = []
+    
+    try:
+        # Determine file type and read accordingly
+        if file_path.suffix.lower() == '.csv':
+            df = pd.read_csv(file_path)
+            sheet_name = "CSV"
+        elif file_path.suffix.lower() in ['.xlsx', '.xls']:
+            # For Excel files, process all sheets
+            excel_file = pd.ExcelFile(file_path)
+            for sheet_name in excel_file.sheet_names:
+                df = pd.read_excel(file_path, sheet_name=sheet_name)
+                sheet_sentences = _convert_dataframe_to_sentences(df, file_path.name, sheet_name)
+                sentences.extend(sheet_sentences)
+            return sentences
+        else:
+            return []
+        
+        # For CSV files, process single dataframe
+        sheet_sentences = _convert_dataframe_to_sentences(df, file_path.name, sheet_name)
+        sentences.extend(sheet_sentences)
+        
+    except Exception as e:
+        print(f"Error processing spreadsheet {file_path}: {e}")
+        # Return basic file info even if processing fails
+        sentences.append(f"Spreadsheet file {file_path.name} could not be processed: {str(e)}")
+    
+    return sentences
+
+def _convert_dataframe_to_sentences(df: pd.DataFrame, filename: str, sheet_name: str) -> List[str]:
+    """
+    Convert a pandas DataFrame into natural language sentences.
+    
+    Each row becomes a sentence with column headers as descriptive labels.
+    """
+    sentences = []
+    
+    # Add header information
+    if len(df.columns) > 0:
+        column_names = ", ".join(df.columns.tolist())
+        sentences.append(f"Spreadsheet {filename} sheet {sheet_name} contains columns: {column_names}.")
+    
+    # Convert each row to a sentence
+    for row_idx, row in df.iterrows():
+        sentence_parts = []
+        
+        for col, value in row.items():
+            if pd.notna(value) and str(value).strip():  # Skip empty/null values
+                # Clean column name and value for readability
+                clean_col = str(col).strip().replace('_', ' ').replace('-', ' ')
+                clean_value = str(value).strip()
+                sentence_parts.append(f"{clean_col} is {clean_value}")
+        
+        if sentence_parts:  # Only create sentence if there's content
+            # Add context about source
+            sentence = f"In {filename} sheet {sheet_name} row {row_idx + 1}: " + ", ".join(sentence_parts) + "."
+            sentences.append(sentence)
+    
+    # Add summary information
+    sentences.append(f"Spreadsheet {filename} sheet {sheet_name} contains {len(df)} rows and {len(df.columns)} columns.")
+    
+    return sentences
 
 class Gemma3BaselineLLM(LLM):
     """Custom LangChain LLM wrapper for Gemma 3 1B via Google AI API for baseline"""
@@ -150,15 +227,16 @@ class BaselineRAGSystem:
         Answer:"""
     
     def ingest_documents(self, data_dir: str = "benchmark_data") -> Dict[str, Any]:
-        """Ingest documents using standard LangChain approach"""
+        """Ingest documents using standard LangChain approach with spreadsheet support"""
         start_time = time.time()
         
         documents = []
         processed_files = []
+        spreadsheet_files = []
         
-        # Load documents
+        # Load text documents
         for file_path in Path(data_dir).glob("*.txt"):
-            print(f"Processing {file_path.name}...")
+            print(f"Processing text file {file_path.name}...")
             
             with open(file_path, 'r', encoding='utf-8') as f:
                 content = f.read()
@@ -168,11 +246,47 @@ class BaselineRAGSystem:
                 page_content=content,
                 metadata={
                     "filename": file_path.name,
-                    "source": str(file_path)
+                    "source": str(file_path),
+                    "file_type": "text"
                 }
             )
             documents.append(doc)
             processed_files.append(file_path.name)
+        
+        # Load and process spreadsheet files (CSV and Excel)
+        spreadsheet_patterns = ["*.csv", "*.xlsx", "*.xls"]
+        for pattern in spreadsheet_patterns:
+            for file_path in Path(data_dir).glob(pattern):
+                print(f"Processing spreadsheet file {file_path.name}...")
+                
+                try:
+                    # Convert spreadsheet to natural language sentences
+                    sentences = textify_spreadsheet(file_path)
+                    
+                    if sentences:
+                        # Create document from concatenated sentences
+                        content = "\n\n".join(sentences)
+                        
+                        doc = Document(
+                            page_content=content,
+                            metadata={
+                                "filename": file_path.name,
+                                "source": str(file_path),
+                                "file_type": "spreadsheet",
+                                "original_format": file_path.suffix.lower()
+                            }
+                        )
+                        documents.append(doc)
+                        processed_files.append(file_path.name)
+                        spreadsheet_files.append(file_path.name)
+                        print(f"  Converted {file_path.name} to {len(sentences)} text sentences")
+                    
+                except Exception as e:
+                    print(f"Error processing spreadsheet {file_path.name}: {e}")
+                    # Still track it as processed but note the error
+                    processed_files.append(f"{file_path.name} (error)")
+        
+        print(f"Processed {len(processed_files)} files total, including {len(spreadsheet_files)} spreadsheets")
         
         # Split documents into chunks
         print("Splitting documents into chunks...")
@@ -193,9 +307,12 @@ class BaselineRAGSystem:
         
         return {
             "files_processed": len(processed_files),
+            "text_files": len(processed_files) - len(spreadsheet_files),
+            "spreadsheet_files": len(spreadsheet_files),
             "chunks_created": len(texts),
             "processing_time": processing_time,
-            "files": processed_files
+            "files": processed_files,
+            "spreadsheet_files_list": spreadsheet_files
         }
     
     def query(self, question: str) -> QueryResponse:

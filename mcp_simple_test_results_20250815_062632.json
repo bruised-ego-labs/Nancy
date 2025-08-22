@@ -1,0 +1,12 @@
+{
+  "timestamp": "2025-08-15T06:26:32.958578",
+  "test_status": "PASSED",
+  "processor_test": "PASSED",
+  "knowledge_packet_test": "PASSED",
+  "sample_packet_id": "994bed7b2bb7e7242e5a410973d166be8b2004e0f4fe5a69e1d677d19342f582",
+  "sample_content_summary": {
+    "vector_chunks": 1,
+    "analytical_tables": 1,
+    "graph_entities": 19
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "nancy-memory": {
+      "command": "C:\\Python312\\python.exe",
+      "args": ["mcp-servers/nancy-memory/server.py"],
+      "env": {
+        "NANCY_API_BASE": "http://localhost:8000"
+      }
+    }
+  }
+}

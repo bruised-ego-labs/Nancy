@@ -1,0 +1,102 @@
+# Nancy Core Configuration - Development Mode
+# This is the default configuration for Nancy Core MCP architecture
+
+nancy_core:
+  version: "2.0.0"
+  instance_name: "nancy-dev"
+  description: "Development Nancy Core instance with MCP architecture"
+
+orchestration:
+  mode: "four_brain"
+  multi_step_threshold: 0.7
+  routing_strategy: "langchain_router"
+  max_query_complexity: 5
+  enable_query_caching: true
+
+brains:
+  vector:
+    backend: "chromadb"
+    embedding_model: "BAAI/bge-small-en-v1.5"
+    chunk_size: 512
+    chunk_overlap: 50
+    connection:
+      host: "chromadb"  # Docker service name
+      port: 8001
+      collection_name: "nancy_dev_vectors"
+
+  analytical:
+    backend: "duckdb"
+    connection:
+      database_path: "./data/nancy_analytical.duckdb"
+      memory_limit: "1GB"
+    query_timeout_seconds: 30
+
+  graph:
+    backend: "neo4j"
+    schema_mode: "foundational"
+    connection:
+      uri: "bolt://neo4j:7687"  # Docker service name
+      username: "neo4j"
+      password: "password"
+      database: "nancy_dev"
+    max_relationship_depth: 5
+
+  linguistic:
+    primary_llm: "gemma_3n_e4b_it"
+    fallback_llm: "local_gemma"
+    connection:
+      api_key_env: "GEMINI_API_KEY"
+      model: "gemma-3n-e4b-it"  # Fixed: aligned with primary_llm setting
+    temperature: 0.1
+    max_tokens: 2048
+
+mcp_servers:
+  enabled_servers:
+    - name: "nancy-document-server"
+      executable: "python3"
+      args: ["./mcp-servers/document/server.py"]
+      auto_start: true
+      capabilities: ["file_upload", "document_processing"]
+      environment:
+        LOG_LEVEL: "INFO"
+        PYTHONPATH: "./mcp-servers/document"
+      health_check_interval_seconds: 60
+    
+    - name: "nancy-spreadsheet-server"
+      executable: "python3"
+      args: ["./mcp-servers/spreadsheet/server.py"]
+      auto_start: true
+      capabilities: ["nancy/ingest", "nancy/health_check"]
+      supported_extensions: [".xlsx", ".xls", ".csv"]
+      environment:
+        LOG_LEVEL: "INFO"
+        PYTHONPATH: "./mcp-servers/spreadsheet"
+      health_check_interval_seconds: 60
+  
+  auto_discovery: false
+  server_timeout_seconds: 30
+
+security:
+  authentication:
+    enabled: false
+    method: "api_key"
+    api_key_header: "X-Nancy-API-Key"
+  mcp_security:
+    sandbox_mode: true
+    allowed_file_extensions: [".xlsx", ".csv", ".md", ".py", ".js", ".json", ".pdf", ".txt"]
+    max_file_size_mb: 50
+    quarantine_suspicious_files: true
+
+performance:
+  query_timeout_seconds: 30
+  max_concurrent_queries: 5
+  cache_enabled: true
+  cache_ttl_minutes: 30
+  memory_limit_mb: 2048
+
+logging:
+  level: "DEBUG"
+  structured: true
+  include_performance_metrics: true
+  log_queries: true
+  retention_days: 30

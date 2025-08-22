@@ -311,6 +311,85 @@ Extract the project story elements from this document."""
             print(f"Error extracting project story: {e}")
             return {"decisions": [], "meetings": [], "features": [], "eras": [], "collaborations": []}
     
+    def extract_temporal_relationships(self, text: str, document_name: str) -> Dict[str, List[Dict]]:
+        """
+        Enhanced temporal relationship extraction for Phase 2 temporal brain support.
+        Extracts time-ordered events, sequences, and causal relationships.
+        """
+        system_prompt = """You are a temporal relationship analyzer for Nancy's temporal brain. Extract time-aware relationships and sequences from project documents.
+
+Extract the following temporal elements:
+
+1. **Temporal Events** - Look for:
+   - Meetings with dates/times: "March 15 meeting", "Q2 review"
+   - Testing phases: "integration testing started", "validation completed"
+   - Milestones: "design freeze", "code complete", "release candidate"
+   - Process events: "requirements gathering", "design review", "implementation phase"
+
+2. **Temporal Sequences** - Look for:
+   - Sequential indicators: "first", "then", "next", "after", "before", "following"
+   - Phase transitions: "moved from design to implementation"
+   - Dependencies: "after thermal analysis", "once electrical design is complete"
+
+3. **Causal Temporal Relationships** - Look for:
+   - Trigger events: "following the meeting", "as a result of testing"
+   - Decision triggers: "based on review findings", "due to budget constraints"
+   - Timeline impacts: "delayed by", "accelerated because", "rescheduled due to"
+
+4. **Time Markers** - Look for:
+   - Absolute dates: "March 2024", "Q1 2025", specific dates
+   - Relative time: "last week", "next month", "two weeks ago"
+   - Project phases: "during requirements", "in the design phase"
+
+Return JSON in this exact format:
+{
+    "temporal_events": [
+        {
+            "name": "event name",
+            "type": "meeting|testing|milestone|process",
+            "timestamp": "extracted time marker or null",
+            "participants": ["person1", "person2"],
+            "context": "brief description"
+        }
+    ],
+    "sequences": [
+        {
+            "predecessor": "earlier event",
+            "successor": "later event", 
+            "relationship": "leads_to|triggers|enables|blocks",
+            "time_gap": "time between events if mentioned"
+        }
+    ],
+    "causal_relationships": [
+        {
+            "cause": "triggering event or condition",
+            "effect": "resulting event or decision",
+            "temporal_context": "time context of causality"
+        }
+    ],
+    "time_markers": [
+        {
+            "reference": "text reference to time",
+            "normalized_time": "standardized format if possible",
+            "context": "what happened at this time"
+        }
+    ]
+}"""
+
+        user_prompt = f"""Document: {document_name}
+
+Text excerpt:
+{text[:4000]}
+
+Extract temporal relationships from this document."""
+
+        try:
+            response = self._call_llm(system_prompt, user_prompt)
+            return self._parse_temporal_relationships(response)
+        except Exception as e:
+            print(f"Error extracting temporal relationships: {e}")
+            return {"temporal_events": [], "sequences": [], "causal_relationships": [], "time_markers": []}
+    
     def _call_llm(self, system_prompt: str, user_prompt: str) -> str:
         """
         Call the preferred LLM with clear error reporting - NO FALLBACKS for security
@@ -739,6 +818,16 @@ Replace the values appropriately but keep the exact structure."""
         except json.JSONDecodeError:
             print(f"Error parsing project story: {response}")
             return {"decisions": [], "meetings": [], "features": [], "eras": [], "collaborations": []}
+    
+    def _parse_temporal_relationships(self, response: str) -> Dict[str, List[Dict]]:
+        """
+        Parse temporal relationship extraction response for Phase 2 temporal brain.
+        """
+        try:
+            return json.loads(response)
+        except json.JSONDecodeError:
+            print(f"Error parsing temporal relationships: {response}")
+            return {"temporal_events": [], "sequences": [], "causal_relationships": [], "time_markers": []}
     
     def _create_fallback_response(self, raw_results: Dict) -> str:
         """

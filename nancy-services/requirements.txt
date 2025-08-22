@@ -26,3 +26,29 @@ langchainhub
 # Spreadsheet processing libraries
 pandas
 openpyxl
+# Code analysis and repository integration
+tree-sitter>=0.21.0
+tree-sitter-python>=0.21.0
+tree-sitter-javascript>=0.21.0
+tree-sitter-c>=0.21.0
+tree-sitter-cpp>=0.21.0
+tree-sitter-java>=0.21.0
+tree-sitter-go>=0.21.0
+tree-sitter-rust>=0.21.0
+tree-sitter-php>=0.21.0
+tree-sitter-ruby>=0.21.0
+tree-sitter-typescript>=0.21.0
+GitPython>=3.1.40
+
+# Nancy MCP Architecture Dependencies
+# Configuration management and validation
+pydantic>=2.0.0,<3.0.0
+pydantic-settings
+PyYAML>=6.0
+# JSON Schema validation for Knowledge Packets
+jsonschema>=4.0.0
+# Async support and process management
+psutil
+# MCP Protocol Support (when available)
+# mcp-sdk (placeholder - will be available when MCP SDK is released)
+# For now, we implement MCP protocol directly

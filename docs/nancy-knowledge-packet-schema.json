@@ -1,0 +1,653 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://schemas.nancy.ai/knowledge-packet/v1.0",
+  "title": "Nancy Knowledge Packet Schema",
+  "description": "Standardized data format for submitting content to Nancy Core from MCP servers",
+  "type": "object",
+  "required": [
+    "packet_version",
+    "packet_id", 
+    "timestamp",
+    "source",
+    "metadata",
+    "content"
+  ],
+  "properties": {
+    "packet_version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+$",
+      "description": "Schema version for this packet (e.g., '1.0')",
+      "examples": ["1.0", "1.1"]
+    },
+    "packet_id": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$",
+      "description": "SHA256 hash serving as unique identifier for this packet",
+      "examples": ["a1b2c3d4e5f6789012345678901234567890abcdef1234567890abcdef123456"]
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp when packet was created",
+      "examples": ["2025-08-15T10:30:00Z"]
+    },
+    "source": {
+      "type": "object",
+      "required": ["mcp_server", "server_version", "original_location", "content_type"],
+      "properties": {
+        "mcp_server": {
+          "type": "string",
+          "description": "Name of the MCP server that created this packet",
+          "examples": ["nancy-spreadsheet-server", "nancy-codebase-server", "nancy-document-server"]
+        },
+        "server_version": {
+          "type": "string",
+          "pattern": "^\\d+\\.\\d+\\.\\d+$",
+          "description": "Version of the MCP server",
+          "examples": ["1.2.0", "2.0.1"]
+        },
+        "original_location": {
+          "type": "string",
+          "description": "Original path or URL of the source content",
+          "examples": ["/path/to/file.xlsx", "https://github.com/user/repo", "C:\\Documents\\report.pdf"]
+        },
+        "content_type": {
+          "type": "string",
+          "enum": ["spreadsheet", "document", "codebase", "email", "chat", "api_docs", "presentation", "image", "video", "audio", "database", "custom"],
+          "description": "Type of content being ingested"
+        },
+        "extraction_method": {
+          "type": "string",
+          "description": "Method used to extract content (e.g., 'openpyxl', 'pypdf', 'git-log')",
+          "examples": ["openpyxl", "pypdf", "markdown-parser", "git-log", "ast-parser"]
+        }
+      }
+    },
+    "metadata": {
+      "type": "object",
+      "required": ["title"],
+      "properties": {
+        "title": {
+          "type": "string",
+          "description": "Human-readable title for the content",
+          "examples": ["Q3 Engineering Budget Analysis", "API Documentation v2.1", "Thermal Analysis Report"]
+        },
+        "author": {
+          "type": "string",
+          "description": "Primary author of the content",
+          "examples": ["Sarah Chen", "Mike Rodriguez", "engineering-team"]
+        },
+        "contributors": {
+          "type": "array",
+          "items": {"type": "string"},
+          "description": "Additional contributors to the content",
+          "examples": [["John Smith", "Lisa Park"], ["dev-team", "qa-team"]]
+        },
+        "created_at": {
+          "type": "string", 
+          "format": "date-time",
+          "description": "When the original content was created",
+          "examples": ["2025-08-10T14:20:00Z"]
+        },
+        "modified_at": {
+          "type": "string",
+          "format": "date-time", 
+          "description": "When the original content was last modified",
+          "examples": ["2025-08-12T09:15:00Z"]
+        },
+        "file_size": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Size of original file in bytes",
+          "examples": [2048576, 1024]
+        },
+        "content_hash": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$",
+          "description": "SHA256 hash of the original content for deduplication",
+          "examples": ["b2c3d4e5f6789012345678901234567890abcdef1234567890abcdef1234567"]
+        },
+        "tags": {
+          "type": "array",
+          "items": {"type": "string"},
+          "description": "Tags for categorization and discovery",
+          "examples": [["budget", "engineering", "q3-2025"], ["api", "documentation", "rest"]]
+        },
+        "department": {
+          "type": "string",
+          "description": "Department or team that owns this content",
+          "examples": ["Engineering", "Finance", "Product Management", "Research"]
+        },
+        "project": {
+          "type": "string", 
+          "description": "Project this content belongs to",
+          "examples": ["Project Apollo", "Platform Migration", "Q3 Budget Planning"]
+        },
+        "classification": {
+          "type": "string",
+          "enum": ["public", "internal", "confidential", "restricted"],
+          "description": "Security classification of the content"
+        },
+        "language": {
+          "type": "string",
+          "pattern": "^[a-z]{2}(-[A-Z]{2})?$",
+          "description": "Primary language of the content (ISO 639-1)",
+          "examples": ["en", "en-US", "es", "fr"]
+        }
+      }
+    },
+    "content": {
+      "type": "object",
+      "properties": {
+        "vector_data": {
+          "type": "object",
+          "description": "Content prepared for vector/semantic search",
+          "properties": {
+            "chunks": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": ["chunk_id", "text"],
+                "properties": {
+                  "chunk_id": {
+                    "type": "string",
+                    "description": "Unique identifier for this chunk within the packet",
+                    "examples": ["chunk_1", "page_2_para_3", "section_intro"]
+                  },
+                  "text": {
+                    "type": "string",
+                    "description": "The actual text content for embedding",
+                    "examples": ["The Q3 engineering budget allocates $2.5M for thermal management research..."]
+                  },
+                  "chunk_metadata": {
+                    "type": "object",
+                    "description": "Metadata specific to this chunk",
+                    "properties": {
+                      "page": {"type": "integer", "minimum": 1},
+                      "section": {"type": "string"},
+                      "paragraph": {"type": "integer", "minimum": 1},
+                      "row_range": {"type": "string", "examples": ["A1:C20", "rows 5-10"]},
+                      "line_numbers": {"type": "string", "examples": ["15-25", "100-150"]},
+                      "function_name": {"type": "string", "examples": ["calculateThermalLoad", "processUserInput"]},
+                      "confidence": {"type": "number", "minimum": 0, "maximum": 1}
+                    }
+                  }
+                }
+              }
+            },
+            "embedding_model": {
+              "type": "string",
+              "description": "Model used or recommended for embedding generation",
+              "examples": ["BAAI/bge-small-en-v1.5", "text-embedding-ada-002", "all-MiniLM-L6-v2"]
+            },
+            "chunk_strategy": {
+              "type": "string",
+              "enum": ["fixed_size", "semantic_paragraphs", "sentence_boundary", "document_structure", "code_functions", "custom"],
+              "description": "Strategy used for text chunking"
+            },
+            "chunk_size": {
+              "type": "integer",
+              "minimum": 50,
+              "maximum": 8192,
+              "description": "Target size for text chunks in characters"
+            },
+            "chunk_overlap": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 500,
+              "description": "Overlap between consecutive chunks in characters"
+            }
+          }
+        },
+        "analytical_data": {
+          "type": "object",
+          "description": "Structured data for analytical queries and metadata analysis",
+          "properties": {
+            "structured_fields": {
+              "type": "object",
+              "description": "Key-value pairs for structured queries",
+              "patternProperties": {
+                "^[a-zA-Z_][a-zA-Z0-9_]*$": {
+                  "oneOf": [
+                    {"type": "string"},
+                    {"type": "number"},
+                    {"type": "boolean"},
+                    {"type": "array"},
+                    {"type": "object"}
+                  ]
+                }
+              },
+              "examples": [
+                {
+                  "budget_total": 2500000,
+                  "department": "Engineering", 
+                  "quarter": "Q3",
+                  "year": 2025,
+                  "cost_centers": ["thermal", "electrical", "mechanical"]
+                }
+              ]
+            },
+            "table_data": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": ["table_name", "columns", "rows"],
+                "properties": {
+                  "table_name": {
+                    "type": "string",
+                    "description": "Name of the table/dataset",
+                    "examples": ["budget_breakdown", "test_results", "performance_metrics"]
+                  },
+                  "columns": {
+                    "type": "array",
+                    "items": {"type": "string"},
+                    "description": "Column names",
+                    "examples": [["category", "allocated_amount", "spent_amount"]]
+                  },
+                  "rows": {
+                    "type": "array",
+                    "items": {
+                      "type": "array"
+                    },
+                    "description": "Table rows as arrays of values",
+                    "examples": [
+                      [["thermal_research", 800000, 650000], ["electrical_components", 900000, 780000]]
+                    ]
+                  },
+                  "column_types": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "enum": ["string", "integer", "float", "boolean", "date", "datetime"]
+                    },
+                    "description": "Data types for each column"
+                  }
+                }
+              }
+            },
+            "time_series": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": ["timestamp", "value"],
+                "properties": {
+                  "timestamp": {"type": "string", "format": "date-time"},
+                  "value": {"type": "number"},
+                  "metric": {"type": "string"},
+                  "unit": {"type": "string"}
+                }
+              },
+              "description": "Time-series data for trend analysis"
+            },
+            "statistics": {
+              "type": "object",
+              "description": "Pre-computed statistics for analytical queries",
+              "properties": {
+                "row_count": {"type": "integer", "minimum": 0},
+                "column_count": {"type": "integer", "minimum": 0},
+                "null_values": {"type": "integer", "minimum": 0},
+                "unique_values": {"type": "object"},
+                "data_quality_score": {"type": "number", "minimum": 0, "maximum": 1}
+              }
+            }
+          }
+        },
+        "graph_data": {
+          "type": "object",
+          "description": "Entities and relationships for knowledge graph storage",
+          "properties": {
+            "entities": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": ["type", "name"],
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "enum": ["Person", "Document", "TechnicalConcept", "System", "Component", "Decision", "Meeting", "Project", "Team", "Role", "Process", "Constraint", "Risk", "Action"],
+                    "description": "Entity type from Nancy's foundational schema"
+                  },
+                  "name": {
+                    "type": "string",
+                    "description": "Unique name/identifier for the entity",
+                    "examples": ["Sarah Chen", "Thermal Analysis Report", "Memory Controller"]
+                  },
+                  "properties": {
+                    "type": "object",
+                    "description": "Additional properties specific to entity type",
+                    "patternProperties": {
+                      "^[a-zA-Z_][a-zA-Z0-9_]*$": {
+                        "oneOf": [
+                          {"type": "string"},
+                          {"type": "number"},
+                          {"type": "boolean"},
+                          {"type": "array"}
+                        ]
+                      }
+                    },
+                    "examples": [
+                      {
+                        "role": "Budget Manager",
+                        "department": "Engineering",
+                        "expertise": ["financial_analysis", "project_management"]
+                      }
+                    ]
+                  },
+                  "confidence": {
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 1,
+                    "description": "Confidence in entity extraction accuracy"
+                  }
+                }
+              }
+            },
+            "relationships": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": ["source", "relationship", "target"],
+                "properties": {
+                  "source": {
+                    "type": "object",
+                    "required": ["type", "name"],
+                    "properties": {
+                      "type": {"type": "string"},
+                      "name": {"type": "string"}
+                    },
+                    "description": "Source entity in the relationship"
+                  },
+                  "relationship": {
+                    "type": "string",
+                    "enum": [
+                      "HAS_EXPERTISE", "HAS_ROLE", "MEMBER_OF", "MADE", "ATTENDED",
+                      "PART_OF", "INTERFACES_WITH", "CONSTRAINED_BY", "AFFECTS", 
+                      "VALIDATED_BY", "PRODUCED", "MITIGATED_BY", "RESULTED_IN",
+                      "AUTHORED", "MENTIONS", "REFERENCES", "DISCUSSES", "DEPENDS_ON"
+                    ],
+                    "description": "Relationship type from Nancy's foundational schema"
+                  },
+                  "target": {
+                    "type": "object", 
+                    "required": ["type", "name"],
+                    "properties": {
+                      "type": {"type": "string"},
+                      "name": {"type": "string"}
+                    },
+                    "description": "Target entity in the relationship"
+                  },
+                  "properties": {
+                    "type": "object",
+                    "description": "Additional properties for the relationship",
+                    "patternProperties": {
+                      "^[a-zA-Z_][a-zA-Z0-9_]*$": {
+                        "oneOf": [
+                          {"type": "string"},
+                          {"type": "number"},
+                          {"type": "boolean"}
+                        ]
+                      }
+                    },
+                    "examples": [
+                      {
+                        "responsibility_level": "primary",
+                        "start_date": "2025-07-01",
+                        "confidence": 0.9
+                      }
+                    ]
+                  },
+                  "confidence": {
+                    "type": "number", 
+                    "minimum": 0,
+                    "maximum": 1,
+                    "description": "Confidence in relationship extraction accuracy"
+                  }
+                }
+              }
+            },
+            "context": {
+              "type": "object",
+              "description": "Contextual information for relationship interpretation",
+              "properties": {
+                "extraction_method": {
+                  "type": "string",
+                  "enum": ["spacy_ner", "llm_extraction", "rule_based", "manual", "hybrid"],
+                  "description": "Method used to extract entities and relationships"
+                },
+                "document_section": {
+                  "type": "string",
+                  "description": "Section of document where relationships were found"
+                },
+                "temporal_context": {
+                  "type": "string",
+                  "format": "date-time", 
+                  "description": "When the relationships were established"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "processing_hints": {
+      "type": "object",
+      "description": "Hints to guide Nancy Core's processing of this packet",
+      "properties": {
+        "priority_brain": {
+          "type": "string",
+          "enum": ["vector", "analytical", "graph", "auto"],
+          "description": "Which brain should be prioritized for queries about this content"
+        },
+        "semantic_weight": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1,
+          "description": "How important semantic search is for this content (0-1)"
+        },
+        "relationship_importance": {
+          "type": "number", 
+          "minimum": 0,
+          "maximum": 1,
+          "description": "How important relationship data is for this content (0-1)"
+        },
+        "requires_expert_routing": {
+          "type": "boolean",
+          "description": "Whether this content should trigger expert/expertise-based routing"
+        },
+        "content_classification": {
+          "type": "string",
+          "enum": ["technical", "financial", "strategic", "operational", "compliance", "research", "mixed"],
+          "description": "Primary classification of content type"
+        },
+        "update_frequency": {
+          "type": "string",
+          "enum": ["static", "daily", "weekly", "monthly", "real_time"],
+          "description": "How frequently this content is expected to change"
+        },
+        "indexing_priority": {
+          "type": "string",
+          "enum": ["high", "medium", "low"],
+          "description": "Priority for indexing this content"
+        }
+      }
+    },
+    "quality_metrics": {
+      "type": "object",
+      "description": "Quality metrics for the extracted content",
+      "properties": {
+        "extraction_confidence": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1,
+          "description": "Overall confidence in extraction quality (0-1)"
+        },
+        "content_completeness": {
+          "type": "number",
+          "minimum": 0, 
+          "maximum": 1,
+          "description": "How complete the content extraction is (0-1)"
+        },
+        "relationship_accuracy": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1,
+          "description": "Estimated accuracy of extracted relationships (0-1)"
+        },
+        "text_quality_score": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1,
+          "description": "Quality of extracted text (OCR quality, encoding issues, etc.)"
+        },
+        "metadata_richness": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1,
+          "description": "How rich and complete the metadata is (0-1)"
+        },
+        "processing_errors": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "error_type": {"type": "string"},
+              "error_message": {"type": "string"},
+              "severity": {"type": "string", "enum": ["low", "medium", "high"]},
+              "component": {"type": "string", "enum": ["vector_extraction", "analytical_extraction", "graph_extraction", "metadata_extraction"]}
+            }
+          },
+          "description": "Any errors encountered during processing"
+        }
+      }
+    },
+    "versioning": {
+      "type": "object",
+      "description": "Version control and lineage information",
+      "properties": {
+        "packet_version": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Version number of this packet (increments with updates)"
+        },
+        "previous_packet_id": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$",
+          "description": "ID of previous version of this content (for updates)"
+        },
+        "change_summary": {
+          "type": "string",
+          "description": "Summary of changes from previous version"
+        },
+        "data_lineage": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "source_system": {"type": "string"},
+              "transformation": {"type": "string"},
+              "timestamp": {"type": "string", "format": "date-time"}
+            }
+          },
+          "description": "Trail of data transformations leading to this packet"
+        }
+      }
+    }
+  },
+  "examples": [
+    {
+      "packet_version": "1.0",
+      "packet_id": "a1b2c3d4e5f6789012345678901234567890abcdef1234567890abcdef123456", 
+      "timestamp": "2025-08-15T10:30:00Z",
+      "source": {
+        "mcp_server": "nancy-spreadsheet-server",
+        "server_version": "1.2.0",
+        "original_location": "/data/Q3_Engineering_Budget.xlsx",
+        "content_type": "spreadsheet",
+        "extraction_method": "openpyxl"
+      },
+      "metadata": {
+        "title": "Q3 Engineering Budget Analysis",
+        "author": "Sarah Chen", 
+        "created_at": "2025-08-10T14:20:00Z",
+        "file_size": 2048576,
+        "content_hash": "b2c3d4e5f6789012345678901234567890abcdef1234567890abcdef1234567",
+        "tags": ["budget", "engineering", "q3-2025"],
+        "department": "Engineering",
+        "project": "Project Apollo",
+        "classification": "internal"
+      },
+      "content": {
+        "vector_data": {
+          "chunks": [
+            {
+              "chunk_id": "chunk_1",
+              "text": "The Q3 engineering budget allocates $2.5M for thermal management research, focusing on advanced cooling solutions for high-performance processors. This includes $800K for thermal simulation software licenses and $700K for prototype development.",
+              "chunk_metadata": {
+                "page": 1,
+                "section": "Thermal Analysis",
+                "row_range": "A1:C20"
+              }
+            }
+          ],
+          "embedding_model": "BAAI/bge-small-en-v1.5",
+          "chunk_strategy": "semantic_paragraphs"
+        },
+        "analytical_data": {
+          "structured_fields": {
+            "budget_total": 2500000,
+            "department": "Engineering",
+            "quarter": "Q3", 
+            "year": 2025,
+            "cost_centers": ["thermal", "electrical", "mechanical"]
+          },
+          "table_data": [
+            {
+              "table_name": "budget_breakdown",
+              "columns": ["category", "allocated_amount", "spent_amount"],
+              "rows": [
+                ["thermal_research", 800000, 650000],
+                ["electrical_components", 900000, 780000]
+              ]
+            }
+          ]
+        },
+        "graph_data": {
+          "entities": [
+            {
+              "type": "Person",
+              "name": "Sarah Chen",
+              "properties": {
+                "role": "Budget Manager",
+                "department": "Engineering",
+                "expertise": ["financial_analysis", "project_management"]
+              }
+            }
+          ],
+          "relationships": [
+            {
+              "source": {"type": "Person", "name": "Sarah Chen"},
+              "relationship": "MANAGES",
+              "target": {"type": "Document", "name": "Q3 Engineering Budget"},
+              "properties": {
+                "responsibility_level": "primary",
+                "start_date": "2025-07-01"
+              }
+            }
+          ]
+        }
+      },
+      "processing_hints": {
+        "priority_brain": "analytical",
+        "semantic_weight": 0.6,
+        "relationship_importance": 0.9,
+        "requires_expert_routing": true,
+        "content_classification": "financial"
+      },
+      "quality_metrics": {
+        "extraction_confidence": 0.95,
+        "content_completeness": 0.88,
+        "relationship_accuracy": 0.92
+      }
+    }
+  ]
+}

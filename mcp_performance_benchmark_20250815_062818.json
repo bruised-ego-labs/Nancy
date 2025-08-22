@@ -1,0 +1,214 @@
+{
+  "timestamp": "2025-08-15T06:28:14.601859",
+  "benchmark_type": "mcp_spreadsheet_server",
+  "system_info": {
+    "python_version": "3.12.6 (tags/v3.12.6:a4a2d2b, Sep  6 2024, 20:11:23) [MSC v.1940 64 bit (AMD64)]",
+    "platform": "win32"
+  },
+  "test_results": {
+    "small": {
+      "file_info": {
+        "file": "C:\\Users\\scott\\Documents\\Nancy\\test_data\\benchmark_small.xlsx",
+        "rows": 10,
+        "cols": 8
+      },
+      "average_processing_time_seconds": 0.07442933334580933,
+      "average_packet_generation_time_seconds": 0.00042936665704473853,
+      "average_total_time_seconds": 0.07485870000285406,
+      "average_memory_used_bytes": 334057.3333333333,
+      "success_rate": 1.0,
+      "content_analysis": {
+        "vector_chunks": 1,
+        "analytical_tables": 1,
+        "graph_entities": 24,
+        "graph_relationships": 23
+      },
+      "individual_runs": [
+        {
+          "processing_time_seconds": 0.07332690001931041,
+          "packet_generation_time_seconds": 0.0006041000015102327,
+          "total_time_seconds": 0.07393100002082065,
+          "memory_used_bytes": 362539,
+          "success": true,
+          "sheets_processed": [
+            "Sheet1"
+          ],
+          "content_analysis": {
+            "vector_chunks": 1,
+            "analytical_tables": 1,
+            "graph_entities": 24,
+            "graph_relationships": 23
+          }
+        },
+        {
+          "processing_time_seconds": 0.07915040000807494,
+          "packet_generation_time_seconds": 0.0003425999893806875,
+          "total_time_seconds": 0.07949299999745563,
+          "memory_used_bytes": 320798,
+          "success": true,
+          "sheets_processed": [
+            "Sheet1"
+          ],
+          "content_analysis": {
+            "vector_chunks": 1,
+            "analytical_tables": 1,
+            "graph_entities": 24,
+            "graph_relationships": 23
+          }
+        },
+        {
+          "processing_time_seconds": 0.07081070001004264,
+          "packet_generation_time_seconds": 0.00034139998024329543,
+          "total_time_seconds": 0.07115209999028593,
+          "memory_used_bytes": 318835,
+          "success": true,
+          "sheets_processed": [
+            "Sheet1"
+          ],
+          "content_analysis": {
+            "vector_chunks": 1,
+            "analytical_tables": 1,
+            "graph_entities": 24,
+            "graph_relationships": 23
+          }
+        }
+      ]
+    },
+    "medium": {
+      "file_info": {
+        "file": "C:\\Users\\scott\\Documents\\Nancy\\test_data\\benchmark_medium.xlsx",
+        "rows": 100,
+        "cols": 11
+      },
+      "average_processing_time_seconds": 0.15618713333969936,
+      "average_packet_generation_time_seconds": 0.0006019333280467739,
+      "average_total_time_seconds": 0.15678906666774614,
+      "average_memory_used_bytes": 1303800.6666666667,
+      "success_rate": 1.0,
+      "content_analysis": {
+        "vector_chunks": 1,
+        "analytical_tables": 1,
+        "graph_entities": 23,
+        "graph_relationships": 22
+      },
+      "individual_runs": [
+        {
+          "processing_time_seconds": 0.1598025000130292,
+          "packet_generation_time_seconds": 0.0006110999966040254,
+          "total_time_seconds": 0.16041360000963323,
+          "memory_used_bytes": 1304267,
+          "success": true,
+          "sheets_processed": [
+            "Sheet1"
+          ],
+          "content_analysis": {
+            "vector_chunks": 1,
+            "analytical_tables": 1,
+            "graph_entities": 23,
+            "graph_relationships": 22
+          }
+        },
+        {
+          "processing_time_seconds": 0.1615213000040967,
+          "packet_generation_time_seconds": 0.0006182999932207167,
+          "total_time_seconds": 0.16213959999731742,
+          "memory_used_bytes": 1303776,
+          "success": true,
+          "sheets_processed": [
+            "Sheet1"
+          ],
+          "content_analysis": {
+            "vector_chunks": 1,
+            "analytical_tables": 1,
+            "graph_entities": 23,
+            "graph_relationships": 22
+          }
+        },
+        {
+          "processing_time_seconds": 0.14723760000197217,
+          "packet_generation_time_seconds": 0.0005763999943155795,
+          "total_time_seconds": 0.14781399999628775,
+          "memory_used_bytes": 1303359,
+          "success": true,
+          "sheets_processed": [
+            "Sheet1"
+          ],
+          "content_analysis": {
+            "vector_chunks": 1,
+            "analytical_tables": 1,
+            "graph_entities": 23,
+            "graph_relationships": 22
+          }
+        }
+      ]
+    },
+    "large": {
+      "file_info": {
+        "file": "C:\\Users\\scott\\Documents\\Nancy\\test_data\\benchmark_large.xlsx",
+        "rows": 1000,
+        "cols": 13
+      },
+      "average_processing_time_seconds": 0.9556333666647939,
+      "average_packet_generation_time_seconds": 0.007136766672677671,
+      "average_total_time_seconds": 0.9627701333374716,
+      "average_memory_used_bytes": 1456990.3333333333,
+      "success_rate": 1.0,
+      "content_analysis": {
+        "vector_chunks": 1,
+        "analytical_tables": 1,
+        "graph_entities": 36,
+        "graph_relationships": 35
+      },
+      "individual_runs": [
+        {
+          "processing_time_seconds": 1.059136399999261,
+          "packet_generation_time_seconds": 0.003853700007312,
+          "total_time_seconds": 1.062990100006573,
+          "memory_used_bytes": 1457994,
+          "success": true,
+          "sheets_processed": [
+            "Sheet1"
+          ],
+          "content_analysis": {
+            "vector_chunks": 1,
+            "analytical_tables": 1,
+            "graph_entities": 36,
+            "graph_relationships": 35
+          }
+        },
+        {
+          "processing_time_seconds": 0.9593165999976918,
+          "packet_generation_time_seconds": 0.0038604000001214445,
+          "total_time_seconds": 0.9631769999978133,
+          "memory_used_bytes": 1456955,
+          "success": true,
+          "sheets_processed": [
+            "Sheet1"
+          ],
+          "content_analysis": {
+            "vector_chunks": 1,
+            "analytical_tables": 1,
+            "graph_entities": 36,
+            "graph_relationships": 35
+          }
+        },
+        {
+          "processing_time_seconds": 0.8484470999974292,
+          "packet_generation_time_seconds": 0.013696200010599568,
+          "total_time_seconds": 0.8621433000080287,
+          "memory_used_bytes": 1456022,
+          "success": true,
+          "sheets_processed": [
+            "Sheet1"
+          ],
+          "content_analysis": {
+            "vector_chunks": 1,
+            "analytical_tables": 1,
+            "graph_entities": 36,
+            "graph_relationships": 35
+          }
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,14 @@
+# Nancy Spreadsheet MCP Server Dependencies
+# Core data processing
+pandas>=2.0.0
+openpyxl>=3.1.0
+xlrd>=2.0.1
+
+# JSON schema validation
+jsonschema>=4.0.0
+
+# Async support
+asyncio-compat>=0.1.2
+
+# Logging and utilities
+pathlib2>=2.3.7

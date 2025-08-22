@@ -85,6 +85,28 @@ class VectorBrain:
         )
         print(f"Added {len(chunks)} chunks for document {doc_id} to ChromaDB.")
 
+    def add_text(self, text: str, metadata: dict = None, doc_id: str = None):
+        """
+        Add a single text chunk to the vector database with metadata.
+        This method provides the interface expected by MCP host and knowledge packet processor.
+        """
+        if not text.strip():
+            return  # Skip empty texts
+            
+        # Use doc_id or generate one
+        chunk_id = doc_id or f"text_{len(text)}"
+        
+        # Prepare metadata
+        chunk_metadata = metadata or {}
+        
+        # Add to ChromaDB collection
+        self.collection.add(
+            documents=[text],
+            metadatas=[chunk_metadata],
+            ids=[chunk_id]
+        )
+        print(f"Added text chunk {chunk_id} to ChromaDB with metadata: {list(chunk_metadata.keys())}")
+
     def query(self, query_texts: list[str], n_results: int = 5):
         """
         Queries the vector database for similar documents.

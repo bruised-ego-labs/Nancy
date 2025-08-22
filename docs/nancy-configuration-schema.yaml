@@ -1,0 +1,1002 @@
+# Nancy Core Configuration Schema and Examples
+# Version: 1.0
+# Description: Complete configuration specification for Nancy Core MCP architecture
+
+# ==============================================================================
+# SCHEMA DEFINITION (using JSON Schema in YAML format)
+# ==============================================================================
+
+$schema: "http://json-schema.org/draft-07/schema#"
+$id: "https://schemas.nancy.ai/config/v1.0"
+title: "Nancy Core Configuration Schema"
+description: "Configuration schema for Nancy Core MCP orchestration platform"
+type: object
+
+required:
+  - nancy_core
+  - orchestration  
+  - brains
+  - mcp_servers
+
+properties:
+  nancy_core:
+    type: object
+    required: [version, instance_name]
+    properties:
+      version:
+        type: string
+        pattern: "^\\d+\\.\\d+\\.\\d+$"
+        description: "Nancy Core version"
+        examples: ["2.0.0", "2.1.0"]
+      instance_name:
+        type: string
+        pattern: "^[a-zA-Z0-9_-]+$"
+        description: "Unique instance identifier"
+        examples: ["nancy-production", "nancy-dev", "nancy-staging"]
+      description:
+        type: string
+        description: "Human-readable description of this instance"
+        examples: ["Production Nancy instance for Project Apollo"]
+
+  orchestration:
+    type: object
+    required: [mode, routing_strategy]
+    properties:
+      mode:
+        type: string
+        enum: ["four_brain", "simplified", "custom"]
+        description: "Orchestration mode"
+        default: "four_brain"
+      multi_step_threshold:
+        type: number
+        minimum: 0
+        maximum: 1
+        default: 0.7
+        description: "Threshold for triggering multi-step query processing"
+      routing_strategy:
+        type: string
+        enum: ["langchain_router", "custom", "rule_based"]
+        default: "langchain_router"
+        description: "Strategy for routing queries to brains"
+      max_query_complexity:
+        type: integer
+        minimum: 1
+        maximum: 10
+        default: 5
+        description: "Maximum complexity level for query processing"
+      enable_query_caching:
+        type: boolean
+        default: true
+        description: "Enable query result caching"
+
+  brains:
+    type: object
+    required: [vector, analytical, graph, linguistic]
+    properties:
+      vector:
+        $ref: "#/definitions/VectorBrainConfig"
+      analytical:
+        $ref: "#/definitions/AnalyticalBrainConfig"  
+      graph:
+        $ref: "#/definitions/GraphBrainConfig"
+      linguistic:
+        $ref: "#/definitions/LinguisticBrainConfig"
+
+  mcp_servers:
+    type: object
+    required: [enabled_servers]
+    properties:
+      enabled_servers:
+        type: array
+        items:
+          $ref: "#/definitions/MCPServerConfig"
+        description: "List of enabled MCP servers"
+      auto_discovery:
+        type: boolean
+        default: false
+        description: "Enable automatic MCP server discovery"
+      server_timeout_seconds:
+        type: integer
+        minimum: 5
+        maximum: 300
+        default: 30
+        description: "Timeout for MCP server connections"
+
+  security:
+    type: object
+    properties:
+      authentication:
+        type: object
+        properties:
+          enabled:
+            type: boolean
+            default: false
+          method:
+            type: string
+            enum: ["api_key", "oauth", "mTLS", "jwt"]
+            default: "api_key"
+          api_key_header:
+            type: string
+            default: "X-Nancy-API-Key"
+      mcp_security:
+        type: object
+        properties:
+          sandbox_mode:
+            type: boolean
+            default: true
+            description: "Enable sandboxing for MCP servers"
+          allowed_file_extensions:
+            type: array
+            items: {type: string}
+            default: [".xlsx", ".csv", ".md", ".py", ".js", ".json", ".pdf", ".txt"]
+          max_file_size_mb:
+            type: integer
+            minimum: 1
+            maximum: 1000
+            default: 100
+          quarantine_suspicious_files:
+            type: boolean
+            default: true
+
+  performance:
+    type: object
+    properties:
+      query_timeout_seconds:
+        type: integer
+        minimum: 5
+        maximum: 300
+        default: 30
+      max_concurrent_queries:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 10
+      cache_enabled:
+        type: boolean
+        default: true
+      cache_ttl_minutes:
+        type: integer
+        minimum: 1
+        maximum: 1440
+        default: 60
+      memory_limit_mb:
+        type: integer
+        minimum: 512
+        maximum: 16384
+        default: 2048
+
+  logging:
+    type: object
+    properties:
+      level:
+        type: string
+        enum: ["DEBUG", "INFO", "WARN", "ERROR", "CRITICAL"]
+        default: "INFO"
+      structured:
+        type: boolean
+        default: true
+        description: "Use structured JSON logging"
+      include_performance_metrics:
+        type: boolean
+        default: true
+      log_queries:
+        type: boolean
+        default: false
+        description: "Log all queries (be careful with sensitive data)"
+      retention_days:
+        type: integer
+        minimum: 1
+        maximum: 365
+        default: 30
+
+definitions:
+  VectorBrainConfig:
+    type: object
+    required: [backend, connection]
+    properties:
+      backend:
+        type: string
+        enum: ["chromadb", "weaviate", "pinecone", "qdrant", "faiss"]
+        description: "Vector database backend"
+      embedding_model:
+        type: string
+        default: "BAAI/bge-small-en-v1.5"
+        description: "Embedding model to use"
+        examples: ["BAAI/bge-small-en-v1.5", "text-embedding-ada-002", "all-MiniLM-L6-v2"]
+      chunk_size:
+        type: integer
+        minimum: 100
+        maximum: 2000
+        default: 512
+      chunk_overlap:
+        type: integer
+        minimum: 0
+        maximum: 200
+        default: 50
+      connection:
+        type: object
+        description: "Backend-specific connection configuration"
+        oneOf:
+          - $ref: "#/definitions/ChromaDBConnection"
+          - $ref: "#/definitions/WeaviateConnection"
+          - $ref: "#/definitions/PineconeConnection"
+          - $ref: "#/definitions/QdrantConnection"
+
+  AnalyticalBrainConfig:
+    type: object
+    required: [backend, connection]
+    properties:
+      backend:
+        type: string
+        enum: ["duckdb", "postgresql", "sqlite", "clickhouse"]
+        description: "Analytical database backend"
+      connection:
+        type: object
+        description: "Backend-specific connection configuration"
+        oneOf:
+          - $ref: "#/definitions/DuckDBConnection"
+          - $ref: "#/definitions/PostgreSQLConnection"  
+          - $ref: "#/definitions/SQLiteConnection"
+          - $ref: "#/definitions/ClickHouseConnection"
+      query_timeout_seconds:
+        type: integer
+        minimum: 1
+        maximum: 300
+        default: 30
+
+  GraphBrainConfig:
+    type: object
+    required: [backend, connection]
+    properties:
+      backend:
+        type: string
+        enum: ["neo4j", "arangodb", "tigergraph", "neptune"]
+        description: "Graph database backend"
+      schema_mode:
+        type: string
+        enum: ["foundational", "custom", "flexible"]
+        default: "foundational"
+        description: "Graph schema enforcement mode"
+      connection:
+        type: object
+        description: "Backend-specific connection configuration"
+        oneOf:
+          - $ref: "#/definitions/Neo4jConnection"
+          - $ref: "#/definitions/ArangoDBConnection"
+          - $ref: "#/definitions/TigerGraphConnection"
+      max_relationship_depth:
+        type: integer
+        minimum: 1
+        maximum: 10
+        default: 5
+
+  LinguisticBrainConfig:
+    type: object
+    required: [primary_llm, connection]
+    properties:
+      primary_llm:
+        type: string
+        description: "Primary LLM for query analysis and synthesis"
+        examples: ["gemma_3n_e4b_it", "gpt-4", "claude-3-sonnet", "llama-3.1-70b"]
+      fallback_llm:
+        type: string
+        description: "Fallback LLM if primary fails"
+      connection:
+        type: object
+        description: "LLM provider connection configuration"
+        oneOf:
+          - $ref: "#/definitions/GoogleAIConnection"
+          - $ref: "#/definitions/OpenAIConnection"
+          - $ref: "#/definitions/AnthropicConnection"
+          - $ref: "#/definitions/OllamaConnection"
+      temperature:
+        type: number
+        minimum: 0
+        maximum: 2
+        default: 0.1
+        description: "LLM temperature for generation"
+      max_tokens:
+        type: integer
+        minimum: 100
+        maximum: 8192
+        default: 2048
+
+  MCPServerConfig:
+    type: object
+    required: [name, executable]
+    properties:
+      name:
+        type: string
+        pattern: "^nancy-[a-zA-Z0-9_-]+$"
+        description: "Unique server name"
+        examples: ["nancy-spreadsheet-server", "nancy-codebase-server"]
+      executable:
+        type: string
+        description: "Path to MCP server executable"
+        examples: ["./mcp-servers/spreadsheet/server.py", "/usr/local/bin/nancy-codebase-server"]
+      args:
+        type: array
+        items: {type: string}
+        description: "Command line arguments for the server"
+        default: []
+      auto_start:
+        type: boolean
+        default: true
+        description: "Auto-start this server with Nancy Core"
+      capabilities:
+        type: array
+        items:
+          type: string
+          enum: ["file_upload", "real_time_sync", "git_integration", "dependency_analysis", "api_crawling"]
+        description: "Capabilities provided by this server"
+      environment:
+        type: object
+        patternProperties:
+          "^[A-Z_][A-Z0-9_]*$": {type: string}
+        description: "Environment variables for the server"
+      health_check_interval_seconds:
+        type: integer
+        minimum: 10
+        maximum: 300
+        default: 60
+
+  # Connection Configurations for Vector Backends
+  ChromaDBConnection:
+    type: object
+    required: [host, port]
+    properties:
+      host:
+        type: string
+        default: "localhost"
+      port:
+        type: integer
+        minimum: 1
+        maximum: 65535
+        default: 8001
+      ssl:
+        type: boolean
+        default: false
+      collection_name:
+        type: string
+        default: "nancy_vectors"
+
+  WeaviateConnection:
+    type: object
+    required: [url]
+    properties:
+      url:
+        type: string
+        format: uri
+        examples: ["http://localhost:8080", "https://weaviate-cluster.company.com"]
+      api_key:
+        type: string
+        description: "Weaviate API key (use environment variable)"
+      class_name:
+        type: string
+        default: "NancyDocument"
+
+  PineconeConnection:
+    type: object
+    required: [api_key, environment, index_name]
+    properties:
+      api_key:
+        type: string
+        description: "Pinecone API key (use environment variable)"
+      environment:
+        type: string
+        examples: ["us-west1-gcp", "us-east-1-aws"]
+      index_name:
+        type: string
+        examples: ["nancy-vectors", "nancy-production"]
+
+  QdrantConnection:
+    type: object
+    required: [url]
+    properties:
+      url:
+        type: string
+        format: uri
+        examples: ["http://localhost:6333", "https://qdrant-cluster.company.com"]
+      api_key:
+        type: string
+        description: "Qdrant API key if required"
+      collection_name:
+        type: string
+        default: "nancy_collection"
+
+  # Connection Configurations for Analytical Backends  
+  DuckDBConnection:
+    type: object
+    required: [database_path]
+    properties:
+      database_path:
+        type: string
+        examples: ["./data/nancy_analytical.duckdb", "/var/lib/nancy/analytical.duckdb"]
+      read_only:
+        type: boolean
+        default: false
+      memory_limit:
+        type: string
+        default: "1GB"
+        examples: ["512MB", "2GB", "4GB"]
+
+  PostgreSQLConnection:
+    type: object
+    properties:
+      connection_string:
+        type: string
+        description: "Full PostgreSQL connection string"
+        examples: ["postgresql://user:pass@localhost:5432/nancy"]
+      host:
+        type: string
+        default: "localhost"
+      port:
+        type: integer
+        default: 5432
+      database:
+        type: string
+        default: "nancy"
+      username:
+        type: string
+      password:
+        type: string
+        description: "Use environment variable for security"
+      ssl_mode:
+        type: string
+        enum: ["disable", "allow", "prefer", "require", "verify-ca", "verify-full"]
+        default: "prefer"
+
+  SQLiteConnection:
+    type: object
+    required: [database_path]
+    properties:
+      database_path:
+        type: string
+        examples: ["./data/nancy.sqlite", ":memory:"]
+      timeout:
+        type: integer
+        default: 20
+
+  ClickHouseConnection:
+    type: object
+    required: [host, database]
+    properties:
+      host:
+        type: string
+        default: "localhost"
+      port:
+        type: integer
+        default: 8123
+      database:
+        type: string
+        default: "nancy"
+      username:
+        type: string
+        default: "default"
+      password:
+        type: string
+
+  # Connection Configurations for Graph Backends
+  Neo4jConnection:
+    type: object
+    required: [uri, username, password]
+    properties:
+      uri:
+        type: string
+        examples: ["bolt://localhost:7687", "neo4j+s://cluster.neo4j.io"]
+      username:
+        type: string
+        default: "neo4j"
+      password:
+        type: string
+        description: "Use environment variable"
+      database:
+        type: string
+        default: "neo4j"
+      max_connection_lifetime_seconds:
+        type: integer
+        default: 3600
+
+  ArangoDBConnection:
+    type: object
+    required: [url, database]
+    properties:
+      url:
+        type: string
+        format: uri
+        examples: ["http://localhost:8529"]
+      database:
+        type: string
+        default: "nancy"
+      username:
+        type: string
+      password:
+        type: string
+
+  TigerGraphConnection:
+    type: object
+    required: [host, graph_name]
+    properties:
+      host:
+        type: string
+        examples: ["localhost", "tigergraph-cluster.company.com"]
+      port:
+        type: integer
+        default: 9000
+      graph_name:
+        type: string
+        default: "nancy_graph"
+      username:
+        type: string
+      password:
+        type: string
+      token:
+        type: string
+        description: "TigerGraph access token"
+
+  # Connection Configurations for LLM Providers
+  GoogleAIConnection:
+    type: object
+    required: [api_key_env]
+    properties:
+      api_key_env:
+        type: string
+        default: "GEMINI_API_KEY"
+        description: "Environment variable containing API key"
+      model:
+        type: string
+        default: "gemini-1.5-flash"
+        examples: ["gemini-1.5-flash", "gemini-1.5-pro", "gemma-2b-it"]
+      base_url:
+        type: string
+        description: "Custom API endpoint if needed"
+
+  OpenAIConnection:
+    type: object
+    required: [api_key_env]
+    properties:
+      api_key_env:
+        type: string
+        default: "OPENAI_API_KEY"
+      model:
+        type: string
+        default: "gpt-4"
+        examples: ["gpt-4", "gpt-4-turbo", "gpt-3.5-turbo"]
+      base_url:
+        type: string
+        description: "Custom OpenAI-compatible endpoint"
+      organization:
+        type: string
+        description: "OpenAI organization ID"
+
+  AnthropicConnection:
+    type: object
+    required: [api_key_env]
+    properties:
+      api_key_env:
+        type: string
+        default: "ANTHROPIC_API_KEY"
+      model:
+        type: string
+        default: "claude-3-sonnet-20240229"
+        examples: ["claude-3-opus-20240229", "claude-3-sonnet-20240229", "claude-3-haiku-20240307"]
+
+  OllamaConnection:
+    type: object
+    required: [base_url, model]
+    properties:
+      base_url:
+        type: string
+        default: "http://localhost:11434"
+        description: "Ollama server URL"
+      model:
+        type: string
+        examples: ["llama3.1:70b", "mistral:7b", "codellama:13b"]
+      timeout_seconds:
+        type: integer
+        default: 120
+
+---
+
+# ==============================================================================
+# CONFIGURATION EXAMPLES
+# ==============================================================================
+
+# Example 1: Development Configuration (Local services)
+development_config: |
+  nancy_core:
+    version: "2.0.0"
+    instance_name: "nancy-dev"
+    description: "Development instance for Nancy Core"
+
+  orchestration:
+    mode: "four_brain"
+    multi_step_threshold: 0.7
+    routing_strategy: "langchain_router"
+    enable_query_caching: true
+
+  brains:
+    vector:
+      backend: "chromadb"
+      embedding_model: "BAAI/bge-small-en-v1.5"
+      chunk_size: 512
+      chunk_overlap: 50
+      connection:
+        host: "localhost"
+        port: 8001
+        collection_name: "nancy_dev_vectors"
+
+    analytical:
+      backend: "duckdb"
+      connection:
+        database_path: "./data/dev_nancy.duckdb"
+        memory_limit: "1GB"
+
+    graph:
+      backend: "neo4j"
+      schema_mode: "foundational"
+      connection:
+        uri: "bolt://localhost:7687"
+        username: "neo4j"
+        password: "password"
+        database: "nancy_dev"
+
+    linguistic:
+      primary_llm: "gemma_3n_e4b_it"
+      fallback_llm: "local_gemma"
+      connection:
+        provider: "google_ai"
+        api_key_env: "GEMINI_API_KEY"
+        model: "gemini-1.5-flash"
+      temperature: 0.1
+      max_tokens: 2048
+
+  mcp_servers:
+    enabled_servers:
+      - name: "nancy-document-server"
+        executable: "./mcp-servers/document/server.py"
+        auto_start: true
+        capabilities: ["file_upload"]
+        environment:
+          LOG_LEVEL: "DEBUG"
+
+      - name: "nancy-spreadsheet-server"
+        executable: "./mcp-servers/spreadsheet/server.py"
+        auto_start: true
+        capabilities: ["file_upload", "real_time_sync"]
+
+  security:
+    authentication:
+      enabled: false
+    mcp_security:
+      sandbox_mode: true
+      allowed_file_extensions: [".xlsx", ".csv", ".md", ".py", ".js", ".json", ".pdf", ".txt"]
+      max_file_size_mb: 50
+
+  performance:
+    query_timeout_seconds: 30
+    max_concurrent_queries: 5
+    cache_enabled: true
+    cache_ttl_minutes: 30
+
+  logging:
+    level: "DEBUG"
+    structured: true
+    include_performance_metrics: true
+    log_queries: true
+
+# Example 2: Production Configuration (Enterprise setup)
+production_config: |
+  nancy_core:
+    version: "2.0.0"
+    instance_name: "nancy-production"
+    description: "Production Nancy instance for Project Apollo"
+
+  orchestration:
+    mode: "four_brain"
+    multi_step_threshold: 0.8
+    routing_strategy: "langchain_router"
+    max_query_complexity: 7
+    enable_query_caching: true
+
+  brains:
+    vector:
+      backend: "weaviate"
+      embedding_model: "text-embedding-ada-002"
+      chunk_size: 512
+      chunk_overlap: 50
+      connection:
+        url: "https://weaviate-cluster.company.com"
+        api_key: "${WEAVIATE_API_KEY}"
+        class_name: "NancyDocument"
+
+    analytical:
+      backend: "postgresql"
+      connection:
+        connection_string: "${DATABASE_URL}"
+        ssl_mode: "require"
+      query_timeout_seconds: 60
+
+    graph:
+      backend: "neo4j"
+      schema_mode: "foundational"
+      connection:
+        uri: "${NEO4J_URI}"
+        username: "${NEO4J_USERNAME}"
+        password: "${NEO4J_PASSWORD}"
+        database: "nancy_production"
+        max_connection_lifetime_seconds: 7200
+
+    linguistic:
+      primary_llm: "gpt-4"
+      fallback_llm: "gpt-3.5-turbo"
+      connection:
+        provider: "openai"
+        api_key_env: "OPENAI_API_KEY"
+        model: "gpt-4"
+        organization: "${OPENAI_ORG_ID}"
+      temperature: 0.1
+      max_tokens: 4096
+
+  mcp_servers:
+    enabled_servers:
+      - name: "nancy-document-server"
+        executable: "/usr/local/bin/nancy-document-server"
+        auto_start: true
+        capabilities: ["file_upload"]
+        health_check_interval_seconds: 60
+
+      - name: "nancy-spreadsheet-server"
+        executable: "/usr/local/bin/nancy-spreadsheet-server"
+        auto_start: true
+        capabilities: ["file_upload", "real_time_sync"]
+
+      - name: "nancy-codebase-server"
+        executable: "/usr/local/bin/nancy-codebase-server"
+        auto_start: true
+        capabilities: ["git_integration", "dependency_analysis"]
+
+      - name: "nancy-slack-server"
+        executable: "/usr/local/bin/nancy-slack-server"
+        auto_start: true
+        capabilities: ["real_time_sync"]
+        environment:
+          SLACK_BOT_TOKEN: "${SLACK_BOT_TOKEN}"
+          SLACK_APP_TOKEN: "${SLACK_APP_TOKEN}"
+
+    server_timeout_seconds: 60
+
+  security:
+    authentication:
+      enabled: true
+      method: "api_key"
+      api_key_header: "X-Nancy-API-Key"
+    mcp_security:
+      sandbox_mode: true
+      allowed_file_extensions: [".xlsx", ".csv", ".md", ".py", ".js", ".json", ".pdf", ".txt", ".docx"]
+      max_file_size_mb: 200
+      quarantine_suspicious_files: true
+
+  performance:
+    query_timeout_seconds: 120
+    max_concurrent_queries: 20
+    cache_enabled: true
+    cache_ttl_minutes: 120
+    memory_limit_mb: 4096
+
+  logging:
+    level: "INFO"
+    structured: true
+    include_performance_metrics: true
+    log_queries: false
+    retention_days: 90
+
+# Example 3: Hybrid Cloud Configuration
+hybrid_cloud_config: |
+  nancy_core:
+    version: "2.0.0"
+    instance_name: "nancy-hybrid"
+    description: "Hybrid cloud deployment with local graph, cloud vector"
+
+  orchestration:
+    mode: "four_brain"
+    multi_step_threshold: 0.75
+    routing_strategy: "langchain_router"
+
+  brains:
+    vector:
+      backend: "pinecone"
+      embedding_model: "text-embedding-ada-002"
+      connection:
+        api_key: "${PINECONE_API_KEY}"
+        environment: "us-west1-gcp"
+        index_name: "nancy-production"
+
+    analytical:
+      backend: "clickhouse"
+      connection:
+        host: "clickhouse-cluster.company.com"
+        port: 8123
+        database: "nancy"
+        username: "nancy_user"
+        password: "${CLICKHOUSE_PASSWORD}"
+
+    graph:
+      backend: "neo4j"
+      schema_mode: "foundational"
+      connection:
+        uri: "bolt://localhost:7687"
+        username: "neo4j"
+        password: "${NEO4J_PASSWORD}"
+
+    linguistic:
+      primary_llm: "claude-3-sonnet"
+      fallback_llm: "gpt-4"
+      connection:
+        provider: "anthropic"
+        api_key_env: "ANTHROPIC_API_KEY"
+        model: "claude-3-sonnet-20240229"
+      temperature: 0.1
+
+  mcp_servers:
+    enabled_servers:
+      - name: "nancy-document-server"
+        executable: "./mcp-servers/document/server.py"
+        auto_start: true
+        capabilities: ["file_upload"]
+
+  security:
+    authentication:
+      enabled: true
+      method: "jwt"
+    mcp_security:
+      sandbox_mode: true
+      max_file_size_mb: 100
+
+  performance:
+    query_timeout_seconds: 60
+    max_concurrent_queries: 15
+    cache_enabled: true
+
+  logging:
+    level: "INFO"
+    structured: true
+    include_performance_metrics: true
+
+---
+
+# ==============================================================================
+# CONFIGURATION VALIDATION EXAMPLES
+# ==============================================================================
+
+validation_examples:
+  # Example of configuration validation errors
+  invalid_config_examples:
+    - description: "Invalid backend selection"
+      config:
+        brains:
+          vector:
+            backend: "invalid_backend"  # Error: not in enum
+      error: "brains.vector.backend: must be one of ['chromadb', 'weaviate', 'pinecone', 'qdrant', 'faiss']"
+
+    - description: "Missing required connection field"
+      config:
+        brains:
+          analytical:
+            backend: "duckdb"
+            # Missing connection object
+      error: "brains.analytical: missing required property 'connection'"
+
+    - description: "Invalid chunk size"
+      config:
+        brains:
+          vector:
+            backend: "chromadb"
+            chunk_size: 50  # Error: below minimum
+      error: "brains.vector.chunk_size: must be >= 100"
+
+  # Example of environment variable interpolation
+  environment_variable_examples:
+    - description: "Database URL from environment"
+      config: "${DATABASE_URL}"
+      resolved: "postgresql://user:pass@db.company.com:5432/nancy"
+
+    - description: "API key from environment with default"
+      config: "${OPENAI_API_KEY:-sk-default-key}"
+      resolved: "sk-actual-key-from-env"
+
+---
+
+# ==============================================================================
+# MIGRATION CONFIGURATIONS
+# ==============================================================================
+
+migration_configs:
+  # Phase 1: Backwards compatible with current Nancy
+  legacy_compatible:
+    nancy_core:
+      version: "2.0.0"
+      instance_name: "nancy-migration-phase1"
+    
+    orchestration:
+      mode: "four_brain"
+      routing_strategy: "langchain_router"
+    
+    brains:
+      vector:
+        backend: "chromadb"
+        connection:
+          host: "chromadb"
+          port: 8001
+      analytical:
+        backend: "duckdb"
+        connection:
+          database_path: "./data/project_nancy.duckdb"
+      graph:
+        backend: "neo4j"
+        connection:
+          uri: "bolt://neo4j:7687"
+          username: "neo4j"
+          password: "password"
+      linguistic:
+        primary_llm: "gemma_3n_e4b_it"
+        connection:
+          provider: "google_ai"
+          api_key_env: "GEMINI_API_KEY"
+    
+    mcp_servers:
+      enabled_servers:
+        - name: "nancy-document-server"
+          executable: "./mcp-servers/document/server.py"
+          auto_start: true
+          capabilities: ["file_upload"]
+
+  # Phase 2: Enhanced configurability
+  enhanced_config:
+    nancy_core:
+      version: "2.1.0"
+      instance_name: "nancy-migration-phase2"
+    
+    orchestration:
+      mode: "four_brain"
+      routing_strategy: "langchain_router"
+      enable_query_caching: true
+    
+    brains:
+      vector:
+        backend: "weaviate"  # Upgraded backend
+        embedding_model: "text-embedding-ada-002"
+        connection:
+          url: "http://weaviate:8080"
+      analytical:
+        backend: "postgresql"  # Upgraded backend
+        connection:
+          host: "postgres"
+          port: 5432
+          database: "nancy"
+          username: "nancy_user"
+          password: "${POSTGRES_PASSWORD}"
+      graph:
+        backend: "neo4j"
+        schema_mode: "foundational"
+        connection:
+          uri: "bolt://neo4j:7687"
+          username: "neo4j"
+          password: "${NEO4J_PASSWORD}"
+      linguistic:
+        primary_llm: "gpt-4"  # Upgraded LLM
+        fallback_llm: "gemma_3n_e4b_it"
+        connection:
+          provider: "openai"
+          api_key_env: "OPENAI_API_KEY"
+    
+    mcp_servers:
+      enabled_servers:
+        - name: "nancy-document-server"
+          executable: "./mcp-servers/document/server.py"
+          auto_start: true
+          capabilities: ["file_upload"]
+        - name: "nancy-spreadsheet-server"
+          executable: "./mcp-servers/spreadsheet/server.py"
+          auto_start: true
+          capabilities: ["file_upload", "real_time_sync"]

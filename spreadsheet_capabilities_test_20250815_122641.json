@@ -1,0 +1,298 @@
+{
+  "timestamp": "2025-08-15T12:25:48.625160",
+  "test_type": "spreadsheet_capabilities",
+  "nancy_results": [
+    {
+      "query": "What are the thermal test results for each component?",
+      "success": true,
+      "response_time": 2.5964605808258057,
+      "response_length": 447,
+      "response": "The thermal test results are in the `thermal_test_results.csv` spreadsheet, Sheet1. It contains data for components TH001, TH002, TH003, TH004, and TH005, with tests including CPU, GPU, Memory, Power Supply, and Motherboard tests. The spreadsheet includes columns for `temperature_max`, `temperature_avg`, and `thermal_requirement`.  Specific results for each component are not detailed in the provided text, but the component ID is available.\n\n\n\n",
+      "sources": [],
+      "strategy_used": "langchain_router",
+      "routing_info": {
+        "selected_brain": "unknown",
+        "confidence": 0.5,
+        "routing_method": "llm_router"
+      },
+      "has_structured_data": true
+    },
+    {
+      "query": "Which team members are responsible for mechanical analysis?",
+      "success": true,
+      "response_time": 0.7950406074523926,
+      "response_length": 56,
+      "response": "GRAPH_COLLABORATION_RESULTS: No collaboration data found",
+      "sources": [],
+      "strategy_used": "langchain_router",
+      "routing_info": {
+        "selected_brain": "unknown",
+        "confidence": 0.5,
+        "routing_method": "llm_router"
+      }
+    },
+    {
+      "query": "Show me the component requirements that failed testing?",
+      "success": true,
+      "response_time": 2.1400463581085205,
+      "response_length": 293,
+      "response": "Based on the provided information, no components failed testing. All tests listed (TEST-001, TEST-002, TEST-003) resulted in a \"Pass\". The notes indicate \"Exceeds minimum requirement\", \"Within thermal limits\", and \"Good margin...\" for each pass. There is no data indicating failed components.\n",
+      "sources": [],
+      "strategy_used": "langchain_router",
+      "routing_info": {
+        "selected_brain": "unknown",
+        "confidence": 0.5,
+        "routing_method": "llm_router"
+      }
+    },
+    {
+      "query": "What patterns exist in the test results data?",
+      "success": true,
+      "response_time": 3.5556018352508545,
+      "response_length": 634,
+      "response": "The test results data contains the following patterns:\n\n*   It's a spreadsheet (test\\_results.csv, Sheet1) with 10 rows and 11 columns.\n*   There are 11 categorical columns including `test_id`, `component_id`, `test_date`, `test_type`, `test_engineer`, `test_condition`, `pass_fail`, and `notes`. `pass_fail` indicates test/quality status (e.g., Pass, Fail), and `notes` provides additional information (e.g., \"Exceeds minimum requirement\").\n*   The data includes numeric values (range 0.03 to 2.40, average 0.37) and units (Hz, \u00b0C, km).\n*   The data also contains information on `verification_method` (e.g., Bench Test, Field Test).\n",
+      "sources": [],
+      "strategy_used": "langchain_router",
+      "routing_info": {
+        "selected_brain": "unknown",
+        "confidence": 0.5,
+        "routing_method": "llm_router"
+      },
+      "has_team_data": true
+    },
+    {
+      "query": "Who is the project manager and what are their contact details?",
+      "success": true,
+      "response_time": 6.517533302307129,
+      "response_length": 1756,
+      "response": "Okay, here's a comprehensive answer based on the provided documents and relationship analysis.\n\n**Project Manager Identification & Contact Details**\n\nBased on the data, **Sarah Chen** appears to be the project manager for the **Thermal Management System**. This is indicated by the following:\n\n*   **Project Lead Role:** The \"Project Lead_Engineer\" field in the `3e71f46c2c67cfeea285c7b243a46d3e07f73689499f6ee18cd393f9451ee548_Sheet1` document explicitly lists Sarah Chen as the Project Lead Engineer for the \"Thermal Management System.\"\n*   **Contact Information:** Her contact information, `s.chen@company.com`, is listed in `252ab328cc1334daf26810a50a68103a4ff6dc8fafb6a8e42bf9c6075d83a46e_Sheet1` under the \"Current\\_Project\" section, associated with the \"Thermal Management System.\"\n\n**Additional Details:**\n\n*   **Role/Expertise:** Sarah Chen is a Systems Engineer with a PE License.\n*   **Project Status:** The Thermal Management System project is currently \"In Progress\" with a target completion date of 2025-09-30 and a risk level of \"Medium.\"\n\n**Other Relevant Individuals:**\n\n*   **Mike Rodriguez:** Mechanical Engineering, SolidWorks Expert. Involved in the \"Power Distribution Unit\" project. Contact: `m.rodriguez@company.com`.\n*   **Dr. Amanda Torres:** RF Professional. Contact: `a.torres@company.com`.\n\n**Cross-Domain Impacts/Dependencies:**\n\nThe project data indicates the presence of at least two projects: \"Thermal Management System\" and \"Power Distribution Unit\". These projects likely have dependencies as they both fall under the broader scope of the overall project. The mention of \"electrical\\_review\\_meeting.txt\" in the relationship analysis suggests there might be cross-domain interaction with electrical engineering teams.\n\n\n\n",
+      "sources": [],
+      "strategy_used": "langchain_router",
+      "routing_info": {
+        "selected_brain": "unknown",
+        "confidence": 0.5,
+        "routing_method": "llm_router"
+      },
+      "has_team_data": true
+    },
+    {
+      "query": "Compare the thermal constraints across different components",
+      "success": true,
+      "response_time": 3.2103850841522217,
+      "response_length": 609,
+      "response": "Here's a comparison of thermal constraints across the components based on the provided data:\n\n*   **MCU-001:** Thermal constraint of 85.\n*   **REG-002:** Thermal constraint of 70.\n*   **CAP-003:** Thermal constraint of 125.\n\nThe data also indicates thermal testing for components like TH001, TH002, TH003, TH004, and TH005, with tests including CPU, GPU, Memory, Power Supply, and Motherboard tests. Further details on the temperature requirements for these components are available in the `temperature_max`, `temperature_avg`, and `thermal_requirement` columns of the `thermal_test_results.csv` spreadsheet.\n",
+      "sources": [],
+      "strategy_used": "langchain_router",
+      "routing_info": {
+        "selected_brain": "unknown",
+        "confidence": 0.5,
+        "routing_method": "llm_router"
+      },
+      "has_structured_data": true
+    },
+    {
+      "query": "What is the relationship between component cost and thermal performance?",
+      "success": true,
+      "response_time": 14.453736543655396,
+      "response_length": 5428,
+      "response": "## Component Cost and Thermal Performance: A Comprehensive Analysis\n\nHere's a breakdown of the relationship between component cost and thermal performance, synthesized from the provided documents and relationship analysis.\n\n**1. Technical Details & Observations:**\n\n*   **Data Source:** The primary data source is a spreadsheet (`thermal_test_results.csv`) containing thermal test results for various components.\n*   **Key Thermal Metrics:** The spreadsheet tracks key thermal metrics:\n    *   `temperature_max`: Maximum temperature reached during testing.\n    *   `temperature_avg`: Average temperature during testing.\n    *   `thermal_requirement`: The specified thermal constraint for each component.\n*   **Component Cost:**  A separate spreadsheet (`component_requirements.csv`) includes cost information for certain components, specifically:\n    *   `Cost`: The cost of each component.\n*   **Components Tested:**  The thermal test results cover a range of components, including: MCU-001, REG-002, CAP-003, TH001, TH002, TH003, TH004, and TH005. These components are likely key elements in a larger system, potentially within a system like a motherboard.\n* **Thermal Constraints:** The `thermal_test_results.csv` spreadsheet includes a `thermal_requirement` column. This represents the maximum allowable temperature for each component under specified operating conditions.\n* **Units:** While not explicitly stated, the `temperature_max` and `temperature_avg` are likely in Celsius or Fahrenheit, but this needs confirmation from the original data source.\n\n**2. Relationships & Connections:**\n\n*   **Cost & Thermal Constraint Correlation:** The relationship analysis explicitly identifies `component_requirements.csv:Sheet1:thermal_constraint_c` (likely referring to a column within the component requirements sheet that defines a thermal constraint)  and connects it to `component_id_identifier` within the `thermal_test_results.csv` spreadsheet.  This implies a direct linking mechanism between the required thermal performance for a component and its identifier in the test results.  It suggests that components are tested against their pre-defined thermal constraints.\n*   **Component-Specific Testing:**  Individual components like MCU-001, REG-002, and CAP-003 are subject to thermal testing (as seen in the `thermal_test_results.csv` spreadsheet).  The tests involve varying `test_name`s (e.g., \"CPU Thermal Test,\" \"Memory Thermal Test\") and record `temperature_max` and `temperature_avg` values.\n*  **Engineer Involvement:** Alice Johnson and Alice Thompson are listed as engineers involved in memory thermal testing and possibly other thermal-related activities, respectively, according to the relationship analysis. Bob Chen and Bob Smith also appear in the data, potentially involved in component specification or testing.\n*   **Cross-Domain Impact:** This analysis highlights the interplay between cost (financial domain) and thermal performance (thermal domain).  Improvements in thermal performance might require the use of more expensive components or more sophisticated cooling solutions.  Conversely, cost constraints might limit the choice of components, potentially leading to compromises in thermal performance.\n* **Decision Chain:**  The relationship analysis reveals that \"Mike R\" is a DecisionTarget related to \"the firmware power management algorithms?\", indicating a decision-making process where firmware is involved in power management, which inherently affects thermal performance. \n\n**3. People & Expertise:**\n\n*   **Alice Thompson:** Appears to be involved in component cost (MCU-001) and thermal constraint data.\n*   **Bob Chen:**  Likely involved in component specifications, as evidenced by his involvement in the `component_requirements.csv` spreadsheet (cost data).\n*   **Alice Johnson:** Involved in memory thermal testing, suggesting expertise in memory component thermal management.\n\n**4.  Potential Insights and Areas for Further Investigation:**\n\n*   **Cost vs. Temperature Relationship:**  The core question of the relationship between cost and thermal performance isn't directly answered by the provided data *yet*. To determine this, we need to correlate the `Cost` from `component_requirements.csv` with the `temperature_max` and `temperature_avg` results from `thermal_test_results.csv`. A correlation analysis could reveal whether higher-cost components generally exhibit better thermal performance, or if there's a trade-off.\n*   **Thermal Requirement & Cost Trade-off:** Analyze the correlation between `thermal_requirement` and `Cost`.  Are components with stricter thermal requirements more expensive?  \n*    **Component-Specific Analysis:** Analyze each component individually to identify cost-performance tradeoffs.\n*   **Decision-Making Processes:** Understanding the role of \"Mike R\" in firmware power management and how that impacts thermal performance could provide a deeper insight into the decision-making processes around power and thermal management.\n\n**In summary:** The data shows a clear link between component identifiers and their thermal performance characteristics, as well as cost.  Further analysis is needed to quantify the relationship between cost and thermal performance and to understand the trade-offs involved. The people involved have clearly defined roles tied to components and thermal management, indicating a structured engineering process.\n\n\n\n",
+      "sources": [],
+      "strategy_used": "langchain_router",
+      "routing_info": {
+        "selected_brain": "unknown",
+        "confidence": 0.5,
+        "routing_method": "llm_router"
+      },
+      "has_structured_data": true,
+      "has_team_data": true
+    },
+    {
+      "query": "List all electrical engineers and their project roles",
+      "success": true,
+      "response_time": 0.8982234001159668,
+      "response_length": 1403,
+      "response": "GRAPH_GENERAL_RESULTS: Knowledge graph overview: {'node_counts': {'Document': 156, 'Person': 60, 'TechnicalConcept': 18, 'DecisionTarget': 32, 'Spreadsheet': 8, 'Column': 68, 'CategoryValue': 310, 'CalculatedField': 2, 'IdentifierColumn': 9, 'CalculatedColumn': 2, 'EngineeringDomain': 15}, 'relationship_counts': {'CONTAINS_VALUE': 320, 'REFERENCES': 134, 'MENTIONED_IN': 75, 'HAS_COLUMN': 68, 'DISCUSSES': 66, 'BELONGS_TO_DOMAIN': 28, 'AUTHORED': 27, 'RELATES_TO': 20, 'CALCULATED_FROM': 20, 'SUM_OF': 18, 'PARENT_CATEGORY_OF': 13, 'STRONGLY_CORRELATED': 11, 'IS_IDENTIFIER': 9, 'CONTAINS_SHEET': 8, 'REQUIRES': 6, 'STATUS_OF': 5, 'CONSTRAINS': 3, 'IS_CALCULATED': 2, 'IS_CALCULATED_FIELD': 2, 'DECISION_MADE': 1, 'AFFECTS': 1, 'INFLUENCES': 1}, 'most_connected_documents': [{'filename': None, 'connection_count': 449}, {'filename': 'engineering_projects_overview.csv', 'connection_count': 2}, {'filename': 'test_results.csv', 'connection_count': 2}, {'filename': 'team_directory.csv', 'connection_count': 2}, {'filename': 'thermal_test_results.csv', 'connection_count': 2}, {'filename': 'mechanical_analysis.csv', 'connection_count': 2}, {'filename': 'test_data.csv', 'connection_count': 2}, {'filename': 'component_requirements.csv', 'connection_count': 2}, {'filename': 'power_analysis_report.txt', 'connection_count': 1}, {'filename': 'march_design_review_transcript.txt', 'connection_count': 1}]}",
+      "sources": [],
+      "strategy_used": "langchain_router",
+      "routing_info": {
+        "selected_brain": "unknown",
+        "confidence": 0.5,
+        "routing_method": "llm_router"
+      },
+      "has_team_data": true
+    },
+    {
+      "query": "What are the maximum temperature values in the thermal test data?",
+      "success": true,
+      "response_time": 1.8893370628356934,
+      "response_length": 144,
+      "response": "The maximum temperature values in the thermal test data are 105.2\u00b0C and 85\u00b0C. These values are found in the \"measured_value\" column of the data.",
+      "sources": [],
+      "strategy_used": "langchain_router",
+      "routing_info": {
+        "selected_brain": "unknown",
+        "confidence": 0.5,
+        "routing_method": "llm_router"
+      },
+      "has_structured_data": true
+    },
+    {
+      "query": "Which components have both high temperature and high cost?",
+      "success": true,
+      "response_time": 2.087709903717041,
+      "response_length": 229,
+      "response": "Based on the provided information, **MCU-001** has both a high thermal constraint of 85 and a cost of 12.50. The component with the highest thermal constraint listed is **CAP-003** with a constraint of 125 and a cost of 0.45.\n\n\n\n",
+      "sources": [],
+      "strategy_used": "langchain_router",
+      "routing_info": {
+        "selected_brain": "unknown",
+        "confidence": 0.5,
+        "routing_method": "llm_router"
+      }
+    }
+  ],
+  "baseline_results": [
+    {
+      "query": "What are the thermal test results for each component?",
+      "success": true,
+      "response_time": 2.8090660572052,
+      "response_length": 665,
+      "response": "Here's a breakdown of the thermal test results for each component, based on the provided context:\n\n*   **TEST-002 (COMP-001):** Test type was Thermal, test date was 2025-08-10, test condition was 85\u00b0C Ambient, measured value was 82.1 \u00b0C, expected value was 85 \u00b0C, and the result was Pass. Notes: Within thermal limits.\n*   **TEST-005 (COMP-005):** Test type was Accuracy, test date was 2025-08-09, test condition was Lab Conditions, measured value was 0.08 \u00b0C, expected value was 0.1 \u00b0C, and the result was Pass. Notes: Excellent accuracy.\n\nThe context only provides data for these two tests. There is no information about thermal test results for other components.",
+      "sources": [
+        "test_results.csv",
+        "thermal_analysis_report.txt",
+        "component_requirements.csv"
+      ]
+    },
+    {
+      "query": "Which team members are responsible for mechanical analysis?",
+      "success": true,
+      "response_time": 0.6864345073699951,
+      "response_length": 140,
+      "response": "Based on the provided context, Lisa Park is the PRIMARY mechanical design expert. Sarah Chen is a SECONDARY mechanical integration expert. \n",
+      "sources": [
+        "team_directory.csv",
+        "project_timeline_q4_2024.txt"
+      ]
+    },
+    {
+      "query": "Show me the component requirements that failed testing?",
+      "success": true,
+      "response_time": 0.6297788619995117,
+      "response_length": 141,
+      "response": "The provided context does not contain information about component requirements that failed testing. Therefore, I cannot answer your question.",
+      "sources": [
+        "component_requirements.csv"
+      ]
+    },
+    {
+      "query": "What patterns exist in the test results data?",
+      "success": true,
+      "response_time": 3.313565969467163,
+      "response_length": 934,
+      "response": "Based on the provided data from test_results.csv, here are some patterns:\n\n*   **Test ID Format:** Test IDs follow the pattern TEST-00[number].\n*   **Component IDs:** Component IDs are in the format COMP-00[number].\n*   **Date Range:** The test dates fall between 2025-08-05 and 2025-08-12.\n*   **Pass/Fail:**  A mix of Pass and Fail results exist.\n*   **Test Types:** Different test types are being performed, including Duration, Performance, Visibility, Precision and Reliability.\n*   **Test Engineers:** Multiple test engineers are involved, including James Wilson, Sarah Chen, Lisa Park, and Dr. Amanda Torres.\n*   **Notes:** The notes provide qualitative information about the test results, often indicating whether requirements were met or exceeded.\n*   **Unit:** Each test has a specified unit of measurement (hours, Hz, m, %, etc.)\n*   **Expected Value:** Each test has an expected value to compare the measured value against.",
+      "sources": [
+        "test_results.csv"
+      ],
+      "has_team_data": true
+    },
+    {
+      "query": "Who is the project manager and what are their contact details?",
+      "success": true,
+      "response_time": 0.6337783336639404,
+      "response_length": 126,
+      "response": "The provided context does not contain information about who the project manager is. Therefore, I cannot answer the question. \n",
+      "sources": [
+        "team_directory.csv"
+      ]
+    },
+    {
+      "query": "Compare the thermal constraints across different components",
+      "success": true,
+      "response_time": 2.824915647506714,
+      "response_length": 905,
+      "response": "The context doesn't provide enough information to compare thermal constraints across different components. However, we know the following:\n\n*   The current copper solution is insufficient for sustained loads.\n*   The Sensor Array (COMP-005) has a thermal constraint (c) of 40.0.\n*   CPU temperatures exceeded 85\u00b0C during stress testing, leading to the decision to adopt an aluminum heat sink design.\n*   Thermal constraints require component spacing optimization. \n*   The enclosure height was increased by 3mm for heat sink clearance.\n*   Airflow channels were optimized based on thermal analysis.\n*   Material changed to ABS for better heat dissipation.\n*   Aluminum provides 40% better heat dissipation per cost.\n*   Integration with electrical layout is critical for effectiveness.\n*   Heat sink placement constrains electrical component layout.\n*   Enhanced cooling enables higher performance modes.\n",
+      "sources": [
+        "mechanical_integration_plan.txt",
+        "thermal_analysis_report.txt",
+        "component_requirements.csv",
+        "electrical_design_review.txt"
+      ],
+      "has_structured_data": true
+    },
+    {
+      "query": "What is the relationship between component cost and thermal performance?",
+      "success": true,
+      "response_time": 0.657926082611084,
+      "response_length": 92,
+      "response": "According to the provided context, aluminum provides 40% better heat dissipation per cost. \n",
+      "sources": [
+        "mechanical_integration_plan.txt",
+        "thermal_analysis_report.txt",
+        "electrical_design_review.txt"
+      ]
+    },
+    {
+      "query": "List all electrical engineers and their project roles",
+      "success": true,
+      "response_time": 1.1790015697479248,
+      "response_length": 265,
+      "response": "Based on the provided context, the following individuals are electrical engineers and their project roles:\n\n*   **Mike Rodriguez:** Lead of the Q4 2024 Electrical Design Review.\n*   **Sarah Chen:** Attended the Q4 2024 Electrical Design Review (Thermal expert).\n\n\n\n",
+      "sources": [
+        "team_directory.csv",
+        "project_timeline_q4_2024.txt",
+        "electrical_design_review.txt"
+      ],
+      "has_team_data": true
+    },
+    {
+      "query": "What are the maximum temperature values in the thermal test data?",
+      "success": true,
+      "response_time": 1.5448558330535889,
+      "response_length": 302,
+      "response": "The maximum temperature value in the thermal test data is 85\u00b0C. This is found in test_results.csv sheet CSV row 2, where the test type is Thermal, the test date is 2025-08-10, the test engineer is Sarah Chen, the test condition is 85\u00b0C Ambient, the measured value is 82.1, and the expected value is 85.",
+      "sources": [
+        "test_results.csv",
+        "component_requirements.csv"
+      ],
+      "has_structured_data": true,
+      "has_team_data": true
+    },
+    {
+      "query": "Which components have both high temperature and high cost?",
+      "success": true,
+      "response_time": 0.757957935333252,
+      "response_length": 154,
+      "response": "The provided context does not contain information about components having both high temperature and high cost. Therefore, I cannot answer this question. \n",
+      "sources": [
+        "mechanical_integration_plan.txt",
+        "thermal_analysis_report.txt",
+        "component_requirements.csv",
+        "electrical_design_review.txt"
+      ]
+    }
+  ],
+  "comparison": {
+    "nancy_metrics": {
+      "success_rate": 1.0,
+      "avg_response_time": 3.814407467842102,
+      "avg_response_length": 1099.9,
+      "successful_queries": 10,
+      "total_queries": 10
+    },
+    "baseline_metrics": {
+      "success_rate": 1.0,
+      "avg_response_time": 1.5037280797958374,
+      "avg_response_length": 372.4,
+      "successful_queries": 10,
+      "total_queries": 10
+    },
+    "structured_data_analysis": {
+      "nancy_structured_responses": 4,
+      "baseline_structured_responses": 2,
+      "nancy_team_data_responses": 4,
+      "baseline_team_data_responses": 3,
+      "nancy_mcp_features": 10
+    }
+  }
+}

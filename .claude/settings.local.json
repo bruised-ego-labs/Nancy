@@ -27,8 +27,24 @@
       "WebFetch(domain:ai.google.dev)",
       "Bash(mv:*)",
       "Bash(del test_data.csv)",
-      "Bash(.test_benchmark_docker.ps1)"
+      "Bash(.test_benchmark_docker.ps1)",
+      "Bash(cp:*)",
+      "Bash(find:*)",
+      "WebSearch",
+      "WebFetch(domain:github.com)",
+      "Bash(where python)",
+      "Bash(C:Python312python.exe server.py)",
+      "Bash(\"C:\\Python312\\python.exe\" server.py)",
+      "Bash(claude mcp add:*)",
+      "mcp__nancy-memory__get_project_overview",
+      "mcp__nancy-memory__query_memory",
+      "mcp__nancy-memory__ingest_information",
+      "mcp__nancy-memory__find_author_contributions",
+      "Bash(docker system:*)"
     ],
     "deny": []
-  }
+  },
+  "enabledMcpjsonServers": [
+    "nancy-memory"
+  ]
 }
